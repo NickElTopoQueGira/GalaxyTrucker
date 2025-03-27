@@ -15,7 +15,7 @@ Aprire il vostro IDE del cuore per Java, e fare:
 
 1. File → Import
 2. General → Existing Projects into Workspace
-3. In select root directory dovete mettere la posizione di dove si trova il progetto scaricato da GitHub e specificare la cartella Game
+3. In select root directory dovete mettere la posizione di dove si trova il progetto scaricato da GitHub e specificare la cartella del progetto
 
 ## Apportare modifiche al progetto
 
