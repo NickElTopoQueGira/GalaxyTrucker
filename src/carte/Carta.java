@@ -14,7 +14,7 @@ public class Carta {
 		
 		int x = 0;
 		Random random = new Random();
-		Carta crt;
+		Carta crt = new Carta(lvl);
 		
 		if(lvl == 3) {
 			x = random.nextInt(12) + 1;
