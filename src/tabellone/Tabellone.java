@@ -11,9 +11,11 @@ public class Tabellone {
 	private List<Carta> buffer = new ArrayList<>();
 	
 	public Tabellone (int lvl, int ngiocatori) {
+		
 		this.lvl = lvl;
 		this.ngiocatori = ngiocatori;
 		ImpostaNumPosizioni(lvl);
+		CreaMazzo(lvl);
 	}
 	
 	void ImpostaNumPosizioni(int lvl) {
