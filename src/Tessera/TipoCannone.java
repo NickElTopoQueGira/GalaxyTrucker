@@ -1,6 +1,6 @@
 package Tessera;
 
-public enum TipoCannone {
+public enum TipoCannone{
 	SINGOLO, DOPPIO;
 
 }
