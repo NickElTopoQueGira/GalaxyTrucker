@@ -5,12 +5,59 @@ import java.util.*;
 public class Carta {
 	public int lvl;
 	public TipoCarta tipo;
+	private ArrayList<Carta> buffer;
 	
 	public Carta(int lvl) {
 		this.lvl = lvl;
+		this.buffer = new ArrayList<>();
+		CreaMazzo(lvl);
 	}
 	
-	public Carta CreaCartaRandom(int lvl){
+	public void RigeneraMazzo(int lvl) {
+		
+		AzzeraMazzo();
+		CreaMazzo(lvl);
+	}
+	
+	private void AzzeraMazzo() {
+		
+		this.buffer.clear();
+	}
+	
+	public void CreaMazzo(int lvl) {
+		
+		switch(lvl) {
+		case 1:
+			for(int i=0; i<8;  i++) {
+				buffer.add(this.CreaCartaRandom(1));
+			}
+		break;
+		case 2:
+			for(int i=0; i<4;  i++) {
+				buffer.add(this.CreaCartaRandom(1));
+			}
+			for(int i=0; i<8;  i++) {
+				buffer.add(this.CreaCartaRandom(2));
+			}
+		break;
+		case 3:
+			for(int i=0; i<4;  i++) {
+				buffer.add(this.CreaCartaRandom(1));
+			}
+			for(int i=0; i<4;  i++) {
+				buffer.add(this.CreaCartaRandom(2));
+			}
+			for(int i=0; i<8;  i++) {
+				buffer.add(this.CreaCartaRandom(3));
+			}
+		break;
+		default:
+			System.out.println("ERROR: creazione mazzo (errorTipe: switch) (class: Tabellone)");
+		break;
+		}
+		
+	}
+	private Carta CreaCartaRandom(int lvl){
 		
 		int x = 0;
 		Random random = new Random();
@@ -68,4 +115,30 @@ public class Carta {
 		
 		return crt;
 	}
+
+	public int getLvl() {
+		return lvl;
+	}
+
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
+
+	public TipoCarta getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoCarta tipo) {
+		this.tipo = tipo;
+	}
+
+	public ArrayList<Carta> getBuffer() {
+		return buffer;
+	}
+
+	public void setBuffer(ArrayList<Carta> buffer) {
+		this.buffer = buffer;
+	}
+	
+	
 }

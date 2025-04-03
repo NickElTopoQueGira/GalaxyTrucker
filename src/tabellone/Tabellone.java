@@ -7,15 +7,18 @@ import carte.Carta;
 public class Tabellone {
 	
 	private int lvl, ngiocatori, nposizioni;
-	private static Carta crt = new Carta(1);
-	private List<Carta> buffer = new ArrayList<>();
+	private static Carta crt;
+	private ArrayList<Carta> buffer;
 	
 	public Tabellone (int lvl, int ngiocatori) {
 		
 		this.lvl = lvl;
 		this.ngiocatori = ngiocatori;
 		ImpostaNumPosizioni(lvl);
-		CreaMazzo(lvl);
+		this.crt = new Carta(lvl);
+		this.buffer = new ArrayList<>();
+		GeneraMazzo();
+		
 	}
 	
 	void ImpostaNumPosizioni(int lvl) {
@@ -35,36 +38,15 @@ public class Tabellone {
 		}	
 	}
 	
-	void CreaMazzo(int lvl) {
-		switch(lvl) {
-		case 1:
-			for(int i=0; i<8;  i++) {
-				buffer.add(crt.CreaCartaRandom(1));
-			}
-		break;
-		case 2:
-			for(int i=0; i<4;  i++) {
-				buffer.add(crt.CreaCartaRandom(1));
-			}
-			for(int i=0; i<8;  i++) {
-				buffer.add(crt.CreaCartaRandom(2));
-			}
-		break;
-		case 3:
-			for(int i=0; i<4;  i++) {
-				buffer.add(crt.CreaCartaRandom(1));
-			}
-			for(int i=0; i<4;  i++) {
-				buffer.add(crt.CreaCartaRandom(2));
-			}
-			for(int i=0; i<8;  i++) {
-				buffer.add(crt.CreaCartaRandom(3));
-			}
-		break;
-		default:
-			System.out.println("ERROR: creazione mazzo (errorTipe: switch) (class: Tabellone)");
-		break;
-		}
-		
+	void GeneraMazzo() {
+		this.buffer = this.crt.getBuffer();
 	}
+	
+	void GeneraMazzo(int lvl) {
+		
+		this.crt.RigeneraMazzo(lvl);
+		this.buffer = this.crt.getBuffer();
+	}
+	
+
 }
