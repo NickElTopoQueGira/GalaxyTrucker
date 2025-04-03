@@ -30,17 +30,22 @@ public class Giocatore {
 	public void creaNave(){
 		switch(this.livello){
 			case PRIMO->{
-				this.nave = new NaveLvl1().assembla();
+				this.nave = new NaveLvl1();
+				this.nave.assembla();
+				//assemblaNave();
 			}
 			case SECONDO->{
-				this.nave = new NaveLvl2().assembla();
+				this.nave = new NaveLvl2();
+				assemblaNave();
 			}
 			case TERZO->{
-				this.nave = new NaveLvl3().assembla();
-			}
-			default ->{
-				throw new LivelloErrato("Livello specificato non valido");
+				this.nave = new NaveLvl3();
+				assemblaNave();
 			}
 		}
+	}
+
+	private void assemblaNave(){
+		this.nave.assembla();
 	}
 }

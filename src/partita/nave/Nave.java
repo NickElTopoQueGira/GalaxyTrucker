@@ -1,7 +1,6 @@
 package partita.nave;
 
 import Tessera.Tessera;
-
 import java.util.ArrayList;
 
 public abstract class Nave {

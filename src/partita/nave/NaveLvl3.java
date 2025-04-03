@@ -35,6 +35,6 @@ public class NaveLvl3 extends Nave {
 
     @Override
     public void assembla() {
-        // Implementazione specifica per il livello 1
+        System.out.print("Nave 3 Assemblaggio");
     }
 }
