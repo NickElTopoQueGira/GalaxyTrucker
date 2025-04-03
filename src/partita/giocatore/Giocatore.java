@@ -1,11 +1,16 @@
 package partita.giocatore;
 
+import eccezioniPersonalizzate.*;
+import partita.nave.*;
+import partita.Livelli;
+
 public class Giocatore {
 	private final String nome; 
 	private final Colori colorePedina; 
 	private int crediti; 
 	private int posizioneSulTabellone; 
-	// private final Nave nave;
+	private Nave nave;
+	private Livelli livello;
 	
 	public Giocatore(String nome, Colori colorePedina) {
 		this.nome = nome;
@@ -19,7 +24,23 @@ public class Giocatore {
 	}
 	
 	public int getCrediti() { return this.crediti; }
-	
-	// TODO: muovi, risolvi carta
-	
+
+	public void setLivello(Livelli livello) { this.livello = livello; }
+
+	public void creaNave(){
+		switch(this.livello){
+			case PRIMO->{
+				this.nave = new NaveLvl1().assembla();
+			}
+			case SECONDO->{
+				this.nave = new NaveLvl2().assembla();
+			}
+			case TERZO->{
+				this.nave = new NaveLvl3().assembla();
+			}
+			default ->{
+				throw new LivelloErrato("Livello specificato non valido");
+			}
+		}
+	}
 }
