@@ -7,7 +7,10 @@ public class Meteorite {
 	private static PuntiCardinali direzione;
 	
 	public Meteorite() {
-		 direzione = CasualDirezzione();
+		 this.direzione = CasualDirezzione();
+	}
+	public Meteorite(PuntiCardinali direzione) {
+		 this.direzione = direzione;
 	}
 	
 	PuntiCardinali CasualDirezzione() {
@@ -18,16 +21,16 @@ public class Meteorite {
 		
 		switch(x) {
 		case 1->{
-			
+			return PuntiCardinali.NORD;
 		}
 		case 2->{
-			
+			return PuntiCardinali.EST;
 		}
 		case 3->{
-			
+			return PuntiCardinali.OVEST;
 		}
 		case 4->{
-			
+			return PuntiCardinali.SUD;
 		}
 		default->{
 			System.out.println("ERROR: random della direzione del meteorite (errorTipe: switch) (class: Meteorite)");

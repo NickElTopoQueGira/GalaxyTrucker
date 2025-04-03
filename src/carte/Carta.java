@@ -77,13 +77,13 @@ public class Carta {
 		
 		switch(x) {
 		case 1: // POLVERE_STELLARE,
-			crt = new PolvereStellare();
+			crt = new PolvereStellare(lvl);
 		break;
 		case 2: // ZONA_GUERRA,
-			crt = new ZonaGuerra();
+			crt = new ZonaGuerra(<);
 		break;
 		case 3: // PIOGGIA_METEORITI,
-			crt = new PioggiaMeteoriti();
+			crt = new PioggiaMeteoriti(lvl);
 		break;
 		case 4: // SPAZIO_APERTO,
 			crt = new SpazioAperto();

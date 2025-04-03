@@ -15,32 +15,53 @@ public class PioggiaMeteoriti extends Carta {
 	void GeneraValori() {  //VALORI ATTUALMENTE CASUALI E DA RIVEDERE
 		
 		Random random = new Random();
-		int nmeteore;
+		int nmeteore, grandezza;
 		
 		switch(this.lvl) {
 		case 1->{
-			nmeteore = random.nextInt(4) + 3;
+			nmeteore = random.nextInt(4) + 3; // MINIMO 3 MAX 6
 			
 			for(int i=0; i<nmeteore; i++) {
-				meteoriti.add(new Meteorite());
+				
+				grandezza = random.nextInt(4) + 1;
+				
+				if(grandezza == 1) {
+					meteoriti.add(new MeteoriteGrande(this.lvl));
+				}else {
+					meteoriti.add(new MeteoritePiccolo());
+				}
 			}
 		}
 		case 2->{
-			nmeteore = random.nextInt(8) + 5;
+			nmeteore = random.nextInt(4) + 5;  // MINIMO 5 MAX 8
 			
 			for(int i=0; i<nmeteore; i++) {
-				meteoriti.add(new Meteorite());
+
+				grandezza = random.nextInt(4) + 1;
+				
+				if(grandezza == 1) {
+					meteoriti.add(new MeteoriteGrande(this.lvl));
+				}else {
+					meteoriti.add(new MeteoritePiccolo());
+				}
 			}
 		}
 		case 3->{
-			nmeteore = random.nextInt(10) + 1;
+			nmeteore = random.nextInt(5) + 6;  // MINIMO 6 MAX 10
 			
 			for(int i=0; i<nmeteore; i++) {
-				meteoriti.add(new Meteorite());
+
+				grandezza = random.nextInt(4) + 1;
+				
+				if(grandezza == 1) {
+					meteoriti.add(new MeteoriteGrande(this.lvl));
+				}else {
+					meteoriti.add(new MeteoritePiccolo());
+				}
 			}
 		}
 		default ->{
-			
+			System.out.println("ERROR: numerazione meteoriti (errorTipe: switch) (class: PioggiaMeteorite)");
 		}
 		}
 	}
