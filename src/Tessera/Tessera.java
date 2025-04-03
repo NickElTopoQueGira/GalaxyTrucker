@@ -2,8 +2,8 @@ package Tessera;
 
 import java.util.Random;
 
-public class Tessera {
-	public final TipoTessera tipo;
+public class Tessera implements GeneraTessera{
+	private final TipoTessera tipoTessera;
 	public static Tessera buffer_tessere_generate[];
 	private static int currentSize=0;
 	
@@ -11,12 +11,36 @@ public class Tessera {
 	
 	
 	public Tessera() {
-		
 
-		this.tipo = RandomTipo();
+		this.tipoTessera = TipoTessera.values()[RandomTipo()];
 		this.setCurrentSize(+1);
 		buffer_tessere_generate[currentSize]=Tessera.this;
 		
+		switch(this.tipoTessera) {
+		
+		case CANNONE:
+			Cannone cannone=new Cannone();
+			break;
+			
+		case MOTORE:
+			Motore motore =new Motore();
+			break;
+		
+		case MODULO_PASSEGGERI:
+			ModuloPasseggeri moduloPasseggeri=new ModuloPasseggeri();
+			break;
+		case BATTERIA:
+			break;
+		case PORTA_MERCI:
+			break;
+		case SCUDI:
+			break;
+		case TUBI:
+			break;
+		
+			
+		
+		}
 		
 	}
 	public Tessera[] getBuffer_mazzo() {
@@ -30,21 +54,14 @@ public class Tessera {
 		currentSize = currentSize+edit;
 	}
 	public TipoTessera getTipo() {
-		return tipo;
+		return tipoTessera;
 	}
 	
-	private TipoTessera RandomTipo(){
+	
+	public int RandomTipo(){
 		int pick= new Random().nextInt(TipoTessera.values().length);
-		TipoTessera tipo=TipoTessera.values()[pick];
-		return tipo;
-		
+		return pick;
 	}
-	
-	/*protected abstract void RandomTipoMerci();
-	protected abstract void RandomTipoModuloPasseggeri();
-	protected abstract void RandomTipoCannone();
-	protected abstract void RandomTipoMotore();
-	*/
 	
 	
 
