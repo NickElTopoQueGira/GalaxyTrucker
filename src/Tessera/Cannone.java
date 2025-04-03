@@ -4,10 +4,12 @@ import java.util.Random;
 
 public class Cannone extends Tessera implements GeneraTessera{
 	
-	private TipoCannone tipoCannone;
+	private final TipoCannone tipoCannone;
 
-	public Cannone() {
+	public Cannone(TipoTessera tipotessera) {
+		super(tipotessera);
 		this.tipoCannone = TipoCannone.values()[RandomTipo()];
+		
 	}
 
 	
@@ -22,6 +24,14 @@ public class Cannone extends Tessera implements GeneraTessera{
 		int pick= new Random().nextInt(TipoCannone.values().length);
 		
 		return pick;
+		
+	}
+
+
+
+	@Override
+	public void stampa() {
+		System.out.println(this.getTipoCannone());
 		
 	}
 

@@ -3,13 +3,13 @@ package Tessera;
 import java.util.Random;
 
 public class ModuloPasseggeri extends Tessera implements GeneraTessera{
-	private TipoModuloPasseggeri tipoModuloPasseggeri;
+	private final TipoModuloPasseggeri tipoModuloPasseggeri;
 	
 	
 	
 
-	public ModuloPasseggeri() {
-		
+	public ModuloPasseggeri(TipoTessera tipotessera) {
+		super(tipotessera);
 		this.tipoModuloPasseggeri =TipoModuloPasseggeri.values()[RandomTipo()];
 	}
 
@@ -26,6 +26,15 @@ public class ModuloPasseggeri extends Tessera implements GeneraTessera{
 		int pick= new Random().nextInt(TipoModuloPasseggeri.values().length);
 		return pick;
 		
+		
+	}
+
+
+
+
+	@Override
+	public void stampa() {
+		System.out.println(this.getTipoModuloPasseggeri());
 		
 	}
 	

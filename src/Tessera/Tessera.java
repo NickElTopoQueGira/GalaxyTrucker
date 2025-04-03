@@ -1,33 +1,38 @@
 package Tessera;
 
+import java.util.Arrays;
 import java.util.Random;
 
-public class Tessera implements GeneraTessera{
+public abstract class Tessera implements GeneraTessera{
+	
 	private final TipoTessera tipoTessera;
-	public static Tessera buffer_tessere_generate[];
 	private static int currentSize=0;
+	public static Tessera[] buffer_tessere_generate = new Tessera[0];
 	
 	
 	
 	
-	public Tessera() {
-
-		this.tipoTessera = TipoTessera.values()[RandomTipo()];
+	
+	public Tessera(TipoTessera tipotessera) {
 		this.setCurrentSize(+1);
-		buffer_tessere_generate[currentSize]=Tessera.this;
+		buffer_tessere_generate= Arrays.copyOf(buffer_tessere_generate, currentSize);
+		buffer_tessere_generate[currentSize-1]= this;
+		
+		this.tipoTessera = TipoTessera.values()[RandomTipo()];
+		
 		
 		switch(this.tipoTessera) {
 		
 		case CANNONE:
-			Cannone cannone=new Cannone();
+			Cannone cannone=new Cannone(tipoTessera);
 			break;
 			
 		case MOTORE:
-			Motore motore =new Motore();
+			Motore motore =new Motore(tipoTessera);
 			break;
 		
 		case MODULO_PASSEGGERI:
-			ModuloPasseggeri moduloPasseggeri=new ModuloPasseggeri();
+			ModuloPasseggeri moduloPasseggeri=new ModuloPasseggeri(tipoTessera);
 			break;
 		case BATTERIA:
 			break;
@@ -57,11 +62,13 @@ public class Tessera implements GeneraTessera{
 		return tipoTessera;
 	}
 	
-	
+	@Override
 	public int RandomTipo(){
 		int pick= new Random().nextInt(TipoTessera.values().length);
 		return pick;
 	}
+	
+	
 	
 	
 
