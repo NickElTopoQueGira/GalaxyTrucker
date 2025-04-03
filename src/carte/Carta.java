@@ -80,13 +80,13 @@ public class Carta {
 			crt = new PolvereStellare(lvl);
 		break;
 		case 2: // ZONA_GUERRA,
-			crt = new ZonaGuerra();
+			crt = new ZonaGuerra(lvl);
 		break;
 		case 3: // PIOGGIA_METEORITI,
 			crt = new PioggiaMeteoriti(lvl);
 		break;
 		case 4: // SPAZIO_APERTO,
-			crt = new SpazioAperto();
+			crt = new SpazioAperto(lvl);
 		break;
 		case 5: // SCHIAVISTI,
 			crt = new Schiavisti();
@@ -98,13 +98,13 @@ public class Carta {
 			crt = new Pirati();
 		break;
 		case 8: // STAZIONE_ABBANDONATA,
-			crt = new StazioneAbbandonata();
+			crt = new StazioneAbbandonata(lvl);
 		break;
 		case 9: // NAVE_ABBANDONATA,
-			crt = new NaveAbbandonata();
+			crt = new NaveAbbandonata(lvl);
 		break;
 		case 10: // PIANETA,
-			crt = new Pianeta();
+			crt = new Pianeta(lvl);
 		break;
 		case 11: // EPIDEMIA,
 			crt = new Epidemia();
