@@ -80,7 +80,7 @@ public class Carta {
 			crt = new PolvereStellare(lvl);
 		break;
 		case 2: // ZONA_GUERRA,
-			crt = new ZonaGuerra(<);
+			crt = new ZonaGuerra();
 		break;
 		case 3: // PIOGGIA_METEORITI,
 			crt = new PioggiaMeteoriti(lvl);
