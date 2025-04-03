@@ -9,8 +9,14 @@ public class Carta {
 	
 	public Carta(int lvl) {
 		this.lvl = lvl;
+		this.tipo = null;
 		this.buffer = new ArrayList<>();
 		CreaMazzo(lvl);
+	}
+	public Carta(int lvl , TipoCarta  tipo) {
+		
+		this.lvl = lvl;
+		this.tipo = tipo;
 	}
 	
 	public void RigeneraMazzo(int lvl) {
