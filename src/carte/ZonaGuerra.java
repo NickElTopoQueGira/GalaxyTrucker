@@ -44,7 +44,7 @@ public class ZonaGuerra extends Carta {
 			controllo++;
 			
 			if(controllo>=3) {
-				System.out.println("ERROR: !LOOP SICURO! assegnazione ulrimo valore disponibile alla carta (errorTipe: do_while) (class: ZonaGuerra)");
+				System.out.println("ERROR: assegnazione ulrimo valore disponibile alla carta (errorTipe: do_while) (class: ZonaGuerra)");
 			}
 			valori[2][0] = eventi[controllo];
 			
