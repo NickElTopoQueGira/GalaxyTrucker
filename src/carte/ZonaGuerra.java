@@ -20,12 +20,13 @@ public class ZonaGuerra extends Carta {
 	private void GeneraValori() {
 		Random random = new Random();
 		
-		valori[2][2] = penalita[3];
+		valori[2][1] = penalita[3];
 		
 		int x1 = random.nextInt(3) + 1;    ///// IMPOSTO LE PRIME CHELLANGE E PENALITA'
 		valori[0][0] = eventi[x1-1];
 		int x2 = random.nextInt(3) + 1;
-		valori[0][1] = eventi[x2-1];
+		valori[0][1] = penalita[x2-1];
+		
 		
 		do {                              ///// IMPOSTO LE SECONDE CHELLANGE E PENALITA' (CON CONTROLLO DI NON RIPETIZIONE)
 			x1 = random.nextInt(3) + 1;
@@ -34,17 +35,18 @@ public class ZonaGuerra extends Carta {
 		}while(valori[0][0] == eventi[x1-1]);
 		
 		do {
-			x1 = random.nextInt(3) + 1;
-			valori[1][0] = eventi[x1-1];
+			x2 = random.nextInt(3) + 1;
+			valori[1][0] = penalita[x2-1];
 			
-		}while(valori[0][1] == eventi[x1-1]);
+		}while(valori[0][1] == penalita[x1-1]);
+		
 		
 		int controllo = -1;                ///// IMPOSTO LA TERZA CHELLANGE(ULTIMO VALORE RIMANENTE), PENALITA' GIA IMPOSTATA DI DEFAULT 
 		do {
 			controllo++;
 			
 			if(controllo>=3) {
-				System.out.println("ERROR: !LOOP SICURO! assegnazione ulrimo valore disponibile alla carta (errorTipe: do_while) (class: ZonaGuerra)");
+				System.out.println("ERROR: assegnazione ulrimo valore disponibile alla carta (errorTipe: do_while) (class: ZonaGuerra)");
 			}
 			valori[2][0] = eventi[controllo];
 			
