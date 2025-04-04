@@ -89,13 +89,13 @@ public class Carta {
 			crt = new SpazioAperto(lvl);
 		break;
 		case 5: // SCHIAVISTI,
-			crt = new Schiavisti();
+			crt = new Schiavisti(lvl);
 		break;
 		case 6: // CONTRABBANDIERI,
-			crt = new Contrabbandieri();
+			crt = new Contrabbandieri(lvl);
 		break;
 		case 7: // PIRATI,
-			crt = new Pirati();
+			crt = new Pirati(lvl);
 		break;
 		case 8: // STAZIONE_ABBANDONATA,
 			crt = new StazioneAbbandonata(lvl);
@@ -107,10 +107,10 @@ public class Carta {
 			crt = new Pianeta(lvl);
 		break;
 		case 11: // EPIDEMIA,
-			crt = new Epidemia();
+			crt = new Epidemia(lvl);
 		break;
 		case 12: // SABOTAGGIO,
-			crt = new Sabotaggio();
+			crt = new Sabotaggio(lvl);
 		break;
 		default:
 			System.out.println("ERROR: creazione carta avventura del mazzo (errorTipe: switch) (class: Carta)");
