@@ -1,4 +1,4 @@
-package Tessera;
+package tessera;
 
 public enum TipoTessera {
 	PORTA_MERCI,SCUDI,TUBI,MODULO_PASSEGGERI, BATTERIA, CANNONE, MOTORE;

@@ -1,4 +1,4 @@
-package Tessera;
+package tessera;
 
 public enum TipoModuloPasseggeri {
 	MODULO_EQUIPAGGIO, MODULO_ALIENI;

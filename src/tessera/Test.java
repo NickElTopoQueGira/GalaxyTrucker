@@ -1,4 +1,4 @@
-package Tessera;
+package tessera;
 
 public class Test {
 

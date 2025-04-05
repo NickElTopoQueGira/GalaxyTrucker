@@ -1,4 +1,4 @@
-package Tessera;
+package tessera;
 
 public interface GeneraTessera {
 	

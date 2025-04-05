@@ -1,4 +1,4 @@
-package Tessera;
+package tessera;
 
 import java.util.Random;
 
