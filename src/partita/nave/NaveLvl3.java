@@ -1,5 +1,10 @@
 package partita.nave;
 
+import java.util.ArrayList;
+
+import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Tessera;
+
 public class NaveLvl3 extends Nave {
 
     /**
@@ -28,13 +33,41 @@ public class NaveLvl3 extends Nave {
 
     };
 
+    private static final int numeroRighe    = 6;
+    private static final int numeroColonne  = 9;
 
     public NaveLvl3(){
         super();
+
+        // inizializzazione della nave con elementi nulli
+        for(int i = 0; i < numeroRighe; i++){
+            ArrayList<Tessera> riga = new ArrayList<>();
+            for(int j = 0; j < numeroColonne; j++){
+                riga.add(null);
+            }
+            nave.add(riga);
+        }
     }
 
     @Override
-    public void assembla() {
-        System.out.print("Nave 3 Assemblaggio");
+    public void inserisciTessera(int i, int k, Tessera tessera) throws ErroreTessera {
+
     }
+
+    @Override 
+    public void rimuoviTessera(int i, int k) throws ErroreTessera {
+
+    }
+
+    @Override 
+    public void rimuoviRiga(int i) throws ErroreTessera {
+
+    }
+
+    @Override
+    public void rimuoviColonna(int i) throws ErroreTessera {
+
+    }
+
+
 }
