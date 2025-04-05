@@ -31,21 +31,23 @@ public class Giocatore {
 		switch(this.livello){
 			case PRIMO->{
 				this.nave = new NaveLvl1();
-				this.nave.assembla();
+				System.out.println("Schema nave");
+				System.out.println(nave.toString());
+				// this.nave.assembla();
 				//assemblaNave();
 			}
 			case SECONDO->{
 				this.nave = new NaveLvl2();
-				assemblaNave();
+				// assemblaNave();
 			}
 			case TERZO->{
 				this.nave = new NaveLvl3();
-				assemblaNave();
+				// assemblaNave();
 			}
 		}
 	}
 
-	private void assemblaNave(){
-		this.nave.assembla();
-	}
+	// private void assemblaNave(){
+	// 	this.nave.
+	// }
 }
