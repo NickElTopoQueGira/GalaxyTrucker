@@ -5,9 +5,10 @@ import java.util.Random;
 public class Cannone extends Tessera implements GeneraTessera{
 	
 	private final TipoCannone tipoCannone;
+	
 
-	public Cannone(TipoTessera tipotessera) {
-		super(tipotessera);
+	public Cannone(int posizioneX, int posizioneY) {
+		super(posizioneX, posizioneY);
 		this.tipoCannone = TipoCannone.values()[RandomTipo()];
 		
 	}
@@ -35,6 +36,17 @@ public class Cannone extends Tessera implements GeneraTessera{
 		
 	}
 
+
+
+	@Override
+	public void setLati() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	
 	
 	
 	

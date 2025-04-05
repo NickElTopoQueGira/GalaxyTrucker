@@ -6,8 +6,8 @@ public class Motore extends Tessera implements GeneraTessera{
 
 	private final TipoMotore tipoMotore;
 	
-	public Motore(TipoTessera tipotessera) {
-		super(tipotessera);
+	public Motore(int posizioneX, int posizioneY) {
+		super(posizioneX, posizioneY);
 		this.tipoMotore =TipoMotore.values()[RandomTipo()];
 		
 	}
@@ -30,6 +30,16 @@ public class Motore extends Tessera implements GeneraTessera{
 		System.out.println(this.getTipoMotore());
 		
 	}
+
+	@Override
+	public void setLati() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+	
 	
 
 }

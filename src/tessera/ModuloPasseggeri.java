@@ -8,8 +8,8 @@ public class ModuloPasseggeri extends Tessera implements GeneraTessera{
 	
 	
 
-	public ModuloPasseggeri(TipoTessera tipotessera) {
-		super(tipotessera);
+	public ModuloPasseggeri(int posizioneX, int posizioneY) {
+		super(posizioneX, posizioneY);
 		this.tipoModuloPasseggeri =TipoModuloPasseggeri.values()[RandomTipo()];
 	}
 
@@ -35,6 +35,24 @@ public class ModuloPasseggeri extends Tessera implements GeneraTessera{
 	@Override
 	public void stampa() {
 		System.out.println(this.getTipoModuloPasseggeri());
+		
+	}
+
+
+
+
+	@Override
+	public void setLati() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void ruota() {
+		// TODO Auto-generated method stub
 		
 	}
 	
