@@ -1,6 +1,6 @@
 package eccezioniPersonalizzate;
 
-public class LivelloErrato extends Error{
+public final class LivelloErrato extends Exception{
     public LivelloErrato(String message){
         super(message);
     }

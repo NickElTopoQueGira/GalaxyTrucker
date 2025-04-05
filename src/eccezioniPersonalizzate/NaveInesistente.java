@@ -1,6 +1,6 @@
 package eccezioniPersonalizzate;
 
-public class NaveInesistente extends Error{
+public final class NaveInesistente extends Exception{
     public NaveInesistente(String message){
         super(message);
     }
