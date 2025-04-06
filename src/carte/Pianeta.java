@@ -6,6 +6,7 @@ import java.util.*;
 public class Pianeta extends Carta {
 	
 	private int penalitagiorni;
+	private int nmercerossa, nmercegialla, nmerceverde, nmerceblu;
 	
 	private ArrayList<ArrayList<Merce>> pianeti;
 	
@@ -24,18 +25,11 @@ public class Pianeta extends Carta {
 		int valorecarta = SceltaVTDP(numpianeti);
 		penalitagiorni = CalcoloPGV(numpianeti, valorecarta);
 		
-		
-		for(int i=0; i<numpianeti; i++) {                   // DA LAVORARE: SCELTA E DISTRIBUZIONE DELLE MERCI
+		for(int i=0; i<numpianeti; i++) {                   // DA LAVORARE: DISTRIBUZIONE DELLE MERCI
 			ArrayList<Merce> merce = new ArrayList<>();
 			
 			
 			
-			for(int j=0; j<5; j++) {
-				
-				
-				
-				merce.add(new Merce(TipoMerce.MERCE_ROSSA));
-			}
 			pianeti.add(merce);
 		}
 	}
@@ -44,22 +38,51 @@ public class Pianeta extends Carta {
 	int SceltaVTDP(int numpianeti) {
 		Random random = new Random();
 		int vtdp=0;
+		int r=0, g=0, v=0, b=0;
 		
 		switch(numpianeti) {
 		case 4 ->{
-			vtdp = (random.nextInt(17) + 4) + (random.nextInt(13) + 3) + (random.nextInt(9) + 2) + (random.nextInt(5) + 1);   // MAX 50 / MIN 
+			do {
+				r = random.nextInt(7) + 0;  
+				g = random.nextInt(8) + 0;
+				v = random.nextInt(7) + 0;
+				b = random.nextInt(8) + 0;
+				
+				vtdp= r*4+g*3+v*2+b;
+				
+			}while(vtdp<25 || vtdp>50);
 		}
 		case 3 ->{
-			
+			do {
+				r = random.nextInt(7) + 0;
+				g = random.nextInt(8) + 0;
+				v = random.nextInt(7) + 0;
+				b = random.nextInt(8) + 0;
+				
+				vtdp= r*4+g*3+v*2+b;
+				
+			}while(vtdp<15 || vtdp>40);
 		}
 		case 2 ->{
-			
+			do {
+				r = random.nextInt(7) + 0;
+				g = random.nextInt(8) + 0;
+				v = random.nextInt(7) + 0;
+				b = random.nextInt(8) + 0;
+				
+				vtdp= r*4+g*3+v*2+b;
+				
+			}while(vtdp<5 || vtdp>30);
 		}
 		default ->{
 			System.out.println("ERROR: scelta randomica del valore totate dei pianeti della carta (errorTipe: switch) (class: Pianeta)");
 		}
 		}
 		
+		this.setNmercerossa(r);
+		this.setNmercegialla(g);
+		this.setNmerceverde(v);
+		this.setNmerceblu(b);
 		return vtdp;
 	}
 	
@@ -86,4 +109,53 @@ public class Pianeta extends Carta {
 		
 		return pgv;
 	}
+
+	public int getPenalitagiorni() {
+		return penalitagiorni;
+	}
+
+	public void setPenalitagiorni(int penalitagiorni) {
+		this.penalitagiorni = penalitagiorni;
+	}
+
+	public int getNmercerossa() {
+		return nmercerossa;
+	}
+
+	public void setNmercerossa(int nmercerossa) {
+		this.nmercerossa = nmercerossa;
+	}
+
+	public int getNmercegialla() {
+		return nmercegialla;
+	}
+
+	public void setNmercegialla(int nmercegialla) {
+		this.nmercegialla = nmercegialla;
+	}
+
+	public int getNmerceverde() {
+		return nmerceverde;
+	}
+
+	public void setNmerceverde(int nmerceverde) {
+		this.nmerceverde = nmerceverde;
+	}
+
+	public int getNmerceblu() {
+		return nmerceblu;
+	}
+
+	public void setNmerceblu(int nmerceblu) {
+		this.nmerceblu = nmerceblu;
+	}
+
+	public ArrayList<ArrayList<Merce>> getPianeti() {
+		return pianeti;
+	}
+
+	public void setPianeti(ArrayList<ArrayList<Merce>> pianeti) {
+		this.pianeti = pianeti;
+	}
+	
 }
