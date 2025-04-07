@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
-import tessera.Centro;
-import tessera.TipoTessera;
+import tessera.Coordinate;
 
 public class NaveLvl1 extends Nave {
 
@@ -36,7 +35,7 @@ public class NaveLvl1 extends Nave {
 
     private static final int numeroRighe        = 5;
     private static final int numeroColonne      = 7;
-    private static final int[] coordinateCentro = {2, 3};
+    private static final Coordinate coordinateCentro = new Coordinate(2, 3);
 
     public NaveLvl1(){
         super();
@@ -45,7 +44,7 @@ public class NaveLvl1 extends Nave {
         for(int i = 0; i < numeroRighe; i++){
             ArrayList<Tessera> riga = new ArrayList<>();
             for(int j = 0; j < numeroColonne; j++){
-                if(i == coordinateCentro[0] && j == coordinateCentro[1]){
+                if(i == coordinateCentro.getX() && j == coordinateCentro.getY()){
                     riga.add(new Centro());
                 }
                 else{
@@ -58,58 +57,17 @@ public class NaveLvl1 extends Nave {
     }
 
     @Override
-    public void inserisciTessera(int i, int j, Tessera tessera) throws ErroreTessera {
-        // Controllo sulla posizione
-        if(i >= 0 && i <= numeroRighe){
-            if(j >= 0 && j < numeroColonne){
-                // controllo della poszione
-
-                // Verifica se e' nel centro
-                if(i == coordinateCentro[0] && i == coordinateCentro[1]){
-                    throw new ErroreTessera("Posizione non valida!! ");
-                }
-
-                // verifca se il pezzo lo si vuole mettere in una posizione non valida
-                if(NAVE_DEF[i][j] == 0){
-                    throw new ErroreTessera("Non puoi posizionare il pezzo in questa posizione");
-                }
-
-                // verifca se il pezzo lo si vuole mettere in una posizione gia' occupata
-                if(null == super.nave.get(i).get(j)){
-                    throw new ErroreTessera("Posizione gia' occupata");
-                }
-
-                // verifica se eil pezzo e' un motore la sua posizione
-                /**
-                 * Il motore non pue' essere messo:
-                 * - sopra il modulo centrale
-                 * - direttamente spora un pezzo 
-                 * - e' in una posizione non corretta 
-                 * - 
-                 */
-            }
-            else{
-                throw new ErroreTessera("Posizone asse y non corretta");
-            }
-        }
-        else{
-            throw new ErroreTessera("Posizione asse x non corretta");
-        }
-    }
-
-    @Override 
-    public void rimuoviTessera(int i, int j) throws ErroreTessera {
-
-    }
-
-    @Override 
-    public void rimuoviRiga(int i) throws ErroreTessera {
-
-    }
+    public int[][] getMATRIX(){ return NAVE_DEF; }
 
     @Override
-    public void rimuoviColonna(int i) throws ErroreTessera {
+    public int getRighe(){ return numeroRighe; }
 
+    @Override
+    public int getColonne(){ return numeroColonne; }
+
+    @Override
+    public Coordinate getCoordinateCentro() { 
+        return new Coordinate(coordinateCentro.getX(), coordinateCentro.getX()); 
     }
 
 }

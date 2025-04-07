@@ -3,6 +3,8 @@ package partita.nave;
 import java.util.ArrayList;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Centro;
+import tessera.Coordinate;
 import tessera.Tessera;
 
 public class NaveLvl2 extends Nave {
@@ -17,22 +19,25 @@ public class NaveLvl2 extends Nave {
      *      4   5   6   7   8   9   10
      * 5    0   0   1   0   1   0   0
      * 6    0   1   1   1   1   1   0
-     * 7    1   1   1   1   1   1   1
+     * 7    1   1   1   2   1   1   1
      * 8    1   1   1   1   1   1   1
      * 9    1   1   1   0   1   1   1
      * */
 
     private static final int[][] NAVE_DEF = {
-            {0, 0, 1, 0, 1, 0, 0},
-            {0, 1, 1, 1, 1, 1, 0},
-            {1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 0, 1, 1, 1}
+        // Colonne
+        //   0  1  2  3  4  5  6
+            {0, 0, 1, 0, 1, 0, 0},  // riga 0
+            {0, 1, 1, 1, 1, 1, 0},  // riga 1
+            {1, 1, 1, 2, 1, 1, 1},  // riga 2
+            {1, 1, 1, 1, 1, 1, 1},  // riga 3
+            {1, 1, 1, 0, 1, 1, 1}   // riga 4
 
     };
 
-    private static final int numeroRighe    = 5;
-    private static final int numeroColonne  = 7;
+    private static final int numeroRighe        = 5;
+    private static final int numeroColonne      = 7;
+    private static final Coordinate coordinateCentro = new Coordinate(2, 3);
 
     public NaveLvl2(){
         super();
@@ -41,30 +46,29 @@ public class NaveLvl2 extends Nave {
         for(int i = 0; i < numeroRighe; i++){
             ArrayList<Tessera> riga = new ArrayList<>();
             for(int j = 0; j < numeroColonne; j++){
-                riga.add(null);
+                if(i == coordinateCentro.getX() && j == coordinateCentro.getY()){
+                    riga.add(new Centro());
+                }
+                else{
+                    riga.add(null);
+                }
+                
             }
             nave.add(riga);
         }
     }
 
     @Override
-    public void inserisciTessera(int i, int k, Tessera tessera) throws ErroreTessera {
-
-    }
-
-    @Override 
-    public void rimuoviTessera(int i, int k) throws ErroreTessera {
-
-    }
-
-    @Override 
-    public void rimuoviRiga(int i) throws ErroreTessera {
-
-    }
+    public int[][] getMATRIX(){ return NAVE_DEF; }
 
     @Override
-    public void rimuoviColonna(int i) throws ErroreTessera {
+    public int getRighe(){ return numeroRighe; }
 
+    @Override
+    public int getColonne(){ return numeroColonne; }
+
+    @Override
+    public Coordinate getCoordinateCentro() { 
+        return new Coordinate(coordinateCentro.getX(), coordinateCentro.getX()); 
     }
-
 }
