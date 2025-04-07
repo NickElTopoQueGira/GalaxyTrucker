@@ -1,9 +1,8 @@
 package tessera;
 
-public class Centro {
+public class Centro extends Tessera{
     private static final int NUMERO_MASSIMO = 4;
-        private final int x;
-        private final int y;
+        
 
         public Centro(){
             this.x = 0;

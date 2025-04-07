@@ -8,7 +8,7 @@ public class Cannone extends Tessera implements GeneraTessera{
 	
 
 	public Cannone(int posizioneX, int posizioneY) {
-		super(posizioneX, posizioneY);
+		super(posizioneX, posizioneY,tipoTessera);
 		this.tipoCannone = TipoCannone.values()[RandomTipo()];
 		
 	}

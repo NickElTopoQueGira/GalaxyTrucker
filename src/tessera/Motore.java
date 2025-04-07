@@ -2,12 +2,12 @@ package tessera;
 
 import java.util.Random;
 
-public class Motore extends Tessera implements GeneraTessera{
+public class Motore extends Tessera{
 
 	private final TipoMotore tipoMotore;
 	
 	public Motore(int posizioneX, int posizioneY) {
-		super(posizioneX, posizioneY);
+		super(posizioneX, posizioneY,TipoTessera.MOTORE);
 		this.tipoMotore =TipoMotore.values()[RandomTipo()];
 		
 	}
@@ -16,26 +16,20 @@ public class Motore extends Tessera implements GeneraTessera{
 		return tipoMotore;
 	}
 
-	
 	@Override
 	public int RandomTipo() {
-		int pick= new Random().nextInt(TipoMotore.values().length);
+		int pick= new Random().nextInt(TipoTessera.values().length);
 		return pick;
-		
-		
-	}
-	
-	@Override
-	public void stampa() {
-		System.out.println(this.getTipoMotore());
-		
 	}
 
 	@Override
-	public void setLati() {
+	public void generacasualmente() {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	
 
 	
 	

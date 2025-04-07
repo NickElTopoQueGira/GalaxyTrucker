@@ -11,18 +11,7 @@ public class MotoreSingolo extends Motore{
 		
 	}
 
-	@Override
-	public void ruota() {
-		TipoLatoCannone newdown=this.right;
-		TipoLatoCannone newleft=this.down;
-		TipoLatoCannone newup=this.left;
-		TipoLatoCannone newright=this.up;
-		this.down=newdown;
-		this.left=newleft;
-		this.up=newup;
-		this.right=newright;
-		
-	}
+	
 
 	public TipoLatoCannone getUp() {
 		return up;
