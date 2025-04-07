@@ -2,8 +2,23 @@ package merce;
 
 public enum TipoMerce {
 
-	MERCE_ROSSA,
-	MERCE_GIALLA,
-	MERCE_VERDE,
-	MERCE_BLU;
+	MERCE_ROSSA(4),
+	MERCE_GIALLA(3),
+	MERCE_VERDE(2),
+	MERCE_BLU(1);
+	
+	private final int valore;
+	
+	TipoMerce(int valore) {
+        this.valore = valore;
+    }
+
+    public int getValore() {
+        return valore;
+    }
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }
