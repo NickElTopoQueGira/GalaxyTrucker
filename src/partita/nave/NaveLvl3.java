@@ -60,16 +60,16 @@ public class NaveLvl3 extends Nave {
     }
 
     @Override
-    public int[][] getMATRIX(){ return NAVE_DEF; }
+    protected int[][] getMATRIX(){ return NAVE_DEF; }
 
     @Override
-    public int getRighe(){ return numeroRighe; }
+    protected int getRighe(){ return numeroRighe; }
 
     @Override
-    public int getColonne(){ return numeroColonne; }
+    protected int getColonne(){ return numeroColonne; }
 
     @Override
-    public Coordinate getCoordinateCentro() { 
+    protected Coordinate getCoordinateCentro() { 
         return new Coordinate(coordinateCentro.getX(), coordinateCentro.getX()); 
     }
 }
