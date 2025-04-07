@@ -5,10 +5,10 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		
-		Tessera t1=new Tessera(0,0);
+		FactoryTessera Factory=new FactoryTessera();
+		Tessera t1= Factory.estraiTipo();
 
-		System.out.println(t1.getTipo().toString());
+		System.out.println(t1.getTipoTessera().toString());
 
 	}
 	

@@ -1,16 +1,23 @@
-package tessera;
+package tessera.motore;
 
 import java.util.Random;
 
+import tessera.Tessera;
+import tessera.TipoTessera;
+import tessera.cannone.TipoCannone;
+
 public class Motore extends Tessera{
 
+	
+	
 	private final TipoMotore tipoMotore;
 	
-	public Motore(int posizioneX, int posizioneY) {
-		super(posizioneX, posizioneY,TipoTessera.MOTORE);
+	public Motore() {
+		super(TipoTessera.MOTORE);
 		this.tipoMotore =TipoMotore.values()[RandomTipo()];
 		
 	}
+
 
 	public TipoMotore getTipoMotore() {
 		return tipoMotore;
@@ -18,14 +25,8 @@ public class Motore extends Tessera{
 
 	@Override
 	public int RandomTipo() {
-		int pick= new Random().nextInt(TipoTessera.values().length);
+		int pick= new Random().nextInt(TipoCannone.values().length);
 		return pick;
-	}
-
-	@Override
-	public void generacasualmente() {
-		// TODO Auto-generated method stub
-		
 	}
 
 

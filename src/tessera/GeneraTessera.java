@@ -5,6 +5,5 @@ public interface GeneraTessera{
 	
 	public int RandomTipo();
 
-	void generacasualmente();
 
 }

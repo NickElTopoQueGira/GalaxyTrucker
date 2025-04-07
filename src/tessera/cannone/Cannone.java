@@ -1,14 +1,18 @@
-package tessera;
+package tessera.cannone;
 
 import java.util.Random;
 
-public class Cannone extends Tessera implements GeneraTessera{
+
+import tessera.Tessera;
+import tessera.TipoTessera;
+
+public class Cannone extends Tessera{
 	
 	private final TipoCannone tipoCannone;
 	
 
-	public Cannone(int posizioneX, int posizioneY) {
-		super(posizioneX, posizioneY,tipoTessera);
+	public Cannone() {
+		super(TipoTessera.CANNONE);
 		this.tipoCannone = TipoCannone.values()[RandomTipo()];
 		
 	}
@@ -27,23 +31,6 @@ public class Cannone extends Tessera implements GeneraTessera{
 		return pick;
 		
 	}
-
-
-
-	@Override
-	public void stampa() {
-		System.out.println(this.getTipoCannone());
-		
-	}
-
-
-
-	@Override
-	public void setLati() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 
 	
