@@ -28,7 +28,8 @@ public class Pianeta extends Carta {
 	}
 	
 	//VALORE TOTALE DEI PIANETI = VTDP / PENALITA GIORNI VIAGGIO = PGV
-	int SceltaVTDP(int numpianeti) {
+	private int SceltaVTDP(int numpianeti) {
+		
 		Random random = new Random();
 		int vtdp=0;
 		int r=0, g=0, v=0, b=0;
@@ -88,21 +89,22 @@ public class Pianeta extends Carta {
 		return vtdp;
 	}
 	
-	int CalcoloPGV(int numpianeti, int vtdp) {
+	private int CalcoloPGV(int numpianeti, int vtdp) {
+		
 		int pgv=0;
-
+		float temp;
 		switch(numpianeti) {
 		case 4 ->{
-			pgv = vtdp/4;
-			pgv = pgv/2;
+			temp = vtdp/4;
+			pgv = Math.round(temp/2);
 		}
 		case 3 ->{
-			pgv = vtdp/3;
-			pgv = pgv/2;
+			temp = vtdp/3;
+			pgv = Math.round(temp/2);
 		}
 		case 2 ->{
-			pgv = vtdp/2;
-			pgv = pgv/2;
+			temp = vtdp/2;
+			pgv = Math.round(temp/2);
 		}
 		default ->{
 			System.out.println("ERROR: calcolo dei giorni di penalità della carta (errorTipe: switch) (class: Pianeta)");
@@ -112,7 +114,7 @@ public class Pianeta extends Carta {
 		return pgv;
 	}
 	
-	void AssegnaMerci(int numpianeti, int valorecarta) {
+	private void AssegnaMerci(int numpianeti, int valorecarta) {
 		
 		double[] percentuali = null;
 		
