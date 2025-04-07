@@ -2,9 +2,9 @@ package partita.nave;
 
 import java.util.ArrayList;
 
-import eccezioniPersonalizzate.ErroreTessera;
-import tessera.Tessera;
+import tessera.Centro;
 import tessera.Coordinate;
+import tessera.Tessera;
 
 public class NaveLvl1 extends Nave {
 

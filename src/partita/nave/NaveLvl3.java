@@ -2,7 +2,6 @@ package partita.nave;
 
 import java.util.ArrayList;
 
-import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.Tessera;
