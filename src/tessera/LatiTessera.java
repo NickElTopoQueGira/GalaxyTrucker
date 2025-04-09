@@ -1,7 +1,6 @@
 package tessera;
 
 import java.util.Random;
-import tessera.TipoConnettoriTessera;
 
 public class LatiTessera implements GeneraTessera{
 	
