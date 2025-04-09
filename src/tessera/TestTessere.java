@@ -14,6 +14,11 @@ public class TestTessere {
 		System.out.println("\t"+t1.getLatiTessera().getDown().toString()+"\t\n");
 		
 		System.out.println(Tessera.getCurrentSize());
+		
+		Tessera t3 = new Centro();
+		var a = t3.getTipoTessera().toString();
+		System.out.println(a);
+		
 	}
 	
 	
