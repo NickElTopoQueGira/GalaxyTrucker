@@ -41,10 +41,10 @@ public abstract class Tessera implements GeneraTessera{
 		return buffer_tessere_generate;
 	}
 	
-	public int getCurrentSize() {
+	public static int getCurrentSize() {
 		return currentSize;
 	}
-	public void setCurrentSize(int edit) {
+	public static void setCurrentSize(int edit) {
 		currentSize = currentSize+edit;
 	}
 
