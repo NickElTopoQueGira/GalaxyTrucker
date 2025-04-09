@@ -10,12 +10,14 @@ public class PARTITATESTMAIN {
         Scanner scanner = new Scanner(System.in);
         Livelli livelloScelto = Livelli.PRIMO;
         System.out.println("Seleziona un livello:");
+        int lvl=1;
         for (int i = 0; i < Livelli.values().length; i++) {
-            System.out.println(i + ". " + Livelli.values()[i]);
+            System.out.println(lvl + ". " + Livelli.values()[i]);
+            lvl++;
         }
 
         System.out.print("Inserisci il numero del livello: ");
-        int scelta = scanner.nextInt();
+        int scelta = scanner.nextInt()-1;
 
         if (scelta >= 0 && scelta < Livelli.values().length) {
             livelloScelto = Livelli.values()[scelta];
