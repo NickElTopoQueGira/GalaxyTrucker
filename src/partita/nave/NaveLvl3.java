@@ -38,7 +38,7 @@ public class NaveLvl3 extends Nave {
 
     private static final int numeroRighe        = 6;
     private static final int numeroColonne      = 9;
-    private static final Coordinate coordinateCentro = new Coordinate(4, 3);
+    private static final Coordinate coordinateCentro = new Coordinate(3, 4);
 
     public NaveLvl3(){
         super();
@@ -70,6 +70,6 @@ public class NaveLvl3 extends Nave {
 
     @Override
     protected Coordinate getCoordinateCentro() { 
-        return new Coordinate(coordinateCentro.getX(), coordinateCentro.getX()); 
+        return new Coordinate(coordinateCentro.getX(), coordinateCentro.getY()); 
     }
 }

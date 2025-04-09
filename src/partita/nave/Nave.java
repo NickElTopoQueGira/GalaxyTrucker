@@ -163,7 +163,14 @@ public abstract class Nave {
         String stampaNave = "";
         for(int i = 0; i < this.nave.size(); i += 1){
             for(int j = 0; j < this.nave.get(i).size(); j += 1){
-                stampaNave += this.nave.get(i).get(j) + "\t";
+            	
+            	var temp = this.nave.get(i).get(j);
+            	if(null != temp) {
+            		stampaNave += temp.getTipoTessera().toString() + "\t";
+            	}
+            	else {
+            		stampaNave += "vuoto \t";
+            	}
             }
             stampaNave += "\n";
         }
