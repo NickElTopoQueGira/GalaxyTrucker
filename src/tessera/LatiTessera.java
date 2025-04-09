@@ -9,19 +9,21 @@ public class LatiTessera implements GeneraTessera{
 	private TipoConnettoriTessera right;
 	private TipoConnettoriTessera down;
 	
-	//public LatiTessera() {}
+	public LatiTessera() {
+		GeneraLatiTessera();
+	}
 
-	public LatiTessera GeneraLatiTessera() {
+	public void GeneraLatiTessera() {
 		this.up=TipoConnettoriTessera.values()[RandomTipo()];
 		this.down=TipoConnettoriTessera.values()[RandomTipo()];
 		this.left=TipoConnettoriTessera.values()[RandomTipo()];
 		this.right=TipoConnettoriTessera.values()[RandomTipo()];
 		if(this.verificaTessera()) {
-			return this;
+			return;
 		}else {
 			GeneraLatiTessera();
 		}
-		return null;
+		
 	}
 	
 	

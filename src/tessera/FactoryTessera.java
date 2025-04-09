@@ -2,6 +2,7 @@ package tessera;
 
 import java.util.Random;
 
+
 import tessera.cannone.Cannone;
 import tessera.motore.Motore;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
