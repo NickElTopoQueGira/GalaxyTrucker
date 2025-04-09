@@ -56,8 +56,4 @@ public abstract class Tessera implements GeneraTessera{
 		buffer_tessere_generate[currentSize-1]= this;
 	}
 	
-	
-	
-	
-
 }
