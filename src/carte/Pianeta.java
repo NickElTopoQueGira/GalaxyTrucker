@@ -1,14 +1,14 @@
 package carte;
 
 import merce.*;
+
 import java.util.*;
 
 public class Pianeta extends Carta {
 	
 	private int penalitagiorni;
-	private int nmercerossa, nmercegialla, nmerceverde, nmerceblu;
-	
-	private ArrayList<ArrayList<Merce>> pianeti;
+	private List<TipoMerce> merci = new ArrayList<>();
+	private ArrayList<ArrayList<TipoMerce>> pianeti;
 	
 	public Pianeta (int lvl) {
 		
@@ -24,18 +24,12 @@ public class Pianeta extends Carta {
 		int numpianeti = random.nextInt(3) + 2; // FA UN RANDOM DA UN MINIMO DI 2 PIANETI A UN MASSIMO DI 4
 		int valorecarta = SceltaVTDP(numpianeti);
 		penalitagiorni = CalcoloPGV(numpianeti, valorecarta);
-		
-		for(int i=0; i<numpianeti; i++) {                   // DA LAVORARE: DISTRIBUZIONE DELLE MERCI
-			ArrayList<Merce> merce = new ArrayList<>();
-			
-			
-			
-			pianeti.add(merce);
-		}
+		AssegnaMerci(numpianeti, valorecarta);
 	}
 	
 	//VALORE TOTALE DEI PIANETI = VTDP / PENALITA GIORNI VIAGGIO = PGV
-	int SceltaVTDP(int numpianeti) {
+	private int SceltaVTDP(int numpianeti) {
+		
 		Random random = new Random();
 		int vtdp=0;
 		int r=0, g=0, v=0, b=0;
@@ -79,28 +73,38 @@ public class Pianeta extends Carta {
 		}
 		}
 		
-		this.setNmercerossa(r);
-		this.setNmercegialla(g);
-		this.setNmerceverde(v);
-		this.setNmerceblu(b);
+		for(int i=0; i<r; i++) {
+			merci.add(TipoMerce.MERCE_ROSSA);
+		}
+		for(int i=0; i<g; i++) {
+			merci.add(TipoMerce.MERCE_GIALLA);
+		}
+		for(int i=0; i<v; i++) {
+			merci.add(TipoMerce.MERCE_VERDE);
+		}
+		for(int i=0; i<b; i++) {
+			merci.add(TipoMerce.MERCE_BLU);
+		}
+		
 		return vtdp;
 	}
 	
-	int CalcoloPGV(int numpianeti, int vtdp) {
+	private int CalcoloPGV(int numpianeti, int vtdp) {
+		
 		int pgv=0;
-
+		float temp;
 		switch(numpianeti) {
 		case 4 ->{
-			pgv = vtdp/4;
-			pgv = pgv/2;
+			temp = vtdp/4;
+			pgv = Math.round(temp/2);
 		}
 		case 3 ->{
-			pgv = vtdp/3;
-			pgv = pgv/2;
+			temp = vtdp/3;
+			pgv = Math.round(temp/2);
 		}
 		case 2 ->{
-			pgv = vtdp/2;
-			pgv = pgv/2;
+			temp = vtdp/2;
+			pgv = Math.round(temp/2);
 		}
 		default ->{
 			System.out.println("ERROR: calcolo dei giorni di penalità della carta (errorTipe: switch) (class: Pianeta)");
@@ -109,7 +113,66 @@ public class Pianeta extends Carta {
 		
 		return pgv;
 	}
+	
+	private void AssegnaMerci(int numpianeti, int valorecarta) {
+		
+		double[] percentuali = null;
+		
+        switch (numpianeti) {
+            case 2 -> {
+            	percentuali = new double[]{0.6, 0.4};
+            }
+            case 3 -> {
+            	percentuali = new double[]{0.5, 0.3, 0.2};
+            }
+            case 4 -> {
+            	percentuali = new double[]{0.4, 0.3, 0.2, 0.1};
+            }
+            default -> {
+            	System.out.println("ERROR: calcolo delle percentuali in base al pianeta (errorTipe: switch) (class: Pianeta)");
+            }
+        }
 
+        int[] targetPerPianeta = new int[numpianeti];
+        
+        for (int i = 0; i < numpianeti; i++) {
+        	
+            targetPerPianeta[i] = (int) Math.round(valorecarta * percentuali[i]); 
+        }
+
+        int[] valoreCorrente = new int[numpianeti];
+        
+        for (int i = 0; i < numpianeti; i++) {
+        	
+        	pianeti.add(new ArrayList<>());
+        }
+
+        merci.sort((a, b) -> b.getValore() - a.getValore());
+
+        for (TipoMerce m : merci) {
+        	
+            boolean assegnata = false;
+            
+            for (int i = 0; i < numpianeti; i++) {
+            	
+                if (valoreCorrente[i] + m.getValore() <= targetPerPianeta[i]) {
+                	
+                    pianeti.get(i).add(m);
+                    valoreCorrente[i] += m.getValore();
+                    assegnata = true;
+                    
+                    break;
+                }
+            }
+            
+            if (!assegnata) {								// CONTROLLO DI SICUREZZA FINALE
+            	
+            	pianeti.get(0).add(m);
+            	valoreCorrente[0] += m.getValore();
+            }
+        }
+	}
+	
 	public int getPenalitagiorni() {
 		return penalitagiorni;
 	}
@@ -118,43 +181,11 @@ public class Pianeta extends Carta {
 		this.penalitagiorni = penalitagiorni;
 	}
 
-	public int getNmercerossa() {
-		return nmercerossa;
-	}
-
-	public void setNmercerossa(int nmercerossa) {
-		this.nmercerossa = nmercerossa;
-	}
-
-	public int getNmercegialla() {
-		return nmercegialla;
-	}
-
-	public void setNmercegialla(int nmercegialla) {
-		this.nmercegialla = nmercegialla;
-	}
-
-	public int getNmerceverde() {
-		return nmerceverde;
-	}
-
-	public void setNmerceverde(int nmerceverde) {
-		this.nmerceverde = nmerceverde;
-	}
-
-	public int getNmerceblu() {
-		return nmerceblu;
-	}
-
-	public void setNmerceblu(int nmerceblu) {
-		this.nmerceblu = nmerceblu;
-	}
-
-	public ArrayList<ArrayList<Merce>> getPianeti() {
+	public ArrayList<ArrayList<TipoMerce>> getPianeti() {
 		return pianeti;
 	}
 
-	public void setPianeti(ArrayList<ArrayList<Merce>> pianeti) {
+	public void setPianeti(ArrayList<ArrayList<TipoMerce>> pianeti) {
 		this.pianeti = pianeti;
 	}
 	

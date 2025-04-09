@@ -58,7 +58,7 @@ public class Carta {
 			}
 		break;
 		default:
-			System.out.println("ERROR: creazione mazzo (errorTipe: switch) (class: Tabellone)");
+			System.out.println("ERROR: creazione mazzo (errorTipe: switch) (class: Carta)");
 		break;
 		}
 		
