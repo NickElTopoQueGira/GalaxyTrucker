@@ -3,6 +3,8 @@ package partita;
 import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
 
+import tessera.*;
+
 import java.util.Scanner;
 
 public class PARTITATESTMAIN {

@@ -2,8 +2,6 @@ package tessera;
 
 import java.util.Arrays;
 
-
-
 public abstract class Tessera implements GeneraTessera{
 	
 	protected final TipoTessera tipoTessera;
