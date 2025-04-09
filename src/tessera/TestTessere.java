@@ -1,6 +1,6 @@
 package tessera;
 
-public class Test {
+public class TestTessere {
 
 	public static void main(String[] args) {
 		

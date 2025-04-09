@@ -2,6 +2,7 @@ package tabellone;
 
 import java.util.*;
 
+
 import carte.Carta;
 
 public class Tabellone {
