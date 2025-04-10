@@ -28,6 +28,7 @@ public class LatiTessera implements GeneraTessera{
 	
 	
 	private boolean verificaTessera() {
+		
 		if(up==down && left==right && right==down && down == TipoConnettoriTessera.NULLO) {
 			return false;
 		}
@@ -71,6 +72,23 @@ public class LatiTessera implements GeneraTessera{
 	public int RandomTipo() {
 		int pick= new Random().nextInt(TipoConnettoriTessera.values().length);
 		return pick;
+	}
+	
+	
+	
+	public void ruota() {
+		TipoConnettoriTessera temp= this.up;
+		this.up=this.left;
+		this.left=this.down;
+		this.down=this.right;
+		this.right=temp;
+	}
+	
+	public void setCentro() {
+		this.up=TipoConnettoriTessera.TRIPLO;
+		this.down=TipoConnettoriTessera.TRIPLO;
+		this.left=TipoConnettoriTessera.TRIPLO;
+		this.right=TipoConnettoriTessera.TRIPLO;
 	}
 	
 }

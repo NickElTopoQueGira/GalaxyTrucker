@@ -15,7 +15,12 @@ public abstract class Tessera implements GeneraTessera{
 
 		this.tipoTessera = tipoTessera;
 		
-		aggiungiTessera();
+		if(this.tipoTessera!=TipoTessera.CENTRO) {
+			aggiungiTessera();
+		}else {
+			this.latiTessera.setCentro();
+		}
+		
 		
 	}
 	
@@ -56,4 +61,5 @@ public abstract class Tessera implements GeneraTessera{
 		buffer_tessere_generate[currentSize-1]= this;
 	}
 	
+
 }
