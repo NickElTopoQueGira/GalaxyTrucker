@@ -8,18 +8,27 @@ import eccezioniPersonalizzate.FinePartita;
 
 import tessera.Coordinate;
 import tessera.Tessera;
+import tessera.TipoTessera;
 
 public abstract class Nave {
     protected final ArrayList<Tessera> componentiPrenotati;
     protected ArrayList<ArrayList<Tessera>> nave;
     private int[][] NAVE_DEF;
     private Coordinate centro;
+    private int numeroCosmonauti;
+    private int numeroAlieniRossi;
+    private int numeroAlieniMarroni;
 
     public Nave(){
         this.componentiPrenotati = new ArrayList<Tessera>(2);
         this.nave = new ArrayList<>();
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
+
+        // di default la nave ha 2 cosmonauti
+        this.numeroCosmonauti = 2;
+        this.numeroAlieniRossi = 0; 
+        this.numeroAlieniMarroni = 0;
     }
 
     protected abstract int[][] getMATRIX();
@@ -28,9 +37,14 @@ public abstract class Nave {
     protected abstract Coordinate getCoordinateCentro(); 
 
     public void inserisciTessera(int i, int j, Tessera tessera) throws ErroreTessera{
+        TipoTessera tipoDellaTessera = tessera.getTipoTessera();
+        
         // Controllo sulla posizione
         if(i >= 0 && i <= getRighe()){
             if(j >= 0 && j < getColonne()){
+                // controllo se e' collegato a qualche cosa
+                // TODO: agg. i controlli necessari
+
                 // controllo della poszione
 
                 // Verifica se e' nel centro
@@ -48,18 +62,47 @@ public abstract class Nave {
                     throw new ErroreTessera("Posizione gia' occupata");
                 }
 
-                // verifica se eil pezzo e' un motore la sua posizione
+                // verifica se il pezzo e' un motore la sua posizione
                 /**
                  * Il motore non pue' essere messo:
                  * - sopra il modulo centrale
-                 * - direttamente spora un pezzo 
-                 * - e' in una posizione non corretta 
-                 * - 
+                 * - direttamente spora un pezzo
+                 * 
+                 * I motori per loro costruzione non possono essere girati
                 */
+                if(TipoTessera.CANNONE == tipoDellaTessera){
+                    // se e' sopra il centro
+                    if(i == centro.getY() - 1){
+                        throw new ErroreTessera("I motori non possono essere messi sopra il centro");
+                    }
+
+                    // se e' direttamente sopra un pezzo
+                    if(this.nave.get(i - 1).get(j) != null){
+                        throw new ErroreTessera("I motori non possono essere messi direttamente sopra un pezzo");
+                    }
+                }
+
+                // verifica se il pesso e' un cannone e la sua posizione
+                /**
+                 * Il cannone non pue' essere messo:
+                 * - sotto il modulo centrale
+                 * - se dal lato della canna ha attaccato un pezzo
+                 * 
+                 * I cannoni possono essere girati
+                */
+                if(TipoTessera.CANNONE == tipoDellaTessera){
+                    // se e' direttamente sotto il centro
+                    if(i == centro.getY() + 1){
+                        throw new ErroreTessera("I cannoni non possono essere messi sotto il centro");
+                    }
+
+                    // se dal lato della canna ha attaccato un pezzo
+                }
 
 
-                // inserisci il pezzo
-                this.nave.get(i).set(j, tessera);              
+                // se tutto va a buon fine, inserisci il pezzo
+                tessera.setCoordinate(new Coordinate(i, j));        // assegno le coordinate al pezzo
+                this.nave.get(i).set(j, tessera);                   // inserisco il pezzo nella nave
             }
             else{
                 throw new ErroreTessera("Posizone asse y non corretta");
@@ -157,6 +200,23 @@ public abstract class Nave {
         return true;
     }
 
+    public void setCosmonauti(int numeroCosmonauti) { this.numeroCosmonauti = numeroCosmonauti; }
+
+    public void updateNumeroCosmonauti(int numeroCosmonauti) { this.numeroCosmonauti += numeroCosmonauti; }
+
+    public int getNumeroCosmonauti() { return this.numeroCosmonauti; }
+
+    public void setNumeroAlieniRossi(int numeroAlieniRossi) { this.numeroAlieniRossi = numeroAlieniRossi; }
+
+    public void updateNumeroAlieniRossi(int numeroAlieniRossi) { this.numeroAlieniRossi += numeroAlieniRossi; }
+
+    public int getNumeroAlieniRossi() { return this.numeroAlieniRossi; }
+
+    public void setNumeroAlieniMarroni(int numeroAlieniMarroni) { this.numeroAlieniMarroni = numeroAlieniMarroni; }
+
+    public void updateNumeroAlieniMarroni(int numeroAlieniMarroni) { this.numeroAlieniMarroni += numeroAlieniMarroni; }
+
+    public int getNumeroAlieniMarroni() { return this.numeroAlieniMarroni; }
 
     @Override
     public String toString(){
