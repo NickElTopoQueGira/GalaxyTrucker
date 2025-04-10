@@ -76,7 +76,7 @@ public class LatiTessera implements GeneraTessera{
 	
 	
 	
-	public void ruota() {
+	public void ruotaLati() {
 		TipoConnettoriTessera temp= this.up;
 		this.up=this.left;
 		this.left=this.down;

@@ -61,5 +61,13 @@ public abstract class Tessera implements GeneraTessera{
 		buffer_tessere_generate[currentSize-1]= this;
 	}
 	
+	
+	public void ruota() {
+		this.latiTessera.ruotaLati();
+		this.ruotaTessera();
+	}
+	
+	
+	protected abstract void ruotaTessera();
 
 }

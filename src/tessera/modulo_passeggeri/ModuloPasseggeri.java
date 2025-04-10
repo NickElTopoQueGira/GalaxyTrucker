@@ -36,4 +36,13 @@ public class ModuloPasseggeri extends Tessera{
 
 
 
+
+	@Override
+	protected void ruotaTessera() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 }

@@ -8,5 +8,10 @@ public class Centro extends Tessera{
 
 	@Override
 	public int RandomTipo() { return 0; }
+
+
+	@Override
+	protected void ruotaTessera() {
+	}
 	
 }

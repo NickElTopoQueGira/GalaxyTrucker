@@ -33,6 +33,14 @@ public class Cannone extends Tessera{
 	}
 
 
+
+	@Override
+	protected void ruotaTessera() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 	
 	

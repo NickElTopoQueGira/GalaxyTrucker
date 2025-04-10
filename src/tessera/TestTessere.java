@@ -1,5 +1,7 @@
 package tessera;
 
+import tessera.motore.Motore;
+
 public class TestTessere {
 
 	public static void main(String[] args) {
@@ -15,7 +17,7 @@ public class TestTessere {
 		System.out.println(t1.getLatiTessera().getLeft().toString()+"\t\t"+t1.getLatiTessera().getRight().toString()+"\n");
 		System.out.println("\t"+t1.getLatiTessera().getDown().toString()+"\t\n");
 		
-		t1.latiTessera.ruota(); //ruota di 90 gradi a dx
+		t1.ruota(); //ruota di 90 gradi a dx
 		//stampa connettori di t1
 		System.out.println(t1.getTipoTessera().toString());
 		System.out.println("\t"+t1.getLatiTessera().getUp().toString()+"\n");
@@ -32,6 +34,10 @@ public class TestTessere {
 		System.out.println(t3.getLatiTessera().getLeft().toString()+"\t\t"+t3.getLatiTessera().getRight().toString()+"\n");
 		System.out.println("\t"+t3.getLatiTessera().getDown().toString()+"\t\n");
 		
+		Motore t4 = new Motore();
+		System.out.println(t4.getLatoMotore().toString());
+		t4.ruota();
+		System.out.println(t4.getLatoMotore().toString());
 		
 		
 		System.out.println(Tessera.getCurrentSize());
