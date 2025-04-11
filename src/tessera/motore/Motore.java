@@ -3,6 +3,7 @@ package tessera.motore;
 import java.util.Random;
 
 
+
 import tessera.Tessera;
 import tessera.TipoLato;
 import tessera.TipoTessera;
@@ -44,8 +45,9 @@ public class Motore extends Tessera{
 
 
 	@Override
-	protected void ruotaTessera() {
-		this.latoMotore.next();
+	public void ruota() {
+		super.ruota();
+		this.latoMotore=this.latoMotore.next();
 	}
 
 

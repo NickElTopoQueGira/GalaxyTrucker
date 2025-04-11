@@ -64,10 +64,9 @@ public abstract class Tessera implements GeneraTessera{
 	
 	public void ruota() {
 		this.latiTessera.ruotaLati();
-		this.ruotaTessera();
+		
 	}
 	
 	
-	protected abstract void ruotaTessera();
 
 }
