@@ -1,6 +1,7 @@
 package tessera.motore;
 
 public enum TipoMotore {
-	SINGOLO, DOPPIO;
+	SINGOLO, 
+	DOPPIO;
 
 }
