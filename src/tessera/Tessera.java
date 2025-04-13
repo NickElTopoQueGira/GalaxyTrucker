@@ -2,7 +2,7 @@ package tessera;
 
 import java.util.Arrays;
 
-public abstract class Tessera implements GeneraTessera{
+public abstract class Tessera{
 	
 	protected final TipoTessera tipoTessera;
 	protected LatiTessera latiTessera= new LatiTessera();
