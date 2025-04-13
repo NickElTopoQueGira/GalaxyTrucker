@@ -2,11 +2,6 @@ package tessera.motore;
 
 import java.util.Random;
 
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 import tessera.Tessera;
 import tessera.TipoLato;
 import tessera.TipoTessera;
