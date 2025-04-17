@@ -47,6 +47,7 @@ public abstract class Nave {
                 // controllo della poszione
 
                 // Verifica se e' nel centro
+                if(i == centro.getX() && j == centro.getY()){
                     throw new ErroreTessera("Posizione non valida!! ");
                 }
 
@@ -56,7 +57,7 @@ public abstract class Nave {
                 }
 
                 // verifca se il pezzo lo si vuole mettere in una posizione gia' occupata
-                if(null == this.nave.get(i).get(j)){
+                if(null != this.nave.get(i).get(j)){
                     throw new ErroreTessera("Posizione gia' occupata");
                 }
 
@@ -73,7 +74,7 @@ public abstract class Nave {
                  * 
                  * I motori per loro costruzione non possono essere girati
                 */
-                if(TipoTessera.CANNONE == tipoDellaTessera){
+                if(TipoTessera.MOTORE == tipoDellaTessera){
                     // se e' sopra il centro
                     if(i == centro.getY() - 1){
                         throw new ErroreTessera("I motori non possono essere messi sopra il centro");
@@ -176,8 +177,8 @@ public abstract class Nave {
 
     private boolean controllaCoodinate(int i, int j){
         if(
-            (i >= 0 && i <= getRighe()) &&
-            (j >= 0 && j <= getColonne())
+            (i >= 0 && i < getRighe()) &&
+            (j >= 0 && j < getColonne())
         ){
             return true;
         }
@@ -191,7 +192,7 @@ public abstract class Nave {
     }
 
     private boolean controllaCoodinateColonne(int j){
-        return (j >= 0 && j <= getRighe());
+        return (j >= 0 && j <= getColonne());
     }
 
     private boolean controllaIntegritaNave(){
