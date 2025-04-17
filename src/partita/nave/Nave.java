@@ -47,7 +47,6 @@ public abstract class Nave {
                 // controllo della poszione
 
                 // Verifica se e' nel centro
-                if(i == centro.getX() && i == centro.getY()){
                     throw new ErroreTessera("Posizione non valida!! ");
                 }
 
