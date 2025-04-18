@@ -8,19 +8,17 @@ import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class Cannone extends Tessera {
-	private static int Contatore = 0;
-
+	private static int contatore = 0;
 	private TipoLato latoCannone = TipoLato.DOWN;
-
 	private final TipoCannone tipoCannone;
 
 	public Cannone() throws ErroreTessera {
 		super(TipoTessera.CANNONE);
-		Contatore++;
-		if(Contatore>=30) {
+		contatore++;
+		if(contatore<=30) {
 			this.tipoCannone = randomTipo();
 		}else {
-			throw new ErroreTessera("Numero Elementi Max"); //Eccezione Numero Massimo di elementi
+			throw new ErroreTessera("Numero Elementi Cannone Max"); //Eccezione Numero Massimo di elementi
 		}
 		
 

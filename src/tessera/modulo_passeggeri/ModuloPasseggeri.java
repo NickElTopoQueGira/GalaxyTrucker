@@ -8,17 +8,17 @@ import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class ModuloPasseggeri extends Tessera {
-	private static int Contatore = 0;
+	private static int contatore = 0;
 	private final TipoModuloPasseggeri tipoModuloPasseggeri;
 	private TipoLato latoModuloPasseggeri = TipoLato.UP;
 
 	public ModuloPasseggeri() throws ErroreTessera {
 		super(TipoTessera.MODULO_PASSEGGERI);
-		Contatore++;
-		if(Contatore>=30) {
+		contatore++;
+		if(contatore<=30) {
 			this.tipoModuloPasseggeri = randomTipo();
 		}else {
-			throw new ErroreTessera("Numero Elementi Max"); //Eccezione Numero Massimo di elementi
+			throw new ErroreTessera("Numero Elementi Modulo paseggeri Max"); //Eccezione Numero Massimo di elementi
 		}
 		
 		

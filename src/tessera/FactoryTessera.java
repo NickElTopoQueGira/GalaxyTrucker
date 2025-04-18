@@ -13,78 +13,38 @@ public class FactoryTessera //implements GeneraTessera
 	public Tessera estraiTipo() {
 
 		TipoTessera tipo = randomTipo();
-		switch (tipo) {
-		case TipoTessera.PORTA_MERCI: {
-			try {
-				return new Cannone();
-			} catch (ErroreTessera e) {
-				estraiTipo();
-			}
-
+		try{
+			switch (tipo) {
+				case TipoTessera.PORTA_MERCI: {
+					return estraiTipo();			
+				}
+				case TipoTessera.SCUDI: {
+					return estraiTipo();
+				}
+				case TipoTessera.TUBI: {
+					return estraiTipo();
+				}
+				case TipoTessera.MODULO_PASSEGGERI: {
+					return estraiTipo();
+				}
+				case TipoTessera.BATTERIA: {
+					return estraiTipo();
+				}
+				case TipoTessera.CANNONE: {
+					return new Cannone();
+				}
+				case TipoTessera.MOTORE: {
+					return new Motore();
+				}
+				default: {
+					return new ModuloPasseggeri();
+				}
+				}
 		}
-		case TipoTessera.SCUDI: {
-			try {
-				return new Cannone();
-			} catch (ErroreTessera e) {
-				estraiTipo();
-			}
-
+		catch(ErroreTessera eT){
+			System.err.println(eT.getMessage());
+			return estraiTipo();
 		}
-
-		case TipoTessera.TUBI: {
-			try {
-				return new Cannone();
-			} catch (ErroreTessera e) {
-				estraiTipo();
-			}
-
-		}
-
-		case TipoTessera.MODULO_PASSEGGERI: {
-			try {
-				return new Cannone();
-			} catch (ErroreTessera e) {
-				estraiTipo();
-			}
-
-		}
-
-		case TipoTessera.BATTERIA: {
-			try {
-				return new Cannone();
-			} catch (ErroreTessera e) {
-				estraiTipo();
-			}
-
-		}
-
-		case TipoTessera.CANNONE: {
-			
-			try {
-				return new Cannone();
-			} catch (ErroreTessera e) {
-				estraiTipo();
-			}
-		}
-
-		case TipoTessera.MOTORE: {
-			try {
-				return new Motore();
-			} catch (ErroreTessera e) {
-				estraiTipo();
-			}
-		}
-
-		default: {
-			try {
-				return new ModuloPasseggeri();
-			} catch (ErroreTessera e) {
-				estraiTipo();
-			}
-		}
-		
-		}
-		return null;
 	}
 
 	public TipoTessera randomTipo() {
