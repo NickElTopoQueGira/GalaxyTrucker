@@ -3,34 +3,35 @@ package carte;
 import java.util.*;
 
 public class Carta {
+	
 	public int lvl;
 	public TipoCarta tipo;
-	private ArrayList<Carta> buffer;
+	private ArrayList<Carta> buffer; // mazzo
 	
 	public Carta(int lvl) {
 		this.lvl = lvl;
 		this.tipo = null;
-		this.buffer = new ArrayList<>();
-		CreaMazzo(lvl);
+		this.buffer = new ArrayList<>(); // nuovo mazzo
+		CreaMazzo(lvl);   // va nel mazzo
 	}
-	public Carta(int lvl , TipoCarta  tipo) {
+	public Carta(int lvl , TipoCarta  tipo) {  // va nel mazzo
 		
 		this.lvl = lvl;
 		this.tipo = tipo;
 	}
 	
-	public void RigeneraMazzo(int lvl) {
+	public void RigeneraMazzo(int lvl) {  // va nel mazzo
 		
 		AzzeraMazzo();
 		CreaMazzo(lvl);
 	}
 	
-	private void AzzeraMazzo() {
+	private void AzzeraMazzo() {  // va nel mazzo
 		
 		this.buffer.clear();
 	}
 	
-	public void CreaMazzo(int lvl) {
+	public void CreaMazzo(int lvl) {  // va nel mazzo
 		
 		switch(lvl) {
 		case 1:
@@ -63,7 +64,8 @@ public class Carta {
 		}
 		
 	}
-	private Carta CreaCartaRandom(int lvl){
+	
+	private Carta CreaCartaRandom(int lvl){  // va nel mazzo
 		
 		int x = 0;
 		Random random = new Random();
@@ -122,7 +124,7 @@ public class Carta {
 		return crt;
 	}
 
-	public int getLvl() {
+	public int getLvl() { 
 		return lvl;
 	}
 
@@ -138,11 +140,11 @@ public class Carta {
 		this.tipo = tipo;
 	}
 
-	public ArrayList<Carta> getBuffer() {
+	public ArrayList<Carta> getBuffer() {   // va nel mazzo
 		return buffer;
 	}
 
-	public void setBuffer(ArrayList<Carta> buffer) {
+	public void setBuffer(ArrayList<Carta> buffer) {   // va nel mazzo
 		this.buffer = buffer;
 	}
 	

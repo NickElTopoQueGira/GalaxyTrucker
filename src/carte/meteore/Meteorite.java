@@ -5,12 +5,14 @@ import java.util.Random;
 public class Meteorite {
 	
 	private static PuntiCardinali direzione;
+	private static int dado;
 	
 	public Meteorite() {
 		 this.direzione = CasualDirezzione();
 	}
-	public Meteorite(PuntiCardinali direzione) {
+	public Meteorite(PuntiCardinali direzione, int d) {
 		 this.direzione = direzione;
+		 this.dado = d;
 	}
 	
 	PuntiCardinali CasualDirezzione() {
@@ -38,6 +40,18 @@ public class Meteorite {
 		}
 		
 		return s;
+	}
+	public static PuntiCardinali getDirezione() {
+		return direzione;
+	}
+	public static void setDirezione(PuntiCardinali direzione) {
+		Meteorite.direzione = direzione;
+	}
+	public static int getDado() {
+		return dado;
+	}
+	public static void setDado(int dado) {
+		Meteorite.dado = dado;
 	}
 	
 	
