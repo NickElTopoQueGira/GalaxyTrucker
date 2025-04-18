@@ -329,7 +329,7 @@ public abstract class Nave {
 
     public int getNumeroAlieniMarroni() { return this.numeroAlieniMarroni; }
 
-    public Nave getNave() { return this; }
+    public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave() { return nave; }
 
     @Override
     public String toString(){
