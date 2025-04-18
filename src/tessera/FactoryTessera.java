@@ -2,6 +2,7 @@ package tessera;
 
 import java.util.Random;
 
+import eccezioniPersonalizzate.ErroreTessera;
 import tessera.cannone.Cannone;
 import tessera.motore.Motore;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
@@ -14,36 +15,76 @@ public class FactoryTessera //implements GeneraTessera
 		TipoTessera tipo = randomTipo();
 		switch (tipo) {
 		case TipoTessera.PORTA_MERCI: {
+			try {
+				return new Cannone();
+			} catch (ErroreTessera e) {
+				estraiTipo();
+			}
 
 		}
 		case TipoTessera.SCUDI: {
+			try {
+				return new Cannone();
+			} catch (ErroreTessera e) {
+				estraiTipo();
+			}
 
 		}
 
 		case TipoTessera.TUBI: {
+			try {
+				return new Cannone();
+			} catch (ErroreTessera e) {
+				estraiTipo();
+			}
 
 		}
 
 		case TipoTessera.MODULO_PASSEGGERI: {
+			try {
+				return new Cannone();
+			} catch (ErroreTessera e) {
+				estraiTipo();
+			}
 
 		}
 
 		case TipoTessera.BATTERIA: {
+			try {
+				return new Cannone();
+			} catch (ErroreTessera e) {
+				estraiTipo();
+			}
 
 		}
 
 		case TipoTessera.CANNONE: {
-			return new Cannone();
+			
+			try {
+				return new Cannone();
+			} catch (ErroreTessera e) {
+				estraiTipo();
+			}
 		}
 
 		case TipoTessera.MOTORE: {
-			return new Motore();
+			try {
+				return new Motore();
+			} catch (ErroreTessera e) {
+				estraiTipo();
+			}
 		}
 
 		default: {
-			return new ModuloPasseggeri();
+			try {
+				return new ModuloPasseggeri();
+			} catch (ErroreTessera e) {
+				estraiTipo();
+			}
 		}
+		
 		}
+		return null;
 	}
 
 	public TipoTessera randomTipo() {

@@ -2,18 +2,27 @@ package tessera.cannone;
 
 import java.util.Random;
 
+import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class Cannone extends Tessera {
+	private static int Contatore = 0;
+
 	private TipoLato latoCannone = TipoLato.DOWN;
 
 	private final TipoCannone tipoCannone;
 
-	public Cannone() {
+	public Cannone() throws ErroreTessera {
 		super(TipoTessera.CANNONE);
-		this.tipoCannone = randomTipo();
+		Contatore++;
+		if(Contatore>=30) {
+			this.tipoCannone = randomTipo();
+		}else {
+			throw new ErroreTessera("Numero Elementi Max"); //Eccezione Numero Massimo di elementi
+		}
+		
 
 	}
 

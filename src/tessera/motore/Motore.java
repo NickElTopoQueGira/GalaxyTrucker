@@ -2,18 +2,27 @@ package tessera.motore;
 
 import java.util.Random;
 
+import eccezioniPersonalizzate.ErroreTessera;
+import eccezioniPersonalizzate.FinePartita;
 import tessera.Tessera;
 import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class Motore extends Tessera {
-
+	
+	private static int Contatore;
 	private TipoLato latoMotore = TipoLato.UP;
 	private final TipoMotore tipoMotore;
 
-	public Motore() {
+	public Motore() throws ErroreTessera {
 		super(TipoTessera.MOTORE);
-		this.tipoMotore = randomTipo();
+		Contatore++;
+		if(Contatore>=30) {
+			this.tipoMotore = randomTipo();
+		}else {
+			throw new ErroreTessera("Numero Elementi Max"); //Eccezione Numero Massimo di elementi
+		}
+		
 
 	}
 
