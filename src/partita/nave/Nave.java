@@ -221,9 +221,9 @@ public abstract class Nave {
                 controllaCollegamentoDX(tessera, i, k) ||
                 controllaCollegamentoUP(tessera, i, k) ||
                 controllaCollegamentoDW(tessera, i, k);    
-        }
+    }
 
-    public boolean controllaCollegamentoSX(Tessera tessera, int i, int k){
+    private boolean controllaCollegamentoSX(Tessera tessera, int i, int k){
         if(i - 1 < 0 || null == this.nave.get(i - 1).get(k)){
             return true;
         }
@@ -245,7 +245,7 @@ public abstract class Nave {
         }
     }
 
-    public boolean controllaCollegamentoDX(Tessera tessera, int i, int k){
+    private boolean controllaCollegamentoDX(Tessera tessera, int i, int k){
         if(i + 1 > getRighe() || null == this.nave.get(i + 1).get(k)){
             return true;
         }
@@ -267,7 +267,7 @@ public abstract class Nave {
         }
     }
 
-    public boolean controllaCollegamentoUP(Tessera tessera, int i, int k){
+    private boolean controllaCollegamentoUP(Tessera tessera, int i, int k){
         if(k - 1 < 0 || null == this.nave.get(i).get(k - 1)){
             return true;
         }
@@ -289,7 +289,7 @@ public abstract class Nave {
         }
     }
 
-    public boolean controllaCollegamentoDW(Tessera tessera, int i, int k){
+    private boolean controllaCollegamentoDW(Tessera tessera, int i, int k){
         if(k + 1 > getColonne() || null == this.nave.get(i).get(k + 1)){
             return true;
         }

@@ -2,6 +2,7 @@ package partita;
 
 import java.util.Scanner;
 
+
 import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
 
