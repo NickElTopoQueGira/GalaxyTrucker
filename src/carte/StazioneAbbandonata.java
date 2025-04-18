@@ -5,6 +5,7 @@ import java.util.Random;
 public class StazioneAbbandonata extends Carta {
 	
 	private int giocatorinecessari;
+	private int penalitagiorni;
 	
 	public StazioneAbbandonata (int lvl) {
 		
@@ -17,6 +18,7 @@ public class StazioneAbbandonata extends Carta {
 		
 	}
 	private int GeneraGiocatoriNecessari(int lvl) {
+
 		Random random = new Random();
 		
 		int scelta = random.nextInt(2) + 0;
@@ -37,5 +39,13 @@ public class StazioneAbbandonata extends Carta {
 		break;
 		}
 		return ng;
+	}
+	
+	private int SceltaGiorniPenalta() {
+		if
+	}
+	
+	private void GeneraMerce() {
+		
 	}
 }
