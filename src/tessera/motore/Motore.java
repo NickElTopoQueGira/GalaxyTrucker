@@ -12,11 +12,12 @@ public class Motore extends Tessera {
 	private static int contatore = 0;
 	private TipoLato latoMotore = TipoLato.UP;
 	private final TipoMotore tipoMotore;
+	private final int massimo=30;
 
 	public Motore() throws ErroreTessera {
 		super(TipoTessera.MOTORE);
 		contatore++;
-		if(contatore<=30) {
+		if(contatore<=massimo) {
 			this.tipoMotore = randomTipo();
 		}else {
 			throw new ErroreTessera("Numero Elementi Motore Max"); //Eccezione Numero Massimo di elementi
