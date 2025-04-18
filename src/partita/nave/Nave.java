@@ -117,19 +117,19 @@ public abstract class Nave {
         }
     }
 
-    public void rimuoviTessera(int i, int j) throws ErroreTessera{
+    public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera{
         // Verifica delle coordinate
-        if(!controllaCoodinate(i, j)){
+        if(!controllaCoodinate(coordinate)){
             throw new ErroreTessera("Posizione non valida");
         }
 
         // rimozione tessera
-        if(null == this.nave.get(i).get(j)){
+        if(null == this.nave.get(coordinate.getX()).get(coordinate.getY())){
             throw new ErroreTessera("Impossibile rimuovere la tessera nella posizoine specificata");
         }
 
         // rimozione della tessera
-        this.nave.get(i).set(j, null);
+        this.nave.get(coordinate.getX()).set(coordinate.getY(), null);
 
     }
 
@@ -175,10 +175,10 @@ public abstract class Nave {
 
     }
 
-    private boolean controllaCoodinate(int i, int j){
+    private boolean controllaCoodinate(Coordinate coordinate){
         if(
-            (i >= 0 && i < getRighe()) &&
-            (j >= 0 && j < getColonne())
+            (coordinate.getX() >= 0 && coordinate.getX() < getRighe()) &&
+            (coordinate.getY() >= 0 && coordinate.getY() < getColonne())
         ){
             return true;
         }
@@ -186,7 +186,7 @@ public abstract class Nave {
             return false;
         }
     }
-
+    
     private boolean controllaCoodinateRrighe(int i){
         return (i >= 0 && i <= getRighe());
     }
