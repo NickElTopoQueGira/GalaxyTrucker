@@ -186,7 +186,7 @@ public abstract class Nave {
             return false;
         }
     }
-    
+
     private boolean controllaCoodinateRrighe(int i){
         return (i >= 0 && i <= getRighe());
     }
@@ -328,6 +328,8 @@ public abstract class Nave {
     public void updateNumeroAlieniMarroni(int numeroAlieniMarroni) { this.numeroAlieniMarroni += numeroAlieniMarroni; }
 
     public int getNumeroAlieniMarroni() { return this.numeroAlieniMarroni; }
+
+    public Nave getNave() { return this; }
 
     @Override
     public String toString(){
