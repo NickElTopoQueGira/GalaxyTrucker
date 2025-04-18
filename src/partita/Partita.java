@@ -14,16 +14,17 @@ public class Partita {
 	public Partita(ModalitaPartita modalita, int numeroGiocatori){
 		modalitaPartita=modalita;
 		this.numeroGiocatori=numeroGiocatori;
-		selezionaModalita();
+		Scanner scanner = new Scanner(System.in);
+		selezionaModalita(scanner);
 		
 	}
 	
 	
-	public void selezionaModalita() {
+	public void selezionaModalita(Scanner scanner) {
 		
 		switch (modalitaPartita) {
 		case ModalitaPartita.SINGOLA: {
-			IniziaPartitaSingola();	
+			IniziaPartitaSingola(scanner);	
 		}
 		case ModalitaPartita.MULTIPLA:{
 			IniziaPartitaMultipla();
@@ -39,8 +40,7 @@ public class Partita {
 	}
 
 
-	private void IniziaPartitaSingola() {
-		Scanner scanner = new Scanner(System.in);
+	private void IniziaPartitaSingola(Scanner scanner) {		
         Livelli livelloScelto = null;
         System.out.println("Seleziona un livello:");
         int lvl=1;
