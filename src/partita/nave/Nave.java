@@ -2,10 +2,9 @@ package partita.nave;
 
 import java.util.ArrayList;
 
-
 import eccezioniPersonalizzate.ErroreTessera;
 import eccezioniPersonalizzate.FinePartita;
-
+import partita.giocatore.Colori;
 import tessera.Coordinate;
 import tessera.LatiTessera;
 import tessera.Tessera;
@@ -20,12 +19,14 @@ public abstract class Nave {
     private int numeroCosmonauti;
     private int numeroAlieniRossi;
     private int numeroAlieniMarroni;
+    private Colori coloreNave;
 
-    public Nave(){
+    public Nave(Colori coloreNave){
         this.componentiPrenotati = new ArrayList<Tessera>(2);
         this.nave = new ArrayList<>();
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
+        this.coloreNave = coloreNave;
 
         // di default la nave ha 2 cosmonauti
         this.numeroCosmonauti = 2;
@@ -330,6 +331,8 @@ public abstract class Nave {
     public int getNumeroAlieniMarroni() { return this.numeroAlieniMarroni; }
 
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave() { return nave; }
+
+    public Colori getColoreNave() { return this.coloreNave; }
 
     @Override
     public String toString(){
