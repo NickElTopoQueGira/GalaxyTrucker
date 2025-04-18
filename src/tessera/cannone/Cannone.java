@@ -3,9 +3,11 @@ package tessera.cannone;
 import java.util.Random;
 
 import tessera.Tessera;
+import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class Cannone extends Tessera {
+	private TipoLato latoCannone = TipoLato.DOWN;
 
 	private final TipoCannone tipoCannone;
 
@@ -26,9 +28,9 @@ public class Cannone extends Tessera {
 	}
 
 	@Override
-	protected void ruotaTessera() {
-		// TODO Auto-generated method stub
-
+	public void ruota() {
+		super.ruota();
+		this.latoCannone=this.latoCannone.next();
 	}
 
 }
