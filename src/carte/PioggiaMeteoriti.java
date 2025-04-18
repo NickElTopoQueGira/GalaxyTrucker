@@ -26,7 +26,7 @@ public class PioggiaMeteoriti extends Carta {
 				grandezza = random.nextInt(4) + 1;
 				
 				if(grandezza == 1) {
-					meteoriti.add(new MeteoriteGrande(this.lvl));
+					meteoriti.add(new MeteoriteGrande(this.lvl,RisultatiDadi()));
 				}else {
 					meteoriti.add(new MeteoritePiccolo());
 				}
@@ -40,7 +40,7 @@ public class PioggiaMeteoriti extends Carta {
 				grandezza = random.nextInt(4) + 1;
 				
 				if(grandezza == 1) {
-					meteoriti.add(new MeteoriteGrande(this.lvl));
+					meteoriti.add(new MeteoriteGrande(this.lvl,RisultatiDadi()));
 				}else {
 					meteoriti.add(new MeteoritePiccolo());
 				}
@@ -54,7 +54,7 @@ public class PioggiaMeteoriti extends Carta {
 				grandezza = random.nextInt(4) + 1;
 				
 				if(grandezza == 1) {
-					meteoriti.add(new MeteoriteGrande(this.lvl));
+					meteoriti.add(new MeteoriteGrande(this.lvl,RisultatiDadi()));
 				}else {
 					meteoriti.add(new MeteoritePiccolo());
 				}

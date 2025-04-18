@@ -8,17 +8,17 @@ import carte.Carta;
 public class Tabellone {
 	
 	private int lvl, ngiocatori, nposizioni;
-	private static Carta crt;
-	private ArrayList<Carta> buffer;
+	private static Carta crt;   // da cancellare
+	private ArrayList<Carta> buffer;   // va nel mazzo
 	
 	public Tabellone (int lvl, int ngiocatori) {
 		
 		this.lvl = lvl;
 		this.ngiocatori = ngiocatori;
 		ImpostaNumPosizioni(lvl);
-		this.crt = new Carta(lvl);
-		this.buffer = new ArrayList<>();
-		GeneraMazzo();
+		this.crt = new Carta(lvl); // da cancelllare
+		this.buffer = new ArrayList<>();   // va nel mazzo
+		GeneraMazzo();   // va nel mazzo
 		
 	}
 	
@@ -39,11 +39,11 @@ public class Tabellone {
 		}	
 	}
 	
-	void GeneraMazzo() {
+	void GeneraMazzo() {   // va nel mazzo
 		this.buffer = this.crt.getBuffer();
 	}
 	
-	void GeneraMazzo(int lvl) {
+	void GeneraMazzo(int lvl) {   // va nel mazzo
 		
 		this.crt.RigeneraMazzo(lvl);
 		this.buffer = this.crt.getBuffer();

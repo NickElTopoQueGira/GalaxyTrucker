@@ -42,7 +42,9 @@ public class StazioneAbbandonata extends Carta {
 	}
 	
 	private int SceltaGiorniPenalta() {
-		if
+		
+		
+		return 0;
 	}
 	
 	private void GeneraMerce() {
