@@ -38,11 +38,20 @@ public class Giocatore {
 			}
 			case SECONDO->{
 				this.nave = new NaveLvl2();
+				System.out.println("Schema nave");
+				System.out.println(nave.toString());
+				
 				// assemblaNave();
 			}
 			case TERZO->{
 				this.nave = new NaveLvl3();
+				System.out.println("Schema nave");
+				System.out.println(nave.toString());
+				
 				// assemblaNave();
+			}
+			default ->{
+				System.err.println("Scelta non valida");
 			}
 		}
 	}

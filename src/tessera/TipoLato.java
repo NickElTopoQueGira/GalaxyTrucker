@@ -1,6 +1,17 @@
 package tessera;
 
-public enum TipoLato {
-	LATO1, LATO2, LATO3, LATO4
+public enum TipoLato{
+	UP, RIGHT, DOWN, LEFT;
+	
+	
+	
+	public TipoLato next() {
+		TipoLato[] valore = TipoLato.values();
+		int nextValore = (this.ordinal() +1)%valore.length;
+		return valore[nextValore];
+		
+		
+	}
+	
 
 }

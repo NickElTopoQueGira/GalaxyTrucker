@@ -1,6 +1,9 @@
 package tessera;
 
 public enum TipoConnettoriTessera {
-	NULLO, SINGOLO, DOPPIO, TRIPLO;
+	NULLO, 
+	SINGOLO, 
+	DOPPIO, 
+	TRIPLO;
 
 }

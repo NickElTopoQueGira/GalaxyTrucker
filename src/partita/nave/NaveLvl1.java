@@ -2,6 +2,7 @@ package partita.nave;
 
 import java.util.ArrayList;
 
+
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.Tessera;
@@ -67,7 +68,7 @@ public class NaveLvl1 extends Nave {
 
     @Override
     protected Coordinate getCoordinateCentro() { 
-        return new Coordinate(coordinateCentro.getX(), coordinateCentro.getX()); 
+        return new Coordinate(coordinateCentro.getX(), coordinateCentro.getY()); 
     }
 
 }

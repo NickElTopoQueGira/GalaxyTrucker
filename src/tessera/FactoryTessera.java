@@ -6,41 +6,49 @@ import tessera.cannone.Cannone;
 import tessera.motore.Motore;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 
-public class FactoryTessera implements GeneraTessera{
-	
-	
-public Tessera estraiTipo() {
-		
+public class FactoryTessera //implements GeneraTessera 
+{
 
-	    int tipo= RandomTipo();
-		switch(tipo) {
-		
-		case 0:
+	public Tessera estraiTipo() {
+
+		TipoTessera tipo = randomTipo();
+		switch (tipo) {
+		case TipoTessera.PORTA_MERCI: {
+
+		}
+		case TipoTessera.SCUDI: {
+
+		}
+
+		case TipoTessera.TUBI: {
+
+		}
+
+		case TipoTessera.MODULO_PASSEGGERI: {
+
+		}
+
+		case TipoTessera.BATTERIA: {
+
+		}
+
+		case TipoTessera.CANNONE: {
 			return new Cannone();
+		}
 
-		case 1:
+		case TipoTessera.MOTORE: {
 			return new Motore();
-		
-		case 2:
-			return new ModuloPasseggeri();
+		}
 
-		case 3:
+		default: {
 			return new ModuloPasseggeri();
-		case 4:
-			return new ModuloPasseggeri();
-		case 5:
-			return new ModuloPasseggeri();
-		case 6:
-			return new ModuloPasseggeri();
-		default:
-			return new ModuloPasseggeri();
-
-		}	
+		}
+		}
 	}
-	
-	
-	public int RandomTipo(){
-		int pick= new Random().nextInt(TipoTessera.values().length-1);
-		return pick;
+
+	public TipoTessera randomTipo() {
+		TipoTessera tipiTessera[] = TipoTessera.values();
+		// viene fatta una random della lunghezza -1 per escludere il tipo centro
+		return tipiTessera[new Random().nextInt(tipiTessera.length - 1)];
 	}
 }

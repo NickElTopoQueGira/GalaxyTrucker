@@ -2,9 +2,7 @@ package tessera;
 
 import java.util.Arrays;
 
-
-
-public abstract class Tessera implements GeneraTessera{
+public abstract class Tessera{
 	
 	protected final TipoTessera tipoTessera;
 	protected LatiTessera latiTessera= new LatiTessera();
@@ -17,7 +15,12 @@ public abstract class Tessera implements GeneraTessera{
 
 		this.tipoTessera = tipoTessera;
 		
-		aggiungiTessera();
+		if(this.tipoTessera!=TipoTessera.CENTRO) {
+			aggiungiTessera();
+		}else {
+			this.latiTessera.setCentro();
+		}
+		
 		
 	}
 	
@@ -43,10 +46,10 @@ public abstract class Tessera implements GeneraTessera{
 		return buffer_tessere_generate;
 	}
 	
-	public int getCurrentSize() {
+	public static int getCurrentSize() {
 		return currentSize;
 	}
-	public void setCurrentSize(int edit) {
+	public static void setCurrentSize(int edit) {
 		currentSize = currentSize+edit;
 	}
 
@@ -59,6 +62,10 @@ public abstract class Tessera implements GeneraTessera{
 	}
 	
 	
+	public void ruota() {
+		this.latiTessera.ruotaLati();
+		
+	}
 	
 	
 
