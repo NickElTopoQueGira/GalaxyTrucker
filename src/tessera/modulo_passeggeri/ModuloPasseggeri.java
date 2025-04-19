@@ -4,18 +4,18 @@ import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
-import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class ModuloPasseggeri extends Tessera {
 	private static int contatore = 0;
 	private final TipoModuloPasseggeri tipoModuloPasseggeri;
-	private TipoLato latoModuloPasseggeri = TipoLato.UP;
+	private final int massimo=15;
+	
 
 	public ModuloPasseggeri() throws ErroreTessera {
 		super(TipoTessera.MODULO_PASSEGGERI);
 		contatore++;
-		if(contatore<=30) {
+		if(contatore<=massimo) {
 			this.tipoModuloPasseggeri = randomTipo();
 		}else {
 			throw new ErroreTessera("Numero Elementi Modulo paseggeri Max"); //Eccezione Numero Massimo di elementi
@@ -41,10 +41,6 @@ public class ModuloPasseggeri extends Tessera {
 
 	}
 
-	@Override
-	public void ruota() {
-		super.ruota();
-		this.latoModuloPasseggeri=this.latoModuloPasseggeri.next();
-	}
+	
 
 }

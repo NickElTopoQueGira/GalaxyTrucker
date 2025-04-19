@@ -30,21 +30,21 @@ public class Giocatore {
 	public void creaNave(){
 		switch(this.livello){
 			case PRIMO->{
-				this.nave = new NaveLvl1();
+				this.nave = new NaveLvl1(colorePedina);
 				System.out.println("Schema nave");
 				System.out.println(nave.toString());
 				// this.nave.assembla();
 				//assemblaNave();
 			}
 			case SECONDO->{
-				this.nave = new NaveLvl2();
+				this.nave = new NaveLvl2(colorePedina);
 				System.out.println("Schema nave");
 				System.out.println(nave.toString());
 				
 				// assemblaNave();
 			}
 			case TERZO->{
-				this.nave = new NaveLvl3();
+				this.nave = new NaveLvl3(colorePedina);
 				System.out.println("Schema nave");
 				System.out.println(nave.toString());
 				

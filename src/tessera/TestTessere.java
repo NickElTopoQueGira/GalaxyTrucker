@@ -1,6 +1,7 @@
 package tessera;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import partita.giocatore.Colori;
 import tessera.motore.Motore;
 
 public class TestTessere {
@@ -29,7 +30,13 @@ public class TestTessere {
 		
 		
 		//stampa centro con connettori
-		Tessera t3 = new Centro();
+		Tessera t3=null;
+		try {
+			t3 = new Centro(Colori.BLU);
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(t3.getTipoTessera().toString());
 		System.out.println("\t"+t3.getLatiTessera().getUp().toString()+"\n");
 		System.out.println(t3.getLatiTessera().getLeft().toString()+"\t\t"+t3.getLatiTessera().getRight().toString()+"\n");

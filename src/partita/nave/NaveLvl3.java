@@ -2,6 +2,8 @@ package partita.nave;
 
 import java.util.ArrayList;
 
+import eccezioniPersonalizzate.ErroreTessera;
+import partita.giocatore.Colori;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.Tessera;
@@ -40,15 +42,20 @@ public class NaveLvl3 extends Nave {
     private static final int numeroColonne      = 9;
     private static final Coordinate coordinateCentro = new Coordinate(3, 4);
 
-    public NaveLvl3(){
-        super();
+    public NaveLvl3(Colori coloreNave){
+        super(coloreNave);
 
         // inizializzazione della nave con elementi nulli
         for(int i = 0; i < numeroRighe; i++){
             ArrayList<Tessera> riga = new ArrayList<>();
             for(int j = 0; j < numeroColonne; j++){
                 if(i == coordinateCentro.getX() && j == coordinateCentro.getY()){
-                    riga.add(new Centro());
+                    try{
+                        riga.add(new Centro(coloreNave));
+                    }
+                    catch(ErroreTessera eT){
+                        System.err.println(eT.getMessage());
+                    }
                 }
                 else{
                     riga.add(null);
