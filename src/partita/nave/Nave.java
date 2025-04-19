@@ -142,7 +142,7 @@ public abstract class Nave {
 
     public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera{
         // Verifica delle coordinate
-        if(!controllaCoodinate(coordinate)){
+        if(!controllaCoordinate(coordinate)){
             throw new ErroreTessera("Posizione non valida");
         }
 
@@ -156,7 +156,7 @@ public abstract class Nave {
 
     }
 
-    private boolean controllaCoodinate(Coordinate coordinate){
+    private boolean controllaCoordinate(Coordinate coordinate){
         if(
             (coordinate.getX() >= 0 && coordinate.getX() < getRighe()) &&
             (coordinate.getY() >= 0 && coordinate.getY() < getColonne())
@@ -166,14 +166,6 @@ public abstract class Nave {
         else{
             return false;
         }
-    }
-
-    private boolean controllaCoodinateRrighe(int i){
-        return (i >= 0 && i < getRighe());
-    }
-
-    private boolean controllaCoodinateColonne(int j){
-        return (j >= 0 && j < getColonne());
     }
 
     private boolean controllaIntegritaNave(){
