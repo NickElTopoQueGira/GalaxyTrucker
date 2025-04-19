@@ -199,18 +199,16 @@ public abstract class Nave {
          *             DW
          */
 
-        return controllaCollegamentoSX(tessera, i, k) ||
-                controllaCollegamentoDX(tessera, i, k) ||
-                controllaCollegamentoUP(tessera, i, k) ||
-                controllaCollegamentoDW(tessera, i, k);    
+        return controllaCollegamentoSX(tessera, coordinate) ||
+                controllaCollegamentoDX(tessera, coordinate) ||
+                controllaCollegamentoUP(tessera, coordinate) ||
+                controllaCollegamentoDW(tessera, coordinate);    
     }
 
-    private boolean controllaCollegamentoSX(Tessera tessera, int i, int k){
-        if(i - 1 < 0 || null == this.nave.get(i - 1).get(k)){
             return true;
         }
 
-        LatiTessera latiTesseraNave = this.nave.get(i - 1).get(k).getLatiTessera();
+        LatiTessera latiTesseraNave = this.nave.get(coordinate.getX() - 1).get(coordinate.getY()).getLatiTessera();
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft()){
@@ -227,12 +225,10 @@ public abstract class Nave {
         }
     }
 
-    private boolean controllaCollegamentoDX(Tessera tessera, int i, int k){
-        if(i + 1 > getRighe() || null == this.nave.get(i + 1).get(k)){
             return true;
         }
 
-        LatiTessera latiTesseraNave = this.nave.get(i + 1).get(k).getLatiTessera();
+        LatiTessera latiTesseraNave = this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getLatiTessera();
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getLeft() == tessera.getLatiTessera().getRight()){
@@ -249,12 +245,10 @@ public abstract class Nave {
         }
     }
 
-    private boolean controllaCollegamentoUP(Tessera tessera, int i, int k){
-        if(k - 1 < 0 || null == this.nave.get(i).get(k - 1)){
             return true;
         }
 
-        LatiTessera latiTesseraNave = this.nave.get(i).get(k - 1).getLatiTessera();
+        LatiTessera latiTesseraNave = this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).getLatiTessera();
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getDown() == tessera.getLatiTessera().getUp()){
@@ -271,12 +265,12 @@ public abstract class Nave {
         }
     }
 
-    private boolean controllaCollegamentoDW(Tessera tessera, int i, int k){
-        if(k + 1 > getColonne() || null == this.nave.get(i).get(k + 1)){
+    private boolean controllaCollegamentoDW(Tessera tessera, Coordinate coordinate){
+        if(coordinate.getY() + 1 > getColonne() || null == this.nave.get(coordinate.getX()).get(coordinate.getY() + 1)){
             return true;
         }
 
-        LatiTessera latiTesseraNave = this.nave.get(i).get(k + 1).getLatiTessera();
+        LatiTessera latiTesseraNave = this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getLatiTessera();
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown()){
