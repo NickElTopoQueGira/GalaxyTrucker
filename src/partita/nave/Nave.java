@@ -2,8 +2,8 @@ package partita.nave;
 
 import java.util.ArrayList;
 
+import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreTessera;
-import eccezioniPersonalizzate.FinePartita;
 import partita.giocatore.Colori;
 import tessera.Coordinate;
 import tessera.LatiTessera;
@@ -21,8 +21,13 @@ public abstract class Nave {
     private int numeroAlieniMarroni;
     private Colori coloreNave;
 
+    protected abstract int[][] getMATRIX();
+    protected abstract int getRighe();
+    protected abstract int getColonne();
+    protected abstract Coordinate getCoordinateCentro();
+
     public Nave(Colori coloreNave){
-        this.componentiPrenotati = new ArrayList<Tessera>(2);
+        this.componentiPrenotati = new ArrayList<Tessera>();
         this.nave = new ArrayList<>();
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
@@ -33,14 +38,31 @@ public abstract class Nave {
         this.numeroAlieniRossi = 0; 
         this.numeroAlieniMarroni = 0;
     }
+    
+    public void prenotaTessera(Tessera t) throws ErroreTessera{
+        if(this.componentiPrenotati.size() > 2){
+            throw new ErroreTessera("Limie massimo di tessere prenotato raggiunto!!");
+        }
+        else{
+            this.componentiPrenotati.add(t);
+        }
+    }
 
-    protected abstract int[][] getMATRIX();
-    protected abstract int getRighe();
-    protected abstract int getColonne();
-    protected abstract Coordinate getCoordinateCentro(); 
+    public Tessera togliTesseraPrenotata(int index) throws ErroreTessera{
+        if(index > 0 && index < 2){
+            return this.componentiPrenotati.get(index);
+        }
+        else{
+            throw new ErroreTessera("Tessera specificata non presente!!");
+        }
+    }
 
-    public void inserisciTessera(int i, int j, Tessera tessera) throws ErroreTessera{
-        TipoTessera tipoDellaTessera = tessera.getTipoTessera();
+    public String tesserePrenotateToString(){
+        String s = "";
+
+        for(int i = 0; i < this.componentiPrenotati.size(); i += 1){
+            s += (i + this.componentiPrenotati.get(i).toString() + "\t");
+        }
         
         // Controllo sulla posizione
         if(i >= 0 && i <= getRighe()){
