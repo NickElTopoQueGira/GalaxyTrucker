@@ -2,23 +2,21 @@ package tabellone;
 
 import java.util.*;
 
-
-import carte.Carta;
+import carte.*;
 
 public class Tabellone {
 	
 	private int lvl, ngiocatori, nposizioni;
-	private static Carta crt;   // da cancellare
-	private ArrayList<Carta> buffer;   // va nel mazzo
+	private static Mazzo mazz;
+	private ArrayList<Carta> mazzo;  
 	
 	public Tabellone (int lvl, int ngiocatori) {
 		
 		this.lvl = lvl;
 		this.ngiocatori = ngiocatori;
 		ImpostaNumPosizioni(lvl);
-		this.crt = new Carta(lvl); // da cancelllare
-		this.buffer = new ArrayList<>();   // va nel mazzo
-		GeneraMazzo();   // va nel mazzo
+		this.mazz = new Mazzo(lvl); // da cancelllare
+		this.mazzo = new ArrayList<>();   // va nel mazzo
 		
 	}
 	
@@ -38,16 +36,65 @@ public class Tabellone {
 		break;
 		}	
 	}
-	
-	void GeneraMazzo() {   // va nel mazzo
-		this.buffer = this.crt.getBuffer();
-	}
-	
-	void GeneraMazzo(int lvl) {   // va nel mazzo
+	private void AssegnaMazzo() {
 		
-		this.crt.RigeneraMazzo(lvl);
-		this.buffer = this.crt.getBuffer();
+		this.mazzo = this.mazz.getLista();
 	}
 	
+	private void NuovoMazzo(int lvlv) {
+		
+		this.mazz.RigeneraMazzo(lvlv);
+		AssegnaMazzo();
+		
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int getLvl() {
+		return lvl;
+	}
+
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
+
+	public int getNgiocatori() {
+		return ngiocatori;
+	}
+
+	public void setNgiocatori(int ngiocatori) {
+		this.ngiocatori = ngiocatori;
+	}
+
+	public int getNposizioni() {
+		return nposizioni;
+	}
+
+	public void setNposizioni(int nposizioni) {
+		this.nposizioni = nposizioni;
+	}
+
+	public static Mazzo getMazz() {
+		return mazz;
+	}
+
+	public static void setMazz(Mazzo mazz) {
+		Tabellone.mazz = mazz;
+	}
+
+	public ArrayList<Carta> getMazzo() {
+		return mazzo;
+	}
+
+	public void setMazzo(ArrayList<Carta> mazzo) {
+		this.mazzo = mazzo;
+	}
 }
