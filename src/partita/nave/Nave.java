@@ -12,8 +12,8 @@ import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 
 public abstract class Nave {
-    protected final ArrayList<Tessera> componentiPrenotati;
     protected ArrayList<ArrayList<Tessera>> nave;
+    private ArrayList<Tessera> componentiPrenotati;
     private int[][] NAVE_DEF;
     private Coordinate centro;
     private int numeroCosmonauti;
@@ -134,48 +134,6 @@ public abstract class Nave {
 
     }
 
-    public void rimuoviRiga(int i) throws ErroreTessera, FinePartita{
-        if(!controllaCoodinateRrighe(i)){
-            throw new ErroreTessera("La riga non esiste!!");
-        }
-
-        // rimozione della riga
-        for(int index = 0; index < getColonne(); index += 1){
-            System.out.println("Tessera rimossa: " + this.nave.get(i).get(index).toString());
-            this.nave.get(i).set(index, null);
-        }
-        
-
-        // controllo integrita' della nave
-        if(controllaIntegritaNave()){
-            System.out.println("Non hai subito danni importanti!");
-        }
-        else{
-            throw new FinePartita("La nave non e' piu' dotata di nucleo!!");
-        }
-    }
-
-    public void rimuoviColonna(int j) throws ErroreTessera, FinePartita{
-        if(!controllaCoodinateColonne(j)){
-            throw new ErroreTessera("La colonna non esiste!!");
-        }
-
-        // rimozione della colonna
-        for(int index = 0; index < getRighe(); index += 1){
-            System.out.println("Tessera rimossa: " + this.nave.get(index).get(j));
-            this.nave.get(index).set(j, null);
-        }
-
-        // controllo integrita' della nave
-        if(controllaIntegritaNave()){
-            System.out.println("Non hai subito danni importanti!");
-        }
-        else{
-            throw new FinePartita("La nave non e' piu' dotata di nucleo!!");
-        }
-
-    }
-
     private boolean controllaCoodinate(Coordinate coordinate){
         if(
             (coordinate.getX() >= 0 && coordinate.getX() < getRighe()) &&
@@ -189,11 +147,11 @@ public abstract class Nave {
     }
 
     private boolean controllaCoodinateRrighe(int i){
-        return (i >= 0 && i <= getRighe());
+        return (i >= 0 && i < getRighe());
     }
 
     private boolean controllaCoodinateColonne(int j){
-        return (j >= 0 && j <= getColonne());
+        return (j >= 0 && j < getColonne());
     }
 
     private boolean controllaIntegritaNave(){
