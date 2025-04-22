@@ -12,7 +12,7 @@ public class Motore extends Tessera {
 	private static int contatore = 0;
 	private TipoLato latoMotore = TipoLato.UP;
 	private final TipoMotore tipoMotore;
-	private final int massimo=30;
+	private static final int massimo=30;
 
 	public Motore() throws ErroreTessera {
 		super(TipoTessera.MOTORE);

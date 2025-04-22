@@ -7,7 +7,7 @@ public enum TipoTessera {
 	MODULO_PASSEGGERI,
 	BATTERIA, 
 	CANNONE, 
-	MOTORE, 
+	MOTORE,
 	CENTRO;
 
 }
