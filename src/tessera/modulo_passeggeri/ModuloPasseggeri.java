@@ -2,6 +2,7 @@ package tessera.modulo_passeggeri;
 
 import java.util.Random;
 
+
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoTessera;
@@ -9,7 +10,7 @@ import tessera.TipoTessera;
 public class ModuloPasseggeri extends Tessera {
 	private static int contatore = 0;
 	private final TipoModuloPasseggeri tipoModuloPasseggeri;
-	private final int massimo=15;
+	private static final int massimo=15;
 	
 
 	public ModuloPasseggeri() throws ErroreTessera {

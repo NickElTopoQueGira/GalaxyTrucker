@@ -2,14 +2,15 @@ package partita.nave;
 
 import java.util.ArrayList;
 
+import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreTessera;
-import eccezioniPersonalizzate.FinePartita;
 import partita.giocatore.Colori;
 import tessera.Coordinate;
 import tessera.LatiTessera;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
+import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
@@ -21,8 +22,23 @@ public abstract class Nave {
     private int numeroAlieniMarroni;
     private Colori coloreNave;
 
+
+    /**
+     * Metodi astratti, implementati nelle sotto classi, per prendere 
+     * i dati statici e privati delle sotto classi
+     */
+    protected abstract int[][] getMATRIX();
+    protected abstract int getRighe();
+    protected abstract int getColonne();
+    protected abstract Coordinate getCoordinateCentro();
+
+    /**
+     * Costruttore della Nave
+     * (fa tante cose belle)
+     * @param coloreNave
+     */
     public Nave(Colori coloreNave){
-        this.componentiPrenotati = new ArrayList<Tessera>(2);
+        this.componentiPrenotati = new ArrayList<Tessera>();
         this.nave = new ArrayList<>();
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
@@ -33,94 +49,187 @@ public abstract class Nave {
         this.numeroAlieniRossi = 0; 
         this.numeroAlieniMarroni = 0;
     }
-
-    protected abstract int[][] getMATRIX();
-    protected abstract int getRighe();
-    protected abstract int getColonne();
-    protected abstract Coordinate getCoordinateCentro(); 
-
-    public void inserisciTessera(int i, int j, Tessera tessera) throws ErroreTessera{
-        TipoTessera tipoDellaTessera = tessera.getTipoTessera();
-        
-        // Controllo sulla posizione
-        if(i >= 0 && i <= getRighe()){
-            if(j >= 0 && j < getColonne()){
-                // controllo della poszione
-
-                // Verifica se e' nel centro
-                if(i == centro.getX() && j == centro.getY()){
-                    throw new ErroreTessera("Posizione non valida!! ");
-                }
-
-                // verifca se il pezzo lo si vuole mettere in una posizione non valida
-                if(NAVE_DEF[i][j] == 0){
-                    throw new ErroreTessera("Non puoi posizionare il pezzo in questa posizione");
-                }
-
-                // verifca se il pezzo lo si vuole mettere in una posizione gia' occupata
-                if(null != this.nave.get(i).get(j)){
-                    throw new ErroreTessera("Posizione gia' occupata");
-                }
-
-                // controllo se e' collegato a qualche cosa
-                if(!controllaCollegamento(tessera, i, j)){
-                    throw new ErroreTessera("La tessera non e' collegata a niente");
-                }
-
-                // verifica se il pezzo e' un motore la sua posizione
-                /**
-                 * Il motore non pue' essere messo:
-                 * - sopra il modulo centrale
-                 * - direttamente spora un pezzo
-                 * 
-                 * I motori per loro costruzione non possono essere girati
-                */
-                if(TipoTessera.MOTORE == tipoDellaTessera){
-                    // se e' sopra il centro
-                    if(i == centro.getY() - 1){
-                        throw new ErroreTessera("I motori non possono essere messi sopra il centro");
-                    }
-
-                    // se e' direttamente sopra un pezzo
-                    if(this.nave.get(i - 1).get(j) != null){
-                        throw new ErroreTessera("I motori non possono essere messi direttamente sopra un pezzo");
-                    }
-                }
-
-                // verifica se il pesso e' un cannone e la sua posizione
-                /**
-                 * Il cannone non pue' essere messo:
-                 * - sotto il modulo centrale
-                 * - se dal lato della canna ha attaccato un pezzo
-                 * 
-                 * I cannoni possono essere girati
-                */
-                if(TipoTessera.CANNONE == tipoDellaTessera){
-                    // se e' direttamente sotto il centro
-                    if(i == centro.getY() + 1){
-                        throw new ErroreTessera("I cannoni non possono essere messi sotto il centro");
-                    }
-
-                    // se dal lato della canna ha attaccato un pezzo
-                }
-
-
-                // se tutto va a buon fine, inserisci il pezzo
-                tessera.setCoordinate(new Coordinate(i, j));        // assegno le coordinate al pezzo
-                this.nave.get(i).set(j, tessera);                   // inserisco il pezzo nella nave
-            }
-            else{
-                throw new ErroreTessera("Posizone asse y non corretta");
-            }
+    
+    /**
+     * Metodo per prenotare le tessere da mettere.
+     * Si possono prenotare al massimo 2 tessere
+     * 
+     * Viene generato un'errore se si vogliono prenotare piu' di 2 tessere
+     * 
+     * @param tessera
+     * @throws ErroreTessera
+     */
+    public void prenotaTessera(Tessera t) throws ErroreTessera{
+        if(this.componentiPrenotati.size() > 2){
+            throw new ErroreTessera("Limie massimo di tessere prenotato raggiunto!!");
         }
         else{
-            throw new ErroreTessera("Posizione asse x non corretta");
+            this.componentiPrenotati.add(t);
         }
     }
 
+    /**
+     * Metodo per rimuovere una tessera dalle prenotate
+     * 
+     * @param indice di posizione della tessera che si vuole usare
+     * @return tessera selezionata
+     * @throws ErroreTessera se si immette un valore non esistente
+     */
+    public Tessera togliTesseraPrenotata(int index) throws ErroreTessera{
+        if(index > 0 && index < 2){
+            return this.componentiPrenotati.get(index);
+        }
+        else{
+            throw new ErroreTessera("Tessera specificata non presente!!");
+        }
+    }
+
+    /**
+     * Metodo per la visualizzazione degli elementi presenti 
+     * in componenti prenotati
+     * 
+     * @return messaggio da stampare sulla console
+     */
+    public String tesserePrenotateToString(){
+        String s = "";
+
+        for(int i = 0; i < this.componentiPrenotati.size(); i += 1){
+            s += (i + this.componentiPrenotati.get(i).toString() + "\t");
+        }
+        
+        return s;
+    }
+
+    /**
+     * Metodo per inserire una tessera nella nave durante la fase di creazione della nave
+     * 
+     * @param coordinata
+     * @param tessera
+     * @throws ErroreTessera
+     * @throws ErroreCoordinate
+     */
+    public void inserisciTessera(Coordinate coordinata, Tessera tessera) throws ErroreTessera, ErroreCoordinate{
+        if(controllaCoordinate(coordinata)){
+            // Verifica se la nua tessera viene messa nel centro
+            if(coordinata.getX() == centro.getX() && coordinata.getY() == centro.getY()){
+                throw new ErroreTessera("Posizione non valida!!");
+            }
+
+            // verifica se il pezzo lo si vuole mettere in una posizione non valida
+            if(0 == NAVE_DEF[coordinata.getX()][coordinata.getY()]){
+                throw new ErroreTessera("Non puoi posizionare il pezzo in questa posizione");
+            }
+
+            /**
+             * Controlli speciali sulle tessere del tipo:
+             * - Cannone: non puo' avere pezzi subito davanti
+             * - Motore : non puo' avere pezzi subito dietro
+             * - Modulo x alieni: il modulo alieno puo' contenere
+             *                    gli speciali passeggere se e solo se e'
+             *                    di fianco al modulo passeggeri normale
+             */
+            if(tessera.getTipoTessera() == TipoTessera.CANNONE){
+                if(false == verificaInserimetnoCannone(coordinata, tessera)){
+                    throw new ErroreTessera("Impossibile aggiungere il cannone in questa posizione");
+                }
+            }
+            
+            if(tessera.getTipoTessera() == TipoTessera.MOTORE){
+                if(false == verificaInserimentoMotore(coordinata, tessera)){
+                    throw new ErroreTessera("Impossibile aggiungere il motore in questa posizione");
+                }
+            }
+
+//TODO: implementare controlli per i moduli equipaggio
+//          if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+//              ModuloPasseggeri moduloPasseggeri = (ModuloPasseggeri) tessera;
+
+//              // verifica del tipo di modulo
+//              if(moduloPasseggeri.getTipoTessera() == TipoModuloPasseggeri.MODULO_EQUIPAGGIO){
+//                  this.updateNumeroCosmonauti(+2);
+//              }
+//              else{
+//                  if(verificaInserimentoModuloPasseggeriXAlieni(coordinata, moduloPasseggeri)){
+//                      controllo sul tipo di alini
+//                      if(marroni){
+//                          updateNumeroAlieniMarroni(+1);
+//                      }
+//                      else{
+//                          updateNumeroAlieniRossi(+1);
+//                      }
+//                  }
+//              }
+//          }
+
+            // verifica se il pezzo e' collegato a qualche cosa
+
+            // inserimento del pezzo nella nave
+            tessera.setCoordinate(coordinata);
+            this.nave.get(coordinata.getX()).set(coordinata.getY(), tessera);
+        }
+        else{
+            throw new ErroreCoordinate("Coordinate immesse non valide");
+        }
+    }
+
+    /**
+     * Metodo per controllare se il modulo, nel caso sia un cannone, si possa mettere
+     * nella posizione indicata.
+     * 
+     * I cannoni possono esssere messi in una cella se e solo se la cella subito sopra e' libera
+     * 
+     * @param coordinate
+     * @param tessera
+     * @return vero -> il cannone puo' essere posizionato |
+     *         falso -> il cannone non puo' essere posizionato
+     */
+    private boolean verificaInserimetnoCannone(Coordinate coordinate, Tessera tessera){
+        // TODO: implementare metodo verificaInserimentoCannone
+        return false;
+    }
+
+
+    /**
+     * Metodo per controllare se il modulo, nel caso sia un motore, si possa mettere
+     * nella posizione indicata.
+     * 
+     * I motori possono esssere messi in una cella se e solo se la cella subito sotto e' libera
+     * 
+     * @param coordinate
+     * @param tessera
+     * @return vero -> il motore puo' essere posizionato |
+     *         falso -> il motore non puo' essere posizionato
+     */
+    private boolean verificaInserimentoMotore(Coordinate coordinate, Tessera tessera){
+        // TODO: implementare metodo verificaInserimentoMotore
+        return false;
+    }
+
+    /**
+     * Metodo per controllare se il modulo, nel caso sia alieno, puo' trasportare gli alini, 
+     * atrimenti e' un modulo usato come passaggio
+     * 
+     * @param coordinate
+     * @param moduloPasseggeri
+     * @return vero -> il modulo puo' ospiate alini |
+     *         falso -> il modulo non puo' osputare ne alini ne equipaggio
+     */
+    private boolean verificaInserimentoModuloPasseggeriXAlieni(Coordinate coordinate, ModuloPasseggeri moduloPasseggeri){
+        // TODO: implementare metodo verificaInserimentoModuloPasseggeri
+
+        return false;
+    }
+
+    /**
+     * Metodo per rimuovere una tessera dalla nave durante la fase di volo
+     * 
+     * @param coordinate
+     * @throws ErroreTessera
+     */
+
     public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera{
         // Verifica delle coordinate
-        if(!controllaCoodinate(coordinate)){
+        if(!controllaCoordinate(coordinate)){
             throw new ErroreTessera("Posizione non valida");
         }
 
@@ -134,7 +243,14 @@ public abstract class Nave {
 
     }
 
-    private boolean controllaCoodinate(Coordinate coordinate){
+    /**
+     * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
+     * 
+     * @param coordinate
+     * @return vero -> le coordinate sono accettabili |
+     *         falso -> le coordinate non sono accettabili
+     */
+    private boolean controllaCoordinate(Coordinate coordinate){
         if(
             (coordinate.getX() >= 0 && coordinate.getX() < getRighe()) &&
             (coordinate.getY() >= 0 && coordinate.getY() < getColonne())
@@ -146,14 +262,12 @@ public abstract class Nave {
         }
     }
 
-    private boolean controllaCoodinateRrighe(int i){
-        return (i >= 0 && i < getRighe());
-    }
-
-    private boolean controllaCoodinateColonne(int j){
-        return (j >= 0 && j < getColonne());
-    }
-
+    /**
+     * Metodo per il controllo dell'integrita' della nave
+     * 
+     * @return true -> la nave puo' continare con il suo volo | 
+     *         false -> la nave non pu' continare con il suo volo
+     */
     private boolean controllaIntegritaNave(){
         // la partita e' persa se non si ha piu' il centro
         if(null == this.nave.get(centro.getX()).get(centro.getY())){
@@ -164,7 +278,17 @@ public abstract class Nave {
     }
 
     
-    private boolean controllaCollegamento(Tessera tessera, int i, int k){
+    /**
+     * Metodo per il controllo sui collegamenti
+     * 
+     *  TODO: da ripensare
+     * 
+     * @param tessera
+     * @param coordinate
+     * @return true -> il pezzo lo si puo' collegare senza problemi | 
+     *         false -> il pezzo non lo si puo' collegare
+     */
+    private boolean controllaCollegamento(Tessera tessera, Coordinate coordinate){
         // true --> il pezzo e' collegato correttamente
         // false --> il pezzo non e' collegato correttamente
         /*
@@ -176,18 +300,25 @@ public abstract class Nave {
          *             DW
          */
 
-        return controllaCollegamentoSX(tessera, i, k) ||
-                controllaCollegamentoDX(tessera, i, k) ||
-                controllaCollegamentoUP(tessera, i, k) ||
-                controllaCollegamentoDW(tessera, i, k);    
+        return controllaCollegamentoSX(tessera, coordinate) ||
+                controllaCollegamentoDX(tessera, coordinate) ||
+                controllaCollegamentoUP(tessera, coordinate) ||
+                controllaCollegamentoDW(tessera, coordinate);    
     }
 
-    private boolean controllaCollegamentoSX(Tessera tessera, int i, int k){
-        if(i - 1 < 0 || null == this.nave.get(i - 1).get(k)){
+    /**
+     * Metodo per controllare se il pezzo lo si pu' collegare a SX
+     * 
+     * @param tessera
+     * @param coordinate
+     * @return si, no
+     */
+    private boolean controllaCollegamentoSX(Tessera tessera, Coordinate coordinate){
+        if(coordinate.getX() - 1 < 0 || null == this.nave.get(coordinate.getX() - 1).get(coordinate.getY())){
             return true;
         }
 
-        LatiTessera latiTesseraNave = this.nave.get(i - 1).get(k).getLatiTessera();
+        LatiTessera latiTesseraNave = this.nave.get(coordinate.getX() - 1).get(coordinate.getY()).getLatiTessera();
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft()){
@@ -204,12 +335,19 @@ public abstract class Nave {
         }
     }
 
-    private boolean controllaCollegamentoDX(Tessera tessera, int i, int k){
-        if(i + 1 > getRighe() || null == this.nave.get(i + 1).get(k)){
+    /**
+     * Metodo per controllare se il pezzo lo si pu' collegare a DX
+     * 
+     * @param tessera
+     * @param coordinate
+     * @return si, no
+     */
+    private boolean controllaCollegamentoDX(Tessera tessera, Coordinate coordinate){
+        if(coordinate.getX() + 1 > getRighe() || null == this.nave.get(coordinate.getX() + 1).get(coordinate.getY())){
             return true;
         }
 
-        LatiTessera latiTesseraNave = this.nave.get(i + 1).get(k).getLatiTessera();
+        LatiTessera latiTesseraNave = this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getLatiTessera();
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getLeft() == tessera.getLatiTessera().getRight()){
@@ -226,12 +364,19 @@ public abstract class Nave {
         }
     }
 
-    private boolean controllaCollegamentoUP(Tessera tessera, int i, int k){
-        if(k - 1 < 0 || null == this.nave.get(i).get(k - 1)){
+    /**
+     * Metodo per controllare se il pezzo lo si pu' collegare SOPRA
+     * 
+     * @param tessera
+     * @param coordinate
+     * @return si, no
+     */
+    private boolean controllaCollegamentoUP(Tessera tessera, Coordinate coordinate){
+        if(coordinate.getY() - 1 < 0 || null == this.nave.get(coordinate.getX()).get(coordinate.getY() - 1)){
             return true;
         }
 
-        LatiTessera latiTesseraNave = this.nave.get(i).get(k - 1).getLatiTessera();
+        LatiTessera latiTesseraNave = this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).getLatiTessera();
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getDown() == tessera.getLatiTessera().getUp()){
@@ -248,12 +393,19 @@ public abstract class Nave {
         }
     }
 
-    private boolean controllaCollegamentoDW(Tessera tessera, int i, int k){
-        if(k + 1 > getColonne() || null == this.nave.get(i).get(k + 1)){
+    /**
+     * Metodo per controllare se il pezzo lo si pu' collegare a SOTTO
+     * 
+     * @param tessera
+     * @param coordinate
+     * @return si, no
+     */
+    private boolean controllaCollegamentoDW(Tessera tessera, Coordinate coordinate){
+        if(coordinate.getY() + 1 > getColonne() || null == this.nave.get(coordinate.getX()).get(coordinate.getY() + 1)){
             return true;
         }
 
-        LatiTessera latiTesseraNave = this.nave.get(i).get(k + 1).getLatiTessera();
+        LatiTessera latiTesseraNave = this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getLatiTessera();
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown()){
@@ -270,20 +422,37 @@ public abstract class Nave {
         }
     }
 
+    //-------------------- SETTER - GETTER - UPDATE --------------------
+    
     public void setCosmonauti(int numeroCosmonauti) { this.numeroCosmonauti = numeroCosmonauti; }
 
+    /**
+     * Metodo per l'aggiornamento del numero dei cosmonauti
+     * 
+     * @param numeroCosmonauti
+     */
     public void updateNumeroCosmonauti(int numeroCosmonauti) { this.numeroCosmonauti += numeroCosmonauti; }
 
     public int getNumeroCosmonauti() { return this.numeroCosmonauti; }
 
     public void setNumeroAlieniRossi(int numeroAlieniRossi) { this.numeroAlieniRossi = numeroAlieniRossi; }
 
+    /**
+     * Metodo per l'aggiornamento del numero degli alini rossi
+     * 
+     * @param numeroAlieniRossi
+     */
     public void updateNumeroAlieniRossi(int numeroAlieniRossi) { this.numeroAlieniRossi += numeroAlieniRossi; }
 
     public int getNumeroAlieniRossi() { return this.numeroAlieniRossi; }
 
     public void setNumeroAlieniMarroni(int numeroAlieniMarroni) { this.numeroAlieniMarroni = numeroAlieniMarroni; }
 
+    /**
+     * Metodo per l'aggiornamento del numero degli alini marroni
+     * 
+     * @param numeroAlieniMarroni
+     */
     public void updateNumeroAlieniMarroni(int numeroAlieniMarroni) { this.numeroAlieniMarroni += numeroAlieniMarroni; }
 
     public int getNumeroAlieniMarroni() { return this.numeroAlieniMarroni; }
@@ -292,6 +461,10 @@ public abstract class Nave {
 
     public Colori getColoreNave() { return this.coloreNave; }
 
+
+    /**
+     * Stampa della nave
+     */
     @Override
     public String toString(){
         String stampaNave = "";

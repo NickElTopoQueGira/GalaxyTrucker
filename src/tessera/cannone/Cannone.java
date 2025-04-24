@@ -2,6 +2,7 @@ package tessera.cannone;
 
 import java.util.Random;
 
+
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoLato;
@@ -11,7 +12,7 @@ public class Cannone extends Tessera {
 	private static int contatore = 0;
 	private TipoLato latoCannone = TipoLato.DOWN;
 	private final TipoCannone tipoCannone;
-	private final int massimo=36;
+	private static final int massimo=36;
 
 	public Cannone() throws ErroreTessera {
 		super(TipoTessera.CANNONE);

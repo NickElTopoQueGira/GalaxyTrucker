@@ -2,12 +2,16 @@ package tessera;
 
 import java.util.Random;
 
+
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.batteria.Batteria;
 import tessera.cannone.Cannone;
 import tessera.motore.Motore;
+import tessera.scudi.Scudi;
+import tessera.tubi.Tubi;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 
-public class FactoryTessera //implements GeneraTessera 
+public class FactoryTessera 
 {
 
 	public Tessera estraiTipo() {
@@ -15,30 +19,31 @@ public class FactoryTessera //implements GeneraTessera
 		TipoTessera tipo = randomTipo();
 		try{
 			switch (tipo) {
-				case TipoTessera.PORTA_MERCI: {
-					return estraiTipo();			
-				}
-				case TipoTessera.SCUDI: {
-					return estraiTipo();
-				}
-				case TipoTessera.TUBI: {
-					return estraiTipo();
-				}
-				case TipoTessera.MODULO_PASSEGGERI: {
-					return estraiTipo();
-				}
-				case TipoTessera.BATTERIA: {
-					return estraiTipo();
-				}
-				case TipoTessera.CANNONE: {
-					return new Cannone();
-				}
-				case TipoTessera.MOTORE: {
-					return new Motore();
-				}
-				default: {
-					return new ModuloPasseggeri();
-				}
+					case TipoTessera.PORTA_MERCI: {
+						return estraiTipo();			
+					}
+					case TipoTessera.SCUDI: {
+						return new Scudi();
+					}
+					case TipoTessera.TUBI: {
+						return new Tubi();
+					}
+					case TipoTessera.MODULO_PASSEGGERI: {
+						return new ModuloPasseggeri();
+					}
+					case TipoTessera.BATTERIA: {
+						return new Batteria();
+					}
+					case TipoTessera.CANNONE: {
+						return new Cannone();
+					}
+					case TipoTessera.MOTORE: {
+						return new Motore();
+					}
+					default: {
+						return estraiTipo();
+					}
+				
 				}
 		}
 		catch(ErroreTessera eT){
