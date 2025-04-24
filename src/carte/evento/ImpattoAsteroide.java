@@ -91,4 +91,29 @@ public class ImpattoAsteroide {
 		
 		return null;
 	}
+	
+	private boolean ControlloCannone() {
+		// 1) for in cui controllo se c'è la tessera cannone (controlla tutta la riga in caso c'è più di un cannone)
+		// 2) controllo in quale direzione è puntato il cannone
+		// 3) richiesta al giocatore se vuole utilizzare uno di energia o subire il colpo (nel caso del cannone doppio)
+		// 4) se si utilizza energia o c'è cannone normale (entrambi puntati correttamente) >RETURN TRUE<		
+		
+		return false;
+	}
+	private boolean ControlloConnettoreEsposto() {
+		// 1) in base della direzione del meteorite si controlla il lato della tessera
+		// 2) se c'è un componente esposto >RETURN TRUE<
+		
+		return false;
+	}
+	private boolean ControlloScudo() { 
+		// 1) for in cui controllo se c'è la tessera scudo
+		// 2) controllo in quale direzione è "puntato" lo scudo
+		// 3) richiesta al giocatore se vuole utilizzare uno di energia o subire il colpo
+		// 4) se si utilizza energia >RETURN TRUE<
+		
+		return false;
+	}
+	
+	
 }

@@ -1,12 +1,16 @@
 package carte;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import carte.meteore.*;
 
 public class ZonaGuerra extends Carta {
 	
 	private static String[] penalita;
 	private static String[] eventi;
 	private static String[][] valori;
+	public ArrayList<Meteorite> colpi;
 	
 	public ZonaGuerra (int lvl) {
 		
@@ -15,9 +19,12 @@ public class ZonaGuerra extends Carta {
 		penalita = new String[] {"PERDITA_EQUIPAGGIO","PERDITA_GIORNI","PERDIOTA_MERCE", "CANNONATE"}; 
 		
 		valori = new String[3][2]; // PRIMA COLONNA (x 1)= EVENTI / SECONDA COLONNA (x 0)= PENALITA'
+		
+		GeneraValori();
 	}
 	
 	private void GeneraValori() {
+		
 		Random random = new Random();
 		
 		valori[2][1] = penalita[3];
@@ -51,17 +58,109 @@ public class ZonaGuerra extends Carta {
 			valori[2][0] = eventi[controllo];
 			
 		}while(valori[0][0] == eventi[controllo] || valori[1][0] == eventi[controllo]);
+		
+		GeneraColpi();
 	}
 	
-	private void ControlloEquipaggio() {
+	private void GeneraColpi() {
+		
+		Random random = new Random();
+		
+		int ncolpi, grandezza;
+		
+		switch(this.lvl) {
+		case 1->{
+			ncolpi = random.nextInt(2) + 1; // MINIMO 1 MAX 2
+			
+			for(int i=0; i<ncolpi; i++) {
+				
+				grandezza = random.nextInt(3) + 1;
+				
+				if(grandezza == 1) {
+					colpi.add(new ColpoGrande(RisultatiDadi()));
+				}else {
+					colpi.add(new ColpoPiccolo(RisultatiDadi()));
+				}
+			}
+		}
+		case 2->{
+			ncolpi = random.nextInt(2) + 3;  // MINIMO 3 MAX 4
+			
+			for(int i=0; i<ncolpi; i++) {
+
+				grandezza = random.nextInt(3) + 1;
+				
+				if(grandezza == 1) {
+					colpi.add(new ColpoGrande(RisultatiDadi()));
+				}else {
+					colpi.add(new ColpoPiccolo(RisultatiDadi()));
+				}
+			}
+		}
+		case 3->{
+			ncolpi = random.nextInt(2) + 5;  // MINIMO 5 MAX 6
+			
+			for(int i=0; i<ncolpi; i++) {
+
+				grandezza = random.nextInt(3) + 1;
+				
+				if(grandezza == 1) {
+					colpi.add(new ColpoGrande(RisultatiDadi()));
+				}else {
+					colpi.add(new ColpoPiccolo(RisultatiDadi()));
+				}
+			}
+		}
+		default ->{
+			System.out.println("ERROR: numerazione colpi (errorTipe: switch) (class: ZonaGuerra)");
+		}
+		}		
+		
 		
 	}
 	
-	private void ControlloRazzi() {
+	int RisultatiDadi() {
 		
+		Random random = new Random();
+		
+		int d1 = random.nextInt(6) + 1;
+		int d2 = random.nextInt(6) + 1;
+		
+		return d1+d2;
+	}
+
+	public void StampaValori() {
+		for(int i=0; i<3; i++) {
+			for(int j=0; j<2; j++) {
+				System.out.print("- "+valori[i][j]+" - ");
+			}
+			System.out.println();
+		}
+	}
+
+	public static String[] getPenalita() {
+		return penalita;
+	}
+
+	public static void setPenalita(String[] penalita) {
+		ZonaGuerra.penalita = penalita;
+	}
+
+	public static String[] getEventi() {
+		return eventi;
+	}
+
+	public static void setEventi(String[] eventi) {
+		ZonaGuerra.eventi = eventi;
+	}
+
+	public static String[][] getValori() {
+		return valori;
+	}
+
+	public static void setValori(String[][] valori) {
+		ZonaGuerra.valori = valori;
 	}
 	
-	private void ControlloCannoni() {
-		
-	}
+	
 }

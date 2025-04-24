@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Carta {
 	
-	public int lvl;
-	public TipoCarta tipo;
+	protected int lvl;
+	protected TipoCarta tipo;
 	
 	public Carta(int lvl) {
 		this.lvl = lvl;
@@ -17,6 +17,9 @@ public class Carta {
 		this.tipo = tipo;
 	}
 	
+	private void StampaValori() {
+		
+	}
 	public int getLvl() { 
 		return lvl;
 	}

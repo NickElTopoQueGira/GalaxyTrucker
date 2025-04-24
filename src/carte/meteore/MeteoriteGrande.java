@@ -3,9 +3,11 @@ package carte.meteore;
 import java.util.Random;
 
 public class MeteoriteGrande extends Meteorite {
+
 	
 	public MeteoriteGrande(int lvl, int d) {
-		 super(CasualDirezzione(lvl), d);
+		
+		super(CasualDirezzione(lvl), d, TypeMeteora.METEORITE_GRANDE);
 	}
 	
 	

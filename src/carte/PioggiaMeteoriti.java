@@ -1,6 +1,8 @@
 package carte;
 
 import carte.meteore.*;
+import partita.nave.Nave;
+import carte.evento.ImpattoAsteroide;
 import java.util.*;
 
 public class PioggiaMeteoriti extends Carta {
@@ -10,9 +12,10 @@ public class PioggiaMeteoriti extends Carta {
 	public PioggiaMeteoriti (int lvl) {
 		
 		super(lvl, TipoCarta.PIOGGIA_METEORITI);
+		GeneraValori();
 	}
 	
-	void GeneraValori() {  //VALORI ATTUALMENTE CASUALI E DA RIVEDERE
+	private void GeneraValori() {  //VALORI ATTUALMENTE CASUALI E DA RIVEDERE
 		
 		Random random = new Random();
 		int nmeteore, grandezza;
@@ -26,9 +29,9 @@ public class PioggiaMeteoriti extends Carta {
 				grandezza = random.nextInt(4) + 1;
 				
 				if(grandezza == 1) {
-					meteoriti.add(new MeteoriteGrande(this.lvl,RisultatiDadi()));
+					meteoriti.add(new MeteoriteGrande(this.lvl, RisultatiDadi()));
 				}else {
-					meteoriti.add(new MeteoritePiccolo());
+					meteoriti.add(new MeteoritePiccolo(RisultatiDadi()));
 				}
 			}
 		}
@@ -42,7 +45,7 @@ public class PioggiaMeteoriti extends Carta {
 				if(grandezza == 1) {
 					meteoriti.add(new MeteoriteGrande(this.lvl,RisultatiDadi()));
 				}else {
-					meteoriti.add(new MeteoritePiccolo());
+					meteoriti.add(new MeteoritePiccolo(RisultatiDadi()));
 				}
 			}
 		}
@@ -56,7 +59,7 @@ public class PioggiaMeteoriti extends Carta {
 				if(grandezza == 1) {
 					meteoriti.add(new MeteoriteGrande(this.lvl,RisultatiDadi()));
 				}else {
-					meteoriti.add(new MeteoritePiccolo());
+					meteoriti.add(new MeteoritePiccolo(RisultatiDadi()));
 				}
 			}
 		}
@@ -66,6 +69,14 @@ public class PioggiaMeteoriti extends Carta {
 		}
 	}
 	
+	
+	public void AzzioneCarta (Nave n) {    //da usare in game
+		
+		for(int i=0; i<this.meteoriti.size(); i++) {
+			
+			ImpattoAsteroide ia = new ImpattoAsteroide(this.meteoriti.get(i), n);
+		}
+	}
 	
 	
 	
@@ -88,5 +99,14 @@ public class PioggiaMeteoriti extends Carta {
 		int d2 = random.nextInt(6) + 1;
 		
 		return d1+d2;
+	}
+	
+	private void StampaValori() {
+		for(int i=0; i<this.meteoriti.size(); i++) {
+			
+			System.out.println("tipo: "+meteoriti.get(i).getType()+
+							"   direzione: "+meteoriti.get(i).getDirezione()+
+							"   dado: "+meteoriti.get(i).getDado());
+		}
 	}
 }
