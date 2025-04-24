@@ -34,4 +34,21 @@ public class Merce {
 		}
 		}
 	}
+	
+	public void StampaValori() {
+		System.out.print(this.tipo);
+	}
+	public static TipoMerce getTipo() {
+		return tipo;
+	}
+	public static void setTipo(TipoMerce tipo) {
+		Merce.tipo = tipo;
+	}
+	public static int getValore() {
+		return valore;
+	}
+	public static void setValore(int valore) {
+		Merce.valore = valore;
+	}
+	
 }

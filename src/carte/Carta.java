@@ -17,8 +17,10 @@ public class Carta {
 		this.tipo = tipo;
 	}
 	
-	private void StampaValori() {
-		
+	public void StampaValori() {
+		System.out.println("Livello carta:"+this.lvl);
+		System.out.println("Tipo carta:"+this.tipo);
+		System.out.println();
 	}
 	public int getLvl() { 
 		return lvl;

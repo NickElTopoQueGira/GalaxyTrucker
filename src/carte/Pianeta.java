@@ -173,6 +173,23 @@ public class Pianeta extends Carta {
         }
 	}
 	
+	public void StampaValori() {
+		
+		System.out.println("Livello carta:"+this.lvl);
+		System.out.println("Tipo carta:"+this.tipo);
+		System.out.println("Giorni Penalità:"+this.penalitagiorni);
+		
+		for(int i=0; i<this.pianeti.size(); i++) {
+			System.out.print("PAINETA"+i+" - ");
+			
+			for(int j=0; j<this.pianeti.get(i).size(); j++) {
+				System.out.print(this.pianeti.get(i).get(j).name()+" | ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
 	public int getPenalitagiorni() {
 		return penalitagiorni;
 	}

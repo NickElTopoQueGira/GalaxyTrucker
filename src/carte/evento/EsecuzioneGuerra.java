@@ -21,17 +21,38 @@ public class EsecuzioneGuerra {
 		String v[][] = crt.getValori();
 		
 		for(int i=0; i<3; i++) {
+			
 			switch(v[i][0]) {
 			case "CANNONI"->{
 				
 			}
+			case "EQUIPAGGI"->{
+				
 			}
+			case "RAZZI"->{
+				
+			}
+			}
+			
+			switch(v[i][1]) {
+			case "CANNONI"->{
+				
+			}
+			case "EQUIPAGGI"->{
+				
+			}
+			case "RAZZI"->{
+				
+			}
+			}
+			
+			
+			
 		}
-		
-		
-		
-		
+
 	}
+	
+	//private void 
 	
 	
 	

@@ -3,7 +3,8 @@ package carte;
 import java.util.*;
 
 public class Mazzo {
-	private ArrayList<Carta> lista;
+	
+	protected static ArrayList<Carta> lista;
 	
 	public Mazzo(int lvl) {
 		
@@ -11,18 +12,18 @@ public class Mazzo {
 		CreaMazzo(lvl);
 	}
 	
-	public void RigeneraMazzo(int lvl) {  // va nel mazzo
+	public void RigeneraMazzo(int lvl) { 
 		
 		AzzeraMazzo();
 		CreaMazzo(lvl);
 	}
 	
-	private void AzzeraMazzo() {  // va nel mazzo
+	private void AzzeraMazzo() {  
 		
 		this.lista.clear();
 	}
 	
-	public void CreaMazzo(int lvl) {  // va nel mazzo
+	public void CreaMazzo(int lvl) {  
 		
 		switch(lvl) {
 		case 1:
@@ -111,6 +112,14 @@ public class Mazzo {
 		}
 		
 		return crt;
+	}
+	public void StampaValori() {
+		
+		for(int i=0; i<lista.size(); i++) {
+			
+			lista.get(i).StampaValori();
+		}
+		System.out.println();
 	}
 
 	public ArrayList<Carta> getLista() {

@@ -15,8 +15,11 @@ public class ZonaGuerra extends Carta {
 	public ZonaGuerra (int lvl) {
 		
 		super(lvl, TipoCarta.ZONA_GUERRA);
+		
+		colpi = new ArrayList<>();
+		
 		eventi = new String[] {"CANNONI","EQUIPAGGI","RAZZI"}; 
-		penalita = new String[] {"PERDITA_EQUIPAGGIO","PERDITA_GIORNI","PERDIOTA_MERCE", "CANNONATE"}; 
+		penalita = new String[] {"PERDITA_EQUIPAGGIO","PERDITA_GIORNI","PERDITA_MERCE", "CANNONATE"}; 
 		
 		valori = new String[3][2]; // PRIMA COLONNA (x 1)= EVENTI / SECONDA COLONNA (x 0)= PENALITA'
 		
@@ -43,9 +46,9 @@ public class ZonaGuerra extends Carta {
 		
 		do {
 			x2 = random.nextInt(3) + 1;
-			valori[1][0] = penalita[x2-1];
+			valori[1][1] = penalita[x2-1];
 			
-		}while(valori[0][1] == penalita[x1-1]);
+		}while(valori[0][1] == penalita[x2-1]);
 		
 		
 		int controllo = -1;                ///// IMPOSTO LA TERZA CHELLANGE(ULTIMO VALORE RIMANENTE), PENALITA' GIA IMPOSTATA DI DEFAULT 
@@ -128,14 +131,18 @@ public class ZonaGuerra extends Carta {
 		
 		return d1+d2;
 	}
-
+	@Override
 	public void StampaValori() {
+		
+		System.out.println("Livello carta:"+this.lvl);
+		System.out.println("Tipo carta:"+this.tipo);
 		for(int i=0; i<3; i++) {
 			for(int j=0; j<2; j++) {
 				System.out.print("- "+valori[i][j]+" - ");
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 
 	public static String[] getPenalita() {
