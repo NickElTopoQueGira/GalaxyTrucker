@@ -1,6 +1,6 @@
 package tessera;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public abstract class Tessera{
 	
@@ -8,7 +8,17 @@ public abstract class Tessera{
 	protected LatiTessera latiTessera= new LatiTessera();
 	private Coordinate coordinate;
 	private static int currentSize=0;
-	private static Tessera[] buffer_tessere_generate = new Tessera[0];
+	private static ArrayList<Tessera> lista=new ArrayList<Tessera>();
+	private final String[][] tessera_Disposizione = {
+	        // colonne
+	        //     0     1     2     3     4
+	            {" _ "," _ "," _ "," _ "," _ "},  // riga 0
+	            {" | ","   ","   ","   "," | "},  // riga 1
+	            {" | ","   ","   ","   "," | "},  // riga 2
+	            {" | ","   ","   ","   "," | "},	// riga 3
+	            {" - "," - "," - "," - "," - "},	// riga 4
+	    };
+	
 
 	
 	public Tessera(TipoTessera tipoTessera) {
@@ -42,8 +52,8 @@ public abstract class Tessera{
 		this.coordinate = coordinate;
 	}
 	
-	public Tessera[] getBuffer_mazzo() {
-		return buffer_tessere_generate;
+	public ArrayList<Tessera> getBuffer_mazzo() {
+		return lista;
 	}
 	
 	public static int getCurrentSize() {
@@ -57,8 +67,8 @@ public abstract class Tessera{
 
 	public void aggiungiTessera() {
 		setCurrentSize(+1);
-		buffer_tessere_generate= Arrays.copyOf(buffer_tessere_generate, currentSize);
-		buffer_tessere_generate[currentSize-1]= this;
+		lista.add(this);
+		
 	}
 	
 	
@@ -67,6 +77,102 @@ public abstract class Tessera{
 		
 	}
 	
+	private String stampaUp() {
+		switch (this.getLatiTessera().getUp()) {
+			case TipoConnettoriTessera.NULLO:{
+				return ("   ");			
+			}
+			case TipoConnettoriTessera.SINGOLO:{
+				return (" ! ");
+			}
+			case TipoConnettoriTessera.DOPPIO:{
+				return ("! !");
+			}
+			case TipoConnettoriTessera.TRIPLO:{
+				return ("!!!");
+			}
+		}
+		return null;
+	}
 	
-
-}
+	private String stampaDown() {
+		switch (this.getLatiTessera().getDown()) {
+		case TipoConnettoriTessera.NULLO:{
+			return ("   ");			
+		}
+		case TipoConnettoriTessera.SINGOLO:{
+			return (" ! ");
+		}
+		case TipoConnettoriTessera.DOPPIO:{
+			return ("! !");
+		}
+		case TipoConnettoriTessera.TRIPLO:{
+			return ("!!!");
+		}
+	}
+	return null;
+	}
+	
+	private String stampaLeft() {
+		switch (this.getLatiTessera().getLeft()) {
+			case TipoConnettoriTessera.NULLO:{
+				return ("   ");
+			}
+			case TipoConnettoriTessera.SINGOLO:{
+				return (" - ");
+				
+			}
+			case TipoConnettoriTessera.DOPPIO:{
+				return (" ] ");
+				
+			}
+			case TipoConnettoriTessera.TRIPLO:{
+				return (" { ");
+		
+			}
+		}
+		return null;
+	}
+	
+	private String stampaRight() {
+		switch (this.getLatiTessera().getRight()) {
+		case TipoConnettoriTessera.NULLO:{
+			return ("   ");
+		}
+		case TipoConnettoriTessera.SINGOLO:{
+			return (" - ");
+			
+		}
+		case TipoConnettoriTessera.DOPPIO:{
+			return (" [ ");
+			
+		}
+		case TipoConnettoriTessera.TRIPLO:{
+			return (" } ");
+	
+		}
+	}
+	return null;
+	}
+	
+	
+	private void generaTessera_Disposizione() {
+		this.tessera_Disposizione[2][2]=" "+this.getTipoTessera().getTipo()+" ";
+		this.tessera_Disposizione[1][2]=stampaUp();
+		this.tessera_Disposizione[3][2]=stampaDown();
+		this.tessera_Disposizione[2][1]=stampaLeft();
+		this.tessera_Disposizione[2][3]=stampaRight();
+	}
+	
+	public void stampa() {
+		generaTessera_Disposizione();
+		for(int i=0; i<5; i++) {
+			for(int j=0; j<5; j++) {
+				System.out.print(this.tessera_Disposizione[i][j]);
+			}
+			System.out.println("\n");
+		}
+		
+	}
+}	
+	

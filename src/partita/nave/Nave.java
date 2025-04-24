@@ -140,8 +140,15 @@ public abstract class Nave {
                 }
             }
 
-//TODO: implementare controlli per i moduli equipaggio
-//          if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+            
+            
+//SONO POLI: guarda che ho implementato i metodi per settare alieni  (ecc...) ALL'INIZIO. (in classe modulo passeggeri), 
+//manca solo che tu faccia il controllo della cella accantoe ed i controlli per eventuali edit se l'utente cambia idea in
+//fase di costruzione(tipo decide di usare solamente il moduol cosmonautie lasciar 
+//vuoto il modulo passeggeri), guardala e fai solo ciò che manca. 
+          
+            
+//TODO: implementare controlli per i moduli equipaggio //          if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
 //              ModuloPasseggeri moduloPasseggeri = (ModuloPasseggeri) tessera;
 
 //              // verifica del tipo di modulo
@@ -473,7 +480,9 @@ public abstract class Nave {
             	
             	var temp = this.nave.get(i).get(j);
             	if(null != temp) {
-            		stampaNave += temp.getTipoTessera().toString() + "\t";
+            		temp.stampa(); 
+            		//TO-DO fai una matrice non una stringa
+            		//stampaNave += temp.getTipoTessera().toString() + "\t";
             	}
             	else {
             		stampaNave += "vuoto \t";
