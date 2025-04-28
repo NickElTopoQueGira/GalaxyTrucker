@@ -10,16 +10,12 @@ import tessera.LatiTessera;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
-import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
     private ArrayList<Tessera> componentiPrenotati;
     private int[][] NAVE_DEF;
     private Coordinate centro;
-    private int numeroCosmonauti;
-    private int numeroAlieniRossi;
-    private int numeroAlieniMarroni;
     private Colori coloreNave;
 
 
@@ -43,11 +39,6 @@ public abstract class Nave {
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
         this.coloreNave = coloreNave;
-
-        // di default la nave ha 2 cosmonauti
-        this.numeroCosmonauti = 2;
-        this.numeroAlieniRossi = 0; 
-        this.numeroAlieniMarroni = 0;
     }
     
     /**
@@ -124,9 +115,6 @@ public abstract class Nave {
              * Controlli speciali sulle tessere del tipo:
              * - Cannone: non puo' avere pezzi subito davanti
              * - Motore : non puo' avere pezzi subito dietro
-             * - Modulo x alieni: il modulo alieno puo' contenere
-             *                    gli speciali passeggere se e solo se e'
-             *                    di fianco al modulo passeggeri normale
              */
             if(tessera.getTipoTessera() == TipoTessera.CANNONE){
                 if(false == verificaInserimetnoCannone(coordinata, tessera)){
@@ -140,35 +128,10 @@ public abstract class Nave {
                 }
             }
 
-            
-            
-//SONO POLI: guarda che ho implementato i metodi per settare alieni  (ecc...) ALL'INIZIO. (in classe modulo passeggeri), 
-//manca solo che tu faccia il controllo della cella accantoe ed i controlli per eventuali edit se l'utente cambia idea in
-//fase di costruzione(tipo decide di usare solamente il moduol cosmonautie lasciar 
-//vuoto il modulo passeggeri), guardala e fai solo ciò che manca. 
-          
-            
-//TODO: implementare controlli per i moduli equipaggio //          if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-//              ModuloPasseggeri moduloPasseggeri = (ModuloPasseggeri) tessera;
-
-//              // verifica del tipo di modulo
-//              if(moduloPasseggeri.getTipoTessera() == TipoModuloPasseggeri.MODULO_EQUIPAGGIO){
-//                  this.updateNumeroCosmonauti(+2);
-//              }
-//              else{
-//                  if(verificaInserimentoModuloPasseggeriXAlieni(coordinata, moduloPasseggeri)){
-//                      controllo sul tipo di alini
-//                      if(marroni){
-//                          updateNumeroAlieniMarroni(+1);
-//                      }
-//                      else{
-//                          updateNumeroAlieniRossi(+1);
-//                      }
-//                  }
-//              }
-//          }
-
             // verifica se il pezzo e' collegato a qualche cosa
+            if(!controllaCollegamento(tessera, coordinata)){
+                throw new ErroreTessera("Questo pezzo non puo' essere piazzato cosi' come e'");
+            }
 
             // inserimento del pezzo nella nave
             tessera.setCoordinate(coordinata);
@@ -213,27 +176,11 @@ public abstract class Nave {
     }
 
     /**
-     * Metodo per controllare se il modulo, nel caso sia alieno, puo' trasportare gli alini, 
-     * atrimenti e' un modulo usato come passaggio
-     * 
-     * @param coordinate
-     * @param moduloPasseggeri
-     * @return vero -> il modulo puo' ospiate alini |
-     *         falso -> il modulo non puo' osputare ne alini ne equipaggio
-     */
-    private boolean verificaInserimentoModuloPasseggeriXAlieni(Coordinate coordinate, ModuloPasseggeri moduloPasseggeri){
-        // TODO: implementare metodo verificaInserimentoModuloPasseggeri
-
-        return false;
-    }
-
-    /**
      * Metodo per rimuovere una tessera dalla nave durante la fase di volo
      * 
      * @param coordinate
      * @throws ErroreTessera
      */
-
     public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera{
         // Verifica delle coordinate
         if(!controllaCoordinate(coordinate)){
@@ -283,8 +230,7 @@ public abstract class Nave {
 
         return true;
     }
-
-    
+  
     /**
      * Metodo per il controllo sui collegamenti
      * 
@@ -429,41 +375,7 @@ public abstract class Nave {
         }
     }
 
-    //-------------------- SETTER - GETTER - UPDATE --------------------
-    
-    public void setCosmonauti(int numeroCosmonauti) { this.numeroCosmonauti = numeroCosmonauti; }
-
-    /**
-     * Metodo per l'aggiornamento del numero dei cosmonauti
-     * 
-     * @param numeroCosmonauti
-     */
-    public void updateNumeroCosmonauti(int numeroCosmonauti) { this.numeroCosmonauti += numeroCosmonauti; }
-
-    public int getNumeroCosmonauti() { return this.numeroCosmonauti; }
-
-    public void setNumeroAlieniRossi(int numeroAlieniRossi) { this.numeroAlieniRossi = numeroAlieniRossi; }
-
-    /**
-     * Metodo per l'aggiornamento del numero degli alini rossi
-     * 
-     * @param numeroAlieniRossi
-     */
-    public void updateNumeroAlieniRossi(int numeroAlieniRossi) { this.numeroAlieniRossi += numeroAlieniRossi; }
-
-    public int getNumeroAlieniRossi() { return this.numeroAlieniRossi; }
-
-    public void setNumeroAlieniMarroni(int numeroAlieniMarroni) { this.numeroAlieniMarroni = numeroAlieniMarroni; }
-
-    /**
-     * Metodo per l'aggiornamento del numero degli alini marroni
-     * 
-     * @param numeroAlieniMarroni
-     */
-    public void updateNumeroAlieniMarroni(int numeroAlieniMarroni) { this.numeroAlieniMarroni += numeroAlieniMarroni; }
-
-    public int getNumeroAlieniMarroni() { return this.numeroAlieniMarroni; }
-
+    //-------------------- SETTER - GETTER --------------------
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave() { return nave; }
 
     public Colori getColoreNave() { return this.coloreNave; }
