@@ -64,8 +64,15 @@ public class TestTessere {
 		t5.stampa();
 		t5.ruota();
 		t5.stampa();
+		
+		String test = "";
+		for(int i = 0; i <135; i++) {
+			test += '-';
+		}
+		
+		System.out.println(test);
+		System.out.println("Ciao mondo!");
+
 	}
 	
-	
-
 }
