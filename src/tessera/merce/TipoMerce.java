@@ -1,4 +1,4 @@
-package merce;
+package tessera.merce;
 
 public enum TipoMerce {
 
@@ -14,7 +14,7 @@ public enum TipoMerce {
     }
 
     public int getValore() {
-        return valore;
+        return this.valore;
     }
 
     @Override

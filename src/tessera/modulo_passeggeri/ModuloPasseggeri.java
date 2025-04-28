@@ -14,7 +14,7 @@ public class ModuloPasseggeri extends Tessera {
 	private int numeroAlieniViola = 0; 
 	private int numeroAlieniMarroni = 0;
 	private final TipoModuloPasseggeri tipoModuloPasseggeri;
-	private static final int massimo=15;
+	private static final int massimo=29;
 	
 
 	public ModuloPasseggeri() throws ErroreTessera {
@@ -50,10 +50,14 @@ public class ModuloPasseggeri extends Tessera {
 	public int getNumeroPasseggeri() {
 		return numeroCosmonauti;
 	}
-
-	public void setNumeroPasseggeri(int edit) {
-		this.numeroCosmonauti = this.numeroCosmonauti+edit;
+	
+	public void setNumeroPasseggeri(int edit) {  
+		//no interfaccia con centro perchè l'utente
+		//può cambiare piu volte il numero paseggeri in fase di cstruzione nave in base a se
+		//utiliazza alieni o meno 
+		this.numeroCosmonauti=this.numeroCosmonauti+edit;
 	}
+
 
 	public void setAlieno(TipoModuloPasseggeri tipoModulo) {
 		if(tipoModulo==TipoModuloPasseggeri.MODULO_ALIENO_VIOLA) {

@@ -3,6 +3,7 @@ package tessera.cannone;
 import java.util.Random;
 
 
+
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoLato;

@@ -10,7 +10,7 @@ public class Scudi extends Tessera{
 	private TipoLato latoScudo1 = TipoLato.UP;
 	private TipoLato latoScudo2 = TipoLato.RIGHT;
 	private static int contatore=0;
-	private static final int massimo=15;
+	private static final int massimo=8;
 
 	public Scudi() throws ErroreTessera {
 		super(TipoTessera.SCUDI);

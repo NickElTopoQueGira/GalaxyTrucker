@@ -41,7 +41,7 @@ public class StazioneAbbandonata extends Carta {
 		return ng;
 	}
 	
-	private int SceltaGiorniPenalta() {
+	private int SceltaGiorniPenalita() {
 		
 		
 		return 0;

@@ -3,6 +3,7 @@ package tessera.batteria;
 import java.util.Random;
 
 
+
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoTessera;
@@ -11,7 +12,7 @@ public class Batteria extends Tessera{
 	private final int capacity;
 	private int energiaAttuale;
 	private static int contatore=0;
-	private static final int massimo=10;
+	private static final int massimo=17;
 
 	public Batteria() throws ErroreTessera {
 		super(TipoTessera.BATTERIA);

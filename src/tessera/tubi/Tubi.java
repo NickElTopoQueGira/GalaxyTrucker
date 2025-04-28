@@ -7,7 +7,7 @@ import tessera.TipoTessera;
 public class Tubi extends Tessera{
 
 	private static int contatore=0;
-	private static final int massimo=10;
+	private static final int massimo=8;
 
 	public Tubi() throws ErroreTessera {
 		super(TipoTessera.TUBI);
