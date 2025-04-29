@@ -53,7 +53,7 @@ public class TestTessere {
 		System.out.println("\t"+t4.getLatiTessera().getUp().toString()+"\n");
 		System.out.println(t4.getLatiTessera().getLeft().toString()+"\t\t"+t4.getLatiTessera().getRight().toString()+"\n");
 		System.out.println("\t"+t4.getLatiTessera().getDown().toString()+"\t\n");
-		System.out.println(((Motore)t4).getLatoMotore().toString());
+		//System.out.println(((Motore)t4).getLatoMotore().toString());
 		
 		
 		
