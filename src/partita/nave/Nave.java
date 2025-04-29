@@ -9,8 +9,10 @@ import tessera.Coordinate;
 import tessera.LatiTessera;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
+import tessera.TipoLato;
 import tessera.TipoTessera;
 import tessera.cannone.Cannone;
+import tessera.motore.Motore;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
@@ -147,16 +149,45 @@ public abstract class Nave {
      * Metodo per controllare se il modulo, nel caso sia un cannone, si possa mettere
      * nella posizione indicata.
      * 
-     * I cannoni possono esssere messi in una cella se e solo se la cella subito sopra e' libera
+     * I cannoni possono esssere messi in una cella se e solo se la cella nella direzione
+     * in cui punta il cannone e' libera
      * 
      * @param coordinate
      * @param tessera
      * @return vero -> il cannone puo' essere posizionato |
      *         falso -> il cannone non puo' essere posizionato
      */
-    private boolean verificaInserimetnoCannone(Coordinate coordinate, Tessera tessera){
+    private boolean verificaInserimetnoCannone(Coordinate coordinate, Tessera tessera) {
         Cannone cannone = (Cannone) tessera;
-        
+        // controllo se la cella subito dopo il cannone e' presente un blocco
+        try {
+            switch (cannone.getLatoCannone()) {
+                case UP -> {
+                    if (nave.get(coordinate.getX()).get(coordinate.getY() - 1) == null) {
+                        return true;
+                    }
+                }
+                case LEFT -> {
+                    if (nave.get(coordinate.getX() - 1).get(coordinate.getY()) == null) {
+                        return true;
+                    }
+                }
+                case RIGHT -> {
+                    if (nave.get(coordinate.getX() + 1).get(coordinate.getY()) == null) {
+                        return true;
+                    }
+                }
+                case DOWN -> {
+                    if (nave.get(coordinate.getX()).get(coordinate.getY() + 1) == null) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IndexOutOfBoundsException iobx) {
+            // se viene eseguita quesa e' perche' sto facendo un controllo ai margini della nave
+            // quindi di default, posso mettere il pezzo
+            return true;
+        }
 
         return false;
     }
@@ -174,7 +205,23 @@ public abstract class Nave {
      *         falso -> il motore non puo' essere posizionato
      */
     private boolean verificaInserimentoMotore(Coordinate coordinate, Tessera tessera){
-        // TODO: implementare metodo verificaInserimentoMotore
+        Motore motore = (Motore) tessera;
+        // controllo se il pezzo subito sotto e' libero
+        try{
+            if(motore.getLatoMotore() == TipoLato.DOWN){
+                if(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()) == null){
+                    return true;
+                }
+            }
+            else{
+                // se il motore non e' orientato verso il basso
+                return false;
+            }
+        }catch(IndexOutOfBoundsException iobx){
+            // se viene eseguita questa parte e' perche' sto facendo il controllo in fondo alla nava
+            // quindi il motore puo' essere sempre piazzato
+            return true;
+        }
         return false;
     }
 

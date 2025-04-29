@@ -27,7 +27,11 @@ public class Cannone extends Tessera {
 	}
 
 	public TipoCannone getTipoCannone() {
-		return tipoCannone;
+		return this.tipoCannone;
+	}
+
+	public TipoLato getLatoCannone() {
+		return this.latoCannone;
 	}
 
 	private TipoCannone randomTipo() {
