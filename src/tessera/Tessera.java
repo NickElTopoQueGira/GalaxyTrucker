@@ -72,16 +72,16 @@ public abstract class Tessera {
 	private String stampaUp() {
 		switch (this.getLatiTessera().getUp()) {
 		case TipoConnettoriTessera.NULLO: {
-			return ("0");
+			return (" ");
 		}
 		case TipoConnettoriTessera.SINGOLO: {
-			return ("1");
+			return ("|");
 		}
 		case TipoConnettoriTessera.DOPPIO: {
-			return ("2");
+			return ("v");
 		}
 		case TipoConnettoriTessera.TRIPLO: {
-			return ("3");
+			return ("#");
 		}
 		}
 		return null;
@@ -90,16 +90,16 @@ public abstract class Tessera {
 	private String stampaDown() {
 		switch (this.getLatiTessera().getDown()) {
 		case TipoConnettoriTessera.NULLO: {
-			return ("0");
+			return (" ");
 		}
 		case TipoConnettoriTessera.SINGOLO: {
-			return ("1");
+			return ("|");
 		}
 		case TipoConnettoriTessera.DOPPIO: {
-			return ("2");
+			return ("^");
 		}
 		case TipoConnettoriTessera.TRIPLO: {
-			return ("3");
+			return ("#");
 		}
 		}
 		return null;
@@ -108,16 +108,16 @@ public abstract class Tessera {
 	private String stampaLeft() {
 		switch (this.getLatiTessera().getLeft()) {
 		case TipoConnettoriTessera.NULLO: {
-			return ("0");
+			return (" ");
 		}
 		case TipoConnettoriTessera.SINGOLO: {
-			return ("1");
+			return ("-");
 		}
 		case TipoConnettoriTessera.DOPPIO: {
-			return ("2");
+			return (">");
 		}
 		case TipoConnettoriTessera.TRIPLO: {
-			return ("3");
+			return ("#");
 		}
 		}
 		return null;
@@ -126,16 +126,16 @@ public abstract class Tessera {
 	private String stampaRight() {
 		switch (this.getLatiTessera().getRight()) {
 		case TipoConnettoriTessera.NULLO: {
-			return ("0");
+			return (" ");
 		}
 		case TipoConnettoriTessera.SINGOLO: {
-			return ("1");
+			return ("-");
 		}
 		case TipoConnettoriTessera.DOPPIO: {
-			return ("2");
+			return ("<");
 		}
 		case TipoConnettoriTessera.TRIPLO: {
-			return ("3");
+			return ("#");
 		}
 		}
 		return null;

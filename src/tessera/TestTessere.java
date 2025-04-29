@@ -66,8 +66,8 @@ public class TestTessere {
 		t5.stampa();
 		
 		String test = "";
-		for(int i = 0; i <135; i++) {
-			test += '-';
+		for(int i = 0; i <(5*6); i++) {
+			test += '-'+"\n";
 		}
 		
 		System.out.println(test);

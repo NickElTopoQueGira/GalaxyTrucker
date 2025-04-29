@@ -1,6 +1,5 @@
 package partita.giocatore;
 
-import eccezioniPersonalizzate.*;
 import partita.nave.*;
 import partita.Livelli;
 
