@@ -9,10 +9,8 @@ import tessera.Coordinate;
 import tessera.LatiTessera;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
-import tessera.TipoLato;
 import tessera.TipoTessera;
 import tessera.cannone.Cannone;
-import tessera.motore.Motore;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
@@ -205,20 +203,13 @@ public abstract class Nave {
      *         falso -> il motore non puo' essere posizionato
      */
     private boolean verificaInserimentoMotore(Coordinate coordinate, Tessera tessera){
-        Motore motore = (Motore) tessera;
         // controllo se il pezzo subito sotto e' libero
         try{
-            if(motore.getLatoMotore() == TipoLato.DOWN){
-                if(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()) == null){
-                    return true;
-                }
-            }
-            else{
-                // se il motore non e' orientato verso il basso
-                return false;
+            if(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()) == null){
+                return true;
             }
         }catch(IndexOutOfBoundsException iobx){
-            // se viene eseguita questa parte e' perche' sto facendo il controllo in fondo alla nava
+            // se viene eseguita questa parte e' perche' sto facendo il controllo in fondo alla nave
             // quindi il motore puo' essere sempre piazzato
             return true;
         }
