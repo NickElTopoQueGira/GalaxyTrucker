@@ -15,16 +15,17 @@ public class Main {
 
 	public static void ConfiguraPartita() {
 		int NumeroGiocatori;
-		Scanner scanner = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		do {
 			System.out.println("Inserisci Numero Giocatori (Max = 4):\n");
-			NumeroGiocatori = scanner.nextInt();
+			NumeroGiocatori = Integer.parseInt(sc.nextLine());
 
 		} while (2 > NumeroGiocatori || NumeroGiocatori > 4);
 		int Modalita;
 		do {
 			System.out.println("Inserisci Modalita: \n" + "1) Partita Singola\n" + "2) Partita Multipla\n");
-			Modalita = scanner.nextInt();
+			Modalita = Integer.parseInt(sc.nextLine());
+			
 		} while (1 > Modalita || Modalita > 2);
 
 		ModalitaPartita ModalitaEnum;
@@ -33,9 +34,10 @@ public class Main {
 		} else {
 			ModalitaEnum = ModalitaPartita.MULTIPLA;
 		}
+		
 
-		Partita partita = new Partita(ModalitaEnum, NumeroGiocatori);
-
+		Partita partita = new Partita(ModalitaEnum, NumeroGiocatori,sc);
+		sc.close();
 	}
 
 }

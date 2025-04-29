@@ -9,8 +9,8 @@ public abstract class Tessera {
 	private Coordinate coordinate;
 	private static int currentSize = 0;
 	private static ArrayList<Tessera> lista = new ArrayList<Tessera>();
-	private final String[][] tessera_Disposizione = {
-			// 0 1 2 3 4 <- colonne
+	protected String[][] tessera_Disposizione = {
+			//         0    1    2    3    4    <- colonne
 			/* 0 */ { "─", "─", "─", "─", "─" },
 			/* 1 */ { "│", " ", " ", " ", "│" },
 			/* 2 */ { "│", " ", " ", " ", "│" },

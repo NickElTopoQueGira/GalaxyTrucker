@@ -27,32 +27,32 @@ public class Giocatore {
 	public void setLivello(Livelli livello) { this.livello = livello; }
 
 	public void creaNave(){
+		System.out.println("Schema nave giocatore: "+this.colorePedina.toString());
 		switch(this.livello){
 			case PRIMO->{
 				this.nave = new NaveLvl1(colorePedina);
-				System.out.println("Schema nave");
 				System.out.println(nave.toString());
-				// this.nave.assembla();
-				//assemblaNave();
+				
+				break;
 			}
 			case SECONDO->{
 				this.nave = new NaveLvl2(colorePedina);
-				System.out.println("Schema nave");
 				System.out.println(nave.toString());
 				
-				// assemblaNave();
+				break;
 			}
 			case TERZO->{
 				this.nave = new NaveLvl3(colorePedina);
-				System.out.println("Schema nave");
 				System.out.println(nave.toString());
-				
-				// assemblaNave();
+
+				break;
 			}
 			default ->{
 				System.err.println("Scelta non valida");
 			}
 		}
+		
+		//assemblaNave();
 	}
 
 	// private void assemblaNave(){
