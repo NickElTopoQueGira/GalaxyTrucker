@@ -2,6 +2,7 @@ package tessera;
 
 import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
+import tessera.cannone.Cannone;
 import tessera.motore.Motore;
 
 public class TestTessere {
@@ -44,7 +45,7 @@ public class TestTessere {
 		
 		Tessera t4 = null;
 		try {
-			t4 = new Motore();
+			t4 = new Cannone();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,7 +55,11 @@ public class TestTessere {
 		System.out.println(t4.getLatiTessera().getLeft().toString()+"\t\t"+t4.getLatiTessera().getRight().toString()+"\n");
 		System.out.println("\t"+t4.getLatiTessera().getDown().toString()+"\t\n");
 		//System.out.println(((Motore)t4).getLatoMotore().toString());
-		
+		t4.stampa();
+		t4.ruota();
+		t4.stampa();
+		t4.ruota();
+		t4.stampa();
 		
 		
 		System.out.println(Tessera.getCurrentSize());
