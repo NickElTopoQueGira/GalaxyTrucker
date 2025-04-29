@@ -8,7 +8,6 @@ import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class Motore extends Tessera {
-
 	private static final int massimo = 30;
 	private static int contatore = 0;
 	
@@ -32,10 +31,6 @@ public class Motore extends Tessera {
 		return latoMotore;
 	}
 
-	public void setLatoMotore(TipoLato latoMotore) {
-		this.latoMotore = latoMotore;
-	}
-
 	public TipoMotore getTipoMotore() {
 		return tipoMotore;
 	}
@@ -43,12 +38,6 @@ public class Motore extends Tessera {
 	private TipoMotore randomTipo() {
 		TipoMotore[] tipiMotore = TipoMotore.values();
 		return tipiMotore[new Random().nextInt(tipiMotore.length)];
-	}
-
-	@Override
-	public void ruota() {
-		super.ruota();
-		this.latoMotore = this.latoMotore.next();
 	}
 
 }
