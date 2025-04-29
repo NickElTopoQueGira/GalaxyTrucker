@@ -2,28 +2,27 @@ package tessera.cannone;
 
 import java.util.Random;
 
-
-
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class Cannone extends Tessera {
+	private static final int massimo = 36;
 	private static int contatore = 0;
-	private TipoLato latoCannone = TipoLato.DOWN;
+	
 	private final TipoCannone tipoCannone;
-	private static final int massimo=36;
-
+	private TipoLato latoCannone;
+	
 	public Cannone() throws ErroreTessera {
 		super(TipoTessera.CANNONE);
 		contatore++;
-		if(contatore<=massimo) {
+		if (contatore <= massimo) {
 			this.tipoCannone = randomTipo();
-		}else {
-			throw new ErroreTessera("Numero Elementi Cannone Max"); //Eccezione Numero Massimo di elementi
+			this.latoCannone = TipoLato.UP;
+		} else {
+			throw new ErroreTessera("Numero Elementi Cannone Max"); // Eccezione Numero Massimo di elementi
 		}
-		
 
 	}
 
@@ -31,7 +30,6 @@ public class Cannone extends Tessera {
 		return tipoCannone;
 	}
 
-	
 	private TipoCannone randomTipo() {
 		TipoCannone[] tipiCannone = TipoCannone.values();
 		return tipiCannone[new Random().nextInt(tipiCannone.length)];
@@ -40,7 +38,7 @@ public class Cannone extends Tessera {
 	@Override
 	public void ruota() {
 		super.ruota();
-		this.latoCannone=this.latoCannone.next();
+		this.latoCannone = this.latoCannone.next();
 	}
 
 }

@@ -8,21 +8,23 @@ import tessera.TipoLato;
 import tessera.TipoTessera;
 
 public class Motore extends Tessera {
-	
+
+	private static final int massimo = 30;
 	private static int contatore = 0;
-	private TipoLato latoMotore = TipoLato.UP;
+	
+	private TipoLato latoMotore;
 	private final TipoMotore tipoMotore;
-	private static final int massimo=30;
+	
 
 	public Motore() throws ErroreTessera {
 		super(TipoTessera.MOTORE);
 		contatore++;
-		if(contatore<=massimo) {
+		if (contatore <= massimo) {
 			this.tipoMotore = randomTipo();
-		}else {
-			throw new ErroreTessera("Numero Elementi Motore Max"); //Eccezione Numero Massimo di elementi
+			this.latoMotore = TipoLato.DOWN;
+		} else {
+			throw new ErroreTessera("Numero Elementi Motore Max"); // Eccezione Numero Massimo di elementi
 		}
-		
 
 	}
 
@@ -46,7 +48,7 @@ public class Motore extends Tessera {
 	@Override
 	public void ruota() {
 		super.ruota();
-		this.latoMotore=this.latoMotore.next();
+		this.latoMotore = this.latoMotore.next();
 	}
 
 }

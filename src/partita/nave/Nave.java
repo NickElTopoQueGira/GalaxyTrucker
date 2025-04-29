@@ -10,6 +10,7 @@ import tessera.LatiTessera;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
+import tessera.cannone.Cannone;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
@@ -154,7 +155,9 @@ public abstract class Nave {
      *         falso -> il cannone non puo' essere posizionato
      */
     private boolean verificaInserimetnoCannone(Coordinate coordinate, Tessera tessera){
-        // TODO: implementare metodo verificaInserimentoCannone
+        Cannone cannone = (Cannone) tessera;
+        
+
         return false;
     }
 

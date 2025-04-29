@@ -5,5 +5,4 @@ public enum TipoConnettoriTessera {
 	SINGOLO, 
 	DOPPIO, 
 	TRIPLO;
-
 }

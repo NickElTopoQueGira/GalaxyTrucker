@@ -7,15 +7,14 @@ import tessera.Tessera;
 import tessera.TipoTessera;
 
 public class ModuloPasseggeri extends Tessera {
-	private static int contatore = 0;
 	private static final int massimo = 29;
-
+	private static int contatore = 0;
+	
 	private int numeroCosmonauti;
 	private int numeroAlieniViola;
 	private int numeroAlieniMarroni;
-	
+
 	private final TipoModuloPasseggeri tipoModuloPasseggeri;
-	
 
 	public ModuloPasseggeri() throws ErroreTessera {
 		super(TipoTessera.MODULO_PASSEGGERI);
@@ -23,9 +22,9 @@ public class ModuloPasseggeri extends Tessera {
 		if (contatore <= massimo) {
 			this.tipoModuloPasseggeri = randomTipo();
 
-			this.numeroCosmonauti = 0; 
-			this.numeroAlieniMarroni = 0; 
-			this.numeroAlieniViola = 0;
+			this.numeroCosmonauti 		= 0;
+			this.numeroAlieniMarroni 	= 0;
+			this.numeroAlieniViola 		= 0;
 
 			setEquipaggio();
 		} else {
@@ -40,16 +39,16 @@ public class ModuloPasseggeri extends Tessera {
 
 	private void setEquipaggio() {
 		switch (this.tipoModuloPasseggeri) {
-			case MODULO_ALIENO_MARRONE:
-				this.setNumeroAlieniViola(1);	
-				break;
-			case MODULO_ALIENO_VIOLA:
-				this.setNumeroAlieniMarroni(1);
-				break;
-			case MODULO_EQUIPAGGIO:
-				this.setNumeroCosmonauti(+2);
-			default:
-				break;
+		case MODULO_ALIENO_MARRONE:
+			this.setNumeroAlieniViola(1);
+			break;
+		case MODULO_ALIENO_VIOLA:
+			this.setNumeroAlieniMarroni(1);
+			break;
+		case MODULO_EQUIPAGGIO:
+			this.setNumeroCosmonauti(+2);
+		default:
+			break;
 		}
 	}
 

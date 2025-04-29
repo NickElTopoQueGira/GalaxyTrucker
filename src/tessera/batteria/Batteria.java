@@ -2,34 +2,31 @@ package tessera.batteria;
 
 import java.util.Random;
 
-
-
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoTessera;
 
-public class Batteria extends Tessera{
+public class Batteria extends Tessera {
+	private static final int massimo = 17;
+	private static int contatore = 0;
+	
 	private final int capacity;
 	private int energiaAttuale;
-	private static int contatore=0;
-	private static final int massimo=17;
-
+	
 	public Batteria() throws ErroreTessera {
 		super(TipoTessera.BATTERIA);
 		contatore++;
-		if(contatore<=massimo) {
+		if (contatore <= massimo) {
 			this.capacity = RandomTipo();
-			this.energiaAttuale=capacity;
-		}else {
-			throw new ErroreTessera("Numero Elementi Batteria Max"); //Eccezione Numero Massimo di elementi
+			this.energiaAttuale = capacity;
+		} else {
+			throw new ErroreTessera("Numero Elementi Batteria Max"); // Eccezione Numero Massimo di elementi
 		}
-		
-		
-		
+
 	}
 
 	private int RandomTipo() {
-		return new Random().nextInt(1)+2;
+		return new Random().nextInt(1) + 2;
 	}
 
 	public int getCapacity() {
@@ -41,8 +38,8 @@ public class Batteria extends Tessera{
 	}
 
 	public boolean decrese() {
-		if(this.energiaAttuale>0) {
-			this.energiaAttuale = energiaAttuale-1;
+		if (this.energiaAttuale > 0) {
+			this.energiaAttuale = energiaAttuale - 1;
 			return true;
 		}
 		return false;

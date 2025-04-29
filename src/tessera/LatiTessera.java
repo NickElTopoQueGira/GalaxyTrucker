@@ -2,7 +2,7 @@ package tessera;
 
 import java.util.Random;
 
-public class LatiTessera{
+public class LatiTessera {
 
 	private TipoConnettoriTessera up;
 	private TipoConnettoriTessera left;
@@ -14,10 +14,10 @@ public class LatiTessera{
 	}
 
 	public void GeneraLatiTessera() {
-		this.up 	= randomTipo();
-		this.down 	= randomTipo();
-		this.left 	= randomTipo();
-		this.right 	= randomTipo();
+		this.up = randomTipo();
+		this.down = randomTipo();
+		this.left = randomTipo();
+		this.right = randomTipo();
 
 		if (this.verificaTessera()) {
 			return;
@@ -81,10 +81,10 @@ public class LatiTessera{
 	}
 
 	public void setCentro() {
-		this.up 	= TipoConnettoriTessera.TRIPLO;
-		this.down 	= TipoConnettoriTessera.TRIPLO;
-		this.left 	= TipoConnettoriTessera.TRIPLO;
-		this.right 	= TipoConnettoriTessera.TRIPLO;
+		this.up = TipoConnettoriTessera.TRIPLO;
+		this.down = TipoConnettoriTessera.TRIPLO;
+		this.left = TipoConnettoriTessera.TRIPLO;
+		this.right = TipoConnettoriTessera.TRIPLO;
 	}
 
 }
