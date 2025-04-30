@@ -1,14 +1,18 @@
 package partita;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
+
 import partita.giocatore.*;
+import tessera.Tessera;
 
 
 public class Partita {
 	private final ModalitaPartita modalitaPartita;
 	private int numeroGiocatori;
-	private static ArrayList<Giocatore> lista = new ArrayList<Giocatore>(); 
+	private static Set<Giocatore> giocatori = new HashSet<>(); 
 	
 	
 	public Partita(ModalitaPartita modalita, int numeroGiocatori, Scanner scanner){
@@ -32,7 +36,8 @@ public class Partita {
 	        
 	        if(nomeG.length()<=20) { //20 caratteri massimo
 	        	Giocatore giocatore= new Giocatore(nomeG, coloreAttuale);
-	        	lista.add(giocatore);
+	        	
+	        	giocatori.add(giocatore);
 	        	j++;
 	        	
 	        	coloreAttuale.next();
@@ -93,12 +98,17 @@ public class Partita {
 			livelloAttuale.next();		}
 	}
 
-
+	
+	
 	private void IniziaPartitaSingola(Scanner scanner, Livelli livelloScelto) {		
         for(int i=0; i<this.numeroGiocatori; i++) {
-        	lista.get(i).setLivello(livelloScelto);
-        	lista.get(i).creaNave();
         	
+        	
+        	
+        }
+        for(Giocatore g: giocatori) {
+        	g.setLivello(livelloScelto);
+        	g.creaNave();
         }
         
 		

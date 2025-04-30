@@ -9,7 +9,7 @@ public enum Colori {
 	
 	
 	public Colori next() {
-		Colori[] valore = Colori.values();
+		Colori[] valore = Colori.values();	
 		int nextValore = (this.ordinal() + 1) % valore.length;
 		return valore[nextValore];
 

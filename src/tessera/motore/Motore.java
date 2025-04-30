@@ -9,7 +9,7 @@ import tessera.TipoTessera;
 
 public class Motore extends Tessera {
 	private static final int massimo = 30;
-	private static int contatore = 0;
+	private static int contatore = 0; 
 
 	private final TipoMotore tipoMotore;
 	
