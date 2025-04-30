@@ -32,13 +32,11 @@ public class PARTITATESTMAIN {
         Giocatore g;
 		try {
 			g = new Giocatore("Pippo", Colori.ROSSO);
-		} catch (ErroreTessera e) {
-			// TODO Auto-generated catch block
+			g.setLivello(livelloScelto);
+	        g.creaNave();
+		
+		} catch (ErroreGiocatore e) {
 			e.printStackTrace();
 		}
-        g.setLivello(livelloScelto);
-        g.creaNave();
-        
-
     }
 }
