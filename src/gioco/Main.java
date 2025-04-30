@@ -1,43 +1,16 @@
 package gioco;
 
-import java.util.Scanner;
-import partita.ModalitaPartita;
+import partita.ConfiguraPartita;
 import partita.Partita;
 
 public class Main {
-
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		System.out.println("GALAXY TRUCKER\n");
-
-		ConfiguraPartita();
-
-	}
-
-	public static void ConfiguraPartita() {
-		int NumeroGiocatori;
-		Scanner sc = new Scanner(System.in);
-		do {
-			System.out.println("Inserisci Numero Giocatori (Max = 4):\n");
-			NumeroGiocatori = Integer.parseInt(sc.nextLine());
-
-		} while (2 > NumeroGiocatori || NumeroGiocatori > 4);
-		int Modalita;
-		do {
-			System.out.println("Inserisci Modalita: \n" + "1) Partita Singola\n" + "2) Partita Multipla\n");
-			Modalita = Integer.parseInt(sc.nextLine());
-			
-		} while (1 > Modalita || Modalita > 2);
-
-		ModalitaPartita ModalitaEnum;
-		if (Modalita == 1) {
-			ModalitaEnum = ModalitaPartita.SINGOLA;
-		} else {
-			ModalitaEnum = ModalitaPartita.MULTIPLA;
-		}
 		
+		ConfiguraPartita conf = new ConfiguraPartita();
+		Partita p = conf.creaPartita();
 
-		Partita partita = new Partita(ModalitaEnum, NumeroGiocatori,sc);
-		sc.close();
-	}
-
+		System.out.println(p);
+		
+	}	
 }
