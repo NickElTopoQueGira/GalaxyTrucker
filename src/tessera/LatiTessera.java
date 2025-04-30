@@ -27,7 +27,7 @@ public class LatiTessera {
 
 	}
 
-	private boolean verificaTessera() {
+	public boolean verificaTessera() {
 
 		if (up == down && left == right && right == down && down == TipoConnettoriTessera.NULLO) {
 			return false;
@@ -66,6 +66,13 @@ public class LatiTessera {
 	public void setDown(TipoConnettoriTessera down) {
 		this.down = down;
 	}
+	
+	public void setVuota() {
+		this.up = TipoConnettoriTessera.NULLO;
+		this.left = TipoConnettoriTessera.NULLO;
+		this.down = TipoConnettoriTessera.NULLO;
+		this.right = TipoConnettoriTessera.NULLO;
+	}
 
 	private TipoConnettoriTessera randomTipo() {
 		TipoConnettoriTessera[] t = TipoConnettoriTessera.values();
@@ -80,11 +87,6 @@ public class LatiTessera {
 		this.right = temp;
 	}
 
-	public void setCentro() {
-		this.up = TipoConnettoriTessera.TRIPLO;
-		this.down = TipoConnettoriTessera.TRIPLO;
-		this.left = TipoConnettoriTessera.TRIPLO;
-		this.right = TipoConnettoriTessera.TRIPLO;
-	}
+	
 
 }

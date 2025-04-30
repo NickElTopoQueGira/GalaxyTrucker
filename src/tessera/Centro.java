@@ -9,9 +9,15 @@ public class Centro extends Tessera {
 
 	private int passeggeriCorrenti = 2;
 	private final Colori colore;
+	
 
 	public Centro(Colori colore) throws ErroreTessera {
 		super(TipoTessera.CENTRO);
+		this.getLatiTessera().setUp (TipoConnettoriTessera.TRIPLO);
+		this.getLatiTessera().setDown (TipoConnettoriTessera.TRIPLO);
+		this.getLatiTessera().setRight (TipoConnettoriTessera.TRIPLO);
+		this.getLatiTessera().setLeft (TipoConnettoriTessera.TRIPLO);
+	
 		contatore++;
 		if (contatore <= massimo) {
 			this.colore = colore;
@@ -36,5 +42,7 @@ public class Centro extends Tessera {
 		}
 
 	}
+	
+	
 
 }

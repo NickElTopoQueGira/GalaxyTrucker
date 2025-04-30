@@ -41,7 +41,7 @@ public class Partita {
 				
 			} catch (ErroreTessera e) {
 				condizione = false;
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 			if(condizione) {
 				Giocatore.getGiocatori().add(giocatore);

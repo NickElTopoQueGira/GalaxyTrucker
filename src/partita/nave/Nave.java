@@ -8,6 +8,7 @@ import partita.giocatore.Colori;
 import tessera.Coordinate;
 import tessera.LatiTessera;
 import tessera.Tessera;
+import tessera.TesseraVuota;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 import tessera.cannone.Cannone;
@@ -18,6 +19,7 @@ public abstract class Nave {
     private int[][] NAVE_DEF;
     private Coordinate centro;
     private Colori coloreNave;
+    
 
 
     /**
@@ -425,24 +427,25 @@ public abstract class Nave {
     /**
      * Stampa della nave
      */
-    @Override
-    public String toString(){
-        String stampaNave = "";
+   
+    
+    public void stampaNave(){
+        
         for(int i = 0; i < this.nave.size(); i += 1){
             for(int j = 0; j < this.nave.get(i).size(); j += 1){
             	
-            	var temp = this.nave.get(i).get(j);
+            	Tessera temp = this.nave.get(i).get(j);
             	if(null != temp) {
             		temp.stampa(); 
-            		//TO-DO fai una matrice non una stringa
-            		//stampaNave += temp.getTipoTessera().toString() + "\t";
             	}
             	else {
-            		stampaNave += "vuoto \t";
+            		TesseraVuota tesseraVuota = new TesseraVuota();
+					tesseraVuota.stampa();
             	}
             }
-            stampaNave += "\n";
+            
+            System.out.print("\n");
         }
-        return stampaNave;
+   
     }
 }

@@ -50,20 +50,18 @@ public class Giocatore {
 		switch(this.livello){
 			case PRIMO->{
 				this.nave = new NaveLvl1(colorePedina);
-				System.out.println(nave.toString());
+				nave.stampaNave();
 				
 				break;
 			}
 			case SECONDO->{
 				this.nave = new NaveLvl2(colorePedina);
-				System.out.println(nave.toString());
-				
+				nave.stampaNave();				
 				break;
 			}
 			case TERZO->{
 				this.nave = new NaveLvl3(colorePedina);
-				System.out.println(nave.toString());
-
+				nave.stampaNave();
 				break;
 			}
 			default ->{

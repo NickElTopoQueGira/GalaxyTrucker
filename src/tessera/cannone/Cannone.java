@@ -5,6 +5,7 @@ import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
+import tessera.TipoConnettoriTessera;
 import tessera.TipoLato;
 import tessera.TipoTessera;
 
@@ -25,6 +26,12 @@ public class Cannone extends Tessera {
 			this.latoCannone = TipoLato.UP;
 			this.tempStampaCasella=super.tessera_Disposizione[Rprec][Cprec];
 			super.tessera_Disposizione[Rprec][Cprec]="!";
+			this.latiTessera.setUp(TipoConnettoriTessera.NULLO);
+			while(!this.latiTessera.verificaTessera()) {
+				this.latiTessera.GeneraLatiTessera();
+				this.latiTessera.setUp(TipoConnettoriTessera.NULLO);
+			}
+			
 		} else {
 			throw new ErroreTessera("Numero Elementi Cannone Max"); // Eccezione Numero Massimo di elementi
 		}
@@ -44,6 +51,33 @@ public class Cannone extends Tessera {
 		return tipiCannone[new Random().nextInt(tipiCannone.length)];
 	}
 
+	public float calcolaValore() {
+		float valore=0;
+		int tipo=1;
+		if(this.tipoCannone== TipoCannone.DOPPIO) {
+			tipo=2;
+		}
+		switch (this.latoCannone) {
+		case UP: {
+			valore++;
+			break;
+		}
+		case RIGHT: {
+			valore=(float) (valore+(tipo/2.0));
+			break;
+		}
+		case LEFT: {
+			valore=(float) (valore+(tipo/2.0));
+			break;
+		}
+		default:
+			
+		}
+		
+		return valore;
+		
+	}
+	
 	@Override
 	public void ruota() {
 		super.ruota();

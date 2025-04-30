@@ -2,7 +2,7 @@ package partita;
 
 import java.util.Scanner;
 
-
+import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
 
@@ -29,7 +29,13 @@ public class PARTITATESTMAIN {
 
         scanner.close();
 
-        Giocatore g = new Giocatore("Pippo", Colori.ROSSO);
+        Giocatore g;
+		try {
+			g = new Giocatore("Pippo", Colori.ROSSO);
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         g.setLivello(livelloScelto);
         g.creaNave();
         

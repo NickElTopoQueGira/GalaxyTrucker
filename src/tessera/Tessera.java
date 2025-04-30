@@ -24,8 +24,6 @@ public abstract class Tessera {
 
 		if (this.tipoTessera != TipoTessera.CENTRO) {
 			aggiungiTessera();
-		} else {
-			this.latiTessera.setCentro();
 		}
 
 	}

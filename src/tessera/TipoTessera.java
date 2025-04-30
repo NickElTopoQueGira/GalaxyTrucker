@@ -8,7 +8,8 @@ public enum TipoTessera {
 	BATTERIA			("B"), 
 	CANNONE				("C"), 
 	MOTORE				("M"),
-	CENTRO				("X");
+	CENTRO				("X"),
+	VUOTA				(" ");
 
 	private final String tipo;
 
