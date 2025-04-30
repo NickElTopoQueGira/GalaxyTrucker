@@ -1,46 +1,55 @@
 package partita;
 
-import java.util.LinkedHashSet;
 import java.util.Scanner;
-import java.util.Set;
-
+import eccezioniPersonalizzate.ErroreGiocatore;
+import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.*;
 
 
 public class Partita {
 	private final ModalitaPartita modalitaPartita;
 	private int numeroGiocatori;
-	private static Set<Giocatore> giocatori = new LinkedHashSet<>(); //set ordinato
 	
 	
 	public Partita(ModalitaPartita modalita, int numeroGiocatori, Scanner scanner){
 		this.modalitaPartita=modalita;
 		this.numeroGiocatori=numeroGiocatori;
 		
+		
 		inserisciGiocatori(scanner);
+		
 		selezionaModalita(scanner);
 		
 	}
 	
 	
-	private void inserisciGiocatori(Scanner scanner) {
+	private void inserisciGiocatori(Scanner scanner){
 		
 	
 		int j=0;
 		Colori coloreAttuale= Colori.ROSSO;
+		boolean condizione=true;
 		do {
+			condizione=true;
 			System.out.print("Inserisci il nome giocatore "+(j+1)+":");
 			String nomeG= scanner.next();
-	        
-	        if(nomeG.length()<=20) { //20 caratteri massimo
-	        	Giocatore giocatore= new Giocatore(nomeG, coloreAttuale);
-	        	
-	        	giocatori.add(giocatore);
-	        	j++;
-	        	
+
+			Giocatore giocatore = null;
+			try {
+				giocatore = new Giocatore(nomeG, coloreAttuale);
+				
+				
+			} catch (ErroreTessera e) {
+				condizione = false;
+				e.printStackTrace();
+			}
+			if(condizione) {
+				Giocatore.getGiocatori().add(giocatore);
+				j++;
 	        	coloreAttuale.next();
-	        	
-	        }
+			}
+				
+			
 	        
 		}while(j<this.numeroGiocatori);
 		
@@ -104,7 +113,7 @@ public class Partita {
         	
         	
         }
-        for(Giocatore g: giocatori) {
+        for(Giocatore g: Giocatore.getGiocatori()) {
         	g.setLivello(livelloScelto);
         	g.creaNave();
         }
