@@ -3,7 +3,6 @@ package tessera;
 import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
-import tessera.motore.Motore;
 
 public class TestTessere {
 
