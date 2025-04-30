@@ -419,7 +419,7 @@ public abstract class Nave {
     }
 
     //-------------------- SETTER - GETTER --------------------
-    public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave() { return nave; }
+    public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave() { return this.nave; }
 
     public Colori getColoreNave() { return this.coloreNave; }
 
@@ -427,8 +427,6 @@ public abstract class Nave {
     /**
      * Stampa della nave
      */
-   
-    
     public void stampaNave(){
         
         for(int i = 0; i < this.nave.size(); i += 1){
