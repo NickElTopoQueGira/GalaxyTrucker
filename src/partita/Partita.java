@@ -1,18 +1,16 @@
 package partita;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 import partita.giocatore.*;
-import tessera.Tessera;
 
 
 public class Partita {
 	private final ModalitaPartita modalitaPartita;
 	private int numeroGiocatori;
-	private static Set<Giocatore> giocatori = new HashSet<>(); 
+	private static Set<Giocatore> giocatori = new LinkedHashSet<>(); //set ordinato
 	
 	
 	public Partita(ModalitaPartita modalita, int numeroGiocatori, Scanner scanner){

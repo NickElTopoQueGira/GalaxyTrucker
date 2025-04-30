@@ -8,11 +8,43 @@ import tessera.motore.Motore;
 public class TestTessere {
 
 	public static void main(String[] args) {
-		
-		
+
 		FactoryTessera Factory=new FactoryTessera();
-		Tessera t1= Factory.estraiTipo();
-		Tessera t2= Factory.estraiTipo();
+		
+		/*//test massimo numero di tessere
+		Tessera t1 = null;
+		int contatore=0;
+		for(int i=0; i<152; i++) {
+			
+			try {
+				t1 = Factory.estraiTipo();
+			} catch (ErroreTessera e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			contatore++;
+			t1.stampa();
+			
+		}
+		System.out.println(contatore);
+		*/
+		
+		
+		 Tessera t1=null;
+		try {
+			t1 = Factory.estraiTipo();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Tessera t2 = null;
+		try {
+			t2= Factory.estraiTipo();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//stampa connettori di t1
 		System.out.println(t1.getTipoTessera().toString());
@@ -63,7 +95,13 @@ public class TestTessere {
 		
 		
 		System.out.println(Tessera.getCurrentSize());
-		Tessera t5= Factory.estraiTipo();
+		Tessera t5 = null;
+		try {
+			t5 = Factory.estraiTipo();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		t5.stampa();
 		t5.ruota();
 		t5.stampa();
@@ -76,8 +114,7 @@ public class TestTessere {
 		}
 		
 		System.out.println(test);
-		System.out.println("Ciao mondo!");
-
+	
 	}
 	
 }

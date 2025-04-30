@@ -12,9 +12,10 @@ import tessera.tubi.Tubi;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class FactoryTessera {
+	private static int numeroTessere=0;
 
-	public Tessera estraiTipo() {
-
+	public Tessera estraiTipo() throws ErroreTessera {
+		numeroTessere=numeroTessere+1;
 		TipoTessera tipo = randomTipo();
 		try {
 			switch (tipo) {
@@ -44,9 +45,17 @@ public class FactoryTessera {
 			}
 
 			}
+		
 		} catch (ErroreTessera eT) {
 			System.err.println(eT.getMessage());
-			return estraiTipo();
+			numeroTessere=numeroTessere-1;
+			if(numeroTessere<=152) {
+				return estraiTipo();
+			}else {
+				throw new ErroreTessera("Numero Elementi Tessera Max"); // Eccezione Numero Massimo di elementi
+			}
+			
+			
 		}
 	}
 
