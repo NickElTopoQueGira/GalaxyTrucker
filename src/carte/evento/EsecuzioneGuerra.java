@@ -3,6 +3,7 @@ package carte.evento;
 import java.util.*;
 import partita.nave.*;
 import carte.*;
+import partita.giocatore.*;
 
 public class EsecuzioneGuerra {
 	
@@ -35,13 +36,16 @@ public class EsecuzioneGuerra {
 			}
 			
 			switch(v[i][1]) {
-			case "CANNONI"->{
+			case "PERDITA_EQUIPAGGIO"->{
 				
 			}
-			case "EQUIPAGGI"->{
+			case "PERDITA_GIORNI"->{
 				
 			}
-			case "RAZZI"->{
+			case "PERDITA_MERCE"->{
+				
+			}			
+			case "CANNONATE"->{
 				
 			}
 			}
@@ -52,7 +56,24 @@ public class EsecuzioneGuerra {
 
 	}
 	
-	//private void 
+	private void ControlloCannoni() {
+		
+	}
+	private void ControlloRazzi() {
+		
+	}
+	private void ControlloEquipaggio() {
+		
+	}
+	private void PerditaEquipaggio(Nave n) {
+		
+	}
+	private void PerditaGiorni(Giocatore g) {
+		
+	}
+	private void SubisciColpi(Nave n) {
+		
+	}
 	
 	
 	
