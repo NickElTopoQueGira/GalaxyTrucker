@@ -2,7 +2,7 @@ package carte.meteore;
 
 public class ColpoGrande extends Meteorite {
 	
-	public ColpoGrande(int d) {
-		super(PuntiCardinali.SUD, d, TypeMeteora.COLPO_GRANDE);
+	public ColpoGrande() {
+		super(PuntiCardinali.SUD, TypeMeteora.COLPO_GRANDE);
 	}
 }

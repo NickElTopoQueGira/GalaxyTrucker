@@ -113,11 +113,14 @@ public class Mazzo {
 		
 		return crt;
 	}
+	
 	public void StampaValori() {
 		
 		for(int i=0; i<lista.size(); i++) {
 			
 			lista.get(i).StampaValori();
+			System.out.println();
+			System.out.println();
 		}
 		System.out.println();
 	}

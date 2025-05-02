@@ -2,9 +2,9 @@ package carte.meteore;
 
 public class ColpoPiccolo extends Meteorite {
 
-	public ColpoPiccolo(int d) {
+	public ColpoPiccolo() {
 		
-		super(d, TypeMeteora.COLPO_PICCOLO);
+		super(TypeMeteora.COLPO_PICCOLO);
 	}
 	
 }

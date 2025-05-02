@@ -80,9 +80,9 @@ public class ZonaGuerra extends Carta {
 				grandezza = random.nextInt(3) + 1;
 				
 				if(grandezza == 1) {
-					colpi.add(new ColpoGrande(RisultatiDadi()));
+					colpi.add(new ColpoGrande());
 				}else {
-					colpi.add(new ColpoPiccolo(RisultatiDadi()));
+					colpi.add(new ColpoPiccolo());
 				}
 			}
 		}
@@ -94,9 +94,9 @@ public class ZonaGuerra extends Carta {
 				grandezza = random.nextInt(3) + 1;
 				
 				if(grandezza == 1) {
-					colpi.add(new ColpoGrande(RisultatiDadi()));
+					colpi.add(new ColpoGrande());
 				}else {
-					colpi.add(new ColpoPiccolo(RisultatiDadi()));
+					colpi.add(new ColpoPiccolo());
 				}
 			}
 		}
@@ -108,9 +108,9 @@ public class ZonaGuerra extends Carta {
 				grandezza = random.nextInt(3) + 1;
 				
 				if(grandezza == 1) {
-					colpi.add(new ColpoGrande(RisultatiDadi()));
+					colpi.add(new ColpoGrande());
 				}else {
-					colpi.add(new ColpoPiccolo(RisultatiDadi()));
+					colpi.add(new ColpoPiccolo());
 				}
 			}
 		}

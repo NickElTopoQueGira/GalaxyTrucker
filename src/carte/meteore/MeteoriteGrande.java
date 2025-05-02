@@ -5,9 +5,9 @@ import java.util.Random;
 public class MeteoriteGrande extends Meteorite {
 
 	
-	public MeteoriteGrande(int lvl, int d) {
+	public MeteoriteGrande(int lvl) {
 		
-		super(CasualDirezzione(lvl), d, TypeMeteora.METEORITE_GRANDE);
+		super(CasualDirezzione(lvl), TypeMeteora.METEORITE_GRANDE);
 	}
 	
 	

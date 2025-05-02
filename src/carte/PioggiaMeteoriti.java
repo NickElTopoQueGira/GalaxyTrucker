@@ -32,9 +32,9 @@ public class PioggiaMeteoriti extends Carta {
 				grandezza = random.nextInt(4) + 1;
 				
 				if(grandezza == 1) {
-					meteoriti.add(new MeteoriteGrande(this.lvl, RisultatiDadi()));
+					meteoriti.add(new MeteoriteGrande(this.lvl));
 				}else {
-					meteoriti.add(new MeteoritePiccolo(RisultatiDadi()));
+					meteoriti.add(new MeteoritePiccolo());
 				}
 			}
 		}
@@ -46,9 +46,9 @@ public class PioggiaMeteoriti extends Carta {
 				grandezza = random.nextInt(4) + 1;
 				
 				if(grandezza == 1) {
-					meteoriti.add(new MeteoriteGrande(this.lvl,RisultatiDadi()));
+					meteoriti.add(new MeteoriteGrande(this.lvl));
 				}else {
-					meteoriti.add(new MeteoritePiccolo(RisultatiDadi()));
+					meteoriti.add(new MeteoritePiccolo());
 				}
 			}
 		}
@@ -60,9 +60,9 @@ public class PioggiaMeteoriti extends Carta {
 				grandezza = random.nextInt(4) + 1;
 				
 				if(grandezza == 1) {
-					meteoriti.add(new MeteoriteGrande(this.lvl,RisultatiDadi()));
+					meteoriti.add(new MeteoriteGrande(this.lvl));
 				}else {
-					meteoriti.add(new MeteoritePiccolo(RisultatiDadi()));
+					meteoriti.add(new MeteoritePiccolo());
 				}
 			}
 		}
@@ -72,7 +72,6 @@ public class PioggiaMeteoriti extends Carta {
 		}
 	}
 	
-	
 	public void AzzioneCarta (Nave n) {    //da usare in game
 		
 		for(int i=0; i<this.meteoriti.size(); i++) {
@@ -80,19 +79,6 @@ public class PioggiaMeteoriti extends Carta {
 			ImpattoAsteroide ia = new ImpattoAsteroide(this.meteoriti.get(i), n);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	int RisultatiDadi() {
 		

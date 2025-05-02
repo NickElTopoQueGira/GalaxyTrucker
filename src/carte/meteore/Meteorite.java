@@ -8,16 +8,16 @@ public class Meteorite {
 	private TypeMeteora type;
 	private int dado;
 	
-	public Meteorite(int d, TypeMeteora t) {
+	public Meteorite(TypeMeteora t) {
 		this.direzione = casualDirezione();
-		this.dado = d;
+		this.dado = RisultatiDadi();
 		this.type = t;
 		
 	}
 	
-	public Meteorite(PuntiCardinali direzione, int d, TypeMeteora t) {
+	public Meteorite(PuntiCardinali direzione, TypeMeteora t) {
 		this.direzione = direzione;
-		this.dado = d;
+		this.dado = RisultatiDadi();
 		this.type = t;
 	}
 	
@@ -35,6 +35,15 @@ public class Meteorite {
 				yield null;
 			}
 		};
+	}
+	protected int RisultatiDadi() {          //// da modificare tuuutto
+		
+		Random random = new Random();
+		
+		int d1 = random.nextInt(6) + 1;
+		int d2 = random.nextInt(6) + 1;
+		
+		return d1+d2;
 	}
 
 	public PuntiCardinali getDirezione() {

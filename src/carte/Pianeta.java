@@ -1,7 +1,7 @@
 package carte;
 
-import merce.*;
-
+// import merce.*;
+import tessera.merce.*;
 import java.util.*;
 
 public class Pianeta extends Carta {
