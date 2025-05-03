@@ -1,123 +1,71 @@
 package partita;
 
-import java.util.Scanner;
-import eccezioniPersonalizzate.ErroreGiocatore;
-import eccezioniPersonalizzate.ErroreTessera;
-import partita.giocatore.*;
+import java.util.Set;
+import java.util.LinkedHashSet;
 
+import eccezioniPersonalizzate.ErroreGiocatore;
+import partita.Configurazione.ConfiguraGiocatore;
+import partita.giocatore.Giocatore;
 
 public class Partita {
+	private final int numeroGiocatori;
 	private final ModalitaPartita modalitaPartita;
-	private int numeroGiocatori;
-	
-	
-	public Partita(ModalitaPartita modalita, int numeroGiocatori, Scanner scanner){
-		this.modalitaPartita=modalita;
-		this.numeroGiocatori=numeroGiocatori;
-		
-		
-		inserisciGiocatori(scanner);
-		
-		selezionaModalita(scanner);
-		
+	private final Set<Giocatore> giocatori;
+	private Livelli livelloPartita;
+
+	public Partita(int numeroGiocatori, ModalitaPartita modalitaPartita){
+		this.giocatori = new LinkedHashSet<Giocatore>();
+		this.modalitaPartita = modalitaPartita;
+		this.numeroGiocatori = numeroGiocatori;
+	}
+
+	public Partita(int numeroGiocatori, Livelli livelloPartita){
+		this.giocatori = new LinkedHashSet<Giocatore>();
+		this.modalitaPartita = ModalitaPartita.SINGOLA;
+		this.numeroGiocatori = numeroGiocatori;
+		this.livelloPartita = livelloPartita;
 	}
 	
-	
-	private void inserisciGiocatori(Scanner scanner){
-		
-	
-		int j=0;
-		Colori coloreAttuale= Colori.ROSSO;
-		boolean condizione=true;
-		do {
-			condizione=true;
-			System.out.print("Inserisci il nome giocatore "+(j+1)+":");
-			String nomeG= scanner.next();
+	public void aggiungiGiocatori(){
+		ConfiguraGiocatore configuraGiocatore = new ConfiguraGiocatore();
+		for(int i = 0; i < this.numeroGiocatori; i += 1){
+			Giocatore nuovoGiocatore = creaGiocatore(configuraGiocatore);
+			this.giocatori.add(nuovoGiocatore);
+		}
+	}
 
-			Giocatore giocatore = null;
-			try {
-				giocatore = new Giocatore(nomeG, coloreAttuale);
-				
-				
-			} catch (ErroreTessera e) {
-				condizione = false;
-				System.out.println(e.getMessage());
+	public Giocatore creaGiocatore(ConfiguraGiocatore configuraGiocatore){
+		Giocatore nuovoGiocatore = null;
+
+		try{
+			nuovoGiocatore = configuraGiocatore.craGiocatore();
+			verificaDuplicati(nuovoGiocatore); 
+		}catch(ErroreGiocatore eg){
+			System.out.println(eg.getMessage().toString());
+			return creaGiocatore(configuraGiocatore);
+		}
+
+		return nuovoGiocatore;
+	}
+
+	private void verificaDuplicati(Giocatore nuovoGiocatore) throws ErroreGiocatore{
+		// verifica se il giocatore non e' gia' presente
+		for(Giocatore giocatoreElenco : giocatori){
+			if(giocatoreElenco.equals(nuovoGiocatore)){
+				throw new ErroreGiocatore("Giocatore gia' esistente");
 			}
-			if(condizione) {
-				Giocatore.getGiocatori().add(giocatore);
-				j++;
-	        	coloreAttuale.next();
-			}
-				
-			
-	        
-		}while(j<this.numeroGiocatori);
-		
-		
-
-        
-	}
-	
-	public Livelli selezionaLvL(Scanner scanner) {
-		Livelli livelloScelto = null;
-        System.out.println("Seleziona un livello:");
-        int lvl=1;
-        for (int i = 0; i < Livelli.values().length; i++) {
-            System.out.println(lvl + ". " + Livelli.values()[i]);
-            lvl++;
-        }
-
-        System.out.print("Inserisci il numero del livello: ");
-        int scelta = scanner.nextInt()-1;
-
-        if (scelta >= 0 && scelta < Livelli.values().length) {
-            livelloScelto = Livelli.values()[scelta];
-            System.out.println("Hai selezionato: " + livelloScelto);
-        } else {
-            System.out.println("Scelta non valida!");
-        }
-        
-        return livelloScelto;
-	}
-
-
-	public void selezionaModalita(Scanner scanner) {
-		switch (this.modalitaPartita) {
-		case ModalitaPartita.SINGOLA: {
-			Livelli livelloScelto = selezionaLvL(scanner);
-			IniziaPartitaSingola(scanner, livelloScelto);	
-			break;
-		}
-		case ModalitaPartita.MULTIPLA:{
-			IniziaPartitaMultipla(scanner);
-			break;
-		}
-		
-		
 		}
 	}
 
+	// livelli
 
-	private void IniziaPartitaMultipla(Scanner scanner) {
-		Livelli livelloAttuale= Livelli.PRIMO;
-		for(int i=0; i<3; i++) {
-			IniziaPartitaSingola(scanner,livelloAttuale);
-			livelloAttuale.next();		}
-	}
+	public Livelli getLivelloPartita(){ return this.livelloPartita; }
 
-	
-	
-	private void IniziaPartitaSingola(Scanner scanner, Livelli livelloScelto) {		
-        for(int i=0; i<this.numeroGiocatori; i++) {
-        	
-        	
-        	
-        }
-        for(Giocatore g: Giocatore.getGiocatori()) {
-        	g.setLivello(livelloScelto);
-        	g.creaNave();
-        }
-        
-		
+	public void setLivelloPartita(Livelli livelloPartita) { this.livelloPartita = livelloPartita;}
+
+	@Override
+	public String toString(){
+		return "Numero giocatori: " + this.numeroGiocatori + "\n" +
+				"Modalita' partita: " + this.modalitaPartita;
 	}
 }
