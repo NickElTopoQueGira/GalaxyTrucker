@@ -29,14 +29,14 @@ public class PARTITATESTMAIN {
 
         scanner.close();
 
-        Giocatore g;
-		try {
-			g = new Giocatore("Pippo", Colori.ROSSO);
-			g.setLivello(livelloScelto);
-	        g.creaNave();
+        // Giocatore g;
+		// try {
+		// 	g = new Giocatore("Pippo", Colori.ROSSO);
+		// 	g.setLivello(livelloScelto);
+	    //     g.creaNave();
 		
-		} catch (ErroreGiocatore e) {
-			e.printStackTrace();
-		}
+		// } catch (ErroreGiocatore e) {
+		// 	e.printStackTrace();
+		// }
     }
 }
