@@ -1,17 +1,18 @@
 package partita.Configurazione;
 
-import partita.Input;
+import gioco.ComunicazioneConUtente;
 import partita.Livelli;
 import partita.ModalitaPartita;
 import partita.Partita;
 
-public class ConfiguraPartita extends Input{
+public class ConfiguraPartita{
+	private ComunicazioneConUtente com;	
     private int numeroGiocatori;
     private ModalitaPartita modalitaPartita;
 	private Livelli livelloPartita;
 
     public ConfiguraPartita(){
-        super();
+		com = ComunicazioneConUtente.getIstanza();
 		this.livelloPartita = Livelli.PRIMO;
     }
 
@@ -48,11 +49,11 @@ public class ConfiguraPartita extends Input{
 	private int numeroGiocatori(){
 		int numeroGiocatori = 0;
 		do{
-			System.out.print("Inserisci il numero dei giocatori (min 2, max 4): ");
+			com.print("Inserisci il numero dei giocatori (min 2, max 4): ");
 			try{
-				numeroGiocatori = Integer.parseInt(super.input.nextLine());
+				numeroGiocatori = Integer.parseInt(com.consoleRead());
 			}catch(NumberFormatException nfe){
-				System.out.println("Inserisci un valore valido!!");
+				com.println("Inserisci un valore valido!!");
 			}
 		}while(numeroGiocatori < 2 || numeroGiocatori > 4);
 
@@ -62,14 +63,14 @@ public class ConfiguraPartita extends Input{
 	private ModalitaPartita modalitaPartita(){
 		int mod = 0;
 		do{
-			System.out.println("Modalita' partita disponibile: ");
-			System.out.println("1) Partita singola");
-			System.out.println("2) Partita multipla");
-			System.out.print("Inserisci la modalita' partita: ");
+			com.println("Modalita' partita disponibile: ");
+			com.println("1) Partita singola");
+			com.println("2) Partita multipla");
+			com.print("Inserisci la modalita' partita: ");
 			try{
-				mod = Integer.parseInt(super.input.nextLine());
+				mod = Integer.parseInt(com.consoleRead());
 			}catch(NumberFormatException nfe){
-				System.out.println("Inserisci un valore valido!!");
+				com.println("Inserisci un valore valido!!");
 			}
 		}while(mod != 1 && mod != 2);
 
@@ -79,15 +80,15 @@ public class ConfiguraPartita extends Input{
 	private Livelli livelloPartita(){
 		int livello = 0;
 		do{
-			System.out.println("Livelli disponibili: ");
-			System.out.println("1) Livello 1");
-			System.out.println("2) Livello 2");
-			System.out.println("3) Livello 3");
-			System.out.print("Inserisci il livello: ");
+			com.println("Livelli disponibili: ");
+			com.println("1) Livello 1");
+			com.println("2) Livello 2");
+			com.println("3) Livello 3");
+			com.print("Inserisci il livello: ");
 			try{
-				livello = Integer.parseInt(super.input.nextLine());
+				livello = Integer.parseInt(com.consoleRead());
 			}catch(NumberFormatException nfe){
-				System.out.println("Inserisci un numero valido!!");
+				com.println("Inserisci un numero valido!!");
 			}
 			
 		}while(livello < 1 || livello > 3);
@@ -103,24 +104,24 @@ public class ConfiguraPartita extends Input{
 				return Livelli.TERZO;
 			}
 			default ->{
-				System.out.println("Valore immesso non valido");
+				com.println("Valore immesso non valido");
 				return livelloPartita();
 			}
 		}
 	}
 
 	public void visualizzaScelte(){
-		System.out.println("--- Conferma dei valori immessi ---");
-		System.out.println("Numero giocatori: " + this.numeroGiocatori);
-		System.out.println("Modalita' partita: " + this.modalitaPartita);
+		com.println("--- Conferma dei valori immessi ---");
+		com.println("Numero giocatori: " + this.numeroGiocatori);
+		com.println("Modalita' partita: " + this.modalitaPartita);
 		if(this.modalitaPartita == ModalitaPartita.SINGOLA){
-			System.out.println("Livello partita: " + this.livelloPartita);
+			com.println("Livello partita: " + this.livelloPartita);
 		}
 	}
 
 	private boolean conferma(){
-		System.out.print("Vuoi confermare? (s/n): ");
-		String t = super.input.nextLine();
+		com.print("Vuoi confermare? (s/n): ");
+		String t = com.consoleRead();
 		if(t.toUpperCase().charAt(0) == 'S'){
 			return true;
 		}
@@ -128,23 +129,23 @@ public class ConfiguraPartita extends Input{
 			return false;
 		}
 		else{
-			System.out.println("Valore immesso non valido");
+			com.println("Valore immesso non valido");
 			return conferma();
 		}
 	}
 
 	public void modificaScelte(){
 		int s = 0;
-		System.out.println("1) Per modificare il numero dei giocatori");
-		System.out.println("2) Per modificare la modalita' della partita");
+		com.println("1) Per modificare il numero dei giocatori");
+		com.println("2) Per modificare la modalita' della partita");
 		if(this.modalitaPartita == ModalitaPartita.SINGOLA){
-			System.out.println("3) Per modificare la modalita' della partita");
+			com.println("3) Per modificare la modalita' della partita");
 		}
-		System.out.print("Inserisci la voce: ");
+		com.print("Inserisci la voce: ");
 		try{
-			s = Integer.parseInt(super.input.nextLine());
+			s = Integer.parseInt(com.consoleRead());
 		}catch(NumberFormatException nfe){
-			System.out.println("Inserisci un valore valido!!");
+			com.println("Inserisci un valore valido!!");
 		}
 		
 		switch(s){
@@ -159,12 +160,12 @@ public class ConfiguraPartita extends Input{
 					this.livelloPartita = livelloPartita();
 				}
 				else{
-					System.out.println("Valore immesso non valido!!");
+					com.println("Valore immesso non valido!!");
 					modificaScelte();	
 				}
 			}
 			default ->{
-				System.out.println("Valore immesso non valido!!");
+				com.println("Valore immesso non valido!!");
 				modificaScelte();
 			}
 		}
