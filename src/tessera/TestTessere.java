@@ -6,6 +6,7 @@ import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
 import tessera.motore.Motore;
 import tessera.scudi.Scudi;
+import tessera.tubi.Tubi;
 
 public class TestTessere {
 
@@ -84,7 +85,7 @@ public class TestTessere {
 		
 		Tessera t4 = null;
 		try {
-			t4 = new Motore();
+			t4 = new Tubi();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

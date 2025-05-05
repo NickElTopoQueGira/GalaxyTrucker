@@ -34,6 +34,8 @@ public class LatiTessera {
 		}
 		return true;
 	}
+	
+	
 
 	public TipoConnettoriTessera getUp() {
 		return up;
