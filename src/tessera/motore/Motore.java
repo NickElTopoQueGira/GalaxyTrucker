@@ -19,6 +19,7 @@ public class Motore extends Tessera {
 		contatore++;
 		if (contatore <= massimo) {
 			this.tipoMotore = randomTipo();
+			super.tessera_Disposizione[4][2]="§";
 		} else {
 			throw new ErroreTessera("Numero Elementi Motore Max"); // Eccezione Numero Massimo di elementi
 		}

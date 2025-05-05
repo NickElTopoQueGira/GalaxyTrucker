@@ -426,24 +426,27 @@ public abstract class Nave {
 
     /**
      * Stampa della nave
+     * @return 
      */
-    public void stampaNave(){
-        
+    @Override
+    public String toString(){
+    	String temp = "";
         for(int i = 0; i < this.nave.size(); i += 1){
             for(int j = 0; j < this.nave.get(i).size(); j += 1){
             	
-            	Tessera temp = this.nave.get(i).get(j);
+            	
             	if(null != temp) {
-            		temp.stampa(); 
+            		temp=temp + this.nave.get(i).get(j).toString(); 
             	}
             	else {
             		TesseraVuota tesseraVuota = new TesseraVuota();
-					tesseraVuota.stampa();
+					temp=temp+tesseraVuota.toString();
             	}
             }
             
-            System.out.print("\n");
+            temp = temp+"\n";
         }
+		return temp;
    
     }
 }

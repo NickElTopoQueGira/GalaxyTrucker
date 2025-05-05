@@ -149,14 +149,18 @@ public abstract class Tessera {
 		this.tessera_Disposizione[2][3] = stampaRight();
 	}
 
-	public void stampa() {
+	@Override
+	public String toString() {
+		String temp="";
 		generaTessera_Disposizione();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				System.out.print(this.tessera_Disposizione[i][j]);
+				temp=temp+this.tessera_Disposizione[i][j];
 			}
-			System.out.println("");
+			temp+="\n";
 		}
+		
+		return temp;
 
 	}
 }
