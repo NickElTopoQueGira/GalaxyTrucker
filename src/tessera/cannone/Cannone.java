@@ -11,8 +11,8 @@ import tessera.TipoTessera;
 
 public class Cannone extends Tessera {
 	private static final int massimo = 36;
-	private int Rprec = 0;
-	private int Cprec = 2;
+	private int rprec = 0;
+	private int cprec = 2;
 	private static int contatore = 0;
     private final TipoCannone tipoCannone;
 	private TipoLato latoCannone;
@@ -24,8 +24,8 @@ public class Cannone extends Tessera {
 		if (contatore <= massimo) {
 			this.tipoCannone = randomTipo();
 			this.latoCannone = TipoLato.UP;
-			this.tempStampaCasella=super.tessera_Disposizione[Rprec][Cprec];
-			super.tessera_Disposizione[Rprec][Cprec]="!";
+			this.tempStampaCasella=super.tessera_Disposizione[rprec][cprec];
+			super.tessera_Disposizione[rprec][cprec]="!";
 			this.latiTessera.setUp(TipoConnettoriTessera.NULLO);
 			while(!this.latiTessera.verificaTessera()) {
 				this.latiTessera.GeneraLatiTessera();
@@ -82,35 +82,35 @@ public class Cannone extends Tessera {
 	public void ruota() throws ErroreRotazione {
 		super.ruota();
 		this.latoCannone = this.latoCannone.next();
-		super.tessera_Disposizione[Rprec][Cprec]=this.tempStampaCasella;
+		super.tessera_Disposizione[rprec][cprec]=this.tempStampaCasella;
 		
 		switch (this.latoCannone) {
 		case UP: {
-			this.Rprec=0;
-			this.Cprec=2;
+			this.rprec=0;
+			this.cprec=2;
 			break;
 		}
 		case RIGHT: {
-			this.Rprec=2;
-			this.Cprec=4;		
+			this.rprec=2;
+			this.cprec=4;		
 			break;
 		}
 		case DOWN: {
-			this.Rprec=4;
-			this.Cprec=2;
+			this.rprec=4;
+			this.cprec=2;
 			break;
 		}
 		case LEFT: {
-			this.Rprec=2;
-			this.Cprec=0;
+			this.rprec=2;
+			this.cprec=0;
 			break;
 		}
 		default:
 			System.out.println("errore di rotazione");
 		}
 		
-		this.tempStampaCasella=super.tessera_Disposizione[Rprec][Cprec];
-		super.tessera_Disposizione[Rprec][Cprec]="!";
+		this.tempStampaCasella=super.tessera_Disposizione[rprec][cprec];
+		super.tessera_Disposizione[rprec][cprec]="!";
 	}
 
 
