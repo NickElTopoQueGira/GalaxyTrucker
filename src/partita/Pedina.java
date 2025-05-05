@@ -15,6 +15,10 @@ public class Pedina{
         return this.getColorePedina(); 
     }
 
+    public void muoviPedina(int posizioni){
+        this.posizioneSulTabellone += posizioni;
+    }
+
     public void setPosizioneSulTabellone(int posizioneSulTabellone){
         this.posizioneSulTabellone = posizioneSulTabellone;
     }
