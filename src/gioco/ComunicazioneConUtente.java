@@ -1,5 +1,6 @@
 /**
  * Questa classe e' utilizzata per gestire la comunicazione con l'utente 
+
  * sull'interfaccia console. 
  * 
  * In questa classe serve per istanziare solo una volta lo scanner per la lettura 

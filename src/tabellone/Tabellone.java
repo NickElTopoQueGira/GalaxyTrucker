@@ -2,20 +2,23 @@ package tabellone;
 
 import java.util.*;
 
+
 import carte.*;
+import partita.Pedina;
 
 public class Tabellone {
 	
-	private int lvl, ngiocatori, nposizioni;
-	private static Mazzo mazz;
-	private ArrayList<Carta> mazzo;  
+	private int lvl, numero_giocatori;
+	private static ArrayList<Pedina> pedine;
+	
+	private static ArrayList<Carta> mazzo;  
 	
 	public Tabellone (int lvl, int ngiocatori) {
 		
 		this.lvl = lvl;
-		this.ngiocatori = ngiocatori;
+		this.numero_giocatori = ngiocatori;
 		ImpostaNumPosizioni(lvl);
-		this.mazz = new Mazzo(lvl); // da cancelllare
+	
 		this.mazzo = new ArrayList<>();   // va nel mazzo
 		
 	}
@@ -67,11 +70,11 @@ public class Tabellone {
 	}
 
 	public int getNgiocatori() {
-		return ngiocatori;
+		return numero_giocatori;
 	}
 
 	public void setNgiocatori(int ngiocatori) {
-		this.ngiocatori = ngiocatori;
+		this.numero_giocatori = ngiocatori;
 	}
 
 	public int getNposizioni() {
