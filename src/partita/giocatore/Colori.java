@@ -16,9 +16,9 @@ public enum Colori {
 		return this.idColore;
 	}
 
-	public static Colori coloreSelezionato(int numeroColre) {
+	public static Colori coloreSelezionato(int numeroColore) {
 		for(Colori colori : Colori.values()){
-			if(colori.getIdColore() == numeroColre){
+			if(colori.getIdColore() == numeroColore){
 				return colori;
 			}
 		}

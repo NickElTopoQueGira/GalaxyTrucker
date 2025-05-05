@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.LinkedHashSet;
 
 import eccezioniPersonalizzate.ErroreGiocatore;
-import partita.Configurazione.ConfiguraGiocatore;
+import partita.configurazione.ConfiguraGiocatore;
 import partita.giocatore.Giocatore;
 
 public class Partita {
