@@ -96,7 +96,7 @@ public class TestTessere {
 		System.out.println("\t"+t4.getLatiTessera().getDown().toString()+"\t\n");
 		
 		//System.out.println(((Motore)t4).getLatoMotore().toString());
-		t4.stampa();
+		System.out.println(t4.toString());
 		try {
 			t4.ruota();
 		} catch (ErroreRotazione e) {
@@ -104,7 +104,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		t4.stampa();
+		System.out.println(t4.toString());
 		try {
 			t4.ruota();
 		} catch (ErroreRotazione e) {
@@ -112,7 +112,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		t4.stampa();
+		System.out.println(t4.toString());
 		
 		
 		System.out.println(Tessera.getCurrentSize());
@@ -123,21 +123,21 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		t5.stampa();
+		System.out.println(t5.toString());
 		try {
 			t5.ruota();
 		} catch (ErroreRotazione e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		t5.stampa();
+		System.out.println(t5.toString());
 		try {
 			t5.ruota();
 		} catch (ErroreRotazione e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		t5.stampa();
+		System.out.println(t5.toString());
 		
 		String test = "";
 		for(int i = 0; i <(5*6); i++) {
