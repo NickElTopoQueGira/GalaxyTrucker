@@ -1,4 +1,4 @@
-package partita.Configurazione;
+package partita.configurazione;
 
 import gioco.ComunicazioneConUtente;
 import partita.Pedina;
