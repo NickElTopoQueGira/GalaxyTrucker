@@ -2,6 +2,8 @@ package tessera;
 
 import java.util.ArrayList;
 
+import eccezioniPersonalizzate.ErroreRotazione;
+
 public abstract class Tessera {
 
 	protected final TipoTessera tipoTessera;
@@ -62,7 +64,7 @@ public abstract class Tessera {
 
 	}
 
-	public void ruota() {
+	public void ruota() throws ErroreRotazione {
 		this.latiTessera.ruotaLati();
 
 	}

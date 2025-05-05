@@ -2,7 +2,7 @@ package tessera.motore;
 
 import java.util.Random;
 
-
+import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoTessera;
@@ -33,6 +33,12 @@ public class Motore extends Tessera {
 	private TipoMotore randomTipo() {
 		TipoMotore[] tipiMotore = TipoMotore.values();
 		return tipiMotore[new Random().nextInt(tipiMotore.length)];
+	}
+	
+	@Override
+	public void ruota() throws  ErroreRotazione{
+		throw new ErroreRotazione("Errore: Rotazione non valida"); // Eccezione: il motore non ruota
+		
 	}
 
 }
