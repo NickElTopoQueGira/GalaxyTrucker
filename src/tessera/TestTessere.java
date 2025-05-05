@@ -4,6 +4,7 @@ import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
+import tessera.motore.Motore;
 import tessera.scudi.Scudi;
 
 public class TestTessere {
@@ -83,7 +84,7 @@ public class TestTessere {
 		
 		Tessera t4 = null;
 		try {
-			t4 = new Scudi();
+			t4 = new Motore();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
