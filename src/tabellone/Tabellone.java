@@ -1,103 +1,56 @@
 package tabellone;
 
-import java.util.*;
+import java.util.ArrayList;
 
-
-import carte.*;
+import carte.Carta;
+import eccezioniPersonalizzate.LivelloErrato;
+import gioco.ComunicazioneConUtente;
+import partita.Livelli;
 import partita.Pedina;
 
-public class Tabellone {
-	
-	private int lvl, numero_giocatori;
-	private static ArrayList<Pedina> pedine;
-	
-	private static ArrayList<Carta> mazzo;  
-	
-	public Tabellone (int lvl, int ngiocatori) {
+public class Tabellone{
+	private final ComunicazioneConUtente com;
+	private final Livelli livello;
+	private ArrayList<Pedina> elencoPedine;
+	private ArrayList<Carta> mazzo;
+	private int numeroCaselle;
+
+	public Tabellone(Livelli livello){
+		com = ComunicazioneConUtente.getIstanza();
+		this.livello = livello;
+		this.elencoPedine = new ArrayList<Pedina>();
+		this.mazzo = new ArrayList<Carta>();
 		
-		this.lvl = lvl;
-		this.numero_giocatori = ngiocatori;
-		ImpostaNumPosizioni(lvl);
-	
-		this.mazzo = new ArrayList<>();   // va nel mazzo
-		
-	}
-	
-	void ImpostaNumPosizioni(int lvl) {
-		switch(lvl) {
-		case 1:
-			this.nposizioni = 18;
-		break;
-		case 2:
-			this.nposizioni = 24;
-		break;
-		case 3:
-			this.nposizioni = 34;
-		break;
-		default:
-			System.out.println("ERROR: inserimento numero posizione (errorTipe: switch) (class: Tabellone)");
-		break;
-		}	
-	}
-	private void AssegnaMazzo() {
-		
-		this.mazzo = this.mazz.getLista();
-	}
-	
-	private void NuovoMazzo(int lvlv) {
-		
-		this.mazz.RigeneraMazzo(lvlv);
-		AssegnaMazzo();
-		
+		try{
+			this.numeroCaselle = getNumeroCaselleE();
+		}catch(LivelloErrato le){
+			com.printError(le.getMessage());
+		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public int getLvl() {
-		return lvl;
+	public void aggiungiPedina(Pedina pedina){
+		this.elencoPedine.add(pedina);
 	}
 
-	public void setLvl(int lvl) {
-		this.lvl = lvl;
+	public int getNumeroCaselle() { return this.numeroCaselle; }
+
+	private int getNumeroCaselleE() throws LivelloErrato{
+		switch(this.livello){
+			case PRIMO ->{
+				return Livelli.getCaselleXLivello(Livelli.PRIMO);
+			}
+			case SECONDO ->{
+				return Livelli.getCaselleXLivello(Livelli.SECONDO);
+			}
+			case TERZO ->{
+				return Livelli.getCaselleXLivello(Livelli.TERZO);
+			}
+			default ->{
+				throw new LivelloErrato("Livello immesso errato");
+			}
+		}
 	}
 
-	public int getNgiocatori() {
-		return numero_giocatori;
-	}
-
-	public void setNgiocatori(int ngiocatori) {
-		this.numero_giocatori = ngiocatori;
-	}
-
-	public int getNposizioni() {
-		return nposizioni;
-	}
-
-	public void setNposizioni(int nposizioni) {
-		this.nposizioni = nposizioni;
-	}
-
-	public static Mazzo getMazz() {
-		return mazz;
-	}
-
-	public static void setMazz(Mazzo mazz) {
-		Tabellone.mazz = mazz;
-	}
-
-	public ArrayList<Carta> getMazzo() {
-		return mazzo;
-	}
-
-	public void setMazzo(ArrayList<Carta> mazzo) {
-		this.mazzo = mazzo;
-	}
+	//---------------------------------- MAZZO ----------------------------------
+	// TODO: chiedere
 }
