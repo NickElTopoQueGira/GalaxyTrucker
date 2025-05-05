@@ -2,7 +2,7 @@ package tessera.cannone;
 
 import java.util.Random;
 
-
+import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
@@ -79,7 +79,7 @@ public class Cannone extends Tessera {
 	}
 	
 	@Override
-	public void ruota() {
+	public void ruota() throws ErroreRotazione {
 		super.ruota();
 		this.latoCannone = this.latoCannone.next();
 		super.tessera_Disposizione[Rprec][Cprec]=this.tempStampaCasella;

@@ -1,8 +1,10 @@
 package tessera;
 
+import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
+import tessera.scudi.Scudi;
 
 public class TestTessere {
 
@@ -51,7 +53,12 @@ public class TestTessere {
 		System.out.println(t1.getLatiTessera().getLeft().toString()+"\t\t"+t1.getLatiTessera().getRight().toString()+"\n");
 		System.out.println("\t"+t1.getLatiTessera().getDown().toString()+"\t\n");
 		
-		t1.ruota(); //ruota di 90 gradi a dx
+		try {
+			t1.ruota();
+		} catch (ErroreRotazione e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //ruota di 90 gradi a dx
 		//stampa connettori di t1
 		System.out.println(t1.getTipoTessera().toString());
 		System.out.println("\t"+t1.getLatiTessera().getUp().toString()+"\n");
@@ -76,7 +83,7 @@ public class TestTessere {
 		
 		Tessera t4 = null;
 		try {
-			t4 = new Cannone();
+			t4 = new Scudi();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,14 +92,24 @@ public class TestTessere {
 		System.out.println("\t"+t4.getLatiTessera().getUp().toString()+"\n");
 		System.out.println(t4.getLatiTessera().getLeft().toString()+"\t\t"+t4.getLatiTessera().getRight().toString()+"\n");
 		System.out.println("\t"+t4.getLatiTessera().getDown().toString()+"\t\n");
-		System.out.println(((Cannone) t4).calcolaValore());
+		
 		//System.out.println(((Motore)t4).getLatoMotore().toString());
 		t4.stampa();
-		t4.ruota();
-		System.out.println(((Cannone) t4).calcolaValore());
+		try {
+			t4.ruota();
+		} catch (ErroreRotazione e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		t4.stampa();
-		t4.ruota();
-		System.out.println(((Cannone) t4).calcolaValore());
+		try {
+			t4.ruota();
+		} catch (ErroreRotazione e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		t4.stampa();
 		
 		
@@ -105,9 +122,19 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		t5.stampa();
-		t5.ruota();
+		try {
+			t5.ruota();
+		} catch (ErroreRotazione e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		t5.stampa();
-		t5.ruota();
+		try {
+			t5.ruota();
+		} catch (ErroreRotazione e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		t5.stampa();
 		
 		String test = "";
