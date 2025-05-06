@@ -36,7 +36,7 @@ public class Meteorite {
 			}
 		};
 	}
-	protected int RisultatiDadi() {          //// da modificare tuuutto
+	protected int RisultatiDadi() {
 		
 		Random random = new Random();
 		

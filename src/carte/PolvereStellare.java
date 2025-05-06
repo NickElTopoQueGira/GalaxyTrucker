@@ -1,7 +1,5 @@
 package carte;
 
-import java.util.Random;
-
 public class PolvereStellare extends Carta {
 	
 	
@@ -9,10 +7,4 @@ public class PolvereStellare extends Carta {
 		
 		super(lvl, TipoCarta.POLVERE_STELLARE);
 	}
-	
-	void GeneraValori() {
-		
-		
-	}
-
 }
