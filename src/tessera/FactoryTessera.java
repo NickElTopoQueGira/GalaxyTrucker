@@ -61,7 +61,7 @@ public class FactoryTessera {
 
 	public TipoTessera randomTipo() {
 		TipoTessera tipiTessera[] = TipoTessera.values();
-		// viene fatta una random della lunghezza -1 per escludere il tipo centro
+		// viene fatta una random della lunghezza -2 per escludere il tipo centro e vuota
 		return tipiTessera[new Random().nextInt(tipiTessera.length - 2)];
 	}
 }
