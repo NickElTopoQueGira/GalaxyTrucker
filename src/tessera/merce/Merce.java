@@ -17,15 +17,14 @@ public class Merce extends Tessera {
 	private int numeroMerciAttuale;
 	
 
-	// public Merce() {
-
-	// } ANDY GENERA UN COSTRUUTORE TUO (ne teniamo due)
+	
 
 	public Merce() throws ErroreTessera {
 		super(TipoTessera.PORTA_MERCI);
 		contatore++;
 		if (contatore <= massimo) {
 			this.tipoMerciGenerale = randomTipo(); // specifica il tipo se normale o speciale
+			
 			this.MaxCapienza = new Random().nextInt(2) + 1;
 			this.valore = 0;
 			this.numeroMerciAttuale = 0;
@@ -78,6 +77,10 @@ public class Merce extends Tessera {
 	public TipoMerciGenerale getTipoMerciGenerale() {
 		return tipoMerciGenerale;
 	}
+	
+
+	
+
 
 	private TipoMerciGenerale randomTipo() {
 		TipoMerciGenerale[] tipoMerceGenerale = TipoMerciGenerale.values();

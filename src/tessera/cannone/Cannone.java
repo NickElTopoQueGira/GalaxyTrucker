@@ -17,6 +17,7 @@ public class Cannone extends Tessera {
     private final TipoCannone tipoCannone;
 	private TipoLato latoCannone;
 	private String tempStampaCasella;
+	private final static String canna="\033[0;31m"+"!"+"\033[0m";
 	
 	public Cannone() throws ErroreTessera {
 		super(TipoTessera.CANNONE);
@@ -25,7 +26,7 @@ public class Cannone extends Tessera {
 			this.tipoCannone = randomTipo();
 			this.latoCannone = TipoLato.UP;
 			this.tempStampaCasella=super.tessera_Disposizione[rprec][cprec];
-			super.tessera_Disposizione[rprec][cprec]="!";
+			super.tessera_Disposizione[rprec][cprec]=canna;
 			this.latiTessera.setUp(TipoConnettoriTessera.NULLO);
 			while(!this.latiTessera.verificaTessera()) {
 				this.latiTessera.GeneraLatiTessera();
@@ -110,7 +111,7 @@ public class Cannone extends Tessera {
 		}
 		
 		this.tempStampaCasella=super.tessera_Disposizione[rprec][cprec];
-		super.tessera_Disposizione[rprec][cprec]="!";
+		super.tessera_Disposizione[rprec][cprec]=canna;
 	}
 
 

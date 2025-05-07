@@ -5,6 +5,7 @@ import java.util.Random;
 import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
+import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 
 public class Motore extends Tessera {
@@ -19,7 +20,12 @@ public class Motore extends Tessera {
 		contatore++;
 		if (contatore <= massimo) {
 			this.tipoMotore = randomTipo();
-			super.tessera_Disposizione[4][2]="§";
+			super.tessera_Disposizione[4][2]="\033[0;31m"+"§"+"\033[0m";
+			this.latiTessera.setDown(TipoConnettoriTessera.NULLO);
+			while(!this.latiTessera.verificaTessera()) {
+				this.latiTessera.GeneraLatiTessera();
+				this.latiTessera.setDown(TipoConnettoriTessera.NULLO);
+			}
 		} else {
 			throw new ErroreTessera("Numero Elementi Motore Max"); // Eccezione Numero Massimo di elementi
 		}
