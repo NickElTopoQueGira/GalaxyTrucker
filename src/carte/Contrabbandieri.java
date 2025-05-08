@@ -156,10 +156,4 @@ public class Contrabbandieri extends Nemici {
 		
 		return temp;
 	}
-	public void StampaValori() {
-		
-
-		System.out.println();
-	}
-	
 }
