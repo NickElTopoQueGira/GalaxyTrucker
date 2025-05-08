@@ -131,20 +131,7 @@ public class ZonaGuerra extends Carta {
 		
 		return d1+d2;
 	}
-	@Override
-	public String toString() {
-		String temp="";
-		temp=temp+"\nLivello carta:"+this.lvl+
-				"\nTipo carta:"+this.tipo;
-		for(int i=0; i<3; i++) {
-			for(int j=0; j<2; j++) {
-				temp = temp+"- "+valori[i][j]+" - ";
-			}
-			temp = temp + "\n";
-		}
-		
-		return temp;
-	}
+
 
 	public static String[] getPenalita() {
 		return penalita;
