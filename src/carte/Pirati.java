@@ -145,7 +145,20 @@ public class Pirati extends Nemici {
 			
 		}
 	}
-	
+	@Override
+	public String toString() {
+		String temp="";
+		temp=temp+"\nLivello carta:"+this.lvl+
+				"\nTipo carta:"+this.tipo+
+				"\nPotenza necessaria:"+this.potenzanecc+
+				"\nGuadagno:"+this.guadagno+
+				"\nGiorni Penalità:"+this.penalitagiorni+"\n";
+		for(int j=0; j<this.colpi.size(); j++) {
+			temp=temp+this.colpi.get(j).getType()+" | " + this.colpi.get(j).getDirezione();
+		}
+		
+		return temp;
+	}
 	public void StampaValori() {
 		
 		System.out.println("Livello carta:"+this.lvl);
