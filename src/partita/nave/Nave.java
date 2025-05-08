@@ -13,6 +13,7 @@ import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 import tessera.cannone.Cannone;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
+import tessera.motore.Motore;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
@@ -20,9 +21,7 @@ public abstract class Nave {
     private int[][] NAVE_DEF;
     private Coordinate centro;
     private Colori coloreNave;
-    private int equipaggio=0;
-    private int potenzaMotori=0;
-    private int potenzaCannoni=0;
+    
     
 
 
@@ -473,18 +472,33 @@ public abstract class Nave {
 				}
 			}
 		}
-		this.equipaggio=cosmonauti+alieniViola+alieniMarroni;
-		return this.equipaggio;
+		int equipaggio=cosmonauti+alieniViola+alieniMarroni;
+		return equipaggio;
 	}
 	
 	public int getPotenzaMotori() {
-		//fare
-		return this.potenzaMotori;
+		int valore=0;
+		for(ArrayList<Tessera> colonne : nave) {
+			for(Tessera tessera : colonne) {
+				if(tessera.getTipoTessera()==TipoTessera.MOTORE) {
+					valore+=1;
+				}
+			}
+		}
+		return valore;
+		
 	}
 	
-	public int getPotenzaCannoni() {
-		//fare
-		return this.potenzaCannoni;
+	public float getPotenzaCannoni() {
+		float valore=0;
+		for(ArrayList<Tessera> colonne : nave) {
+			for(Tessera tessera : colonne) {
+				if(tessera.getTipoTessera()==TipoTessera.CANNONE) {
+					valore+=((Cannone)tessera).calcolaValore();
+				}
+			}
+		}
+		return valore;
 	}
 	
 }
