@@ -53,10 +53,10 @@ public class Tabellone{
 	//---------------------------------- MAZZO ----------------------------------
 	
 	
-	/*public void eseguiMazzo() {
+	public void eseguiMazzo() {
 		for(Carta carta : mazzo) {
-			carta.eseguiCarta(this.);
+			carta.eseguiCarta(this.elencoPedine);
 		}
 	}
-	*/
+	
 }
