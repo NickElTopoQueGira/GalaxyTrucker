@@ -132,17 +132,18 @@ public class ZonaGuerra extends Carta {
 		return d1+d2;
 	}
 	@Override
-	public void StampaValori() {
+	public String toString() {
+		String temp="Livello carta:"+this.lvl+"Tipo carta:"+this.tipo;
 		
-		System.out.println("Livello carta:"+this.lvl);
-		System.out.println("Tipo carta:"+this.tipo);
 		for(int i=0; i<3; i++) {
 			for(int j=0; j<2; j++) {
-				System.out.print("- "+valori[i][j]+" - ");
+				temp=temp+"- "+valori[i][j]+" - ";
 			}
-			System.out.println();
+			temp+="\n";
 		}
-		System.out.println();
+		temp+="\n";
+		
+		return temp;
 	}
 
 	public static String[] getPenalita() {
