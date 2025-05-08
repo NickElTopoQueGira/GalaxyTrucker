@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import carte.*;
 import eccezioniPersonalizzate.ErroreTessera;
+import partita.Pedina;
 import partita.giocatore.Giocatore;
 import tessera.Coordinate;
 import tessera.TipoTessera;
@@ -25,19 +26,19 @@ public class Sabotaggio extends EventiSpeciali {
 		return d1+d2;
 	}
 	@Override
-	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {  //DA RIFARE
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {  //DA RIFARE
 		
 		int giocatoreMinorEquipaggio = 0;
 		
-		for(int i=1; i<elencoGiocatore.size(); i++) {
+		for(int i=1; i<elencoPedine.size(); i++) {
 			
-			if(elencoGiocatore.get(i).getNave().getEquipaggio() < elencoGiocatore.get(giocatoreMinorEquipaggio).getNave().getEquipaggio()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
+			if(elencoPedine.get(i).getNave().getEquipaggio() < elencoPedine.get(giocatoreMinorEquipaggio).getNave().getEquipaggio()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
 				
 				giocatoreMinorEquipaggio = i; //IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
 			
-			}else if(elencoGiocatore.get(i).getNave().getEquipaggio() == elencoGiocatore.get(giocatoreMinorEquipaggio).getNave().getEquipaggio()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
+			}else if(elencoPedine.get(i).getNave().getEquipaggio() == elencoPedine.get(giocatoreMinorEquipaggio).getNave().getEquipaggio()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
 				
-				if(elencoGiocatore.get(i).getPedina().getPosizioneSulTabellone() > elencoGiocatore.get(giocatoreMinorEquipaggio).getPedina().getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
+				if(elencoPedine.get(i).getPedina().getPosizioneSulTabellone() > elencoPedine.get(giocatoreMinorEquipaggio).getPedina().getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
 					
 					giocatoreMinorEquipaggio = i;//IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
 				}
@@ -53,10 +54,10 @@ public class Sabotaggio extends EventiSpeciali {
 			riga = RisultatiDadi();
 			colonna = RisultatiDadi();
 			
-			if(elencoGiocatore.get(giocatoreMinorEquipaggio).getNave().getPlanciaDellaNave().get(colonna).get(riga).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
+			if(elencoPedine.get(giocatoreMinorEquipaggio).getNave().getPlanciaDellaNave().get(colonna).get(riga).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
 				
 				try {
-					elencoGiocatore.get(giocatoreMinorEquipaggio).getNave().rimuoviTessera(new Coordinate(colonna, riga));
+					elencoPedine.get(giocatoreMinorEquipaggio).getNave().rimuoviTessera(new Coordinate(colonna, riga));
 					
 					isUnitaAbitativaColpita = true;
 				} catch (ErroreTessera err) {
@@ -67,4 +68,5 @@ public class Sabotaggio extends EventiSpeciali {
 		}while(contatore < 3 || !isUnitaAbitativaColpita);
 		
 	}
+	
 }

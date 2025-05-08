@@ -1,7 +1,7 @@
 package carte;
 
 import carte.meteore.*;
-import partita.giocatore.Giocatore;
+import partita.Pedina;
 import java.util.*;
 
 public class PioggiaMeteoriti extends Carta {
@@ -85,10 +85,12 @@ public class PioggiaMeteoriti extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 
 	

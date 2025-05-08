@@ -2,6 +2,7 @@ package carte;
 
 import java.util.ArrayList;
 
+import partita.Pedina;
 import partita.giocatore.Giocatore;
 
 
@@ -43,5 +44,5 @@ public abstract class Carta {
 		this.tipo = tipo;
 	}
 	
-	public abstract void eseguiCarta(ArrayList<Giocatore> elencoGiocatore);
+	public abstract void eseguiCarta(ArrayList<Pedina> elencoPedine);
 }

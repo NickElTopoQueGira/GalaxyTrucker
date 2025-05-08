@@ -1,7 +1,8 @@
 package carte;
 
 import java.util.ArrayList;
-import partita.giocatore.Giocatore;
+
+import partita.Pedina;
 import partita.nave.*;
 import tessera.Tessera;
 
@@ -13,20 +14,7 @@ public class PolvereStellare extends Carta {
 		super(lvl, TipoCarta.POLVERE_STELLARE);
 	}
 
-	@Override
-	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
-		// TODO Auto-generated method stub
-		
-		for(int i=0; i<elencoGiocatore.size(); i++) {
-			
-			int connettoriScoperti = ContaConnettoriScoperti(elencoGiocatore.get(i).getNave().getPlanciaDellaNave());
-			
-			
-			int posizionePedina = elencoGiocatore.get(i).getPedina().getPosizioneSulTabellone();
-			elencoGiocatore.get(i).getPedina().setPosizioneSulTabellone(posizionePedina - connettoriScoperti);      
-			
-		}
-	}
+	
 	
 	private int ContaConnettoriScoperti(ArrayList<ArrayList<Tessera>> nave) {
 		int n = 0;
@@ -34,6 +22,22 @@ public class PolvereStellare extends Carta {
 		//for(int i=0; i<nave.ge)
 		
 		return n;
+	}
+
+
+
+	@Override
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+		for(int i=0; i<elencoPedine.size(); i++) {
+			
+			int connettoriScoperti = ContaConnettoriScoperti(elencoPedine.get(i).getNave().getPlanciaDellaNave());
+			
+			
+			int posizionePedina = elencoPedine.get(i).getPosizioneSulTabellone();
+			elencoPedine.get(i).setPosizioneSulTabellone(posizionePedina - connettoriScoperti);      
+			
+		}
+		
 	}
 
 }

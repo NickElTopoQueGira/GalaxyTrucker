@@ -2,8 +2,10 @@ package carte;
 
 // import merce.*;
 import tessera.merce.*;
+
 import java.util.*;
-import partita.giocatore.Giocatore;
+
+import partita.Pedina;
 
 public class Pianeta extends Carta {
 	
@@ -208,10 +210,12 @@ public class Pianeta extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 	
 }
