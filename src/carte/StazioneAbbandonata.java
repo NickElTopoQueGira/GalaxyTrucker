@@ -3,6 +3,8 @@ package carte;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import partita.Pedina;
 import partita.giocatore.Giocatore;
 import tessera.merce.TipoMerce;
 
@@ -157,9 +159,10 @@ public class StazioneAbbandonata extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
 }

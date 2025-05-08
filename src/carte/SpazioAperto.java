@@ -1,6 +1,8 @@
 package carte;
 
 import java.util.ArrayList;
+
+import partita.Pedina;
 import partita.giocatore.Giocatore;
 
 public class SpazioAperto extends Carta {
@@ -11,17 +13,18 @@ public class SpazioAperto extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
-		// TODO Auto-generated method stub
-		
-		for(int i=0; i<elencoGiocatore.size(); i++) {
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+        for(int i=0; i<elencoPedine.size(); i++) {
 			
-			int potenzaMotore = elencoGiocatore.get(i).getNave().getPotenzaMotori(); //PRENTE LA POTENZA MOTORI
+			int potenzaMotore = elencoPedine.get(i).getNave().getPotenzaMotori(); //PRENTE LA POTENZA MOTORI
 			
-			int posizionePedina = elencoGiocatore.get(i).getPedina().getPosizioneSulTabellone(); //PRENTE LA POSIZIONE DELLE PEDINE
+			int posizionePedina = elencoPedine.get(i).getPosizioneSulTabellone(); //PRENTE LA POSIZIONE DELLE PEDINE
 			
-			elencoGiocatore.get(i).getPedina().setPosizioneSulTabellone(posizionePedina+potenzaMotore);  // SOMMA LA POSIZIONE ALLA POTENZA MOTORE E LA IMPOSTA COME NUOVA POSIZIONE
+			elencoPedine.get(i).setPosizioneSulTabellone(posizionePedina+potenzaMotore);  // SOMMA LA POSIZIONE ALLA POTENZA MOTORE E LA IMPOSTA COME NUOVA POSIZIONE
 		}
+		
 	}
+
+	
 
 }

@@ -21,12 +21,5 @@ public class Sabotaggio extends EventiSpeciali {
 		
 		return d1+d2;
 	}
-	@Override
-	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
-		
-		for(int i=0; i<elencoGiocatore.size(); i++) {
-			
-			
-		}
-	}
+	
 }
