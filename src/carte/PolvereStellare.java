@@ -27,10 +27,11 @@ public class PolvereStellare extends Carta {
 			
 		}
 	}
+	
 	private int ContaConnettoriScoperti(ArrayList<ArrayList<Tessera>> nave) {
 		int n = 0;
 		
-		for(int i=0; i<nave.ge)
+		//for(int i=0; i<nave.ge)
 		
 		return n;
 	}
