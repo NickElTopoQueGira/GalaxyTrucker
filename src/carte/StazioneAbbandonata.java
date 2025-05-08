@@ -140,5 +140,19 @@ public class StazioneAbbandonata extends Carta {
 		this.merci = merci;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String temp="";
+		temp=temp+"\nLivello carta:"+this.lvl+
+				"\nTipo carta:"+this.tipo+
+				"\nGiorni Penalità:"+this.penalitagiorni+"\n"+
+				"\nEquipaggio Necessario:"+this.giocatorinecessari+"\n";
+				for(int i=0; i<this.merci.size(); i++) {
+					temp=temp+this.merci.get(i).name()+" | ";
+				}
+				temp=temp+"\n"; 
+
+		
+		return temp;
+	}
 }

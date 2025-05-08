@@ -149,7 +149,7 @@ public class Contrabbandieri extends Nemici {
 				"\nTipo carta:"+this.tipo+
 				"\nPotenza necessaria:"+this.potenzanecc+
 				"\nMerci Penalità:"+this.penalitamerci+
-				"\nGiorni Penalità:"+this.penalitagiorni;
+				"\nGiorni Penalità:"+this.penalitagiorni+"\n";
 		for(int j=0; j<this.merci.size(); j++) {
 			temp=temp+this.merci.get(j).name()+" | ";
 		}

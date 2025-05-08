@@ -117,6 +117,16 @@ public class NaveAbbandonata extends Carta {
 	public void setPerditaequipaggio(int perditaequipaggio) {
 		this.perditaequipaggio = perditaequipaggio;
 	}
-	
-	
+	@Override
+	public String toString() {
+		String temp="";
+		temp=temp+"\nLivello carta:"+this.lvl+
+				"\nTipo carta:"+this.tipo+
+				"\nGiorni Penalità:"+this.giornipersi+"\n"+
+				"\nEquipaggio Penalità:"+this.perditaequipaggio+"\n"+
+				"\nGuadagno:"+this.guadagno+"\n"; //guadagno, giornipersi, perditaequipaggio;
+
+		
+		return temp;
+	}
 }

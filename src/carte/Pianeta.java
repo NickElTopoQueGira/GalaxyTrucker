@@ -172,22 +172,22 @@ public class Pianeta extends Carta {
             }
         }
 	}
-	
-	public void StampaValori() {
-		
-		System.out.println("Livello carta:"+this.lvl);
-		System.out.println("Tipo carta:"+this.tipo);
-		System.out.println("Giorni Penalità:"+this.penalitagiorni);
-		
+	@Override
+	public String toString() {
+		String temp="";
+		temp=temp+"\nLivello carta:"+this.lvl+
+				"\nTipo carta:"+this.tipo+
+				"\nGiorni Penalità:"+this.penalitagiorni+"\n";
 		for(int i=0; i<this.pianeti.size(); i++) {
-			System.out.print("PAINETA"+i+" - ");
+			temp=temp+"PAINETA"+i+" - ";
 			
 			for(int j=0; j<this.pianeti.get(i).size(); j++) {
-				System.out.print(this.pianeti.get(i).get(j).name()+" | ");
+				temp=temp+this.pianeti.get(i).get(j).name()+" | ";
 			}
-			System.out.println();
+			temp=temp+"\n";
 		}
-		System.out.println();
+		
+		return temp;
 	}
 	
 	public int getPenalitagiorni() {
