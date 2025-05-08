@@ -1,8 +1,7 @@
 package carte;
 
 import java.util.*;
-
-import partita.Pedina;
+import partita.giocatore.Giocatore;
 
 public class NaveAbbandonata extends Carta {
 	
@@ -133,10 +132,11 @@ public class NaveAbbandonata extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 }

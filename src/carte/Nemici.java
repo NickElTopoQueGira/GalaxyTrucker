@@ -1,8 +1,7 @@
 package carte;
 
 import java.util.ArrayList;
-
-import partita.Pedina;
+import partita.giocatore.Giocatore;
 
 public class Nemici extends Carta {
 
@@ -12,10 +11,11 @@ public class Nemici extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 }

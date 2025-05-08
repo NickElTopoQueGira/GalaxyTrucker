@@ -1,8 +1,7 @@
 package carte;
 
 import java.util.ArrayList;
-
-import partita.Pedina;
+import partita.giocatore.Giocatore;
 
 public class PolvereStellare extends Carta {
 	
@@ -13,10 +12,9 @@ public class PolvereStellare extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	
 }

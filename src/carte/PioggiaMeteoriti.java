@@ -1,7 +1,7 @@
 package carte;
 
 import carte.meteore.*;
-import partita.Pedina;
+import partita.giocatore.Giocatore;
 import partita.nave.Nave;
 import carte.evento.ImpattoAsteroide;
 import java.util.*;
@@ -107,10 +107,11 @@ public class PioggiaMeteoriti extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 }
