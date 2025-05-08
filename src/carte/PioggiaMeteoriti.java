@@ -2,8 +2,6 @@ package carte;
 
 import carte.meteore.*;
 import partita.giocatore.Giocatore;
-import partita.nave.Nave;
-import carte.evento.EsecuzionePioggiaMeteoriti;
 import java.util.*;
 
 public class PioggiaMeteoriti extends Carta {
@@ -73,24 +71,6 @@ public class PioggiaMeteoriti extends Carta {
 		}
 	}
 	
-	public void AzzioneCarta (Nave n) {    //da usare in game
-		
-		for(int i=0; i<this.meteoriti.size(); i++) {
-			
-			EsecuzionePioggiaMeteoriti ia = new EsecuzionePioggiaMeteoriti(this.meteoriti.get(i), n);
-		}
-	}
-	
-	int RisultatiDadi() {
-		
-		Random random = new Random();
-		
-		int d1 = random.nextInt(6) + 1;
-		int d2 = random.nextInt(6) + 1;
-		
-		return d1+d2;
-	}
-	
 	@Override
 	public String toString() {
 		String temp="";
@@ -101,8 +81,6 @@ public class PioggiaMeteoriti extends Carta {
 					"   dado: "+meteoriti.get(i).getDado()+"\n";
 			
 		}
-		
-		
 		return temp;
 	}
 

@@ -1,7 +1,9 @@
 package carte.eventoSpeciale;
 
+import java.util.ArrayList;
 import java.util.Random;
 import carte.*;
+import partita.giocatore.Giocatore;
 
 public class Sabotaggio extends EventiSpeciali {
 
@@ -18,5 +20,13 @@ public class Sabotaggio extends EventiSpeciali {
 		int d2 = random.nextInt(6) + 1;
 		
 		return d1+d2;
+	}
+	@Override
+	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
+		
+		for(int i=0; i<elencoGiocatore.size(); i++) {
+			
+			
+		}
 	}
 }

@@ -16,12 +16,11 @@ public class SpazioAperto extends Carta {
 		
 		for(int i=0; i<elencoGiocatore.size(); i++) {
 			
-			// 	prendi numero potenza motori
-			// elencoGiocatore.get(i).getNave().get...
-			int potenzaMotore = 0;
-			int posizionePedina = elencoGiocatore.get(i).getPedina().getPosizioneSulTabellone();
-			elencoGiocatore.get(i).getPedina().setPosizioneSulTabellone(posizionePedina+potenzaMotore);      
+			int potenzaMotore = elencoGiocatore.get(i).getNave().getPotenzaMotori(); //PRENTE LA POTENZA MOTORI
 			
+			int posizionePedina = elencoGiocatore.get(i).getPedina().getPosizioneSulTabellone(); //PRENTE LA POSIZIONE DELLE PEDINE
+			
+			elencoGiocatore.get(i).getPedina().setPosizioneSulTabellone(posizionePedina+potenzaMotore);  // SOMMA LA POSIZIONE ALLA POTENZA MOTORE E LA IMPOSTA COME NUOVA POSIZIONE
 		}
 	}
 
