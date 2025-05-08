@@ -1,7 +1,6 @@
 package tabellone;
 
 import java.util.ArrayList;
-
 import carte.Carta;
 import eccezioniPersonalizzate.LivelloErrato;
 import gioco.ComunicazioneConUtente;
@@ -52,5 +51,12 @@ public class Tabellone{
 	}
 
 	//---------------------------------- MAZZO ----------------------------------
-	// TODO: chiedere
+	
+	
+	/*public void eseguiMazzo() {
+		for(Carta carta : mazzo) {
+			carta.eseguiCarta(this.);
+		}
+	}
+	*/
 }

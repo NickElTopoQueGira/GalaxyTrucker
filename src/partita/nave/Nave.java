@@ -12,6 +12,7 @@ import tessera.TesseraVuota;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 import tessera.cannone.Cannone;
+import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
@@ -19,6 +20,9 @@ public abstract class Nave {
     private int[][] NAVE_DEF;
     private Coordinate centro;
     private Colori coloreNave;
+    private int equipaggio=0;
+    private int potenzaMotori=0;
+    private int potenzaCannoni=0;
     
 
 
@@ -417,17 +421,8 @@ public abstract class Nave {
             return false;
         }
     }
-
-    //-------------------- SETTER - GETTER --------------------
-    public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave() { return this.nave; }
-
-    public Colori getColoreNave() { return this.coloreNave; }
-
-
-    /**
-     * Stampa della nave
-     * @return 
-     */
+    
+    
     @Override
     public String toString(){
     	String temp = "";
@@ -449,4 +444,47 @@ public abstract class Nave {
 		return temp;
    
     }
+    /**
+     * Stampa della nave
+     * @return 
+     */
+    
+
+    //-------------------- SETTER - GETTER --------------------
+    public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave() { return this.nave; }
+
+    public Colori getColoreNave() { return this.coloreNave; }
+
+
+    
+    
+	public int getEquipaggio() {
+		int cosmonauti=0;
+		int alieniViola=0;
+		int alieniMarroni=0;
+		for(ArrayList<Tessera> colonne : nave) {
+			for(Tessera tessera : colonne) {
+				if(tessera.getTipoTessera()==TipoTessera.MODULO_PASSEGGERI) {
+					cosmonauti+=((ModuloPasseggeri)tessera).getNumeroCosmonauti();
+					alieniViola+=((ModuloPasseggeri)tessera).getNumeroAlieniViola();
+					alieniMarroni+=((ModuloPasseggeri)tessera).getNumeroAlieniMarroni();
+
+					
+				}
+			}
+		}
+		this.equipaggio=cosmonauti+alieniViola+alieniMarroni;
+		return this.equipaggio;
+	}
+	
+	public int getPotenzaMotori() {
+		//fare
+		return this.potenzaMotori;
+	}
+	
+	public int getPotenzaCannoni() {
+		//fare
+		return this.potenzaCannoni;
+	}
+	
 }
