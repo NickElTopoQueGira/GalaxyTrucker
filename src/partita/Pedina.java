@@ -36,7 +36,15 @@ public class Pedina{
     }
 
     public int getPosizioneSulTabellone(){ 
-        return this.posizioneSulTabellone; //NICK QUA FAMMI UNA ROBA TIPO: return posizioneSulTabellone + (numeroPosizioniTabellone * numeroGiri) 
+        return this.posizioneSulTabellone; 
     }
+    		
+    
+    //NICK QUA FAMMI UNA ROBA TIPO: 
+    /*
+     * public int getPosizioneSulTabelloneTotale (){ 
+     *    return THIS.posizioneSulTabellone + (numeroPosizioniTabellone * numeroGiri) ; 
+     * }
+     */
     
 }
