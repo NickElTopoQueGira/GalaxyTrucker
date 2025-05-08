@@ -32,7 +32,6 @@ public class PolvereStellare extends Carta {
 			
 			int connettoriScoperti = ContaConnettoriScoperti(elencoPedine.get(i).getNave().getPlanciaDellaNave());
 			
-			
 			int posizionePedina = elencoPedine.get(i).getPosizioneSulTabellone();
 			elencoPedine.get(i).setPosizioneSulTabellone(posizionePedina - connettoriScoperti);      
 			
