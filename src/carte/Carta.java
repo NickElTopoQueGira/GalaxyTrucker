@@ -1,5 +1,9 @@
 package carte;
 
+import java.util.ArrayList;
+
+import partita.Pedina;
+
 public abstract class Carta {
 	
 	protected int lvl;
@@ -38,5 +42,5 @@ public abstract class Carta {
 		this.tipo = tipo;
 	}
 	
-	public abstract void eseguiCarta();
+	public abstract void eseguiCarta(ArrayList<Pedina> elencoPedine);
 }

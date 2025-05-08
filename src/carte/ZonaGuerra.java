@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import carte.meteore.*;
+import partita.Pedina;
 
 public class ZonaGuerra extends Carta {
 	
@@ -158,10 +159,12 @@ public class ZonaGuerra extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta() {
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 	
 }

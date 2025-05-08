@@ -1,5 +1,9 @@
 package carte;
 
+import java.util.ArrayList;
+
+import partita.Pedina;
+
 public class SpazioAperto extends Carta {
 
 	public SpazioAperto (int lvl) {
@@ -8,8 +12,10 @@ public class SpazioAperto extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta() {
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 }

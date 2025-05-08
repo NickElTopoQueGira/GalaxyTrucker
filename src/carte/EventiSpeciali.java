@@ -1,5 +1,9 @@
 package carte;
 
+import java.util.ArrayList;
+
+import partita.Pedina;
+
 public class EventiSpeciali extends Carta {
 	
 	public EventiSpeciali (int lvl, TipoCarta c) {
@@ -8,8 +12,10 @@ public class EventiSpeciali extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta() {
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 }

@@ -4,6 +4,8 @@ package carte;
 import tessera.merce.*;
 import java.util.*;
 
+import partita.Pedina;
+
 public class Pianeta extends Carta {
 	
 	private int penalitagiorni;
@@ -206,8 +208,10 @@ public class Pianeta extends Carta {
 		this.pianeti = pianeti;
 	}
 
+	
+
 	@Override
-	public void eseguiCarta() {
+	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
 	}
