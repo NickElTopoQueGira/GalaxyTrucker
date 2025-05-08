@@ -123,15 +123,15 @@ public class Mazzo {
 		return crt;
 	}
 	
-	public void StampaValori() {
-		
+	public String toString() {
+		String temp="";
 		for(int i=0; i<lista.size(); i++) {
 			
-			lista.get(i).StampaValori();
-			System.out.println();
-			System.out.println();
+			temp=temp+lista.get(i).toString()+"\n\n";
+			
 		}
-		System.out.println();
+		return temp;
+		
 	}
 
 	public ArrayList<Carta> getLista() {
