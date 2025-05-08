@@ -11,16 +11,16 @@ public class SpazioAperto extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {
+	public void eseguiCarta(ArrayList<Giocatore> elencoGiocatore) {  //DA RIFARE
+		
+																		// DA FARE CONTROLLO 
 		// TODO Auto-generated method stub
 		
 		for(int i=0; i<elencoGiocatore.size(); i++) {
 			
 			int potenzaMotore = elencoGiocatore.get(i).getNave().getPotenzaMotori(); //PRENTE LA POTENZA MOTORI
 			
-			int posizionePedina = elencoGiocatore.get(i).getPedina().getPosizioneSulTabellone(); //PRENTE LA POSIZIONE DELLE PEDINE
-			
-			elencoGiocatore.get(i).getPedina().setPosizioneSulTabellone(posizionePedina+potenzaMotore);  // SOMMA LA POSIZIONE ALLA POTENZA MOTORE E LA IMPOSTA COME NUOVA POSIZIONE
+			elencoGiocatore.get(i).getPedina().muoviPedina(potenzaMotore);  // SOMMA LA POSIZIONE ALLA POTENZA MOTORE E LA IMPOSTA COME NUOVA POSIZIONE
 		}
 	}
 
