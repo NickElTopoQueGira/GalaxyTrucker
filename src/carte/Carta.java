@@ -20,18 +20,9 @@ public class Carta {
 	public String toString() {
 		String temp="";
 		temp=temp+"\nLivello carta:"+this.lvl+
-				"\nPotenza necessaria:"+this.potenzanecc+
-				"\nPenaltà Equipaggio:"+this.penalitaequipaggio+
-				"\nGiorni Penalità:"+this.penalitagiorni+
-				"\nGuadagno:"+this.guadagno;
+				"\nTipo carta:"+this.tipo;
 		
 		return temp;
-	}
-	public void StampaValori() {
-		
-		System.out.println();
-		System.out.println("Tipo carta:"+this.tipo);
-		System.out.println();
 	}
 	public int getLvl() { 
 		return lvl;
