@@ -1,11 +1,12 @@
-package carte;
+package carte.eventoSpeciale;
 
 import java.util.ArrayList;
+import carte.*;
 import partita.giocatore.Giocatore;
 
-public class Nemici extends Carta {
-
-	public Nemici (int lvl, TipoCarta c) {
+public class EventiSpeciali extends Carta {
+	
+	public EventiSpeciali (int lvl, TipoCarta c) {
 		
 		super(lvl, c);
 	}
@@ -15,6 +16,7 @@ public class Nemici extends Carta {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 
 	

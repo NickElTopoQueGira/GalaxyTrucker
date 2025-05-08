@@ -1,6 +1,7 @@
-package carte;
+package carte.eventoSpeciale;
 
 import java.util.Random;
+import carte.*;
 
 public class Sabotaggio extends EventiSpeciali {
 

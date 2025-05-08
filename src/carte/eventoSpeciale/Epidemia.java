@@ -1,4 +1,6 @@
-package carte;
+package carte.eventoSpeciale;
+
+import carte.*;
 
 public class Epidemia extends EventiSpeciali {
 	

@@ -1,45 +1,85 @@
-package carte;
+package carte.Nemico;
 
 import java.util.*;
+import carte.*;
+import tessera.merce.*;
 
-import tessera.merce.TipoMerce;
-
-public class Schiavisti extends Nemici {
+public class Contrabbandieri extends Nemici {
 	
 	private int potenzanecc; // potenza necessaria
-	private int penalitaequipaggio; // numeri merci persi
+	private int penalitamerci; // numeri merci persi
 	private int penalitagiorni; // numeri giorni persi
-	private int guadagno;
-	
-	public Schiavisti (int lvl) {
+	private List<TipoMerce> merci;
+
+	public Contrabbandieri (int lvl) {
 		
-		super(lvl, TipoCarta.SCHIAVISTI);
+		super(lvl, TipoCarta.CONTRABBANDIERI);
+		merci =  new ArrayList<>();
 		GeneraValori();
 	}
 	
 	private void GeneraValori() {
-		GeneraGuadagno();
+		GeneraMerci();
 		GeneraPotenzaNecessaria();
-		GeneraEquipaggioPerso();
+		GeneraMercePersa();
 		GeneraGiorniPersi();
 	}
 	
-	private void GeneraGuadagno() {
+	private void GeneraMerci() {
 		Random random = new Random();
+		int vtdp=0;
+		int r=0, g=0, v=0, b=0;
 		
 		switch(this.lvl) {
-		case 3 ->{
-			this.guadagno = random.nextInt(3) + 10; // 10-12
+		case 1 ->{
+			do {
+				r = random.nextInt(2) + 0;  
+				g = random.nextInt(3) + 0;
+				v = random.nextInt(4) + 0;
+				b = random.nextInt(5) + 0;
+				
+				vtdp= r*4+g*3+v*2+b;
+				
+			}while(vtdp<5 || vtdp>9);
 		}
 		case 2 ->{
-			this.guadagno = random.nextInt(3) + 7; // 7-9
+			do {
+				r = random.nextInt(2) + 0;
+				g = random.nextInt(3) + 0;
+				v = random.nextInt(3) + 0;
+				b = random.nextInt(7) + 0;
+				
+				vtdp= r*4+g*3+v*2+b;
+				
+			}while(vtdp<10 || vtdp>14);
 		}
-		case 1 ->{
-			this.guadagno = random.nextInt(3) + 4; // 4-6
+		case 3 ->{
+			do {
+				r = random.nextInt(3) + 0;
+				g = random.nextInt(4) + 0;
+				v = random.nextInt(5) + 0;
+				b = random.nextInt(7) + 0;
+				
+				vtdp= r*4+g*3+v*2+b;
+				
+			}while(vtdp<15 || vtdp>19);
 		}
 		default ->{
 			System.out.println("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
 		}
+		}
+
+		for(int i=0; i<r; i++) {
+			merci.add(TipoMerce.MERCE_ROSSA);
+		}
+		for(int i=0; i<g; i++) {
+			merci.add(TipoMerce.MERCE_GIALLA);
+		}
+		for(int i=0; i<v; i++) {
+			merci.add(TipoMerce.MERCE_VERDE);
+		}
+		for(int i=0; i<b; i++) {
+			merci.add(TipoMerce.MERCE_BLU);
 		}
 		
 	}
@@ -65,16 +105,16 @@ public class Schiavisti extends Nemici {
 		}
 	}
 	
-	private void GeneraEquipaggioPerso() {
+	private void GeneraMercePersa() {
 		switch(this.lvl) {
 		case 3 ->{
-			this.penalitaequipaggio = 5;
+			this.penalitamerci = 4;
 		}		
 		case 2 ->{
-			this.penalitaequipaggio = 4;
+			this.penalitamerci = 3;
 		}		
 		case 1->{
-			this.penalitaequipaggio = 3;
+			this.penalitamerci = 2;
 		}
 		default ->{
 			System.out.println("ERROR: scelta numeri merci perse in caso in cui la potenza non basta (errorTipe: switch) (class: Contrabbandieri)");
@@ -103,15 +143,17 @@ public class Schiavisti extends Nemici {
 			
 		}
 	}
-	
 	@Override
 	public String toString() {
 		String temp="";
 		temp=temp+"\nLivello carta:"+this.lvl+
+				"\nTipo carta:"+this.tipo+
 				"\nPotenza necessaria:"+this.potenzanecc+
-				"\nPenaltà Equipaggio:"+this.penalitaequipaggio+
-				"\nGiorni Penalità:"+this.penalitagiorni+
-				"\nGuadagno:"+this.guadagno;
+				"\nMerci Penalità:"+this.penalitamerci+
+				"\nGiorni Penalità:"+this.penalitagiorni+"\n";
+		for(int j=0; j<this.merci.size(); j++) {
+			temp=temp+this.merci.get(j).name()+" | ";
+		}
 		
 		return temp;
 	}

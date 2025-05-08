@@ -1,8 +1,8 @@
-package carte;
+package carte.Nemico;
 
 import java.util.*;
+import carte.*;
 import carte.meteore.*;
-import tessera.merce.TipoMerce;
 
 public class Pirati extends Nemici {
 	
