@@ -89,17 +89,19 @@ public class PioggiaMeteoriti extends Carta {
 		
 		return d1+d2;
 	}
+	
 	@Override
-	public void StampaValori() {
-		
-		System.out.println("Livello carta:"+this.lvl);
-		System.out.println("Tipo carta:"+this.tipo);
+	public String toString() {
+		String temp="";
+		temp=temp+"Livello carta:"+this.lvl+"\n"+"Tipo carta:"+this.tipo;
 		for(int i=0; i<this.meteoriti.size(); i++) {
+			temp=temp+"tipo: "+meteoriti.get(i).getType()+"\n"+
+					"   direzione: "+meteoriti.get(i).getDirezione()+"\n"+
+					"   dado: "+meteoriti.get(i).getDado()+"\n";
 			
-			System.out.println("tipo: "+meteoriti.get(i).getType()+
-							"   direzione: "+meteoriti.get(i).getDirezione()+
-							"   dado: "+meteoriti.get(i).getDado());
 		}
-		System.out.println();
+		
+		
+		return temp;
 	}
 }
