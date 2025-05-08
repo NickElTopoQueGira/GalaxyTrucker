@@ -36,7 +36,7 @@ public class PARTITATESTMAIN {
         Giocatore g=confG.craGiocatore();
         ConfiguraNave conf=new ConfiguraNave(g);
         Nave nave= conf.creaNave(Livelli.TERZO);
-        System.out.println(nave.getEquipaggio());
+        System.out.println(nave.getCosmonauti());
         System.out.println(nave.toString());
 		// try {
 		// 	g = new Giocatore("Pippo", Colori.ROSSO);

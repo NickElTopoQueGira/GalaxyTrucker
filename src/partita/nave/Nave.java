@@ -458,18 +458,39 @@ public abstract class Nave {
     public Colori getColoreNave() { return this.coloreNave; }
 
 
+    public int getAlieniViola() {
+    	int alieniViola=0;
+    	for(ArrayList<Tessera> colonne : nave) {
+			for(Tessera tessera : colonne) {
+				if(tessera.getTipoTessera()==TipoTessera.MODULO_PASSEGGERI) {
+					alieniViola+=((ModuloPasseggeri)tessera).getNumeroAlieniViola();
+				}
+			}
+    	}
+    	
+		return alieniViola;
+    }
     
+    public int getAlieniMarrone() {
+    	int alieniMarroni=0;
+    	for(ArrayList<Tessera> colonne : nave) {
+			for(Tessera tessera : colonne) {
+				if(tessera.getTipoTessera()==TipoTessera.MODULO_PASSEGGERI) {
+					alieniMarroni+=((ModuloPasseggeri)tessera).getNumeroAlieniMarroni();
+				}
+			}
+    	}
+		return alieniMarroni;
+    }
     
-	public int getEquipaggio() {
+	public int getCosmonauti() {
 		int cosmonauti=0;
-		int alieniViola=0;
-		int alieniMarroni=0;
+		
+		
 		for(ArrayList<Tessera> colonne : nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera()==TipoTessera.MODULO_PASSEGGERI) {
 					cosmonauti+=((ModuloPasseggeri)tessera).getNumeroCosmonauti();
-					alieniViola+=((ModuloPasseggeri)tessera).getNumeroAlieniViola();
-					alieniMarroni+=((ModuloPasseggeri)tessera).getNumeroAlieniMarroni();
 	
 				}
 				if(tessera.getTipoTessera()==TipoTessera.CENTRO) {
@@ -477,8 +498,8 @@ public abstract class Nave {
 				}
 			}
 		}
-		int equipaggio=cosmonauti+alieniViola+alieniMarroni;
-		return equipaggio;
+		
+		return cosmonauti;
 	}
 	
 	
@@ -517,6 +538,8 @@ public abstract class Nave {
 	}
 	
 	
+	
+	//Da spostare in classe apposita per stampa
 	private boolean richiestaEnergia(Tessera tessera) {
 		ComunicazioneConUtente stringa = ComunicazioneConUtente.getIstanza();
 		String risposta;

@@ -13,11 +13,11 @@ public abstract class Tessera {
 	private static ArrayList<Tessera> lista = new ArrayList<Tessera>();
 	protected String[][] tessera_Disposizione = {
 			//         0    1    2    3    4    <- colonne
-			/* 0 */ { "─", "─", "─", "─", "─" },
+			/* 0 */ { "┌", "─", "─", "─", "┐" },
 			/* 1 */ { "│", " ", " ", " ", "│" },
 			/* 2 */ { "│", " ", " ", " ", "│" },
 			/* 3 */ { "│", " ", " ", " ", "│" },
-			/* 4 */ { "─", "─", "─", "─", "─" },
+			/* 4 */ { "└", "─", "─", "─", "┘" },
 			};
 
 	public Tessera(TipoTessera tipoTessera) {
