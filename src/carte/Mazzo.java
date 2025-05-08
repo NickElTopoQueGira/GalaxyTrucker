@@ -15,9 +15,9 @@ public class Mazzo {
 		this.lista = new ArrayList<>();
 		
 		conteggio = new int[][] {
-		    {1, 1, 3, 4, 1, 1, 1, 2, 2, 4, 0, 0}, // riga 0
-		    {1, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 0},  // riga 1
-		    {0, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 1}   // riga 2
+		    {1, 1, 3, 4, 1, 1, 1, 2, 2, 4, 0, 0}, // livello 1
+		    {1, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 0},  // livello 2
+		    {0, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 1}   // livello 3
 		};
 		CreaMazzo(lvl);
 	}

@@ -5,12 +5,12 @@ import partita.nave.*;
 import carte.*;
 import partita.giocatore.*;
 
-public class EsecuzioneGuerra {
+public class EsecuzioneZonaGuerra {
 	
 	private ZonaGuerra crt;
 	private ArrayList<Nave> navig;
 	
-	public EsecuzioneGuerra(ZonaGuerra crt, ArrayList<Nave> navig) {
+	public EsecuzioneZonaGuerra(ZonaGuerra crt, ArrayList<Nave> navig) {
 		
 		this.crt = crt;
 		this.navig = navig;

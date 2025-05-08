@@ -3,7 +3,7 @@ package carte;
 import carte.meteore.*;
 import partita.giocatore.Giocatore;
 import partita.nave.Nave;
-import carte.evento.ImpattoAsteroide;
+import carte.evento.EsecuzionePioggiaMeteoriti;
 import java.util.*;
 
 public class PioggiaMeteoriti extends Carta {
@@ -77,7 +77,7 @@ public class PioggiaMeteoriti extends Carta {
 		
 		for(int i=0; i<this.meteoriti.size(); i++) {
 			
-			ImpattoAsteroide ia = new ImpattoAsteroide(this.meteoriti.get(i), n);
+			EsecuzionePioggiaMeteoriti ia = new EsecuzionePioggiaMeteoriti(this.meteoriti.get(i), n);
 		}
 	}
 	
