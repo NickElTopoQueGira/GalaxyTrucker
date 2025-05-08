@@ -16,18 +16,11 @@ public class SpazioAperto extends Carta {
 
 	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
         for(int i=0; i<elencoPedine.size(); i++) {
-
-			
+        	
 			int potenzaMotore = elencoPedine.get(i).getNave().getPotenzaMotori(); //PRENTE LA POTENZA MOTORI
-			
-
 			
 			elencoPedine.get(i).setPosizioneSulTabellone(potenzaMotore);  // SOMMA LA POSIZIONE ALLA POTENZA MOTORE E LA IMPOSTA COME NUOVA POSIZIONE
 
 		}
-		
 	}
-
-	
-
 }
