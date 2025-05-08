@@ -1,4 +1,4 @@
-package carte.Nemico;
+package carte.nemico;
 
 import java.util.*;
 import carte.*;

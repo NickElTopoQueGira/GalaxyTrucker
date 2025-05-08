@@ -2,6 +2,9 @@ package carte;
 
 import java.util.*;
 
+import carte.nemico.*;
+import carte.eventoSpeciale.*;
+
 public class Mazzo {
 	
 	protected static ArrayList<Carta> lista;
