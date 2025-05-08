@@ -123,6 +123,7 @@ public class Mazzo {
 		return crt;
 	}
 	
+	@Override
 	public String toString() {
 		String temp="";
 		for(int i=0; i<lista.size(); i++) {
