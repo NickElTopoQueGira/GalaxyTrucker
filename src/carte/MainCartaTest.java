@@ -6,6 +6,6 @@ public class MainCartaTest {
 		
 		Mazzo m = new Mazzo(3);
 		
-		m.StampaValori();
+		System.out.println(m.toString());
 	}
 }

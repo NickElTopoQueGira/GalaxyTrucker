@@ -6,8 +6,4 @@ public class SpazioAperto extends Carta {
 		
 		super(lvl, TipoCarta.SPAZIO_APERTO);
 	}
-	
-	public void AccensioneMotori() {
-		
-	}
 }

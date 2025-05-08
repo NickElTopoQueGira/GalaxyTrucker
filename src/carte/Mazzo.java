@@ -5,10 +5,17 @@ import java.util.*;
 public class Mazzo {
 	
 	protected static ArrayList<Carta> lista;
+	private int[][] conteggio;
 	
 	public Mazzo(int lvl) {
 		
 		this.lista = new ArrayList<>();
+		
+		conteggio = new int[][] {
+		    {1, 1, 3, 4, 1, 1, 1, 2, 2, 4, 0, 0}, // riga 0
+		    {1, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 0},  // riga 1
+		    {0, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 1}   // riga 2
+		};
 		CreaMazzo(lvl);
 	}
 	
@@ -64,7 +71,9 @@ public class Mazzo {
 		Carta crt = new Carta(lvl);
 		
 		if(lvl == 3) {
-			x = random.nextInt(12) + 1;
+			x = random.nextInt(11) + 2;
+		}else if(lvl == 2){
+			x = random.nextInt(11) + 1;
 		}else {
 			x = random.nextInt(10) + 1;
 		}

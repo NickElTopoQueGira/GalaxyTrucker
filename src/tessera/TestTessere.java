@@ -27,14 +27,15 @@ public class TestTessere {
 			}
 			
 			contatore++;
-			t1.stampa();
+			System.out.println(t1.toString());
+			
 			
 		}
 		System.out.println(contatore);
+		
+		
 		*/
-		
-		
-		 Tessera t1=null;
+		Tessera t1=null;
 		try {
 			t1 = Factory.estraiTipo();
 		} catch (ErroreTessera e) {
@@ -48,12 +49,7 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//stampa connettori di t1
-		System.out.println(t1.getTipoTessera().toString());
-		System.out.println("\t"+t1.getLatiTessera().getUp().toString()+"\n");
-		System.out.println(t1.getLatiTessera().getLeft().toString()+"\t\t"+t1.getLatiTessera().getRight().toString()+"\n");
-		System.out.println("\t"+t1.getLatiTessera().getDown().toString()+"\t\n");
+		System.out.println(t2.toString());
 		
 		try {
 			t1.ruota();
@@ -61,14 +57,8 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} //ruota di 90 gradi a dx
-		//stampa connettori di t1
-		System.out.println(t1.getTipoTessera().toString());
-		System.out.println("\t"+t1.getLatiTessera().getUp().toString()+"\n");
-		System.out.println(t1.getLatiTessera().getLeft().toString()+"\t\t"+t1.getLatiTessera().getRight().toString()+"\n");
-		System.out.println("\t"+t1.getLatiTessera().getDown().toString()+"\t\n");
 		
-		
-		
+		System.out.println(t1.toString());
 		
 		//stampa centro con connettori
 		Tessera t3=null;
@@ -78,14 +68,13 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(t3.getTipoTessera().toString());
-		System.out.println("\t"+t3.getLatiTessera().getUp().toString()+"\n");
-		System.out.println(t3.getLatiTessera().getLeft().toString()+"\t\t"+t3.getLatiTessera().getRight().toString()+"\n");
-		System.out.println("\t"+t3.getLatiTessera().getDown().toString()+"\t\n");
+		
+		System.out.println(t3.toString());
+		
 		
 		Tessera t4 = null;
 		try {
-			t4 = new Tubi();
+			t4 = new Cannone();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
