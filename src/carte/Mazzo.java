@@ -68,7 +68,7 @@ public class Mazzo {
 		
 		int x = 0;
 		Random random = new Random();
-		Carta crt = new Carta(lvl);
+		Carta crt = null;
 		
 		if(lvl == 3) {
 			x = random.nextInt(11) + 2;

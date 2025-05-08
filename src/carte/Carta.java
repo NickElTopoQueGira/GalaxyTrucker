@@ -1,8 +1,6 @@
 package carte;
 
-import java.util.*;
-
-public class Carta {
+public abstract class Carta {
 	
 	protected int lvl;
 	protected TipoCarta tipo;
@@ -39,4 +37,6 @@ public class Carta {
 	public void setTipo(TipoCarta tipo) {
 		this.tipo = tipo;
 	}
+	
+	public abstract void eseguiCarta();
 }

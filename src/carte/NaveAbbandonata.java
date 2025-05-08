@@ -129,4 +129,10 @@ public class NaveAbbandonata extends Carta {
 		
 		return temp;
 	}
+
+	@Override
+	public void eseguiCarta() {
+		// TODO Auto-generated method stub
+		
+	}
 }

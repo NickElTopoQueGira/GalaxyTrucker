@@ -205,5 +205,11 @@ public class Pianeta extends Carta {
 	public void setPianeti(ArrayList<ArrayList<TipoMerce>> pianeti) {
 		this.pianeti = pianeti;
 	}
+
+	@Override
+	public void eseguiCarta() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

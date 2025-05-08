@@ -6,4 +6,10 @@ public class SpazioAperto extends Carta {
 		
 		super(lvl, TipoCarta.SPAZIO_APERTO);
 	}
+
+	@Override
+	public void eseguiCarta() {
+		// TODO Auto-generated method stub
+		
+	}
 }

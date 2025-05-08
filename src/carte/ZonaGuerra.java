@@ -156,6 +156,12 @@ public class ZonaGuerra extends Carta {
 	public static void setValori(String[][] valori) {
 		ZonaGuerra.valori = valori;
 	}
+
+	@Override
+	public void eseguiCarta() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

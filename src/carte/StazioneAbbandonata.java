@@ -155,4 +155,10 @@ public class StazioneAbbandonata extends Carta {
 		
 		return temp;
 	}
+
+	@Override
+	public void eseguiCarta() {
+		// TODO Auto-generated method stub
+		
+	}
 }

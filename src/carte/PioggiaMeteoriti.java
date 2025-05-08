@@ -104,4 +104,10 @@ public class PioggiaMeteoriti extends Carta {
 		
 		return temp;
 	}
+
+	@Override
+	public void eseguiCarta() {
+		// TODO Auto-generated method stub
+		
+	}
 }

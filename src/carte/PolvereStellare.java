@@ -7,4 +7,10 @@ public class PolvereStellare extends Carta {
 		
 		super(lvl, TipoCarta.POLVERE_STELLARE);
 	}
+
+	@Override
+	public void eseguiCarta() {
+		// TODO Auto-generated method stub
+		
+	}
 }

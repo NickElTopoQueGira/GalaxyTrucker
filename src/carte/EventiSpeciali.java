@@ -6,4 +6,10 @@ public class EventiSpeciali extends Carta {
 		
 		super(lvl, c);
 	}
+
+	@Override
+	public void eseguiCarta() {
+		// TODO Auto-generated method stub
+		
+	}
 }
