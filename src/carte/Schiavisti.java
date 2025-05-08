@@ -104,14 +104,15 @@ public class Schiavisti extends Nemici {
 		}
 	}
 	
-	public void StampaValori() {
+	@Override
+	public String toString() {
+		String temp="";
+		temp=temp+"\nLivello carta:"+this.lvl+
+				"\nPotenza necessaria:"+this.potenzanecc+
+				"\nPenaltà Equipaggio:"+this.penalitaequipaggio+
+				"\nGiorni Penalità:"+this.penalitagiorni+
+				"\nGuadagno:"+this.guadagno;
 		
-		System.out.println("Livello carta:"+this.lvl);
-		System.out.println("Tipo carta:"+this.tipo);
-		System.out.println("Potenza necessaria:"+this.potenzanecc);
-		System.out.println("Penaltà Equipaggio:"+this.penalitaequipaggio);
-		System.out.println("Giorni Penalità:"+this.penalitagiorni);
-		System.out.println("Guadagno:"+this.guadagno);
-		System.out.println();
+		return temp;
 	}
 }

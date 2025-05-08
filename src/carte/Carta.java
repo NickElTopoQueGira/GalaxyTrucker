@@ -17,8 +17,19 @@ public class Carta {
 		this.tipo = tipo;
 	}
 	
+	public String toString() {
+		String temp="";
+		temp=temp+"\nLivello carta:"+this.lvl+
+				"\nPotenza necessaria:"+this.potenzanecc+
+				"\nPenaltà Equipaggio:"+this.penalitaequipaggio+
+				"\nGiorni Penalità:"+this.penalitagiorni+
+				"\nGuadagno:"+this.guadagno;
+		
+		return temp;
+	}
 	public void StampaValori() {
-		System.out.println("Livello carta:"+this.lvl);
+		
+		System.out.println();
 		System.out.println("Tipo carta:"+this.tipo);
 		System.out.println();
 	}
