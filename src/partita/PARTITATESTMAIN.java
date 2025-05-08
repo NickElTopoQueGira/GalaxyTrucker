@@ -3,8 +3,11 @@ package partita;
 import java.util.Scanner;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import partita.configurazione.ConfiguraGiocatore;
+import partita.configurazione.ConfiguraNave;
 import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
+import partita.nave.Nave;
 
 public class PARTITATESTMAIN {
     public static void main(String[] args) {
@@ -27,9 +30,14 @@ public class PARTITATESTMAIN {
             System.out.println("Scelta non valida!");
         }
 
-        scanner.close();
+        
 
-        // Giocatore g;
+        ConfiguraGiocatore confG= new ConfiguraGiocatore();
+        Giocatore g=confG.craGiocatore();
+        ConfiguraNave conf=new ConfiguraNave(g);
+        Nave nave= conf.creaNave(Livelli.TERZO);
+        System.out.println(nave.getEquipaggio());
+        System.out.println(nave.toString());
 		// try {
 		// 	g = new Giocatore("Pippo", Colori.ROSSO);
 		// 	g.setLivello(livelloScelto);

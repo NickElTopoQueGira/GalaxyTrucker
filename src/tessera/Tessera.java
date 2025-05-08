@@ -163,4 +163,14 @@ public abstract class Tessera {
 		return temp;
 
 	}
+
+	public String getriga(int j) {
+		generaTessera_Disposizione();
+		String temp="";
+		temp=temp+this.tessera_Disposizione[j][0]+this.tessera_Disposizione[j][1]
+				+this.tessera_Disposizione[j][2]+this.tessera_Disposizione[j][3]
+				+this.tessera_Disposizione[j][4];;
+				
+		return temp;
+	}
 }

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreTessera;
+import gioco.ComunicazioneConUtente;
 import partita.giocatore.Colori;
+import tessera.Centro;
 import tessera.Coordinate;
 import tessera.LatiTessera;
 import tessera.Tessera;
@@ -14,6 +16,7 @@ import tessera.TipoTessera;
 import tessera.cannone.Cannone;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.motore.Motore;
+import tessera.motore.TipoMotore;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
@@ -425,18 +428,18 @@ public abstract class Nave {
     @Override
     public String toString(){
     	String temp = "";
+    	
+    	temp+="Nave del giocatore: "+this.coloreNave.getname()+"\n";
         for(int i = 0; i < this.nave.size(); i += 1){
-            for(int j = 0; j < this.nave.get(i).size(); j += 1){
-            	
-            	
-            	if(null != temp) {
-            		temp=temp + this.nave.get(i).get(j).toString(); 
-            	}
-            	else {
-            		TesseraVuota tesseraVuota = new TesseraVuota();
-					temp=temp+tesseraVuota.toString();
-            	}
-            }
+        	for(int k =0; k<5; k++) {
+        		for(int j = 0; j < this.nave.get(i).size(); j += 1){
+            		if(null != temp) {
+                		temp=temp + this.nave.get(i).get(j).getriga(k)+" "; 
+                	}
+	            }
+        		temp+="\n";
+        	}
+	            
             
             temp = temp+"\n";
         }
@@ -467,8 +470,10 @@ public abstract class Nave {
 					cosmonauti+=((ModuloPasseggeri)tessera).getNumeroCosmonauti();
 					alieniViola+=((ModuloPasseggeri)tessera).getNumeroAlieniViola();
 					alieniMarroni+=((ModuloPasseggeri)tessera).getNumeroAlieniMarroni();
-
-					
+	
+				}
+				if(tessera.getTipoTessera()==TipoTessera.CENTRO) {
+					cosmonauti+=((Centro)tessera).getPasseggeriCorrenti();
 				}
 			}
 		}
@@ -476,12 +481,22 @@ public abstract class Nave {
 		return equipaggio;
 	}
 	
+	
 	public int getPotenzaMotori() {
 		int valore=0;
 		for(ArrayList<Tessera> colonne : nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera()==TipoTessera.MOTORE) {
-					valore+=1;
+					if(((Motore)tessera).getTipoMotore()==TipoMotore.SINGOLO){
+						valore+=1;
+					}else {
+						boolean condizione= richiestaEnergia(tessera);
+						
+						if(condizione) {
+							valore+=2;
+						}
+					}
+					
 				}
 			}
 		}
@@ -499,6 +514,30 @@ public abstract class Nave {
 			}
 		}
 		return valore;
+	}
+	
+	
+	private boolean richiestaEnergia(Tessera tessera) {
+		ComunicazioneConUtente stringa = ComunicazioneConUtente.getIstanza();
+		String risposta;
+		boolean condizione=false;
+		do {
+			stringa.print("Vuoi utlizzare il "+tessera.getTipoTessera().toString()+" doppio posto in posizione("
+					+tessera.getCoordinate().getX()+";"+
+					tessera.getCoordinate().getY()+") a discapito di un punto energia? (S/N)\n");
+			risposta= stringa.consoleRead().toUpperCase();
+		}while(risposta=="S" || risposta=="N");
+		
+		if(risposta=="S") {
+			
+			//controlla energia DA FARE
+			
+			condizione=true;
+			
+		}
+		return condizione;
+		
+		
 	}
 	
 }

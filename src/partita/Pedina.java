@@ -12,7 +12,7 @@ public class Pedina{
     }
 
     public Colori getColorePedina() { 
-        return this.getColorePedina(); 
+        return this.colorePedina; 
     }
 
     public void muoviPedina(int posizioni){

@@ -3,10 +3,12 @@ package partita.nave;
 import java.util.ArrayList;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import gioco.ComunicazioneConUtente;
 import partita.giocatore.Colori;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.Tessera;
+import tessera.TesseraVuota;
 
 public class NaveLvl3 extends Nave {
 
@@ -44,21 +46,23 @@ public class NaveLvl3 extends Nave {
 
     public NaveLvl3(Colori coloreNave){
         super(coloreNave);
-
+        ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
         // inizializzazione della nave con elementi nulli
         for(int i = 0; i < numeroRighe; i++){
             ArrayList<Tessera> riga = new ArrayList<>();
             for(int j = 0; j < numeroColonne; j++){
                 if(i == coordinateCentro.getX() && j == coordinateCentro.getY()){
                     try{
-                        riga.add(new Centro(coloreNave));
+                    	Tessera centro=new Centro(coloreNave);
+                        riga.add(centro);
                     }
                     catch(ErroreTessera eT){
-                        System.err.println(eT.getMessage());
+                    	com.printError(eT.getMessage());
                     }
                 }
                 else{
-                    riga.add(null);
+                	Tessera vuota=new TesseraVuota();
+                    riga.add(vuota);
                 }
                 
             }

@@ -65,9 +65,19 @@ public class ComunicazioneConUtente {
      *  
      * @param msg -> messaggio che si vuole stampare sulla console
      */
+    
+    
     public void println(String msg){
         System.out.println(msg);
     }
+    
+    
+    
+  //stampa interi
+  	public void println(int t) {
+  		System.out.println(t);
+  		
+  	}
 
 
     /**
@@ -94,5 +104,8 @@ public class ComunicazioneConUtente {
     public String consoleRead(){
         return input.nextLine();
     }
+    
+    
+    
 
 }

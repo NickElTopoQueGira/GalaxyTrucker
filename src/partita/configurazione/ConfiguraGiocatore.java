@@ -43,6 +43,7 @@ public class ConfiguraGiocatore{
         visualizzaColori();
         com.print("Inserisci il numero del colore: ");
         int t = Integer.parseInt(com.consoleRead());
+        
         try{
             c = Colori.coloreSelezionato(t); 
         }catch(IllegalArgumentException iax){
@@ -56,7 +57,7 @@ public class ConfiguraGiocatore{
         com.println("Colori disponibili: ");
         int i = 0;
         for(Colori c : Colori.values()){
-            com.println(i + ") " + c);
+            com.println(i+1 + ") " + c.getname());
             i += 1;
         }
     }   

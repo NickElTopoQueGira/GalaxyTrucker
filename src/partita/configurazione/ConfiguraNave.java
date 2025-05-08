@@ -17,11 +17,12 @@ public class ConfiguraNave{
     public ConfiguraNave(Giocatore giocatore){
         com = ComunicazioneConUtente.getIstanza();
         this.colorePedina = giocatore.getPedina().getColorePedina();
+        
     }
 
     public Nave creaNave(Livelli livello){
         Nave nave = null;
-        switch(this.livello){
+        switch(livello){
 			case PRIMO->{
 				nave = new NaveLvl1(this.colorePedina);
 			}
