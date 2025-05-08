@@ -142,18 +142,23 @@ public class Contrabbandieri extends Nemici {
 			
 		}
 	}
-	
+	@Override
+	public String toString() {
+		String temp="";
+		temp=temp+"\nLivello carta:"+this.lvl+
+				"\nTipo carta:"+this.tipo+
+				"\nPotenza necessaria:"+this.potenzanecc+
+				"\nMerci Penalità:"+this.penalitamerci+
+				"\nGiorni Penalità:"+this.penalitagiorni;
+		for(int j=0; j<this.merci.size(); j++) {
+			temp=temp+this.merci.get(j).name()+" | ";
+		}
+		
+		return temp;
+	}
 	public void StampaValori() {
 		
-		System.out.println("Livello carta:"+this.lvl);
-		System.out.println("Tipo carta:"+this.tipo);
-		System.out.println("Potenza necessaria:"+this.potenzanecc);
-		System.out.println("Merci Penalità:"+this.penalitamerci);
-		System.out.println("Giorni Penalità:"+this.penalitagiorni);
-		System.out.println();
-		for(int j=0; j<this.merci.size(); j++) {
-			System.out.print(this.merci.get(j).name()+" | ");
-		}
+
 		System.out.println();
 	}
 	
