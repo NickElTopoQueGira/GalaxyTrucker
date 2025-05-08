@@ -44,6 +44,7 @@ public class ConfiguraPartita{
 			}
 
 		}while(!conferma);
+		com.clear();
 	}
 
 	private int numeroGiocatori(){
@@ -111,6 +112,7 @@ public class ConfiguraPartita{
 	}
 
 	public void visualizzaScelte(){
+		com.clear();
 		com.println("--- Conferma dei valori immessi ---");
 		com.println("Numero giocatori: " + this.numeroGiocatori);
 		com.println("Modalita' partita: " + this.modalitaPartita);

@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.LinkedHashSet;
 
 import eccezioniPersonalizzate.ErroreGiocatore;
+import gioco.ComunicazioneConUtente;
 import partita.configurazione.ConfiguraGiocatore;
 import partita.giocatore.Giocatore;
 
@@ -32,6 +33,19 @@ public class Partita {
 			Giocatore nuovoGiocatore = creaGiocatore(configuraGiocatore);
 			this.giocatori.add(nuovoGiocatore);
 		}
+		
+		
+		//stampa riepilogo giocatori
+		ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
+		com.clear();
+		com.print("--- Riepilogo Giocatori ---\n");
+		for(Giocatore giocatoreElenco : giocatori){
+			com.print("-) "+giocatoreElenco.getPedina().getColorePedina().getCodiceColore()+
+					giocatoreElenco.getNome()+"\u001B[0m"+"\n");
+		}
+		com.print("premere invio per continuare...");
+		com.consoleRead();
+		com.clear();
 	}
 
 	public Giocatore creaGiocatore(ConfiguraGiocatore configuraGiocatore){

@@ -9,6 +9,7 @@ public class Gioco {
 		ConfiguraPartita conf = new ConfiguraPartita();
 		Partita p = conf.creaPartita();
 		p.aggiungiGiocatori();
+		
 	}
 	
 	

@@ -23,6 +23,7 @@ public class ConfiguraGiocatore{
     private void configuraGiocatore(){
         this.nome = nome();
         this.colorePedina = colorePedina(); 
+        com.println("Nome scelto: "+this.colorePedina.getCodiceColore()+this.nome+"\u001B[0m");
     }
 
     private String nome(){
@@ -33,7 +34,7 @@ public class ConfiguraGiocatore{
             return temp;
         }
         else{
-            com.println("Nome troppo lungo!!");
+            com.println("Nome troppo lungo");
             return nome();
         }
     }

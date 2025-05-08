@@ -107,5 +107,14 @@ public class ComunicazioneConUtente {
     
     
     
+    //clear della console
+    public void clear() {
+    	for(int i=0; i<200; i++) {
+    		System.out.print("\n");
+    	}
+    	
+    }
+    
+    
 
 }

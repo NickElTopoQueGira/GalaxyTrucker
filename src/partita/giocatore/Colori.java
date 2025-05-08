@@ -1,17 +1,17 @@
 package partita.giocatore;
 
 public enum Colori {
-	ROSSO 	(1, "\033[1;91m"+"Rosso"+"\u001B[0m"), 
-	GIALLO 	(2,"\033[1;93m"+"Giallo"+"\u001B[0m"),
-	VERDE 	(3,"\033[1;92m"+"Verde"+"\u001B[0m"), 
-	BLU 	(4 ,"\033[1;94m"+"Blu"+"\u001B[0m");
+	ROSSO 	(1, "\033[1;91m"), 
+	GIALLO 	(2, "\033[1;93m"),
+	VERDE 	(3, "\033[1;92m"), 
+	BLU 	(4 ,"\033[1;94m");
 	
 	private final int idColore;
-	private final String name;
+	private final String codiceColore;
 
-	private Colori(int idColore, String nome){
+	private Colori(int idColore, String codiceColore){
 		this.idColore = idColore;
-		this.name=nome;
+		this.codiceColore=codiceColore;
 	}
 
 	public int getIdColore(){
@@ -19,7 +19,13 @@ public enum Colori {
 	}
 	
 	public String getname(){
-		return this.name;
+		String temp=this.codiceColore+this.toString()+"\u001B[0m";
+		return temp;
+	}
+	
+	public String getCodiceColore() {
+		return this.codiceColore;
+		
 	}
 	
 	
