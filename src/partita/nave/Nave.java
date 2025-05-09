@@ -517,7 +517,7 @@ public abstract class Nave {
      * @param qta
      * @throws ErroreRisorse
      */
-    public void rimuoviEquipaggio(Coordinate coordianteModulo, int qta) throws ErroreRisorse{       
+    public void rimuoviEquipaggio(Coordinate coordianteModulo, int qta) throws ErroreCoordinate, ErroreRisorse{       
         if(controllaCoordinate(coordianteModulo)){
             Tessera tessera = this.nave.get(coordianteModulo.getX()).get(coordianteModulo.getY());
             if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
@@ -528,6 +528,9 @@ public abstract class Nave {
                     throw er;
                 }
             }
+        }
+        else{
+            throw new ErroreCoordinate("Coordinate immesse non valide");
         }
     }
 
