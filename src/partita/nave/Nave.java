@@ -677,8 +677,8 @@ public abstract class Nave {
      * 
      * @return potenza motori
      */
-	public float getPotenzaMotori() {
-		float potenzaMotori = .0f;
+	public int getPotenzaMotori() {
+		int potenzaMotori = 0;
 
 		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
@@ -695,7 +695,7 @@ public abstract class Nave {
 		}
 
         // aggiunta del bust degli alieni marroni
-        if(!(potenzaMotori == 0.f)){
+        if(!(potenzaMotori == 0)){
             /*
              * Da regolamento: 
              * Gli alieni marroni sono ottimi meccanici. Se hai un alieno
