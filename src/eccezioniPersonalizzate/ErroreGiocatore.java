@@ -1,7 +1,7 @@
 package eccezioniPersonalizzate;
 
-public final class ErroreGiocatore extends Exception  {
-	public ErroreGiocatore(String Errormessage){
-        super(Errormessage);
+public final class ErroreGiocatore extends EccezioneGioco{
+	public ErroreGiocatore(String msg){
+        super(msg);
     }
 }

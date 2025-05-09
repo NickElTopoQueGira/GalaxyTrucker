@@ -1,7 +1,7 @@
 package eccezioniPersonalizzate;
 
-public final class FinePartita extends Exception{
-    public FinePartita(String message){
-        super(message);
+public final class FinePartita extends EccezioneGioco{
+    public FinePartita(String msg){
+        super(msg);
     }
 }

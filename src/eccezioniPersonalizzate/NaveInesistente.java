@@ -1,7 +1,7 @@
 package eccezioniPersonalizzate;
 
-public final class NaveInesistente extends Exception{
-    public NaveInesistente(String message){
-        super(message);
+public final class NaveInesistente extends EccezioneGioco{
+    public NaveInesistente(String msg){
+        super(msg);
     }
 }

@@ -1,8 +1,8 @@
 
 package eccezioniPersonalizzate;
 
-public final class ErroreRotazione extends Exception  {
-	public ErroreRotazione(String Errormessage){
-        super(Errormessage);
+public final class ErroreRotazione extends EccezioneGioco{
+	public ErroreRotazione(String msg){
+        super(msg);
     }
 }

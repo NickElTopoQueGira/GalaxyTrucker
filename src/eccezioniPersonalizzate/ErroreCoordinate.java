@@ -1,7 +1,7 @@
 package eccezioniPersonalizzate;
 
-public final class ErroreCoordinate extends Exception {
-    public ErroreCoordinate(String message){
-        super(message);
+public final class ErroreCoordinate extends EccezioneGioco{
+    public ErroreCoordinate(String msg){
+        super(msg);
     }
 }
