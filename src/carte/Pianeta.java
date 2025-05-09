@@ -6,6 +6,7 @@ import tessera.merce.*;
 import java.util.*;
 
 import partita.Pedina;
+import partita.oggetti.merci.TipoMerce;
 
 public class Pianeta extends Carta {
 	

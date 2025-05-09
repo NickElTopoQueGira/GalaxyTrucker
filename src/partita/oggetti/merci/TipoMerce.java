@@ -1,4 +1,4 @@
-package tessera.merce;
+package partita.oggetti.merci;
 
 public enum TipoMerce {
 	MERCE_ROSSA		(4), 

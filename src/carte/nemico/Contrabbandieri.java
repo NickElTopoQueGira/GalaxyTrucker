@@ -3,6 +3,7 @@ package carte.nemico;
 import java.util.*;
 import carte.*;
 import partita.Pedina;
+import partita.oggetti.merci.TipoMerce;
 import tessera.merce.*;
 
 public class Contrabbandieri extends Nemici {

@@ -3,28 +3,26 @@ package tessera.merce;
 import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import partita.oggetti.merci.TipoMerce;
 import tessera.Tessera;
 import tessera.TipoTessera;
 
-public class Merce extends Tessera {
+public class TesseraMerce extends Tessera {
 
 	private static final int massimo = 24;
 	private static int contatore = 0;
-	
+
 	private final TipoMerciGenerale tipoMerciGenerale;
 	private final int MaxCapienza;
 	private int valore;
 	private int numeroMerciAttuale;
-	
 
-	
-
-	public Merce() throws ErroreTessera {
+	public TesseraMerce() throws ErroreTessera {
 		super(TipoTessera.PORTA_MERCI);
 		contatore++;
 		if (contatore <= massimo) {
 			this.tipoMerciGenerale = randomTipo(); // specifica il tipo se normale o speciale
-			
+
 			this.MaxCapienza = new Random().nextInt(2) + 1;
 			this.valore = 0;
 			this.numeroMerciAttuale = 0;
@@ -77,10 +75,6 @@ public class Merce extends Tessera {
 	public TipoMerciGenerale getTipoMerciGenerale() {
 		return tipoMerciGenerale;
 	}
-	
-
-	
-
 
 	private TipoMerciGenerale randomTipo() {
 		TipoMerciGenerale[] tipoMerceGenerale = TipoMerciGenerale.values();

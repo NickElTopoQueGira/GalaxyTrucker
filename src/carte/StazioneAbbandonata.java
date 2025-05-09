@@ -6,7 +6,7 @@ import java.util.Random;
 
 import partita.Pedina;
 import partita.giocatore.Giocatore;
-import tessera.merce.TipoMerce;
+import partita.oggetti.merci.TipoMerce;
 
 public class StazioneAbbandonata extends Carta {
 	
