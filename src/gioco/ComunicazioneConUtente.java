@@ -48,7 +48,6 @@ public class ComunicazioneConUtente {
         return istanza;
     }
 
-    
     /**
      * Funzione per stampare sulla console un messaggio per l'utente
      * Questa funzione stampa senza l'acapo in automatico
@@ -65,20 +64,17 @@ public class ComunicazioneConUtente {
      *  
      * @param msg -> messaggio che si vuole stampare sulla console
      */
-    
-    
     public void println(String msg){
         System.out.println(msg);
     }
-    
-    
-    
-  //stampa interi
-  	public void println(int t) {
+        
+    /**
+     * Funzione per stampare sulla console valori interi
+     * @param numero
+     */
+  	public void printNumber(int t) {
   		System.out.println(t);
-  		
   	}
-
 
     /**
      * Funzione per stampare sulla console un errore per l'utente
@@ -89,7 +85,6 @@ public class ComunicazioneConUtente {
     public void printError(String error){
         System.err.println(error);
     }
-
 
     /**
      * Funzione per leggere l'input dell'utente sulla console. 
@@ -104,17 +99,35 @@ public class ComunicazioneConUtente {
     public String consoleRead(){
         return input.nextLine();
     }
-    
-    
-    
-    //clear della console
+
+    /**
+     * Funzione per pulire la console stampando 200 rihe vuote
+     */
     public void clear() {
     	for(int i=0; i<200; i++) {
     		System.out.print("\n");
     	}
     	
     }
-    
-    
 
+    /**
+     * Semplice menu' di conferma (S/N)
+     * 
+     * @return true -> SI
+     *         false -> NO
+     */
+    public boolean conferma(){
+		this.print("Vuoi confermare? (s/n): ");
+		String t = this.consoleRead();
+		if(t.toUpperCase().charAt(0) == 'S'){
+			return true;
+		}
+		else if(t.toUpperCase().charAt(0) == 'N'){
+			return false;
+		}
+		else{
+			this.println("Valore immesso non valido");
+			return conferma();
+		}
+	}
 }

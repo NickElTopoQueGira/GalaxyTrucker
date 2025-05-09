@@ -36,11 +36,11 @@ public class ConfiguraPartita{
 		boolean conferma = true;
 		do{
 			visualizzaScelte();
-			conferma = conferma();
+			conferma = com.conferma();
 			if(!conferma){
 				modificaScelte();
 				visualizzaScelte();
-				conferma = conferma();
+				conferma = com.conferma();
 			}
 
 		}while(!conferma);
@@ -118,21 +118,6 @@ public class ConfiguraPartita{
 		com.println("Modalita' partita: " + this.modalitaPartita);
 		if(this.modalitaPartita == ModalitaPartita.SINGOLA){
 			com.println("Livello partita: " + this.livelloPartita);
-		}
-	}
-
-	private boolean conferma(){
-		com.print("Vuoi confermare? (s/n): ");
-		String t = com.consoleRead();
-		if(t.toUpperCase().charAt(0) == 'S'){
-			return true;
-		}
-		else if(t.toUpperCase().charAt(0) == 'N'){
-			return false;
-		}
-		else{
-			com.println("Valore immesso non valido");
-			return conferma();
 		}
 	}
 
