@@ -14,7 +14,7 @@ public class SpazioAperto extends Carta {
 
 	@Override
 
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
         for(int i=0; i<elencoPedine.size(); i++) {
         	
 			int potenzaMotore = elencoPedine.get(i).getGiocatore().getNave().getPotenzaMotori(); //PRENTE LA POTENZA MOTORI
@@ -22,5 +22,6 @@ public class SpazioAperto extends Carta {
 			elencoPedine.get(i).muoviPedina(potenzaMotore);  // SOMMA LA POSIZIONE ALLA POTENZA MOTORE E LA IMPOSTA COME NUOVA POSIZIONE
 
 		}
+        return elencoPedine;
 	}
 }

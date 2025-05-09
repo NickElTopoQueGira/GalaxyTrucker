@@ -26,7 +26,7 @@ public class Sabotaggio extends EventiSpeciali {
 		return d1+d2;
 	}
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {  //DA RIFARE
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {  //DA RIFARE
 		
 		int giocatoreMinorEquipaggio = 0;
 		
@@ -67,6 +67,7 @@ public class Sabotaggio extends EventiSpeciali {
 			}
 		}while(contatore < 3 || !isUnitaAbitativaColpita);
 		
+		return elencoPedine;
 	}
 	
 }

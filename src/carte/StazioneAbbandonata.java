@@ -62,7 +62,7 @@ public class StazioneAbbandonata extends Carta {
 	private void GeneraMerce() {
 		
 		Random random = new Random();
-		int vtdp=0;
+		int vtdp=0, numMerci =0;
 		int r=0, g=0, v=0, b=0;
 		
 		switch(this.lvl) {
@@ -74,8 +74,10 @@ public class StazioneAbbandonata extends Carta {
 				b = random.nextInt(5) + 0;
 				
 				vtdp= r*4+g*3+v*2+b;
+
+				numMerci = r+g+v+b;
 				
-			}while(vtdp<5 || vtdp>8);
+			}while((vtdp<5 || vtdp>8) && numMerci < 6);
 		}
 		case 2 ->{
 			do {
@@ -85,8 +87,10 @@ public class StazioneAbbandonata extends Carta {
 				b = random.nextInt(7) + 0;
 				
 				vtdp= r*4+g*3+v*2+b;
+
+				numMerci = r+g+v+b;
 				
-			}while(vtdp<7 || vtdp>10);
+			}while((vtdp<7 || vtdp>10) && numMerci < 6);
 		}
 		case 3 ->{
 			do {
@@ -96,8 +100,10 @@ public class StazioneAbbandonata extends Carta {
 				b = random.nextInt(7) + 0;
 				
 				vtdp= r*4+g*3+v*2+b;
+
+				numMerci = r+g+v+b;
 				
-			}while(vtdp<9 || vtdp>12);
+			}while((vtdp<9 || vtdp>12) && numMerci < 6);
 		}
 		default ->{
 			System.out.println("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
@@ -159,9 +165,10 @@ public class StazioneAbbandonata extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
+		return elencoPedine;
 	}
 
 	

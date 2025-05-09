@@ -3,6 +3,7 @@ package carte.nemico;
 import java.util.*;
 import carte.*;
 import carte.meteore.*;
+import partita.Pedina;
 
 public class Pirati extends Nemici {
 	
@@ -171,6 +172,12 @@ public class Pirati extends Nemici {
 			System.out.println(this.colpi.get(j).getType()+" | " + this.colpi.get(j).getDirezione());
 		}
 		System.out.println();
+	}
+	@Override
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
+		// TODO Auto-generated method stub
+		
+		return elencoPedine;
 	}
 	
 }

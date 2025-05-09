@@ -35,6 +35,7 @@ public class Pianeta extends Carta {
 		
 		Random random = new Random();
 		int vtdp=0;
+		int numMerci = 0;
 		int r=0, g=0, v=0, b=0;
 		
 		switch(numpianeti) {
@@ -47,7 +48,9 @@ public class Pianeta extends Carta {
 				
 				vtdp= r*4+g*3+v*2+b;
 				
-			}while(vtdp<25 || vtdp>50);
+				numMerci = r+g+v+b;
+				
+			}while((vtdp<25 || vtdp>50) && numMerci < 6);
 		}
 		case 3 ->{
 			do {
@@ -57,8 +60,10 @@ public class Pianeta extends Carta {
 				b = random.nextInt(8) + 0;
 				
 				vtdp= r*4+g*3+v*2+b;
+
+				numMerci = r+g+v+b;
 				
-			}while(vtdp<15 || vtdp>40);
+			}while((vtdp<15 || vtdp>40) && numMerci < 6);
 		}
 		case 2 ->{
 			do {
@@ -68,8 +73,10 @@ public class Pianeta extends Carta {
 				b = random.nextInt(8) + 0;
 				
 				vtdp= r*4+g*3+v*2+b;
+
+				numMerci = r+g+v+b;
 				
-			}while(vtdp<5 || vtdp>30);
+			}while((vtdp<5 || vtdp>30) && numMerci < 6);
 		}
 		default ->{
 			System.out.println("ERROR: scelta randomica del valore totate dei pianeti della carta (errorTipe: switch) (class: Pianeta)");
@@ -210,9 +217,10 @@ public class Pianeta extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
+		return elencoPedine;
 	}
 
 	
