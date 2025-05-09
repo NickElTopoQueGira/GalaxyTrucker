@@ -2,6 +2,7 @@ package partita;
 
 import java.util.List;
 
+import eccezioniPersonalizzate.*;
 import partita.giocatore.*;
 import partita.oggetti.merci.*;
 import tessera.Coordinate;
@@ -66,12 +67,30 @@ public class Pedina{
     	}
     }
     public void distribuzioneMerce(List<Merce> merci) {///TODO
-    	Coordinate cordinate;
+    	Coordinate coordinate = null;
     	for(int i=0; i<merci.size(); i++) {
+
     		
-    		
-    		this.giocatore.getNave().inserisciMerce(cordinate, merci.get(i));
+    		try {
+				this.giocatore.getNave().inserisciMerce(coordinate, merci.get(i));
+			} catch (ErroreCoordinate e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ErroreRisorse e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ErroreTessera e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
+    }
+    public Boolean sceltaEpossibilitaUtilizzoScudi() {
+    	
+    	
+    	// si prenderà funzione 
+    	
+    	return false;
     }
     
     //NICK QUA FAMMI UNA ROBA TIPO: 

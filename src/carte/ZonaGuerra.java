@@ -206,8 +206,6 @@ public class ZonaGuerra extends Carta {
 				}
 			}
 		}
-		
-		
 
 		return elencoPedine;
 	}
@@ -224,7 +222,20 @@ public class ZonaGuerra extends Carta {
 				pedina.selezionaMerceDaEliminare(merciPersi);
 			}
 			case "CANNONATE" ->{
-				
+				int j = 0;
+				do {
+					
+					if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
+						
+						
+						
+					}else {
+						
+						
+					}
+					
+					j++;
+				}while(this.colpi.get(j) == null); // TODO || nave is distrutta ||....
 			}
 			default ->{
 				

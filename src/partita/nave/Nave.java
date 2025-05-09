@@ -522,6 +522,7 @@ public abstract class Nave {
      * @throws ErroreTessera
      */
     public void inserisciMerce(Coordinate coordinate, Merce merceDaInserire)
+    
         throws ErroreCoordinate, ErroreRisorse, ErroreTessera{
 
         if(controllaCoordinate(coordinate)){

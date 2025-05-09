@@ -180,7 +180,14 @@ public class Pirati extends Nemici {
 		for(int i=0; i<elencoPedine.size(); i++){
 			
 			
-			
+			if(elencoPedine.get(i).getGiocatore().getNave().getEquipaggio() == this.potenzanecc) {
+			}else if(elencoPedine.get(i).getGiocatore().getNave().getEquipaggio() < this.potenzanecc) {
+				
+				//elencoPedine.get(i).selezionaEquipaggioDaEliminare(this.); //TODO IN SCHIAVISTI
+			}else {
+				
+				
+			}
 		}
 		
 		return elencoPedine;
