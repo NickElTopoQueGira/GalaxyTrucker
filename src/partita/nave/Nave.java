@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreTessera;
-import gioco.ComunicazioneConUtente;
+import eccezioniPersonalizzate.ErroreRisorse;
 import partita.giocatore.Colori;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.LatiTessera;
 import tessera.Tessera;
-import tessera.TesseraVuota;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
+import tessera.batteria.Batteria;
 import tessera.cannone.Cannone;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.motore.Motore;
@@ -24,10 +24,9 @@ public abstract class Nave {
     private int[][] NAVE_DEF;
     private Coordinate centro;
     private Colori coloreNave;
+    private int energiaResidua;
+    private int numeroConnettoriScoperti;
     
-    
-
-
     /**
      * Metodi astratti, implementati nelle sotto classi, per prendere 
      * i dati statici e privati delle sotto classi
@@ -48,6 +47,9 @@ public abstract class Nave {
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
         this.coloreNave = coloreNave;
+
+        this.energiaResidua = 0;
+        this.numeroConnettoriScoperti = 0;
     }
     
     /**
@@ -198,7 +200,6 @@ public abstract class Nave {
         return false;
     }
 
-
     /**
      * Metodo per controllare se il modulo, nel caso sia un motore, si possa mettere
      * nella posizione indicata.
@@ -276,7 +277,6 @@ public abstract class Nave {
         if(null == this.nave.get(centro.getX()).get(centro.getY())){
             return false;
         }
-
         return true;
     }
   
@@ -307,25 +307,7 @@ public abstract class Nave {
                 controllaCollegamentoUP(tessera, coordinate) ||
                 controllaCollegamentoDW(tessera, coordinate);    
     }
-    public int conteggioConettoriEsposti(Tessera tessera, Coordinate coordinate) {
-    	
-    	int conteggio =0;
-    	
-    	if(!controllaCollegamentoSX(tessera, coordinate)) {
-    		conteggio ++;
-    	}
-    	if(!controllaCollegamentoDX(tessera, coordinate)) {
-    		conteggio ++;
-    	}
-    	if(!controllaCollegamentoUP(tessera, coordinate)) {
-    		conteggio ++;
-    	}
-    	if(!controllaCollegamentoDW(tessera, coordinate)) {
-    		conteggio ++;
-    	}
-    	return conteggio;
-    }
-
+    
     /**
      * Metodo per controllare se il pezzo lo si pu' collegare a SX
      * 
@@ -441,149 +423,265 @@ public abstract class Nave {
             return false;
         }
     }
-    
-    
-    @Override
-    public String toString(){
-    	String temp = "";
-    	
-    	temp+="Nave del giocatore: "+this.coloreNave.getname()+"\n";
-        for(int i = 0; i < this.nave.size(); i += 1){
-        	for(int k =0; k<5; k++) {
-        		for(int j = 0; j < this.nave.get(i).size(); j += 1){
-            		if(null != temp) {
-                		temp=temp + this.nave.get(i).get(j).getriga(k)+" "; 
-                	}
-	            }
-        		temp+="\n";
-        	}
-	            
-            
-            temp = temp+"\n";
+
+    /**
+     * Metodo per il conteggio dei connettori scoperti
+     * Questo metodo va ad aggiornare this.numeroConnettoriScoperti
+     * Per accedere al numero di connettori scoperti, utilizzare l'apposito metodo
+     */
+    public void connettoriScoperti(){
+        for(ArrayList<Tessera> colonna : this.nave){
+            for(Tessera tessera : colonna){
+                this.numeroConnettoriScoperti += conteggioConettoriEsposti(tessera);        
+            }
         }
-		return temp;
-   
     }
+
+    /**
+     * Funzione per il conteggio dei connettori scoperti
+     * Verifica se la tessera e' collegata a qualche cosa
+     * Vengono conteggiati tutti i lati che non hanno connessione
+     * 
+     * @param tessera
+     * @return conteggio lati scopeti per tessera
+     */
+    private int conteggioConettoriEsposti(Tessera tessera) {
+    	int conteggio = 0;
+    	
+    	if(!controllaCollegamentoSX(tessera, tessera.getCoordinate())) {
+    		conteggio += 1;
+    	}
+    	
+        if(!controllaCollegamentoDX(tessera, tessera.getCoordinate())) {
+    		conteggio += 1;
+    	}
+    	
+        if(!controllaCollegamentoUP(tessera, tessera.getCoordinate())) {
+    		conteggio += 1;
+    	}
+
+    	if(!controllaCollegamentoDW(tessera, tessera.getCoordinate())) {
+    		conteggio += 1;
+    	}
+    	
+        return conteggio;
+    }
+
+    /**
+     * Funzione per calcolare l'energia
+     * dalle batterie sulla nave.
+     * 
+     * (da eseguire solo all'inizio della 
+     * partita, indifferentemente dal livello)
+     * 
+     * @param tessera
+     * @return
+     */
+    public int caloclaEnergia(){
+        int energia = 0;
+
+        for(ArrayList<Tessera> colonne : this.nave){
+            for(Tessera tessera : colonne){
+                if(tessera.getTipoTessera() == TipoTessera.BATTERIA){
+                    energia += ((Batteria)tessera).getCapacity();
+                }
+            }
+        }
+
+        return energia;
+    }
+
+    /**
+     * Funzione per 'utilizzare' l'energia residua sulla nave. 
+     * Viene generata l'eccezione ErroreRisorse quando si richiede + energia di 
+     * quella disponibile
+     * 
+     * @param quantita
+     * @throws ErroreRisorse
+     */
+    public void utilizzaEnergia(int quantita) throws ErroreRisorse{
+        if(this.energiaResidua - quantita < 0){
+            throw new ErroreRisorse("Energia insufficente");
+        }
+        else{
+            this.energiaResidua =- quantita;
+        }
+    }
+
     /**
      * Stampa della nave
      * @return 
      */
+    @Override
+    public String toString(){
+    	String temp = "";
+    	temp += "Nave del giocatore: " + this.coloreNave.getname() + "\n";
+        for(int i = 0; i < this.nave.size(); i += 1){
+        	for(int k =0; k<5; k++) {
+        		for(int j = 0; j < this.nave.get(i).size(); j += 1){
+            		if(null != temp) {
+                		temp=temp + this.nave.get(i).get(j).getriga(k)+ " "; 
+                	}
+	            }
+        		temp += "\n";
+        	}
+            temp = temp + "\n";
+        }
+		return temp;
+    }
     
-
     //-------------------- SETTER - GETTER --------------------
-    public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave() { return this.nave; }
+    public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave(){ return this.nave; }
 
-    public Colori getColoreNave() { return this.coloreNave; }
+    public Colori getColoreNave(){ return this.coloreNave; }
 
+    public int getEnergiaResidua(){ return this.energiaResidua; }
 
+    public int getNumeroConnettoriScoperti(){ return this.numeroConnettoriScoperti; }
+
+    /**
+     * Funzione che restituisce il numero totale dell'equipaggio presente sulla nave
+     * (cosmonauti + alieni rossi + alieni marroni)
+     * 
+     * @return equipaggio totale (int)
+     */
+    public int getEquipaggio() {
+		return getCosmonauti()+getAlieniMarrone()+getAlieniViola();
+	}
+    
+    /**
+     * Funzione che restituisce solo il numero di alini viola
+     * 
+     * @return numero di alini viola attualmente presenti sulla nave
+     */
     public int getAlieniViola() {
-    	int alieniViola=0;
-    	for(ArrayList<Tessera> colonne : nave) {
+    	int alieniViola = 0;
+    	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
-				if(tessera.getTipoTessera()==TipoTessera.MODULO_PASSEGGERI) {
-					alieniViola+=((ModuloPasseggeri)tessera).getNumeroAlieniViola();
+				if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
+					alieniViola += ((ModuloPasseggeri)tessera).getNumeroAlieniViola();
 				}
 			}
     	}
-    	
 		return alieniViola;
     }
-    
+
+    /**
+     * Funzione che restituisce solo il numero di alini marroni
+     * 
+     * @return numero di alini marroni attualmente presenti sulla nave
+     */
     public int getAlieniMarrone() {
-    	int alieniMarroni=0;
-    	for(ArrayList<Tessera> colonne : nave) {
+    	int alieniMarroni = 0;
+    	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
-				if(tessera.getTipoTessera()==TipoTessera.MODULO_PASSEGGERI) {
-					alieniMarroni+=((ModuloPasseggeri)tessera).getNumeroAlieniMarroni();
+				if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
+					alieniMarroni += ((ModuloPasseggeri)tessera).getNumeroAlieniMarroni();
 				}
 			}
     	}
 		return alieniMarroni;
     }
     
+    /**
+     * Funzione che restituisce solo il numero di astronauti presenti sulla nave
+     * 
+     * @return numero di cosmonauti attualmenrte presenti sulla nave
+     */
 	public int getCosmonauti() {
 		int cosmonauti=0;
-		
-		
-		for(ArrayList<Tessera> colonne : nave) {
+		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
-				if(tessera.getTipoTessera()==TipoTessera.MODULO_PASSEGGERI) {
+				if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
 					cosmonauti+=((ModuloPasseggeri)tessera).getNumeroCosmonauti();
-	
 				}
-				if(tessera.getTipoTessera()==TipoTessera.CENTRO) {
+				if(tessera.getTipoTessera() == TipoTessera.CENTRO) {
 					cosmonauti+=((Centro)tessera).getPasseggeriCorrenti();
 				}
 			}
 		}
-		
 		return cosmonauti;
 	}
 	
-	public int getEquipaggio() {
-		
-		return getCosmonauti()+getAlieniMarrone()+getAlieniViola();
-	}
-	
-	
-	public int getPotenzaMotori() {
-		int valore=0;
-		for(ArrayList<Tessera> colonne : nave) {
+    /**
+     * Funzione che ritorna la potenza dei motori
+     * Nel conteggio e' gia' presente il bust portato dagli alini
+     * 
+     * @return potenza motori
+     */
+	public float getPotenzaMotori() {
+		float potenzaMotori = .0f;
+
+		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
-				if(tessera.getTipoTessera()==TipoTessera.MOTORE) {
-					if(((Motore)tessera).getTipoMotore()==TipoMotore.SINGOLO){
-						valore+=1;
-					}else {
-						boolean condizione= richiestaEnergia(tessera);
-						
-						if(condizione) {
-							valore+=2;
-						}
+				if(tessera.getTipoTessera() == TipoTessera.MOTORE) {
+					if(((Motore)tessera).getTipoMotore() == TipoMotore.SINGOLO){
+						potenzaMotori += 1;
 					}
-					
+                    else{
+                        // se il motore e' doppio
+						potenzaMotori += 2;
+					}
 				}
 			}
 		}
-		return valore;
-		
+
+        // aggiunta del bust degli alieni marroni
+        if(!(potenzaMotori == 0.f)){
+            /*
+             * Da regolamento: 
+             * Gli alieni marroni sono ottimi meccanici. Se hai un alieno
+             * marrone, ricevi +2 alla potenza motrice (se la tua potenza
+             * motrice senza l’alieno è 0, non ricevi questo bonus. Non
+             * scenderà a spingere).
+             */
+            potenzaMotori += getAlieniMarrone() * 2;
+        }
+		return potenzaMotori;
 	}
 	
+    /**
+     * Funzione che ritorna la potenza dei motori
+     * Nel conteggio e' gia' presente il bust portato dagli alini
+     * 
+     * @return potenza cannoni
+     */
 	public float getPotenzaCannoni() {
-		float valore=0;
-		for(ArrayList<Tessera> colonne : nave) {
+		float potenzaCannoni = .0f;
+
+        /*
+         * Metodo per assegnare la potenza di fuoco
+         * (recap di quello che fa <Cannone>.calcolaValore())
+         * 
+         * Cannoni singoli:
+         * - Puntano verso l'alto: +1
+         * - Puntano di lato: +1/2 (0.5)
+         * 
+         * Cannoni doppi:
+         * - Puntano verso l'alto: +2
+         * - puntano di lato: +1
+         * 
+         */
+
+		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
-				if(tessera.getTipoTessera()==TipoTessera.CANNONE) {
-					valore+=((Cannone)tessera).calcolaValore();
+				if(tessera.getTipoTessera() == TipoTessera.CANNONE) {
+					potenzaCannoni += ((Cannone)tessera).calcolaValore();
 				}
 			}
 		}
-		return valore;
+
+        // aggiunta del bust degli alieni rossi
+        if(!(potenzaCannoni == 0.f)){
+            /*
+             * Da regolamento: 
+             * Gli alieni viola appartengono a una specie bellicosa. Se hai
+             * un alieno viola, ricevi +2 alla potenza di fuoco (se la tua
+             * potenza di fuoco senza l’alieno è 0, non ricevi questo bonus.
+             * Non affronterà una battaglia spaziale a tentacoli nudi).
+             */
+            potenzaCannoni += getAlieniViola() * 2;
+        }
+		return potenzaCannoni;
 	}
-	
-	
-	
-	//Da spostare in classe apposita per stampa
-	private boolean richiestaEnergia(Tessera tessera) {
-		ComunicazioneConUtente stringa = ComunicazioneConUtente.getIstanza();
-		String risposta;
-		boolean condizione=false;
-		do {
-			stringa.print("Vuoi utlizzare il "+tessera.getTipoTessera().toString()+" doppio posto in posizione("
-					+tessera.getCoordinate().getX()+";"+
-					tessera.getCoordinate().getY()+") a discapito di un punto energia? (S/N)\n");
-			risposta= stringa.consoleRead().toUpperCase();
-		}while(risposta=="S" || risposta=="N");
-		
-		if(risposta=="S") {
-			
-			//controlla energia DA FARE
-			
-			condizione=true;
-			
-		}
-		return condizione;
-		
-		
-	}
-	
 }
