@@ -72,10 +72,10 @@ public class NaveLvl2 extends Nave {
     protected int[][] getMATRIX(){ return NAVE_DEF; }
 
     @Override
-    protected int getRighe(){ return numeroRighe; }
+    public int getRighe(){ return numeroRighe; }
 
     @Override
-    protected int getColonne(){ return numeroColonne; }
+    public int getColonne(){ return numeroColonne; }
 
     @Override
     protected Coordinate getCoordinateCentro() { 

@@ -2,6 +2,7 @@ package carte.nemico;
 
 import java.util.*;
 import carte.*;
+import partita.Pedina;
 import tessera.merce.*;
 
 public class Contrabbandieri extends Nemici {
@@ -27,7 +28,7 @@ public class Contrabbandieri extends Nemici {
 	
 	private void GeneraMerci() {
 		Random random = new Random();
-		int vtdp=0;
+		int vtdp=0, numMerci=0;
 		int r=0, g=0, v=0, b=0;
 		
 		switch(this.lvl) {
@@ -39,8 +40,10 @@ public class Contrabbandieri extends Nemici {
 				b = random.nextInt(5) + 0;
 				
 				vtdp= r*4+g*3+v*2+b;
+
+				numMerci = r+g+v+b;
 				
-			}while(vtdp<5 || vtdp>9);
+			}while((vtdp<5 || vtdp>9) && numMerci < 6);
 		}
 		case 2 ->{
 			do {
@@ -50,8 +53,10 @@ public class Contrabbandieri extends Nemici {
 				b = random.nextInt(7) + 0;
 				
 				vtdp= r*4+g*3+v*2+b;
+
+				numMerci = r+g+v+b;
 				
-			}while(vtdp<10 || vtdp>14);
+			}while((vtdp<10 || vtdp>14) && numMerci < 6);
 		}
 		case 3 ->{
 			do {
@@ -61,8 +66,10 @@ public class Contrabbandieri extends Nemici {
 				b = random.nextInt(7) + 0;
 				
 				vtdp= r*4+g*3+v*2+b;
+
+				numMerci = r+g+v+b;
 				
-			}while(vtdp<15 || vtdp>19);
+			}while((vtdp<15 || vtdp>19) && numMerci < 6);
 		}
 		default ->{
 			System.out.println("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
@@ -156,5 +163,12 @@ public class Contrabbandieri extends Nemici {
 		}
 		
 		return temp;
+	}
+	
+	@Override
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
+		// TODO Auto-generated method stub
+		
+		return elencoPedine;
 	}
 }

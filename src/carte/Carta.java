@@ -44,5 +44,5 @@ public abstract class Carta {
 		this.tipo = tipo;
 	}
 	
-	public abstract void eseguiCarta(ArrayList<Pedina> elencoPedine);
+	public abstract ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine);
 }

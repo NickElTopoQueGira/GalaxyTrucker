@@ -85,9 +85,11 @@ public class PioggiaMeteoriti extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
+		
+		return elencoPedine;
 	}
 
 	

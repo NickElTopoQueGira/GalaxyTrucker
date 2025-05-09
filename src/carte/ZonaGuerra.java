@@ -12,7 +12,8 @@ public class ZonaGuerra extends Carta {
 	private static String[] penalita;
 	private static String[] eventi;
 	private static String[][] valori;
-	public ArrayList<Meteorite> colpi;
+	private ArrayList<Meteorite> colpi;
+	private int equipaggiPersi, giorniPersi, merciPersi;
 	
 	public ZonaGuerra (int lvl) {
 		
@@ -64,7 +65,30 @@ public class ZonaGuerra extends Carta {
 			
 		}while(valori[0][0] == eventi[controllo] || valori[1][0] == eventi[controllo]);
 		
+		GeneraPerdite();
 		GeneraColpi();
+	}
+	private void GeneraPerdite() {
+		
+		Random random = new Random();
+		
+		for(int i=0; i<3; i++) {
+			
+			switch(valori[i][1]) {
+				case "PERDITA_EQUIPAGGIO" ->{
+					equipaggiPersi = random.nextInt(2) + this.lvl+1; 
+				}
+				case "PERDITA_GIORNI" ->{
+					giorniPersi = random.nextInt(2) + this.lvl+1; 
+				}
+				case "PERDITA_MERCE" ->{
+					merciPersi = random.nextInt(2) + this.lvl+1; 
+				}
+				default ->{
+					
+				}
+			}
+		}
 	}
 	
 	private void GeneraColpi() {
@@ -117,7 +141,7 @@ public class ZonaGuerra extends Carta {
 			}
 		}
 		default ->{
-			System.out.println("ERROR: numerazione colpi (errorTipe: switch) (class: ZonaGuerra)");
+			System.out.println("ERROR: numerazione colpi (errorTipe: switch) (class: ZonaGuerra)"); // TODO
 		}
 		}		
 		
@@ -133,7 +157,6 @@ public class ZonaGuerra extends Carta {
 		
 		return d1+d2;
 	}
-
 
 	public static String[] getPenalita() {
 		return penalita;
@@ -160,10 +183,162 @@ public class ZonaGuerra extends Carta {
 	}
 
 	@Override
-	public void eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
+		for(int i=0; i<3; i++) {
+			
+			int pedinaSubisce;
+			
+			switch(valori[i][0]) {
+				case "EQUIPAGGI" ->{
+					
+					pedinaSubisce = selezionaMinorEquipaggio(elencoPedine);
+					
+					switch(valori[i][1]) {
+						case "PERDITA_EQUIPAGGIO" ->{
+							
+						}
+						case "PERDITA_GIORNI" ->{
+							
+						}
+						case "PERDITA_MERCE" ->{
+							
+						}
+						case "CANNONATE" ->{
+							
+						}
+						default ->{
+							
+						}
+					}
+					
+				}
+				case "RAZZI" ->{
+					
+					pedinaSubisce = selezionaMinorMotore(elencoPedine);
+					
+					switch(valori[i][1]) {
+						case "PERDITA_EQUIPAGGIO" ->{
+							
+						}
+						case "PERDITA_GIORNI" ->{
+							
+						}
+						case "PERDITA_MERCE" ->{
+							
+						}
+						case "CANNONATE" ->{
+							
+						}
+						default ->{
+							
+						}
+					}
+				}
+				case "CANNONI" ->{
+					
+					pedinaSubisce = selezionaMinorCannone(elencoPedine);
+					
+					switch(valori[i][1]) {
+						case "PERDITA_EQUIPAGGIO" ->{
+							
+						}
+						case "PERDITA_GIORNI" ->{
+							
+						}
+						case "PERDITA_MERCE" ->{
+							
+						}
+						case "CANNONATE" ->{
+							
+						}
+						default ->{
+							
+						}
+					}
+				}
+				default ->{
+					
+				}
+			}
+		}
+		
+		
+
+		return elencoPedine;
+	}
+	
+	private int selezionaMinorEquipaggio(ArrayList<Pedina> elencoPedine) {
+		
+		int giocatoreMinorEquipaggio = 0;
+		
+		for(int i=1; i<elencoPedine.size();i++){
+			if(elencoPedine.get(i).getGiocatore().getNave().getEquipaggio() < elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().getEquipaggio()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
+				
+				giocatoreMinorEquipaggio = i; //IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
+			
+			}else if(elencoPedine.get(i).getGiocatore().getNave().getEquipaggio() == elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().getEquipaggio()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
+				
+				if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(giocatoreMinorEquipaggio).getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
+					
+					giocatoreMinorEquipaggio = i;//IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
+				}
+			}
+		}
+		return giocatoreMinorEquipaggio;
+	}
+	
+	private int selezionaMinorMotore(ArrayList<Pedina> elencoPedine) {
+		
+		int minorPotenzaMotore = 0;
+		
+		for(int i=1; i<elencoPedine.size();i++){
+			if(elencoPedine.get(i).getGiocatore().getNave().getPotenzaMotori() < elencoPedine.get(minorPotenzaMotore).getGiocatore().getNave().getPotenzaMotori()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
+				
+				minorPotenzaMotore = i; //IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
+			
+			}else if(elencoPedine.get(i).getGiocatore().getNave().getPotenzaMotori() == elencoPedine.get(minorPotenzaMotore).getGiocatore().getNave().getPotenzaMotori()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
+				
+				if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(minorPotenzaMotore).getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
+					
+					minorPotenzaMotore = i;//IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
+				}
+			}
+		}
+		return minorPotenzaMotore;
+	}
+	
+	private int selezionaMinorCannone(ArrayList<Pedina> elencoPedine) {
+		
+		int minorPotenzaCannone = 0;
+		
+		for(int i=1; i<elencoPedine.size();i++){
+			if(elencoPedine.get(i).getGiocatore().getNave().getPotenzaCannoni() < elencoPedine.get(minorPotenzaCannone).getGiocatore().getNave().getPotenzaCannoni()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
+				
+				minorPotenzaCannone = i; //IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
+			
+			}else if(elencoPedine.get(i).getGiocatore().getNave().getPotenzaCannoni() == elencoPedine.get(minorPotenzaCannone).getGiocatore().getNave().getPotenzaCannoni()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
+				
+				if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(minorPotenzaCannone).getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
+					
+					minorPotenzaCannone = i;//IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
+				}
+			}
+		}
+		return minorPotenzaCannone;
 	}
 
-	
+	private Pedina perditaEquipaggio(Pedina pedina) {
+		
+		return pedina;
+	}
+	private Pedina perditaGiorni(Pedina pedina) {
+		
+		return pedina;
+	}
+	private Pedina perditaMerce(Pedina pedina) {
+		
+		return pedina;
+	}
 }
