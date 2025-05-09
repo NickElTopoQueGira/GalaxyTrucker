@@ -6,6 +6,8 @@ import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreTessera;
 import eccezioniPersonalizzate.ErroreRisorse;
 import partita.giocatore.Colori;
+import partita.oggetti.merci.Merce;
+import partita.oggetti.merci.TipoMerce;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.LatiTessera;
@@ -14,7 +16,7 @@ import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 import tessera.batteria.Batteria;
 import tessera.cannone.Cannone;
-import tessera.merce.Merce;
+import tessera.merce.Stiva;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.motore.Motore;
 import tessera.motore.TipoMotore;
@@ -510,6 +512,65 @@ public abstract class Nave {
     }
 
     /**
+     * Funzione per per inserire la merce nella stiva della nave
+     * passando l'oggetto merce<
+     * 
+     * @param coordinate
+     * @param merceDaInserire
+     * @throws ErroreCoordinate
+     * @throws ErroreRisorse
+     * @throws ErroreTessera
+     */
+    public void inserisciMerce(Coordinate coordinate, Merce merceDaInserire)
+        throws ErroreCoordinate, ErroreRisorse, ErroreTessera{
+
+        if(controllaCoordinate(coordinate)){
+            Tessera tessera = this.nave.get(coordinate.getX()).get(coordinate.getY());
+            if(tessera.getTipoTessera() == TipoTessera.PORTA_MERCI){
+                ((Stiva)tessera).inserisciMerci(merceDaInserire.getTipoMerce());;
+            }
+            else{
+                throw new ErroreTessera("La tessera selezionata non e' del tipo merce");
+            }
+        }
+        else{
+            throw new ErroreCoordinate("Coordinate immesse non valide");
+        }
+    }
+
+    /**
+     * Funzione per rimuovere una merce specifica date coordinate 
+     * e il tipo della merce
+     * 
+     * @param coordinate
+     * @param tipoMerce
+     * @throws ErroreCoordinate
+     * @throws ErroreTessera
+     * @throws ErroreRisorse
+     */
+    public void rimuoviMerce(Coordinate coordinate, TipoMerce tipoMerce) 
+        throws ErroreCoordinate, ErroreTessera, ErroreRisorse{
+        
+        if(controllaCoordinate(coordinate)){
+            Tessera tessera = this.nave.get(coordinate.getX()).get(coordinate.getY());
+            if(tessera.getTipoTessera() == TipoTessera.PORTA_MERCI){
+                Stiva stiva = (Stiva)tessera;
+                try{
+                    stiva.rimuoviMerce(tipoMerce);
+                }catch(ErroreRisorse er){
+                    throw er;
+                }
+            }
+            else{
+                throw new ErroreTessera("La tessera selezionata non e' del tipo Stiva");
+            }
+        }
+        else{
+            throw new ErroreCoordinate("Coordinate immesse non valide");
+        }
+    }
+
+    /**
      * Funzione per rimuovere l'equipaggio data una cella di coordinate conosciute
      * e numero di equipaggio da rimuovere
      * 
@@ -517,7 +578,9 @@ public abstract class Nave {
      * @param qta
      * @throws ErroreRisorse
      */
-    public void rimuoviEquipaggio(Coordinate coordianteModulo, int qta) throws ErroreCoordinate, ErroreRisorse{       
+    public void rimuoviEquipaggio(Coordinate coordianteModulo, int qta) 
+        throws ErroreCoordinate, ErroreRisorse, ErroreTessera{
+
         if(controllaCoordinate(coordianteModulo)){
             Tessera tessera = this.nave.get(coordianteModulo.getX()).get(coordianteModulo.getY());
             if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
@@ -527,6 +590,9 @@ public abstract class Nave {
                 }catch(ErroreRisorse er){
                     throw er;
                 }
+            }
+            else{
+                throw new ErroreTessera("La cella selezionata non e' del tipo modulo");
             }
         }
         else{

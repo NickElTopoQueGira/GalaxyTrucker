@@ -2,6 +2,7 @@ package tessera.merce;
 
 import java.util.Random;
 
+import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
 import partita.oggetti.merci.TipoMerce;
 import tessera.Tessera;
@@ -55,6 +56,15 @@ public class Stiva extends Tessera {
 		} else {
 			System.out.println("Errore nell'inserimento della merce (limite max di storage raggiunto)");
 		}
+	}
+
+	public void rimuoviMerce(TipoMerce tipoMerce) throws ErroreRisorse{
+		if(this.numeroMerciAttuale > 0){
+			this.numeroMerciAttuale -= 1;
+		}
+		else{
+			throw new ErroreRisorse("NON CI SONO MERCI");
+		}		
 	}
 
 	public int getValore() {
