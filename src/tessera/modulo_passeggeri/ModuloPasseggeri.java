@@ -77,11 +77,11 @@ public class ModuloPasseggeri extends Tessera {
 	}
 
 	public void setNumeroAlieniMarroni(int numeroAlieniMarroni) {
-		this.numeroAlieniMarroni = numeroAlieniMarroni;
+		this.numeroAlieniMarroni += numeroAlieniMarroni;
 	}
 
 	public void setNumeroAlieniViola(int numeroAlieniViola) {
-		this.numeroAlieniViola = numeroAlieniViola;
+		this.numeroAlieniViola += numeroAlieniViola;
 	}
 
 }
