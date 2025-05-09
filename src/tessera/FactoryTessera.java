@@ -5,7 +5,7 @@ import java.util.Random;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.batteria.Batteria;
 import tessera.cannone.Cannone;
-import tessera.merce.TesseraMerce;
+import tessera.merce.Stiva;
 import tessera.motore.Motore;
 import tessera.scudi.Scudi;
 import tessera.tubi.Tubi;
@@ -20,7 +20,7 @@ public class FactoryTessera {
 		try {
 			switch (tipo) {
 			case TipoTessera.PORTA_MERCI: {
-				return new TesseraMerce();
+				return new Stiva();
 			}
 			case TipoTessera.SCUDI: {
 				return new Scudi();

@@ -1,6 +1,6 @@
 package tessera.merce;
 
-public enum TipoMerciGenerale {
+public enum TipoStiva {
 	NORMALI, 
 	SPECIALI;
 }

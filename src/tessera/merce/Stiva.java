@@ -2,22 +2,23 @@ package tessera.merce;
 
 import java.util.Random;
 
+import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
 import partita.oggetti.merci.TipoMerce;
 import tessera.Tessera;
 import tessera.TipoTessera;
 
-public class TesseraMerce extends Tessera {
+public class Stiva extends Tessera {
 
 	private static final int massimo = 24;
 	private static int contatore = 0;
 
-	private final TipoMerciGenerale tipoMerciGenerale;
+	private final TipoStiva tipoMerciGenerale;
 	private final int MaxCapienza;
 	private int valore;
 	private int numeroMerciAttuale;
 
-	public TesseraMerce() throws ErroreTessera {
+	public Stiva() throws ErroreTessera {
 		super(TipoTessera.PORTA_MERCI);
 		contatore++;
 		if (contatore <= massimo) {
@@ -36,13 +37,13 @@ public class TesseraMerce extends Tessera {
 		if (this.numeroMerciAttuale < this.MaxCapienza) {
 
 			int temp = this.valore;
-			if (this.tipoMerciGenerale == TipoMerciGenerale.NORMALI) {
+			if (this.tipoMerciGenerale == TipoStiva.NORMALI) {
 				if (tipoSpecifico == TipoMerce.MERCE_GIALLA || tipoSpecifico == TipoMerce.MERCE_VERDE
 						|| tipoSpecifico == TipoMerce.MERCE_BLU) {
 					setValore(tipoSpecifico.getValore());
 				}
 			}
-			if (this.tipoMerciGenerale == TipoMerciGenerale.SPECIALI && tipoSpecifico == TipoMerce.MERCE_ROSSA) {
+			if (this.tipoMerciGenerale == TipoStiva.SPECIALI && tipoSpecifico == TipoMerce.MERCE_ROSSA) {
 				setValore(tipoSpecifico.getValore());
 			}
 
@@ -55,6 +56,15 @@ public class TesseraMerce extends Tessera {
 		} else {
 			System.out.println("Errore nell'inserimento della merce (limite max di storage raggiunto)");
 		}
+	}
+
+	public void rimuoviMerce(TipoMerce tipoMerce) throws ErroreRisorse{
+		if(this.numeroMerciAttuale > 0){
+			this.numeroMerciAttuale -= 1;
+		}
+		else{
+			throw new ErroreRisorse("NON CI SONO MERCI");
+		}		
 	}
 
 	public int getValore() {
@@ -72,12 +82,12 @@ public class TesseraMerce extends Tessera {
 
 	}
 
-	public TipoMerciGenerale getTipoMerciGenerale() {
+	public TipoStiva getTipoMerciGenerale() {
 		return tipoMerciGenerale;
 	}
 
-	private TipoMerciGenerale randomTipo() {
-		TipoMerciGenerale[] tipoMerceGenerale = TipoMerciGenerale.values();
+	private TipoStiva randomTipo() {
+		TipoStiva[] tipoMerceGenerale = TipoStiva.values();
 		return tipoMerceGenerale[new Random().nextInt(tipoMerceGenerale.length)];
 	}
 }
