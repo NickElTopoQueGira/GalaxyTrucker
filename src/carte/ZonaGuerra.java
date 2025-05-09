@@ -68,6 +68,7 @@ public class ZonaGuerra extends Carta {
 		GeneraPerdite();
 		GeneraColpi();
 	}
+	
 	private void GeneraPerdite() {
 		
 		Random random = new Random();
@@ -147,16 +148,6 @@ public class ZonaGuerra extends Carta {
 		
 		
 	}
-	
-	int RisultatiDadi() {
-		
-		Random random = new Random();
-		
-		int d1 = random.nextInt(6) + 1;
-		int d2 = random.nextInt(6) + 1;
-		
-		return d1+d2;
-	}
 
 	public static String[] getPenalita() {
 		return penalita;
@@ -195,68 +186,20 @@ public class ZonaGuerra extends Carta {
 					
 					pedinaSubisce = selezionaMinorEquipaggio(elencoPedine);
 					
-					switch(valori[i][1]) {
-						case "PERDITA_EQUIPAGGIO" ->{
-							
-						}
-						case "PERDITA_GIORNI" ->{
-							
-						}
-						case "PERDITA_MERCE" ->{
-							
-						}
-						case "CANNONATE" ->{
-							
-						}
-						default ->{
-							
-						}
-					}
+					penalitaCarta(elencoPedine.get(pedinaSubisce),i);
 					
 				}
 				case "RAZZI" ->{
 					
 					pedinaSubisce = selezionaMinorMotore(elencoPedine);
 					
-					switch(valori[i][1]) {
-						case "PERDITA_EQUIPAGGIO" ->{
-							
-						}
-						case "PERDITA_GIORNI" ->{
-							
-						}
-						case "PERDITA_MERCE" ->{
-							
-						}
-						case "CANNONATE" ->{
-							
-						}
-						default ->{
-							
-						}
-					}
+					penalitaCarta(elencoPedine.get(pedinaSubisce),i);
 				}
 				case "CANNONI" ->{
 					
 					pedinaSubisce = selezionaMinorCannone(elencoPedine);
 					
-					switch(valori[i][1]) {
-						case "PERDITA_EQUIPAGGIO" ->{
-							
-						}
-						case "PERDITA_GIORNI" ->{
-							
-						}
-						case "PERDITA_MERCE" ->{
-							
-						}
-						case "CANNONATE" ->{
-							
-						}
-						default ->{
-							
-						}
-					}
+					penalitaCarta(elencoPedine.get(pedinaSubisce),i);
 				}
 				default ->{
 					
@@ -268,8 +211,30 @@ public class ZonaGuerra extends Carta {
 
 		return elencoPedine;
 	}
+	private Pedina penalitaCarta(Pedina pedina, int i) {
+		
+		switch(valori[i][1]) {
+			case "PERDITA_EQUIPAGGIO" ->{
+				pedina.selezionaEquipaggioDaEliminare(equipaggiPersi);
+			}
+			case "PERDITA_GIORNI" ->{
+				pedina.setPosizioneSulTabellone(-giorniPersi);
+			}
+			case "PERDITA_MERCE" ->{
+				pedina.selezionaMerceDaEliminare(merciPersi);
+			}
+			case "CANNONATE" ->{
+				
+			}
+			default ->{
+				
+			}
+		}
+		
+		return pedina;
+	}
 	
-	private int selezionaMinorEquipaggio(ArrayList<Pedina> elencoPedine) {
+ 	private int selezionaMinorEquipaggio(ArrayList<Pedina> elencoPedine) {
 		
 		int giocatoreMinorEquipaggio = 0;
 		

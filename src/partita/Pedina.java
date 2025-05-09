@@ -1,6 +1,10 @@
 package partita;
 
+import java.util.List;
+
 import partita.giocatore.*;
+import partita.oggetti.merci.*;
+import tessera.Coordinate;
 
 public class Pedina{
     private Colori colorePedina;
@@ -46,7 +50,29 @@ public class Pedina{
     public Giocatore getGiocatore() {
         return this.giocatore;
     }
+    
+    
+    
+    public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {  ///TODO
+    	
+    	for(int i=0; i<elimEquipaggio; i++) {
     		
+    	}
+    }
+    public void selezionaMerceDaEliminare(int elimMerce) {///TODO
+    	
+    	for(int i=0; i<elimMerce; i++) {
+    		
+    	}
+    }
+    public void distribuzioneMerce(List<Merce> merci) {///TODO
+    	Coordinate cordinate;
+    	for(int i=0; i<merci.size(); i++) {
+    		
+    		
+    		this.giocatore.getNave().inserisciMerce(cordinate, merci.get(i));
+    	}
+    }
     
     //NICK QUA FAMMI UNA ROBA TIPO: 
     /*

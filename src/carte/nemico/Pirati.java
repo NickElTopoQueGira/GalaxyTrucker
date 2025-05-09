@@ -177,6 +177,12 @@ public class Pirati extends Nemici {
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
+		for(int i=0; i<elencoPedine.size(); i++){
+			
+			
+			
+		}
+		
 		return elencoPedine;
 	}
 	

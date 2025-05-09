@@ -6,13 +6,13 @@ import tessera.merce.*;
 import java.util.*;
 
 import partita.Pedina;
-import partita.oggetti.merci.TipoMerce;
+import partita.oggetti.merci.*;
 
 public class Pianeta extends Carta {
 	
 	private int penalitagiorni;
-	private List<TipoMerce> merci = new ArrayList<>();
-	private ArrayList<ArrayList<TipoMerce>> pianeti;
+	private List<Merce> merci = new ArrayList<>();
+	private ArrayList<ArrayList<Merce>> pianeti;
 	
 	public Pianeta (int lvl) {
 		
@@ -85,16 +85,16 @@ public class Pianeta extends Carta {
 		}
 		
 		for(int i=0; i<r; i++) {
-			merci.add(TipoMerce.MERCE_ROSSA);
+			merci.add(new Merce(TipoMerce.MERCE_ROSSA));
 		}
 		for(int i=0; i<g; i++) {
-			merci.add(TipoMerce.MERCE_GIALLA);
+			merci.add(new Merce(TipoMerce.MERCE_GIALLA));
 		}
 		for(int i=0; i<v; i++) {
-			merci.add(TipoMerce.MERCE_VERDE);
+			merci.add(new Merce(TipoMerce.MERCE_VERDE));
 		}
 		for(int i=0; i<b; i++) {
-			merci.add(TipoMerce.MERCE_BLU);
+			merci.add(new Merce(TipoMerce.MERCE_BLU));
 		}
 		
 		return vtdp;
@@ -158,18 +158,18 @@ public class Pianeta extends Carta {
         	pianeti.add(new ArrayList<>());
         }
 
-        merci.sort((a, b) -> b.getValore() - a.getValore());
+        merci.sort((a, b) -> b.getTipoMerce().getValore() - a.getTipoMerce().getValore());
 
-        for (TipoMerce m : merci) {
+        for (Merce m : merci) {
         	
             boolean assegnata = false;
             
             for (int i = 0; i < numpianeti; i++) {
             	
-                if (valoreCorrente[i] + m.getValore() <= targetPerPianeta[i]) {
+                if (valoreCorrente[i] + m.getTipoMerce().getValore() <= targetPerPianeta[i]) {
                 	
                     pianeti.get(i).add(m);
-                    valoreCorrente[i] += m.getValore();
+                    valoreCorrente[i] += m.getTipoMerce().getValore();
                     assegnata = true;
                     
                     break;
@@ -179,7 +179,7 @@ public class Pianeta extends Carta {
             if (!assegnata) {								// CONTROLLO DI SICUREZZA FINALE
             	
             	pianeti.get(0).add(m);
-            	valoreCorrente[0] += m.getValore();
+            	valoreCorrente[0] += m.getTipoMerce().getValore();
             }
         }
 	}
@@ -193,7 +193,7 @@ public class Pianeta extends Carta {
 			temp=temp+"PAINETA"+i+" - ";
 			
 			for(int j=0; j<this.pianeti.get(i).size(); j++) {
-				temp=temp+this.pianeti.get(i).get(j).name()+" | ";
+				temp=temp+this.pianeti.get(i).get(j).getTipoMerce().name()+" | ";
 			}
 			temp=temp+"\n";
 		}
@@ -209,11 +209,11 @@ public class Pianeta extends Carta {
 		this.penalitagiorni = penalitagiorni;
 	}
 
-	public ArrayList<ArrayList<TipoMerce>> getPianeti() {
+	public ArrayList<ArrayList<Merce>> getPianeti() {
 		return pianeti;
 	}
 
-	public void setPianeti(ArrayList<ArrayList<TipoMerce>> pianeti) {
+	public void setPianeti(ArrayList<ArrayList<Merce>> pianeti) {
 		this.pianeti = pianeti;
 	}
 
