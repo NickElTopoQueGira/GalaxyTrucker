@@ -19,7 +19,14 @@ public class PolvereStellare extends Carta {
 	private int ContaConnettoriScoperti(Nave nave) {
 		int n = 0;
 		
-		for(int i=0; i<nave)
+		for(int i=0; i<nave.getPlanciaDellaNave().size(); i++) {
+			for(int j=0; j<nave.getPlanciaDellaNave().get(i).size(); j++) {
+				
+				n = n+nave.conteggioConettoriEsposti(nave.getPlanciaDellaNave().get(i).get(i), 
+											nave.getPlanciaDellaNave().get(i).get(i).getCoordinate());               
+					
+			}
+		}
 		
 		return n;
 	}
@@ -32,8 +39,7 @@ public class PolvereStellare extends Carta {
 			
 			int connettoriScoperti = ContaConnettoriScoperti(elencoPedine.get(i).getGiocatore().getNave());
 			
-			int posizionePedina = elencoPedine.get(i).getPosizioneSulTabellone();
-			elencoPedine.get(i).setPosizioneSulTabellone(posizionePedina - connettoriScoperti);      
+			elencoPedine.get(i).muoviPedina(connettoriScoperti);     
 			
 		}
 		

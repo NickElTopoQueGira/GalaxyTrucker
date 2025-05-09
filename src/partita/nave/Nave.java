@@ -307,6 +307,24 @@ public abstract class Nave {
                 controllaCollegamentoUP(tessera, coordinate) ||
                 controllaCollegamentoDW(tessera, coordinate);    
     }
+    public int conteggioConettoriEsposti(Tessera tessera, Coordinate coordinate) {
+    	
+    	int conteggio =0;
+    	
+    	if(!controllaCollegamentoSX(tessera, coordinate)) {
+    		conteggio ++;
+    	}
+    	if(!controllaCollegamentoDX(tessera, coordinate)) {
+    		conteggio ++;
+    	}
+    	if(!controllaCollegamentoUP(tessera, coordinate)) {
+    		conteggio ++;
+    	}
+    	if(!controllaCollegamentoDW(tessera, coordinate)) {
+    		conteggio ++;
+    	}
+    	return conteggio;
+    }
 
     /**
      * Metodo per controllare se il pezzo lo si pu' collegare a SX

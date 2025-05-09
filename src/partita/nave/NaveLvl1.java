@@ -68,7 +68,7 @@ public class NaveLvl1 extends Nave {
     }
 
     @Override
-    protected int[][] getMATRIX(){ return NAVE_DEF; }
+    public int[][] getMATRIX(){ return NAVE_DEF; }
 
     @Override
     public int getRighe(){ return numeroRighe; }
