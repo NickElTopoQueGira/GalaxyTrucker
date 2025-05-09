@@ -13,6 +13,7 @@ public class Giocatore {
 		this.nome = nome; 
 		this.pedina = pedina; 
 		this.crediti = 0;
+		 pedina.setGiocatore(this);
 	}
 
 	public String getNome(){ return this.nome; }

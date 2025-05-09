@@ -32,13 +32,13 @@ public class Sabotaggio extends EventiSpeciali {
 		
 		for(int i=1; i<elencoPedine.size(); i++) {
 			
-			if(elencoPedine.get(i).getNave().getEquipaggio() < elencoPedine.get(giocatoreMinorEquipaggio).getNave().getEquipaggio()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
+			if(elencoPedine.get(i).getGiocatore().getNave().getEquipaggio() < elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().getEquipaggio()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
 				
 				giocatoreMinorEquipaggio = i; //IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
 			
-			}else if(elencoPedine.get(i).getNave().getEquipaggio() == elencoPedine.get(giocatoreMinorEquipaggio).getNave().getEquipaggio()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
+			}else if(elencoPedine.get(i).getGiocatore().getNave().getEquipaggio() == elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().getEquipaggio()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
 				
-				if(elencoPedine.get(i).getPedina().getPosizioneSulTabellone() > elencoPedine.get(giocatoreMinorEquipaggio).getPedina().getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
+				if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(giocatoreMinorEquipaggio).getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
 					
 					giocatoreMinorEquipaggio = i;//IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
 				}
@@ -54,10 +54,10 @@ public class Sabotaggio extends EventiSpeciali {
 			riga = RisultatiDadi();
 			colonna = RisultatiDadi();
 			
-			if(elencoPedine.get(giocatoreMinorEquipaggio).getNave().getPlanciaDellaNave().get(colonna).get(riga).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
+			if(elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().getPlanciaDellaNave().get(colonna).get(riga).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
 				
 				try {
-					elencoPedine.get(giocatoreMinorEquipaggio).getNave().rimuoviTessera(new Coordinate(colonna, riga));
+					elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().rimuoviTessera(new Coordinate(colonna, riga));
 					
 					isUnitaAbitativaColpita = true;
 				} catch (ErroreTessera err) {

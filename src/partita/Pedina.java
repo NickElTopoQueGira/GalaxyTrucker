@@ -1,9 +1,10 @@
 package partita;
 
-import partita.giocatore.Colori;
+import partita.giocatore.*;
 
 public class Pedina{
     private Colori colorePedina;
+    private Giocatore giocatore;
     private int posizioneSulTabellone;
     private int numeroGiro;  // DA USARE
     
@@ -37,6 +38,13 @@ public class Pedina{
 
     public int getPosizioneSulTabellone(){ 
         return this.posizioneSulTabellone; 
+    }
+    public void setGiocatore(Giocatore giocatore) {
+        this.giocatore = giocatore;
+    }
+
+    public Giocatore getGiocatore() {
+        return this.giocatore;
     }
     		
     

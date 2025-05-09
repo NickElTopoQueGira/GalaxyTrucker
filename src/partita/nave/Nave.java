@@ -33,8 +33,8 @@ public abstract class Nave {
      * i dati statici e privati delle sotto classi
      */
     protected abstract int[][] getMATRIX();
-    protected abstract int getRighe();
-    protected abstract int getColonne();
+    public abstract int getRighe();
+    public abstract int getColonne();
     protected abstract Coordinate getCoordinateCentro();
 
     /**
@@ -500,6 +500,11 @@ public abstract class Nave {
 		}
 		
 		return cosmonauti;
+	}
+	
+	public int getEquipaggio() {
+		
+		return getCosmonauti()+getAlieniMarrone()+getAlieniViola();
 	}
 	
 	
