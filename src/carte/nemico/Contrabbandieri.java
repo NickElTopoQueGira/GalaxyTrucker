@@ -3,7 +3,7 @@ package carte.nemico;
 import java.util.*;
 import carte.*;
 import partita.Pedina;
-import partita.oggetti.merci.TipoMerce;
+import partita.oggetti.merci.*;
 import tessera.merce.*;
 
 public class Contrabbandieri extends Nemici {
@@ -11,7 +11,7 @@ public class Contrabbandieri extends Nemici {
 	private int potenzanecc; // potenza necessaria
 	private int penalitamerci; // numeri merci persi
 	private int penalitagiorni; // numeri giorni persi
-	private List<TipoMerce> merci;
+	private List<Merce> merci;
 
 	public Contrabbandieri (int lvl) {
 		
@@ -78,16 +78,16 @@ public class Contrabbandieri extends Nemici {
 		}
 
 		for(int i=0; i<r; i++) {
-			merci.add(TipoMerce.MERCE_ROSSA);
+			merci.add(new Merce(TipoMerce.MERCE_ROSSA));
 		}
 		for(int i=0; i<g; i++) {
-			merci.add(TipoMerce.MERCE_GIALLA);
+			merci.add(new Merce(TipoMerce.MERCE_GIALLA));
 		}
 		for(int i=0; i<v; i++) {
-			merci.add(TipoMerce.MERCE_VERDE);
+			merci.add(new Merce(TipoMerce.MERCE_VERDE));
 		}
 		for(int i=0; i<b; i++) {
-			merci.add(TipoMerce.MERCE_BLU);
+			merci.add(new Merce(TipoMerce.MERCE_BLU));
 		}
 		
 	}
@@ -160,7 +160,7 @@ public class Contrabbandieri extends Nemici {
 				"\nMerci Penalità:"+this.penalitamerci+
 				"\nGiorni Penalità:"+this.penalitagiorni+"\n";
 		for(int j=0; j<this.merci.size(); j++) {
-			temp=temp+this.merci.get(j).name()+" | ";
+			temp=temp+this.merci.get(j).getTipoMerce().name()+" | ";
 		}
 		
 		return temp;

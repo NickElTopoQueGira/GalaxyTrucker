@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import partita.Pedina;
 import partita.nave.*;
-import tessera.Tessera;
 
 public class PolvereStellare extends Carta {
 	
@@ -20,7 +19,7 @@ public class PolvereStellare extends Carta {
 			
 			int connettoriScoperti = ContaConnettoriScoperti(elencoPedine.get(i).getGiocatore().getNave());
 			
-			elencoPedine.get(i).muoviPedina(connettoriScoperti);     
+			elencoPedine.get(i).muoviPedina(-connettoriScoperti);     
 			
 		}
 		return elencoPedine;

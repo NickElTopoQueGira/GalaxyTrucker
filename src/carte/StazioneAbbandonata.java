@@ -6,13 +6,13 @@ import java.util.Random;
 
 import partita.Pedina;
 import partita.giocatore.Giocatore;
-import partita.oggetti.merci.TipoMerce;
+import partita.oggetti.merci.*;
 
 public class StazioneAbbandonata extends Carta {
 	
 	private int giocatorinecessari;
 	private int penalitagiorni;
-	private List<TipoMerce> merci;
+	private List<Merce> merci;
 	
 	public StazioneAbbandonata (int lvl) {
 		
@@ -111,16 +111,16 @@ public class StazioneAbbandonata extends Carta {
 		}
 
 		for(int i=0; i<r; i++) {
-			merci.add(TipoMerce.MERCE_ROSSA);
+			merci.add(new Merce(TipoMerce.MERCE_ROSSA));
 		}
 		for(int i=0; i<g; i++) {
-			merci.add(TipoMerce.MERCE_GIALLA);
+			merci.add(new Merce(TipoMerce.MERCE_GIALLA));
 		}
 		for(int i=0; i<v; i++) {
-			merci.add(TipoMerce.MERCE_VERDE);
+			merci.add(new Merce(TipoMerce.MERCE_VERDE));
 		}
 		for(int i=0; i<b; i++) {
-			merci.add(TipoMerce.MERCE_BLU);
+			merci.add(new Merce(TipoMerce.MERCE_BLU));
 		}
 	}
 
@@ -140,11 +140,11 @@ public class StazioneAbbandonata extends Carta {
 		this.penalitagiorni = penalitagiorni;
 	}
 
-	public List<TipoMerce> getMerci() {
+	public List<Merce> getMerci() {
 		return merci;
 	}
 
-	public void setMerci(List<TipoMerce> merci) {
+	public void setMerci(List<Merce> merci) {
 		this.merci = merci;
 	}
 	
@@ -156,7 +156,7 @@ public class StazioneAbbandonata extends Carta {
 				"\nGiorni Penalità:"+this.penalitagiorni+"\n"+
 				"\nEquipaggio Necessario:"+this.giocatorinecessari+"\n";
 				for(int i=0; i<this.merci.size(); i++) {
-					temp=temp+this.merci.get(i).name()+" | ";
+					temp=temp+this.merci.get(i).getTipoMerce().name()+" | ";
 				}
 				temp=temp+"\n"; 
 
