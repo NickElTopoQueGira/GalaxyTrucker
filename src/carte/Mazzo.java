@@ -3,15 +3,17 @@ package carte;
 import java.util.*;
 
 import carte.nemico.*;
+import gioco.ComunicazioneConUtente;
 import carte.eventoSpeciale.*;
 
 public class Mazzo {
 	
 	protected static ArrayList<Carta> lista;
 	private int[][] conteggio;
+	private ComunicazioneConUtente stampa;
 	
 	public Mazzo(int lvl) {
-		
+		stampa= ComunicazioneConUtente.getIstanza();
 		this.lista = new ArrayList<>();
 		
 		conteggio = new int[][] {
@@ -61,7 +63,7 @@ public class Mazzo {
 			}
 		break;
 		default:
-			System.out.println("ERROR: creazione mazzo (errorTipe: switch) (class: Carta)");
+			stampa.printError("ERROR: creazione mazzo (errorTipe: switch) (class: Carta)");
 		break;
 		}
 		
@@ -119,7 +121,7 @@ public class Mazzo {
 			crt = new Sabotaggio(lvl);
 		break;
 		default:
-			System.out.println("ERROR: creazione carta avventura del mazzo (errorTipe: switch) (class: Carta)");
+			stampa.printError("ERROR: creazione carta avventura del mazzo (errorTipe: switch) (class: Carta)");
 		break;
 		}
 		

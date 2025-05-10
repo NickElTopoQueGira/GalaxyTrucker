@@ -1,17 +1,18 @@
 package partita.configurazione;
 
-import gioco.StampaMessaggi;
+import gioco.ComunicazioneConUtente;
+
 import partita.Pedina;
 import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
 
 public class ConfiguraGiocatore{
-    private StampaMessaggi stampa;
+    private ComunicazioneConUtente stampa;
     private String nome;
     private Colori colorePedina;
 
     public ConfiguraGiocatore(){
-    	stampa= StampaMessaggi.getIstanza();
+    	stampa= ComunicazioneConUtente.getIstanza();
     }
 
     public Giocatore craGiocatore(){
@@ -24,7 +25,7 @@ public class ConfiguraGiocatore{
         this.setNome(stampa.setNomeGiocatore());
         this.setColorePedina(stampa.colorePedina()); 
         
-        stampa.nomeGiocatore(this);
+        stampa.println("Nome scelto: "+this.getColorePedina().getCodiceColore()+this.getNome()+"\u001B[0m");
     }
 
 	public Colori getColorePedina() {

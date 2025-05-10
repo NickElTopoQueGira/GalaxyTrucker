@@ -2,8 +2,10 @@ package carte.nemico;
 
 import java.util.*;
 
+
 import carte.*;
-import gioco.StampaMessaggi;
+import gioco.ComunicazioneConUtente;
+
 import partita.Pedina;
 import tessera.merce.*;
 
@@ -14,12 +16,12 @@ public class Contrabbandieri extends Nemici {
 	private int penalitagiorni; // numeri giorni persi
 	private List<Merce> merci;
 	
-	private StampaMessaggi stampa;
+	private ComunicazioneConUtente stampa;
 
 	public Contrabbandieri (int lvl) {		
 		super(lvl, TipoCarta.CONTRABBANDIERI);
 		
-		stampa= StampaMessaggi.getIstanza();
+		stampa= ComunicazioneConUtente.getIstanza();
 		
 		merci =  new ArrayList<>();
 		GeneraValori();

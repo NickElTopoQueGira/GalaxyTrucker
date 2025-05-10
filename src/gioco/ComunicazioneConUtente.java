@@ -20,7 +20,13 @@
 
 package gioco;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import partita.ModalitaPartita;
+import partita.configurazione.ConfiguraPartita;
+import partita.giocatore.Colori;
+import partita.giocatore.Giocatore;
 
 public class ComunicazioneConUtente {
     private Scanner input;
@@ -109,6 +115,29 @@ public class ComunicazioneConUtente {
     	}
     	
     }
+    
+public void inizioGame() {
+	this.println("\033[1;95m"+"GALAXY TRUCKER\n"+"\u001B[0m");
+	this.print("Premi invio per iniziare...");
+	this.consoleRead();
+	this.clear();
+}
+    
+    
+    /**
+	 * stampa nome giocatore colorato
+	 * @param g
+	 */
+	public void nomeGiocatore(Giocatore g) {
+		 this.println(g.getPedina().getColorePedina().getCodiceColore()+ g.getNome()+"\u001B[0m");
+	}
+    
+    /**
+	 * errore immissione valore non valido
+	 */
+	public void ErroreImmissioneValore() {
+		this.printError("Valore immesso non valido!!");
+	}
 
     /**
      * Semplice menu' di conferma (S/N)
@@ -130,4 +159,171 @@ public class ComunicazioneConUtente {
 			return conferma();
 		}
 	}
+    
+    
+    
+    /**
+	 * stampa inserimento giocatore
+	 * @return
+	 */
+	public String setNomeGiocatore(){
+        String temp = "";
+        this.print("Inserisci il nome del giocatore (25 caratteri max): ");
+        temp = this.consoleRead();
+        if(temp.length() <= 25){
+            return temp;
+        }
+        else{
+        	this.println("Nome troppo lungo");
+            return setNomeGiocatore();
+        }
+    }
+	
+	
+	/**
+	 * stampa interfaccia utente per scelta colore giocatore
+	 * @return c
+	 */
+	public  Colori colorePedina(){
+        Colori c;
+        ArrayList<String> lista=new ArrayList<String>();
+        lista.add(Colori.ROSSO.getname());
+        lista.add(Colori.GIALLO.getname());
+        lista.add(Colori.VERDE.getname());
+        lista.add(Colori.BLU.getname());
+        this.visualizzaElenco(lista);
+        this.print("Inserisci il numero del colore: ");
+        int t = Integer.parseInt(this.consoleRead());
+        
+        try{
+            c = Colori.coloreSelezionato(t); 
+        }catch(IllegalArgumentException iax){
+        	this.println(iax.getMessage().toString());
+            return colorePedina();
+        }
+        return c;
+    }
+	
+	
+	
+	/**
+	 * stampa interfaccia per modifica conf. partita
+	 * @param p
+	 * @return 
+	 */
+	public int menuModificaScelte(ConfiguraPartita p){
+		int s=0;
+		ArrayList<String> lista=new ArrayList<String>();
+        lista.add("Per modificare il numero dei giocatori");
+        lista.add("Per modificare la modalita' della partita");
+		if(p.getModalitaPartita() == ModalitaPartita.SINGOLA){
+			lista.add("Per modificare la modalita' della partita");
+		}
+		this.visualizzaElenco(lista);
+		
+		this.print("Inserisci la voce: ");
+		try{
+			s = Integer.parseInt(this.consoleRead());
+		}catch(NumberFormatException nfe){
+			this.ErroreImmissioneValore();
+		}
+		return s;
+	}
+	
+	/**
+	 * stampa interfaccia utente scelta livello partita
+	 * @return livello
+	 */
+	public int livelloPartita() {
+		int livello = 0;
+		do{
+			this.println("Livelli disponibili: ");
+			ArrayList<String> lista=new ArrayList<String>();
+	        lista.add("Primo Livello");
+	        lista.add("Secondo Livello");
+	        lista.add("Terzo Livello");
+			this.visualizzaElenco(lista);
+			this.print("Inserisci il livello: ");
+			try{
+				livello = Integer.parseInt(this.consoleRead());
+			}catch(NumberFormatException nfe){
+				this.ErroreImmissioneValore();
+			}
+			
+		}while(livello < 1 || livello > 3);
+		
+		return livello;
+	}
+	
+	
+	/**
+	 * interfaccia utente per inserimento num giocatori in conf partita
+	 * @return
+	 */
+	public int numeroGiocatori(){
+		int numeroGiocatori = 0;
+		do{
+			this.print("Inserisci il numero dei giocatori (min 2, max 4): ");
+			try{
+				numeroGiocatori = Integer.parseInt(this.consoleRead());
+			}catch(NumberFormatException nfe){
+				this.ErroreImmissioneValore();
+			}
+		}while(numeroGiocatori < 2 || numeroGiocatori > 4);
+
+		return numeroGiocatori;
+	}
+	
+	
+	
+	/**
+	 * stampa interfaccia utente per scelta modalità partita
+	 * @return ModalitaPartita
+	 */
+	public ModalitaPartita modalitaPartita(){
+		int mod = 0;
+		do{
+			this.println("Modalita' partita disponibile: ");
+			this.println("1) Partita singola");
+			this.println("2) Partita multipla");
+			this.print("Inserisci la modalita' partita: ");
+			try{
+				mod = Integer.parseInt(this.consoleRead());
+			}catch(NumberFormatException nfe){
+				this.ErroreImmissioneValore();
+			}
+		}while(mod != 1 && mod != 2);
+
+		return (mod == 1)? ModalitaPartita.SINGOLA : ModalitaPartita.MULTIPLA;
+	}
+	
+	
+	/**
+	 * stampa elenco puntato degli elementi tipo stringa della lista
+	 * @param lista
+	 */
+	private void visualizzaElenco(ArrayList<String> lista) {
+		int i=1;
+		for(String stringa : lista) {
+			this.println(""+i+") "+stringa);
+			i++;
+		}
+		
+	}
+	
+	
+	/**
+	 * stampa resoconto configurazione partita
+	 */
+	public void visualizzaScelte(ConfiguraPartita p){
+		this.clear();
+		this.println("--- Conferma dei valori immessi ---");
+		this.println("Numero giocatori: " + p.getNumeroGiocatori());
+		this.println("Modalita' partita: " + p.getModalitaPartita());
+		if(p.getModalitaPartita() == ModalitaPartita.SINGOLA){
+			this.println("Livello partita: " + p.getLivelloPartita());
+		}
+	}
+
+	
 }
