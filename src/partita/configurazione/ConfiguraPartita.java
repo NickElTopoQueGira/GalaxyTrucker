@@ -1,18 +1,20 @@
 package partita.configurazione;
 
-import gioco.StampaMessaggi;
+import gioco.ComunicazioneConUtente;
+
+
 import partita.Livelli;
 import partita.ModalitaPartita;
 import partita.Partita;
 
 public class ConfiguraPartita{
-	private StampaMessaggi stampa;	
+	private ComunicazioneConUtente stampa;	
     private int numeroGiocatori;
     private ModalitaPartita modalitaPartita;
 	private Livelli livelloPartita;
 
     public ConfiguraPartita(){
-    	stampa= StampaMessaggi.getIstanza();
+    	stampa= ComunicazioneConUtente.getIstanza();
 		this.setLivelloPartita(Livelli.PRIMO);
     }
 

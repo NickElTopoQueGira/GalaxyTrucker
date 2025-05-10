@@ -1,8 +1,10 @@
 package tessera;
 
 import eccezioniPersonalizzate.ErroreRotazione;
+
 import eccezioniPersonalizzate.ErroreTessera;
-import gioco.StampaMessaggi;
+import gioco.ComunicazioneConUtente;
+
 import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
 import tessera.motore.Motore;
@@ -11,10 +13,10 @@ import tessera.tubi.Tubi;
 
 public class TestTessere {
 	
-	private static StampaMessaggi stampa;
+	private static ComunicazioneConUtente stampa;	
 
 	public static void main(String[] args) {
-		stampa= StampaMessaggi.getIstanza();
+		stampa= ComunicazioneConUtente.getIstanza();
 
 		FactoryTessera Factory=new FactoryTessera();
 		
@@ -53,7 +55,7 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		stampa.StampaValoriTessera(t2);
+		stampa.print(t2.toString());
 		
 		try {
 			t1.ruota();
@@ -62,7 +64,7 @@ public class TestTessere {
 			e.printStackTrace();
 		} //ruota di 90 gradi a dx
 		
-		stampa.StampaValoriTessera(t1);
+		stampa.print(t1.toString());
 		
 		//stampa centro con connettori
 		Tessera t3=null;
@@ -73,7 +75,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		stampa.StampaValoriTessera(t3);
+		stampa.print(t3.toString());
 		
 		
 		Tessera t4 = null;
@@ -84,7 +86,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		stampa.StampaValoriTessera(t4);
+		stampa.print(t4.toString());
 		try {
 			t4.ruota();
 		} catch (ErroreRotazione e) {
@@ -92,7 +94,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		stampa.StampaValoriTessera(t4);
+		stampa.print(t4.toString());
 		try {
 			t4.ruota();
 		} catch (ErroreRotazione e) {
@@ -100,7 +102,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		stampa.StampaValoriTessera(t4);
+		stampa.print(t4.toString());
 		
 		
 		System.out.println(Tessera.getCurrentSize());
@@ -111,21 +113,21 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		stampa.StampaValoriTessera(t5);
+		stampa.print(t5.toString());
 		try {
 			t5.ruota();
 		} catch (ErroreRotazione e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		stampa.StampaValoriTessera(t5);
+		stampa.print(t5.toString());
 		try {
 			t5.ruota();
 		} catch (ErroreRotazione e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		stampa.StampaValoriTessera(t5);
+		stampa.print(t5.toString());
 		
 		String test = "";
 		for(int i = 0; i <(5*6); i++) {
