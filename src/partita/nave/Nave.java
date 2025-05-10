@@ -2,6 +2,7 @@ package partita.nave;
 
 import java.util.ArrayList;
 
+
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreTessera;
 import eccezioniPersonalizzate.ErroreRisorse;
@@ -528,7 +529,7 @@ public abstract class Nave {
         if(controllaCoordinate(coordinate)){
             Tessera tessera = this.nave.get(coordinate.getX()).get(coordinate.getY());
             if(tessera.getTipoTessera() == TipoTessera.PORTA_MERCI){
-                ((Stiva)tessera).inserisciMerci(merceDaInserire.getTipoMerce());;
+                ((Stiva)tessera).inserisciMerci(merceDaInserire);;
             }
             else{
                 throw new ErroreTessera("La tessera selezionata non e' del tipo merce");
@@ -541,7 +542,7 @@ public abstract class Nave {
 
     /**
      * Funzione per rimuovere una merce specifica date coordinate 
-     * e il tipo della merce
+     * e l'oggetto merce
      * 
      * @param coordinate
      * @param tipoMerce
@@ -549,7 +550,7 @@ public abstract class Nave {
      * @throws ErroreTessera
      * @throws ErroreRisorse
      */
-    public void rimuoviMerce(Coordinate coordinate, TipoMerce tipoMerce) 
+    public void rimuoviMerce(Coordinate coordinate, Merce merce) 
         throws ErroreCoordinate, ErroreTessera, ErroreRisorse{
         
         if(controllaCoordinate(coordinate)){
@@ -557,7 +558,7 @@ public abstract class Nave {
             if(tessera.getTipoTessera() == TipoTessera.PORTA_MERCI){
                 Stiva stiva = (Stiva)tessera;
                 try{
-                    stiva.rimuoviMerce(tipoMerce);
+                    stiva.rimuoviMerce(merce);
                 }catch(ErroreRisorse er){
                     throw er;
                 }

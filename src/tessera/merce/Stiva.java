@@ -1,12 +1,16 @@
 package tessera.merce;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
+import partita.oggetti.merci.Merce;
 import partita.oggetti.merci.TipoMerce;
 import tessera.Tessera;
 import tessera.TipoTessera;
+import tessera.motore.Motore;
+import tessera.motore.TipoMotore;
 
 public class Stiva extends Tessera {
 
@@ -17,6 +21,7 @@ public class Stiva extends Tessera {
 	private final int MaxCapienza;
 	private int valore;
 	private int numeroMerciAttuale;
+	private ArrayList<Merce>stiva;
 
 	public Stiva() throws ErroreTessera {
 		super(TipoTessera.PORTA_MERCI);
@@ -33,7 +38,8 @@ public class Stiva extends Tessera {
 
 	}
 
-	public void inserisciMerci(TipoMerce tipoSpecifico) {
+	public void inserisciMerci(Merce merce ) {
+		TipoMerce tipoSpecifico = merce.getTipoMerce();
 		if (this.numeroMerciAttuale < this.MaxCapienza) {
 
 			int temp = this.valore;
@@ -51,29 +57,55 @@ public class Stiva extends Tessera {
 				System.out.println("Errore nell'inserimento della merce (modulo non adatto)");
 			} else {
 				this.numeroMerciAttuale = this.numeroMerciAttuale + 1;
+				stiva.add(merce);
 			}
 
 		} else {
 			System.out.println("Errore nell'inserimento della merce (limite max di storage raggiunto)");
 		}
 	}
-
-	public void rimuoviMerce(TipoMerce tipoMerce) throws ErroreRisorse{
+	
+	
+	/**
+	 * Metodo che rimuove dalla tessera stiva l'oggetto merce
+	 * @param merce
+	 * @throws ErroreRisorse
+	 */
+	public void rimuoviMerce(Merce merce) throws ErroreRisorse{
 		if(this.numeroMerciAttuale > 0){
 			this.numeroMerciAttuale -= 1;
+			boolean check=false;
+			for(Merce temp: stiva) {
+				if(temp==merce) {
+					check=true;
+				}
+			}
+			if(check) {
+				this.setValore(-merce.getTipoMerce().getValore());
+				stiva.remove(merce);
+			}else {
+				throw new ErroreRisorse("non esistono merci di quel tipo in questa stiva");
+			}
+			
 		}
 		else{
-			throw new ErroreRisorse("NON CI SONO MERCI");
+			throw new ErroreRisorse("non ci sono merci");
 		}		
 	}
 
 	public int getValore() {
 		return valore;
 	}
-
-	public void setValore(int edit) { // quando chiami questa funzione metterai nelle parentesi
-		// + oppure - edit (ovvero: "nome variabile".getValore()) che serve. es:
-		// setValore(-tipoMerce1.getvalore()); PER AGGIUNGERE C'è LA FUNZIONE APPOSTA
+	
+	
+	/** funzione che modifica il valore della tessera stiva con
+	    + oppure - edit
+	    es:
+		setValore(-tipoMerce1.getvalore());
+	 * 
+	 * @param edit
+	 */
+	public void setValore(int edit) { // 
 		if (this.valore + edit >= 0) {
 			this.valore = this.valore + edit;
 		} else {
