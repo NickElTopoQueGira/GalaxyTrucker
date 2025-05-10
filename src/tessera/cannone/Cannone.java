@@ -107,7 +107,8 @@ public class Cannone extends Tessera {
 			break;
 		}
 		default:
-			System.out.println("errore di rotazione");
+			throw new ErroreRotazione("Errore: Rotazione");
+
 		}
 		
 		this.tempStampaCasella=super.tessera_Disposizione[rprec][cprec];

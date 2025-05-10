@@ -1,6 +1,5 @@
 package partita.configurazione;
 
-import gioco.ComunicazioneConUtente;
 import partita.Livelli;
 import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
@@ -10,12 +9,12 @@ import partita.nave.NaveLvl2;
 import partita.nave.NaveLvl3;
 
 public class ConfiguraNave{
-    private ComunicazioneConUtente com;
+    
     private Livelli livello;
     private Colori colorePedina;
     
     public ConfiguraNave(Giocatore giocatore){
-        com = ComunicazioneConUtente.getIstanza();
+        
         this.colorePedina = giocatore.getPedina().getColorePedina();
         
     }

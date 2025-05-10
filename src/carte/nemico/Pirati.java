@@ -160,19 +160,7 @@ public class Pirati extends Nemici {
 		
 		return temp;
 	}
-	public void StampaValori() {
-		
-		System.out.println("Livello carta:"+this.lvl);
-		System.out.println("Tipo carta:"+this.tipo);
-		System.out.println("Potenza necessaria:"+this.potenzanecc);
-		System.out.println("Giorni Penalità:"+this.penalitagiorni);
-		System.out.println("Guadagno:"+this.guadagno);
-		System.out.println();
-		for(int j=0; j<this.colpi.size(); j++) {
-			System.out.println(this.colpi.get(j).getType()+" | " + this.colpi.get(j).getDirezione());
-		}
-		System.out.println();
-	}
+	
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub

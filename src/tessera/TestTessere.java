@@ -2,6 +2,7 @@ package tessera;
 
 import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
+import gioco.StampaMessaggi;
 import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
 import tessera.motore.Motore;
@@ -9,8 +10,11 @@ import tessera.scudi.Scudi;
 import tessera.tubi.Tubi;
 
 public class TestTessere {
+	
+	private static StampaMessaggi stampa;
 
 	public static void main(String[] args) {
+		stampa= StampaMessaggi.getIstanza();
 
 		FactoryTessera Factory=new FactoryTessera();
 		
@@ -49,7 +53,7 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(t2.toString());
+		stampa.StampaValoriTessera(t2);
 		
 		try {
 			t1.ruota();
@@ -58,7 +62,7 @@ public class TestTessere {
 			e.printStackTrace();
 		} //ruota di 90 gradi a dx
 		
-		System.out.println(t1.toString());
+		stampa.StampaValoriTessera(t1);
 		
 		//stampa centro con connettori
 		Tessera t3=null;
@@ -69,7 +73,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		System.out.println(t3.toString());
+		stampa.StampaValoriTessera(t3);
 		
 		
 		Tessera t4 = null;
@@ -79,13 +83,8 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(t4.getTipoTessera().toString());
-		System.out.println("\t"+t4.getLatiTessera().getUp().toString()+"\n");
-		System.out.println(t4.getLatiTessera().getLeft().toString()+"\t\t"+t4.getLatiTessera().getRight().toString()+"\n");
-		System.out.println("\t"+t4.getLatiTessera().getDown().toString()+"\t\n");
 		
-		//System.out.println(((Motore)t4).getLatoMotore().toString());
-		System.out.println(t4.toString());
+		stampa.StampaValoriTessera(t4);
 		try {
 			t4.ruota();
 		} catch (ErroreRotazione e) {
@@ -93,7 +92,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		System.out.println(t4.toString());
+		stampa.StampaValoriTessera(t4);
 		try {
 			t4.ruota();
 		} catch (ErroreRotazione e) {
@@ -101,7 +100,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		System.out.println(t4.toString());
+		stampa.StampaValoriTessera(t4);
 		
 		
 		System.out.println(Tessera.getCurrentSize());
@@ -112,21 +111,21 @@ public class TestTessere {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(t5.toString());
+		stampa.StampaValoriTessera(t5);
 		try {
 			t5.ruota();
 		} catch (ErroreRotazione e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(t5.toString());
+		stampa.StampaValoriTessera(t5);
 		try {
 			t5.ruota();
 		} catch (ErroreRotazione e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(t5.toString());
+		stampa.StampaValoriTessera(t5);
 		
 		String test = "";
 		for(int i = 0; i <(5*6); i++) {

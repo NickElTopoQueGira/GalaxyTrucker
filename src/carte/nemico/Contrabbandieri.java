@@ -1,9 +1,10 @@
 package carte.nemico;
 
 import java.util.*;
+
 import carte.*;
+import gioco.StampaMessaggi;
 import partita.Pedina;
-import partita.oggetti.merci.*;
 import tessera.merce.*;
 
 public class Contrabbandieri extends Nemici {
@@ -12,10 +13,14 @@ public class Contrabbandieri extends Nemici {
 	private int penalitamerci; // numeri merci persi
 	private int penalitagiorni; // numeri giorni persi
 	private List<Merce> merci;
+	
+	private StampaMessaggi stampa;
 
-	public Contrabbandieri (int lvl) {
-		
+	public Contrabbandieri (int lvl) {		
 		super(lvl, TipoCarta.CONTRABBANDIERI);
+		
+		stampa= StampaMessaggi.getIstanza();
+		
 		merci =  new ArrayList<>();
 		GeneraValori();
 	}
@@ -73,6 +78,7 @@ public class Contrabbandieri extends Nemici {
 			}while((vtdp<15 || vtdp>19) && numMerci < 6);
 		}
 		default ->{
+			
 			System.out.println("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
 		}
 		}

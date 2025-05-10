@@ -1,4 +1,4 @@
-package partita.oggetti.merci;
+package tessera.merce;
 
 public class Merce{
     private final TipoMerce tipoMerce;

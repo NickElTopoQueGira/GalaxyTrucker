@@ -7,8 +7,6 @@ import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreTessera;
 import eccezioniPersonalizzate.ErroreRisorse;
 import partita.giocatore.Colori;
-import partita.oggetti.merci.Merce;
-import partita.oggetti.merci.TipoMerce;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.LatiTessera;
@@ -17,7 +15,9 @@ import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 import tessera.batteria.Batteria;
 import tessera.cannone.Cannone;
+import tessera.merce.Merce;
 import tessera.merce.Stiva;
+import tessera.merce.TipoMerce;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.motore.Motore;
 import tessera.motore.TipoMotore;
@@ -805,7 +805,7 @@ public abstract class Nave {
 		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera() == TipoTessera.CANNONE) {
-					potenzaCannoni += ((Cannone)tessera).calcolaValore();
+					potenzaCannoni += ((Cannone)tessera).calcolaValore();   //DA AGGIUNGERE CONTROLLO E RICHIESTA UTENTE ENERGIA
 				}
 			}
 		}

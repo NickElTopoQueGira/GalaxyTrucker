@@ -62,7 +62,7 @@ public class ModuloPasseggeri extends Tessera {
 
 	public void setNumeroCosmonauti(int edit) {
 		// no interfaccia con centro perchè l'utente
-		// può cambiare piu volte il numero paseggeri in fase di cstruzione nave in base
+		// può cambiare piu volte il numero paseggeri in fase di costruzione nave in base
 		// a se
 		// utiliazza alieni o meno
 		this.numeroCosmonauti = this.numeroCosmonauti + edit;

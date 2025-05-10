@@ -3,10 +3,10 @@ package carte;
 // import merce.*;
 import tessera.merce.*;
 
+
 import java.util.*;
 
 import partita.Pedina;
-import partita.oggetti.merci.*;
 
 public class Pianeta extends Carta {
 	

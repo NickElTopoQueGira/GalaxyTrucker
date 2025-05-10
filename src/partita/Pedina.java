@@ -2,10 +2,11 @@ package partita;
 
 import java.util.List;
 
+
 import eccezioniPersonalizzate.*;
 import partita.giocatore.*;
-import partita.oggetti.merci.*;
 import tessera.Coordinate;
+import tessera.merce.Merce;
 
 public class Pedina{
     private Colori colorePedina;

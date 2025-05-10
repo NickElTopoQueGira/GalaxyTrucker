@@ -5,8 +5,6 @@ import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
-import partita.oggetti.merci.Merce;
-import partita.oggetti.merci.TipoMerce;
 import tessera.Tessera;
 import tessera.TipoTessera;
 import tessera.motore.Motore;
@@ -38,7 +36,7 @@ public class Stiva extends Tessera {
 
 	}
 
-	public void inserisciMerci(Merce merce ) {
+	public void inserisciMerci(Merce merce ) throws ErroreRisorse {
 		TipoMerce tipoSpecifico = merce.getTipoMerce();
 		if (this.numeroMerciAttuale < this.MaxCapienza) {
 
@@ -54,14 +52,17 @@ public class Stiva extends Tessera {
 			}
 
 			if (this.valore == temp) { // errore quando provo ad inserire merce speciale in modulo normale o viceversa
-				System.out.println("Errore nell'inserimento della merce (modulo non adatto)");
+				
+				throw new ErroreRisorse("Errore nell'inserimento della merce (modulo non adatto)");
+
 			} else {
 				this.numeroMerciAttuale = this.numeroMerciAttuale + 1;
 				stiva.add(merce);
 			}
 
 		} else {
-			System.out.println("Errore nell'inserimento della merce (limite max di storage raggiunto)");
+			throw new ErroreRisorse("Errore nell'inserimento della merce (limite max di storage raggiunto)");
+			
 		}
 	}
 	

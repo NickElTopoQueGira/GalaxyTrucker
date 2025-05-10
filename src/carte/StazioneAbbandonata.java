@@ -1,12 +1,13 @@
 package carte;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Random;
 
 import partita.Pedina;
-import partita.giocatore.Giocatore;
-import partita.oggetti.merci.*;
+import tessera.merce.Merce;
+import tessera.merce.TipoMerce;
 
 public class StazioneAbbandonata extends Carta {
 	

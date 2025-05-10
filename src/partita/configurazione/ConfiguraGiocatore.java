@@ -1,65 +1,45 @@
 package partita.configurazione;
 
-import gioco.ComunicazioneConUtente;
+import gioco.StampaMessaggi;
 import partita.Pedina;
 import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
 
 public class ConfiguraGiocatore{
-    private ComunicazioneConUtente com;
+    private StampaMessaggi stampa;
     private String nome;
     private Colori colorePedina;
 
     public ConfiguraGiocatore(){
-        com = ComunicazioneConUtente.getIstanza();
+    	stampa= StampaMessaggi.getIstanza();
     }
 
     public Giocatore craGiocatore(){
         configuraGiocatore();
-        Pedina pedina = new Pedina(colorePedina);
-        return new Giocatore(this.nome, pedina);
+        Pedina pedina = new Pedina(getColorePedina());
+        return new Giocatore(this.getNome(), pedina);
     }
 
     private void configuraGiocatore(){
-        this.nome = nome();
-        this.colorePedina = colorePedina(); 
-        com.println("Nome scelto: "+this.colorePedina.getCodiceColore()+this.nome+"\u001B[0m");
-    }
-
-    private String nome(){
-        String temp = "";
-        com.print("Inserisci il nome del giocatore (25 caratteri max): ");
-        temp = com.consoleRead();
-        if(temp.length() <= 25){
-            return temp;
-        }
-        else{
-            com.println("Nome troppo lungo");
-            return nome();
-        }
-    }
-
-    private Colori colorePedina(){
-        Colori c;
-        visualizzaColori();
-        com.print("Inserisci il numero del colore: ");
-        int t = Integer.parseInt(com.consoleRead());
+        this.setNome(stampa.setNomeGiocatore());
+        this.setColorePedina(stampa.colorePedina()); 
         
-        try{
-            c = Colori.coloreSelezionato(t); 
-        }catch(IllegalArgumentException iax){
-            com.println(iax.getMessage().toString());
-            return colorePedina();
-        }
-        return c;
+        stampa.nomeGiocatore(this);
     }
 
-    public void visualizzaColori(){
-        com.println("Colori disponibili: ");
-        int i = 0;
-        for(Colori c : Colori.values()){
-            com.println(i+1 + ") " + c.getname());
-            i += 1;
-        }
-    }   
+	public Colori getColorePedina() {
+		return colorePedina;
+	}
+
+	public void setColorePedina(Colori colorePedina) {
+		this.colorePedina = colorePedina;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}   
 }
