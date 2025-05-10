@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import carte.meteore.*;
+import eccezioniPersonalizzate.ErroreTessera;
 import partita.Pedina;
 import partita.giocatore.Giocatore;
+import partita.nave.Nave;
+import tessera.*;
 
 public class ZonaGuerra extends Carta {
 	
@@ -209,6 +212,7 @@ public class ZonaGuerra extends Carta {
 
 		return elencoPedine;
 	}
+	
 	private Pedina penalitaCarta(Pedina pedina, int i) {
 		
 		switch(valori[i][1]) {
@@ -224,14 +228,27 @@ public class ZonaGuerra extends Carta {
 			case "CANNONATE" ->{
 				int j = 0;
 				do {
-					
-					if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
+					Tessera colpito = trovaTesseraColpita(this.colpi.get(j), pedina.getGiocatore().getNave());
+					 
+					if(colpito != null) {
 						
-						
+						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) { // && interazioneConUtente.richiestaUtilizzoScudi
+							
+							//TODO meteorite fermato dallo scudo
+							
+						}else {
+							
+							try {
+								pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+							} catch (ErroreTessera e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
 						
 					}else {
 						
-						
+						//TODO conunica all'utente che il colpo ha mancato la nave 
 					}
 					
 					j++;
@@ -305,16 +322,47 @@ public class ZonaGuerra extends Carta {
 		return minorPotenzaCannone;
 	}
 
-	private Pedina perditaEquipaggio(Pedina pedina) {
+	private Tessera trovaTesseraColpita(Meteorite colpo, Nave nave) {
 		
-		return pedina;
-	}
-	private Pedina perditaGiorni(Pedina pedina) {
+		switch(colpo.getDirezione()) {
+			case NORD->{
+				for(int i=0; i<nave.getRighe(); i++) {
+					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
+					}
+				}
+			}
+			case SUD->{
+				for(int i=nave.getRighe()-1; i>=0; i--) {
+					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
+					}
+				}
+			}
+			case EST->{
+				for(int i=nave.getColonne()-1; i>=0; i--) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+					}
+				}
+			}
+			case OVEST->{
+				for(int i=0; i<nave.getColonne(); i++) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+					}
+				}
+			}
+			default->{
+				return null; //TODO 
+			}
 		
-		return pedina;
-	}
-	private Pedina perditaMerce(Pedina pedina) {
+		}
 		
-		return pedina;
+		return null;
 	}
 }
