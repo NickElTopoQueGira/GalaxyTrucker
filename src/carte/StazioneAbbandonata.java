@@ -27,6 +27,7 @@ public class StazioneAbbandonata extends Carta {
 		SceltaGiorniPenalita();
 		GeneraMerce();
 	}
+	
 	private void GeneraGiocatoriNecessari() {
 
 		Random random = new Random();
@@ -168,6 +169,28 @@ public class StazioneAbbandonata extends Carta {
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
+		boolean isCartaCompletata = false;
+		int elenco = -1;
+		
+		do {
+			elenco++;
+			
+			if(elencoPedine.get(elenco).getGiocatore().getNave().getEquipaggio() <= this.giocatorinecessari) {
+				
+				
+				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere la merce 
+					
+					elencoPedine.get(elenco).distribuzioneMerce(this.merci);
+					
+					elencoPedine.get(elenco).muoviPedina(-penalitagiorni);
+					
+					isCartaCompletata = true;
+				}
+			}
+			
+			
+		}while(!isCartaCompletata || elenco<elencoPedine.size());
+		
 		
 		return elencoPedine;
 	}

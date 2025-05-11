@@ -70,7 +70,10 @@ public class Pedina{
     public void distribuzioneMerce(List<Merce> merci) {///TODO
     	Coordinate coordinate = null;
     	for(int i=0; i<merci.size(); i++) {
-
+    		
+    		//TODO il giocatore deve vedere tutte le merci a disposizione 
+    		//TODO viene posta la decisione al giocatore se vuole piazzare la merce o no quindi "buttarla"
+    		//TODO il giocatore sceglie il in quale possivile stiva posizionare la merce in questione
     		
     		try {
 				this.giocatore.getNave().inserisciMerce(coordinate, merci.get(i));

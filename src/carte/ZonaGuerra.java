@@ -240,6 +240,8 @@ public class ZonaGuerra extends Carta {
 							
 							try {
 								pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+								
+								//TODO COMMENTO 
 							} catch (ErroreTessera e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
