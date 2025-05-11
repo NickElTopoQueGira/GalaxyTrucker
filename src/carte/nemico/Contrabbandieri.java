@@ -176,7 +176,36 @@ public class Contrabbandieri extends Nemici {
 	
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
+		
 		// TODO Auto-generated method stub
+		
+		boolean isCartaCompletata = false;
+		int elenco = -1;
+		
+		do {
+			elenco++;
+			
+			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
+				
+				//TODO pareggio
+				
+			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
+				
+				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere la merce in cambio dei giorni persi
+					
+					elencoPedine.get(elenco).distribuzioneMerce(this.merci);
+					
+					elencoPedine.get(elenco).muoviPedina(-this.penalitagiorni);
+				}
+				
+				isCartaCompletata = true;
+			}else {
+				
+				elencoPedine.get(elenco).selezionaMerceDaEliminare(this.penalitamerci);
+			}
+			
+			
+		}while(!isCartaCompletata || elenco<elencoPedine.size());
 		
 		return elencoPedine;
 	}

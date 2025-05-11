@@ -2,6 +2,7 @@ package carte.nemico;
 
 import java.util.*;
 import carte.*;
+import partita.Pedina;
 
 public class Schiavisti extends Nemici {
 	
@@ -113,5 +114,38 @@ public class Schiavisti extends Nemici {
 				"\nGuadagno:"+this.guadagno;
 		
 		return temp;
+	}
+	
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
+		// TODO Auto-generated method stub
+		boolean isCartaCompletata = false;
+		int elenco = -1;
+		
+		do {
+			elenco++;
+			
+			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
+				
+				//TODO pareggio
+				
+			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
+				
+				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere i crediti in cambio dei giorni persi
+					
+					elencoPedine.get(elenco).getGiocatore().aggiornaCrediti(this.guadagno);
+					
+					elencoPedine.get(elenco).muoviPedina(-this.penalitagiorni);
+				}
+				
+				isCartaCompletata = true;
+			}else {
+				
+				elencoPedine.get(elenco).selezionaEquipaggioDaEliminare(this.penalitaequipaggio);
+			}
+			
+			
+		}while(!isCartaCompletata || elenco<elencoPedine.size());
+		
+		return elencoPedine;
 	}
 }

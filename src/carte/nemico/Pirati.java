@@ -3,7 +3,11 @@ package carte.nemico;
 import java.util.*;
 import carte.*;
 import carte.meteore.*;
+import eccezioniPersonalizzate.ErroreTessera;
 import partita.Pedina;
+import partita.nave.Nave;
+import tessera.Tessera;
+import tessera.TipoTessera;
 
 public class Pirati extends Nemici {
 	
@@ -165,20 +169,108 @@ public class Pirati extends Nemici {
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
-		for(int i=0; i<elencoPedine.size(); i++){
+		boolean isCartaCompletata = false;
+		int elenco = -1;
+		
+		do {
+			elenco++;
 			
-			
-			if(elencoPedine.get(i).getGiocatore().getNave().getEquipaggio() == this.potenzanecc) {
-			}else if(elencoPedine.get(i).getGiocatore().getNave().getEquipaggio() < this.potenzanecc) {
+			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				
-				//elencoPedine.get(i).selezionaEquipaggioDaEliminare(this.); //TODO IN SCHIAVISTI
-			}else {
+				//TODO pareggio
 				
+			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
 				
+				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere i crediti in cambio dei giorni persi
+					
+					elencoPedine.get(elenco).getGiocatore().aggiornaCrediti(this.guadagno);
+					
+					elencoPedine.get(elenco).muoviPedina(-this.penalitagiorni);
+				}
+				
+				isCartaCompletata = true;
+			}else { // EFFETTO COLLATERALE CARTA ////////////////
+				
+				int j = 0;
+				do {
+					Tessera colpito = trovaTesseraColpita(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave());
+					 
+					if(colpito != null) {
+						
+						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) { // && interazioneConUtente.richiestaUtilizzoScudi
+							
+							//TODO meteorite fermato dallo scudo
+							
+						}else {
+							
+							try {
+								elencoPedine.get(elenco).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+								
+								//TODO COMMENTO 
+							} catch (ErroreTessera e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						
+					}else {
+						
+						//TODO comunica all'utente che il colpo ha mancato la nave 
+					}
+					
+					j++;
+				}while(this.colpi.get(j) == null); // TODO || nave is distrutta ||....
 			}
-		}
+			
+			
+		}while(!isCartaCompletata || elenco<elencoPedine.size());
+		
 		
 		return elencoPedine;
+	}
+	
+	private Tessera trovaTesseraColpita(Meteorite colpo, Nave nave) {
+		
+		switch(colpo.getDirezione()) {
+			case NORD->{
+				for(int i=0; i<nave.getRighe(); i++) {
+					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
+					}
+				}
+			}
+			case SUD->{
+				for(int i=nave.getRighe()-1; i>=0; i--) {
+					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
+					}
+				}
+			}
+			case EST->{
+				for(int i=nave.getColonne()-1; i>=0; i--) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+					}
+				}
+			}
+			case OVEST->{
+				for(int i=0; i<nave.getColonne(); i++) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+					}
+				}
+			}
+			default->{
+				return null; //TODO 
+			}
+		
+		}
+		
+		return null;
 	}
 	
 }

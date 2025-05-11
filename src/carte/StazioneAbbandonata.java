@@ -190,7 +190,6 @@ public class StazioneAbbandonata extends Carta {
 			
 		}while(!isCartaCompletata || elenco<elencoPedine.size());
 		
-		
 		return elencoPedine;
 	}
 
