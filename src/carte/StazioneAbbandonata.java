@@ -162,7 +162,6 @@ public class StazioneAbbandonata extends Carta {
 				}
 				temp=temp+"\n"; 
 
-		
 		return temp;
 	}
 
