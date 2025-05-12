@@ -2,13 +2,17 @@ package carte.meteore;
 
 import java.util.Random;
 
+import gioco.ComunicazioneConUtente;
+
 public class Meteorite {
 	
 	private PuntiCardinali direzione;
 	private TypeMeteora type;
 	private int dado;
+	protected static ComunicazioneConUtente stampa;
 	
 	public Meteorite(TypeMeteora t) {
+		stampa= ComunicazioneConUtente.getIstanza();
 		this.direzione = casualDirezione();
 		this.dado = RisultatiDadi();
 		this.type = t;
@@ -19,6 +23,7 @@ public class Meteorite {
 		this.direzione = direzione;
 		this.dado = RisultatiDadi();
 		this.type = t;
+		stampa= ComunicazioneConUtente.getIstanza();
 	}
 	
 	private PuntiCardinali casualDirezione() {
@@ -31,7 +36,7 @@ public class Meteorite {
 			case 3 -> PuntiCardinali.OVEST;
 			case 4 -> PuntiCardinali.SUD;
 			default -> {
-				System.out.println("ERROR: random direzione (class: Meteorite)");
+				stampa.printError("ERROR: random direzione (class: Meteorite)");;
 				yield null;
 			}
 		};

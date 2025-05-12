@@ -2,16 +2,20 @@ package carte;
 
 import java.util.*;
 
+import gioco.ComunicazioneConUtente;
 import partita.Pedina;
 
 public class NaveAbbandonata extends Carta {
 	
 	private int guadagno, giornipersi, perditaequipaggio;
+	private ComunicazioneConUtente stampa;
+	
 	
 	public NaveAbbandonata (int lvl) {
 		
 		super(lvl, TipoCarta.NAVE_ABBANDONATA);
 		GeneraValori();
+		stampa= ComunicazioneConUtente.getIstanza();
 		
 	}
 	
@@ -36,7 +40,7 @@ public class NaveAbbandonata extends Carta {
 			this.guadagno = random.nextInt(3) + 9;  //9-11
 		}
 		default->{
-			System.out.println("ERROR: quantita ghuadagno della carta (errorTipe: switch) (class: NaveAbbandonata)");
+			stampa.printError("ERROR: quantita ghuadagno della carta (errorTipe: switch) (class: NaveAbbandonata)");
 		}
 		}
 	}
@@ -81,7 +85,7 @@ public class NaveAbbandonata extends Carta {
 			}
 		}
 		default->{
-			System.out.println("ERROR: calcolo numero dei equipaggi persi (errorTipe: switch) (class: NaveAbbandonata)");
+			stampa.printError("ERROR: calcolo numero dei equipaggi persi (errorTipe: switch) (class: NaveAbbandonata)");
 		}
 		}
 	}

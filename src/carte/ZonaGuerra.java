@@ -5,6 +5,7 @@ import java.util.Random;
 
 import carte.meteore.*;
 import eccezioniPersonalizzate.ErroreTessera;
+import gioco.ComunicazioneConUtente;
 import partita.Pedina;
 import partita.giocatore.Giocatore;
 import partita.nave.Nave;
@@ -17,11 +18,12 @@ public class ZonaGuerra extends Carta {
 	private static String[][] valori;
 	private ArrayList<Meteorite> colpi;
 	private int equipaggiPersi, giorniPersi, merciPersi;
+	private ComunicazioneConUtente stampa;
 	
 	public ZonaGuerra (int lvl) {
 		
 		super(lvl, TipoCarta.ZONA_GUERRA);
-		
+		stampa= ComunicazioneConUtente.getIstanza();
 		colpi = new ArrayList<>();
 		
 		eventi = new String[] {"CANNONI","EQUIPAGGI","RAZZI"}; 
@@ -62,7 +64,7 @@ public class ZonaGuerra extends Carta {
 			controllo++;
 			
 			if(controllo>=3) {
-				System.out.println("ERROR: assegnazione ulrimo valore disponibile alla carta (errorTipe: do_while) (class: ZonaGuerra)");
+				stampa.printError("ERROR: assegnazione ulrimo valore disponibile alla carta (errorTipe: do_while) (class: ZonaGuerra)");
 			}
 			valori[2][0] = eventi[controllo];
 			
@@ -145,7 +147,7 @@ public class ZonaGuerra extends Carta {
 			}
 		}
 		default ->{
-			System.out.println("ERROR: numerazione colpi (errorTipe: switch) (class: ZonaGuerra)"); // TODO
+			stampa.printError("ERROR: numerazione colpi (errorTipe: switch) (class: ZonaGuerra)"); // TODO
 		}
 		}		
 		

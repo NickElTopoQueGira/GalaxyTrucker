@@ -236,12 +236,13 @@ public void inizioGame() {
 	 */
 	public int livelloPartita() {
 		int livello = 0;
+		ArrayList<String> lista=new ArrayList<String>();
+        lista.add("Primo Livello");
+        lista.add("Secondo Livello");
+        lista.add("Terzo Livello");
 		do{
 			this.println("Livelli disponibili: ");
-			ArrayList<String> lista=new ArrayList<String>();
-	        lista.add("Primo Livello");
-	        lista.add("Secondo Livello");
-	        lista.add("Terzo Livello");
+			
 			this.visualizzaElenco(lista);
 			this.print("Inserisci il livello: ");
 			try{
@@ -282,10 +283,12 @@ public void inizioGame() {
 	 */
 	public ModalitaPartita modalitaPartita(){
 		int mod = 0;
+		ArrayList<String> lista=new ArrayList<String>();
+        lista.add("Partita singola");
+        lista.add("Partita multipla");
 		do{
 			this.println("Modalita' partita disponibile: ");
-			this.println("1) Partita singola");
-			this.println("2) Partita multipla");
+			this.visualizzaElenco(lista);
 			this.print("Inserisci la modalita' partita: ");
 			try{
 				mod = Integer.parseInt(this.consoleRead());

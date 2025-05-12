@@ -1,17 +1,19 @@
 package carte;
 
 import carte.meteore.*;
+import gioco.ComunicazioneConUtente;
 import partita.Pedina;
 import java.util.*;
 
 public class PioggiaMeteoriti extends Carta {
 	
 	public ArrayList<Meteorite> meteoriti;
+	private ComunicazioneConUtente stampa;
 	
 	public PioggiaMeteoriti (int lvl) {
 		
 		super(lvl, TipoCarta.PIOGGIA_METEORITI);
-		
+		stampa= ComunicazioneConUtente.getIstanza();
 		meteoriti = new ArrayList<>();
 		
 		GeneraValori();
@@ -66,7 +68,7 @@ public class PioggiaMeteoriti extends Carta {
 			}
 		}
 		default ->{
-			System.out.println("ERROR: numerazione meteoriti (errorTipe: switch) (class: PioggiaMeteorite)");
+			stampa.printError("ERROR: numerazione meteoriti (errorTipe: switch) (class: PioggiaMeteorite)");
 		}
 		}
 	}

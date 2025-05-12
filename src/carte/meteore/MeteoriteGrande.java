@@ -2,12 +2,16 @@ package carte.meteore;
 
 import java.util.Random;
 
+import gioco.ComunicazioneConUtente;
+
 public class MeteoriteGrande extends Meteorite {
+	
 
 	
 	public MeteoriteGrande(int lvl) {
 		
 		super(CasualDirezzione(lvl), TypeMeteora.METEORITE_GRANDE);
+		stampa= ComunicazioneConUtente.getIstanza();
 	}
 	
 	
@@ -27,7 +31,7 @@ public class MeteoriteGrande extends Meteorite {
 			x = random.nextInt(4) + 1;
 		}
 		default->{
-			System.out.println("ERROR: scelta del random in base al livello della carta (errorTipe: switch) (class: Meteorite)");
+			stampa.printError("ERROR: scelta del random in base al livello della carta (errorTipe: switch) (class: Meteorite)");
 		}
 		}
 		
@@ -45,7 +49,7 @@ public class MeteoriteGrande extends Meteorite {
 			return PuntiCardinali.SUD;
 		}
 		default->{
-			System.out.println("ERROR: random della direzione del meteorite (errorTipe: switch) (class: Meteorite)");
+			stampa.printError("ERROR: random della direzione del meteorite (errorTipe: switch) (class: Meteorite)");
 		}
 		}
 		

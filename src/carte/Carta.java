@@ -3,13 +3,13 @@ package carte;
 import java.util.ArrayList;
 
 import partita.Pedina;
-import partita.giocatore.Giocatore;
 
 
 public abstract class Carta {
 	
 	protected int lvl;
 	protected TipoCarta tipo;
+	
 	
 	public Carta(int lvl) {
 		this.lvl = lvl;
