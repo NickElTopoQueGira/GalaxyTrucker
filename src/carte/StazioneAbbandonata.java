@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import gioco.ComunicazioneConUtente;
 import partita.Pedina;
 import tessera.merce.Merce;
 import tessera.merce.TipoMerce;
@@ -14,6 +15,8 @@ public class StazioneAbbandonata extends Carta {
 	private int giocatorinecessari;
 	private int penalitagiorni;
 	private List<Merce> merci;
+	
+	private ComunicazioneConUtente stampa;
 	
 	public StazioneAbbandonata (int lvl) {
 		
@@ -167,7 +170,7 @@ public class StazioneAbbandonata extends Carta {
 
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
+		
 		boolean isCartaCompletata = false;
 		int elenco = -1;
 		
@@ -178,6 +181,12 @@ public class StazioneAbbandonata extends Carta {
 				
 				
 				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere la merce 
+					
+					stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+"AL COSTO DI "+penalitagiorni+" GIORNO HA RICEVO:");
+					for(int i=0; i<this.merci.size(); i++) {
+						
+						stampa.println("->"+this.merci.get(i).getTipoMerce());
+					}
 					
 					elencoPedine.get(elenco).distribuzioneMerce(this.merci);
 					

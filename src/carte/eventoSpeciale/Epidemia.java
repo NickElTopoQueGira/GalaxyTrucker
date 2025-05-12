@@ -2,11 +2,14 @@ package carte.eventoSpeciale;
 
 import java.util.*;
 import carte.*;
+import gioco.ComunicazioneConUtente;
 import partita.*;
 import tessera.*;
 import tessera.modulo_passeggeri.*;
 	
 public class Epidemia extends EventiSpeciali {
+	
+	private ComunicazioneConUtente stampa;
 	
 	public Epidemia (int lvl) {
 		
@@ -83,7 +86,7 @@ public class Epidemia extends EventiSpeciali {
 					
 					return true;
 				}else {
-					//TODO ERRORE !!!!!!!!! LE DUE TESSERE NON SONO COLLEGATE CORRETTAMENTE
+					stampa.printError("ERROR: COLLEGAMENTO TRA TESSERE IRREGOLARE!!");
 				}
 			}
 		}
@@ -97,7 +100,7 @@ public class Epidemia extends EventiSpeciali {
 					
 					return true;
 				}else {
-					//TODO ERRORE !!!!!!!!! LE DUE TESSERE NON SONO COLLEGATE CORRETTAMENTE
+					stampa.printError("ERROR: COLLEGAMENTO TRA TESSERE IRREGOLARE!!");
 				}
 			}
 		}
@@ -111,7 +114,7 @@ public class Epidemia extends EventiSpeciali {
 					
 					return true;
 				}else {
-					//TODO ERRORE !!!!!!!!! LE DUE TESSERE NON SONO COLLEGATE CORRETTAMENTE
+					stampa.printError("ERROR: COLLEGAMENTO TRA TESSERE IRREGOLARE!!");
 				}
 			}
 		}
@@ -125,7 +128,7 @@ public class Epidemia extends EventiSpeciali {
 					
 					return true;
 				}else {
-					//TODO ERRORE !!!!!!!!! LE DUE TESSERE NON SONO COLLEGATE CORRETTAMENTE
+					stampa.printError("ERROR: COLLEGAMENTO TRA TESSERE IRREGOLARE!!");
 				}
 			}
 		}

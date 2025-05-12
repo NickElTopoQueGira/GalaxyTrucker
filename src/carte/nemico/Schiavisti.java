@@ -129,11 +129,14 @@ public class Schiavisti extends Nemici {
 			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				
-				//TODO pareggio
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+						+this.potenzanecc+" PAREGGIA CON LA NAVE NEMICA");
 				
 			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
 				
 				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere i crediti in cambio dei giorni persi
+					
+					stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+"AL COSTO DI "+penalitagiorni+" GIORNO HA RICEVO "+this.guadagno+" \u00A2");
 					
 					elencoPedine.get(elenco).getGiocatore().aggiornaCrediti(this.guadagno);
 					
@@ -142,6 +145,10 @@ public class Schiavisti extends Nemici {
 				
 				isCartaCompletata = true;
 			}else {
+				
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+						+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" VIENE SCONFITTA DALLA NAVE NEMICA E PORTANO VIA "
+								+this.penalitaequipaggio+" COMPONENTI DELL'EQUIPAGGIO");
 				
 				elencoPedine.get(elenco).selezionaEquipaggioDaEliminare(this.penalitaequipaggio);
 			}

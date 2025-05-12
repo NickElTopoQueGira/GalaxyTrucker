@@ -221,7 +221,6 @@ public class Pianeta extends Carta {
 
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
 		
 		int elenco = -1;
 		do {

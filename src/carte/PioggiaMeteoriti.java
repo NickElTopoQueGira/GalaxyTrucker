@@ -98,7 +98,6 @@ public class PioggiaMeteoriti extends Carta {
 
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
 		
 		for(int i=0; i<this.meteoriti.size(); i++) {
 			
@@ -113,7 +112,8 @@ public class PioggiaMeteoriti extends Carta {
 					if(this.meteoriti.get(j).getType() == TypeMeteora.METEORITE_PICCOLO) { 
 						
 						if(controlloLatoIsCoperto(colpito, this.meteoriti.get(j).getDirezione())) {
-							//TODO meteorite rimbalza sulla nave
+
+							stampa.println("METEORITE RIMBALZATO SULLA NAVE");
 							
 							sceltaFermareMeteorite = true;
 							
@@ -125,7 +125,7 @@ public class PioggiaMeteoriti extends Carta {
 						// 3) richiese de vuole usare gli scudi
 							if(true) {
 								
-								//TODO meteorite fermato dallo scudo
+								stampa.println("METEORITE FERMATO DALLO SCUDO");
 								sceltaFermareMeteorite = true;
 							}
 						}
@@ -135,12 +135,12 @@ public class PioggiaMeteoriti extends Carta {
 						case 0->{}
 						case 1->{
 
-							//TODO meteorite fermato dal cannone
+							stampa.println("METEORITE FERMATO DAL CANNONE DOPPIO");
 							
 							try {
 								elencoPedine.get(j).getGiocatore().getNave().utilizzaEnergia(1);
 							} catch (ErroreRisorse e) {
-								// TODO Auto-generated catch block
+								
 								e.printStackTrace();
 							}
 							
@@ -148,7 +148,7 @@ public class PioggiaMeteoriti extends Carta {
 						}
 						case 2->{
 
-							//TODO meteorite fermato dal cannone
+							stampa.println("METEORITE FERMATO DAL CANNONE");
 							
 							sceltaFermareMeteorite = true;
 						}
@@ -160,17 +160,16 @@ public class PioggiaMeteoriti extends Carta {
 						
 						try {
 							elencoPedine.get(j).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
-							
-							//TODO COMMENTO 
+							 
 						} catch (ErroreTessera e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
 					
 				}else {
 					
-					//TODO conunica all'utente che il colpo ha mancato la nave 
+					stampa.println("METEORITE HA MANCATO LA NAVE");
 				}
 				
 			}

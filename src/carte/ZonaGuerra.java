@@ -147,7 +147,7 @@ public class ZonaGuerra extends Carta {
 			}
 		}
 		default ->{
-			stampa.printError("ERROR: numerazione colpi (errorTipe: switch) (class: ZonaGuerra)"); // TODO
+			stampa.printError("ERROR: numerazione colpi (errorTipe: switch) (class: ZonaGuerra)"); 
 		}
 		}		
 		
@@ -246,7 +246,8 @@ public class ZonaGuerra extends Carta {
 							// 2) controlla la direzione
 							// 3) richiese de vuole usare gli scudi
 							
-							//TODO meteorite fermato dallo scudo
+							stampa.println("COLPO FERMATO DALLO SCUDO");
+							sceltaFermareColpo = true;
 							
 						}
 						
@@ -255,16 +256,15 @@ public class ZonaGuerra extends Carta {
 							try {
 								pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
 								
-								//TODO COMMENTO 
 							} catch (ErroreTessera e) {
-								// TODO Auto-generated catch block
+								
 								e.printStackTrace();
 							}
 						}
 						
 					}else {
 						
-						//TODO conunica all'utente che il colpo ha mancato la nave 
+						stampa.println("COLPO HA MANCATO LA NAVE");
 					}
 					
 					j++;

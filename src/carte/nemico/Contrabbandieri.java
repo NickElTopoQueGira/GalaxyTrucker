@@ -187,12 +187,21 @@ public class Contrabbandieri extends Nemici {
 			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				
-				//TODO pareggio
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+				+this.potenzanecc+" PAREGGIA CON LA NAVE NEMICA");
 				
 			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
 				
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+				+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" SCONFIGGE LA NAVE NEMICA");
+				
 				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere la merce in cambio dei giorni persi
 					
+					stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+"AL COSTO DI "+penalitagiorni+" GIORNO HA RICEVO:");
+					for(int i=0; i<this.merci.size(); i++) {
+						
+						stampa.println("->"+this.merci.get(i).getTipoMerce());
+					}
 					elencoPedine.get(elenco).distribuzioneMerce(this.merci);
 					
 					elencoPedine.get(elenco).muoviPedina(-this.penalitagiorni);
@@ -200,6 +209,10 @@ public class Contrabbandieri extends Nemici {
 				
 				isCartaCompletata = true;
 			}else {
+				
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+				+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" VIENE SCONFITTA DALLA NAVE NEMICA E RUBANO "
+						+this.penalitamerci+" MERCI");
 				
 				elencoPedine.get(elenco).selezionaMerceDaEliminare(this.penalitamerci);
 			}

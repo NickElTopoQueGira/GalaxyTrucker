@@ -180,11 +180,14 @@ public class Pirati extends Nemici {
 			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				
-				//TODO pareggio
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+						+this.potenzanecc+" PAREGGIA CON LA NAVE NEMICA");
 				
 			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
 				
 				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere i crediti in cambio dei giorni persi
+					
+					stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+"AL COSTO DI "+penalitagiorni+" GIORNO HA RICEVO "+this.guadagno+" \u00A2");
 					
 					elencoPedine.get(elenco).getGiocatore().aggiornaCrediti(this.guadagno);
 					
@@ -194,31 +197,45 @@ public class Pirati extends Nemici {
 				isCartaCompletata = true;
 			}else { // EFFETTO COLLATERALE CARTA ////////////////
 				
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+						+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" VIENE SCONFITTA DALLA NAVE NEMICA "
+								+ "E SPARA VARI COLPI ALLA NAVE");
+				
 				int j = 0;
 				do {
+					boolean sceltaFermareColpo = false;
+					
 					Tessera colpito = trovaTesseraColpita(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave());
-					 
+					
 					if(colpito != null) {
+							
+						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
+							
+							
+							//TODO :
+							// sceltaFermareColpo = interazioneConUtente.richiestaUtilizzoScudi(); 
+							// 1) controlla se ha scudi
+							// 2) controlla la direzione
+							// 3) richiese de vuole usare gli scudi
+							
+							stampa.println("COLPO FERMATO DALLO SCUDO");
+							sceltaFermareColpo = true;
+						}
 						
-						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) { // && interazioneConUtente.richiestaUtilizzoScudi
-							
-							//TODO meteorite fermato dallo scudo
-							
-						}else {
+						if(!sceltaFermareColpo){
 							
 							try {
 								elencoPedine.get(elenco).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
 								
-								//TODO COMMENTO 
 							} catch (ErroreTessera e) {
-								// TODO Auto-generated catch block
+								
 								e.printStackTrace();
 							}
 						}
 						
 					}else {
 						
-						//TODO comunica all'utente che il colpo ha mancato la nave 
+						stampa.println("COLPO HA MANCATO LA NAVE");
 					}
 					
 					j++;

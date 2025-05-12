@@ -10,7 +10,6 @@ public class NaveAbbandonata extends Carta {
 	private int guadagno, giornipersi, perditaequipaggio;
 	private ComunicazioneConUtente stampa;
 	
-	
 	public NaveAbbandonata (int lvl) {
 		
 		super(lvl, TipoCarta.NAVE_ABBANDONATA);
@@ -159,7 +158,7 @@ public class NaveAbbandonata extends Carta {
 				}
 			}else {
 				
-				//TODO comunicazione allutente che non ha abbastanza equipaggio
+				stampa.println("LA NAVE NON HA ABBASTANZA EQUIPAGGIO ");
 			}
 			
 		}while(!isCartaCompletata || elenco<elencoPedine.size());

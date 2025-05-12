@@ -2,11 +2,13 @@ package carte;
 
 import java.util.ArrayList;
 
+import gioco.ComunicazioneConUtente;
 import partita.Pedina;
 import partita.nave.*;
 
 public class PolvereStellare extends Carta {
 	
+	private ComunicazioneConUtente stampa;
 	
 	public PolvereStellare (int lvl) {
 		
@@ -19,8 +21,9 @@ public class PolvereStellare extends Carta {
 			
 			int connettoriScoperti = ContaConnettoriScoperti(elencoPedine.get(i).getGiocatore().getNave());
 			
-			elencoPedine.get(i).muoviPedina(-connettoriScoperti);     
+			elencoPedine.get(i).muoviPedina(-connettoriScoperti);
 			
+			stampa.println("LA NAVE DI: "+ elencoPedine.get(i).getGiocatore().getNome() +" HA "+connettoriScoperti+" CONNETTORI SCOPERTI");
 		}
 		return elencoPedine;
 	}
