@@ -236,7 +236,7 @@ public class Pianeta extends Carta {
 				this.pianeti.remove(scelta);
 			}
 			
-		}while(elenco<elencoPedine.size() || pianeti == null);
+		}while(elenco<elencoPedine.size() || this.pianeti == null);
 		
 		return elencoPedine;
 	}

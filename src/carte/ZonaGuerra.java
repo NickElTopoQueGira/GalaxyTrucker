@@ -230,15 +230,27 @@ public class ZonaGuerra extends Carta {
 			case "CANNONATE" ->{
 				int j = 0;
 				do {
+					
+					boolean sceltaFermareColpo = false;
+					
 					Tessera colpito = trovaTesseraColpita(this.colpi.get(j), pedina.getGiocatore().getNave());
 					 
 					if(colpito != null) {
 						
-						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) { // && interazioneConUtente.richiestaUtilizzoScudi
+						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
+							
+							
+							//TODO :
+							// sceltaFermareColpo = interazioneConUtente.richiestaUtilizzoScudi(); 
+							// 1) controlla se ha scudi
+							// 2) controlla la direzione
+							// 3) richiese de vuole usare gli scudi
 							
 							//TODO meteorite fermato dallo scudo
 							
-						}else {
+						}
+						
+						if(!sceltaFermareColpo){
 							
 							try {
 								pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
