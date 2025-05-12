@@ -13,9 +13,10 @@ public class ConfiguraGiocatore{
 
     public ConfiguraGiocatore(){
     	stampa= ComunicazioneConUtente.getIstanza();
+    	
     }
 
-    public Giocatore craGiocatore(){
+    public Giocatore creaGiocatore(){
         configuraGiocatore();
         Pedina pedina = new Pedina(getColorePedina());
         return new Giocatore(this.getNome(), pedina);

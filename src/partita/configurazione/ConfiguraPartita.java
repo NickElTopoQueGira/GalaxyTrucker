@@ -42,7 +42,7 @@ public class ConfiguraPartita{
     /**
      * modifica scelte in conf. partita
      */
-    public void modificaScelte(){
+    private void modificaScelte(){
 		
 		int s=stampa.menuModificaScelte(this);
 		
@@ -75,7 +75,7 @@ public class ConfiguraPartita{
 	 * conferma e modifica scelte Partita
 	 * 
 	 */
-	public void ConfermaModificheSceltePartita() {
+    private void ConfermaModificheSceltePartita() {
 				boolean conferma = true;
 				do{
 					stampa.visualizzaScelte(this);
@@ -97,7 +97,7 @@ public class ConfiguraPartita{
 	 * funzione per scelta livello
 	 * @return Livelli
 	 */
-	public Livelli livelloPartita(){
+	private Livelli livelloPartita(){
 		int livello=stampa.livelloPartita();
 		switch(livello){
 			case 1 ->{
