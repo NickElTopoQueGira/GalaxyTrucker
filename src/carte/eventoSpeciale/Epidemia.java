@@ -1,10 +1,11 @@
 package carte.eventoSpeciale;
 
-import java.util.ArrayList;
-
+import java.util.*;
 import carte.*;
-import partita.Pedina;
-
+import partita.*;
+import tessera.*;
+import tessera.modulo_passeggeri.*;
+	
 public class Epidemia extends EventiSpeciali {
 	
 	public Epidemia (int lvl) {
@@ -13,8 +14,125 @@ public class Epidemia extends EventiSpeciali {
 	}
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
 		
+		for(int x=0; x<elencoPedine.size(); x++) {
+			
+			boolean[][] isVisitato = new boolean[elencoPedine.get(x).getGiocatore().getNave().getRighe()][elencoPedine.get(x).getGiocatore().getNave().getColonne()];
+			
+			for(int i=0; i<elencoPedine.get(x).getGiocatore().getNave().getRighe(); i++) {
+				for(int j=0; j<elencoPedine.get(x).getGiocatore().getNave().getColonne(); j++) {
+					
+					if((elencoPedine.get(x).getGiocatore().getNave().getPlanciaDellaNave().get(i).get(j).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI ||
+							elencoPedine.get(x).getGiocatore().getNave().getPlanciaDellaNave().get(i).get(j).getTipoTessera() == TipoTessera.CENTRO) &&
+							!isVisitato[i][j]) {
+						
+						ArrayList<ModuloPasseggeri> gruppo = new ArrayList<>();
+						trovaModuloAtaccato(i, j, elencoPedine.get(x).getGiocatore().getNave().getPlanciaDellaNave(), isVisitato, gruppo);
+						
+						if(gruppo.size() > 1) {
+							for (ModuloPasseggeri epidemia : gruppo) {
+								
+								epidemia.setNumeroCosmonauti(-1);;
+							}
+						}
+					}
+				}
+			}
+		}
 		return elencoPedine;
 	}
+	private void trovaModuloAtaccato(int i, int j, ArrayList<ArrayList<Tessera>> nave, boolean[][] isVisitato, ArrayList<ModuloPasseggeri> gruppo) {
+		
+		int[] dx = {-1, 0, 1, 0}; 
+	    int[] dy = {0, 1, 0, -1};
+	    TipoLato[] dLato = {TipoLato.UP, TipoLato.RIGHT, TipoLato.DOWN, TipoLato.LEFT};
+
+	    isVisitato[i][j] = true;
+	    gruppo.add((ModuloPasseggeri) nave.get(i).get(j));
+	    
+	    for(int d=0; d<4; d++) { // FOR PER CONTROLLARE TUTTI E 4 I LATI
+	    	
+	    	int nx = i + dx[d];
+	        int ny = j + dy[d];
+
+	        if (nx >= 0 && ny >= 0 && nx < nave.size() && ny < nave.get(0).size()) { //CONTROLLO SE NON SI ESCE DAL TABELLONE
+	        	
+	        	if ((nave.get(nx).get(ny).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI ||
+	        			nave.get(nx).get(ny).getTipoTessera() == TipoTessera.CENTRO) && 
+	        			!isVisitato[nx][ny]) {
+	        		
+	        		if(!controlloConnettoreTraTessere(dLato[d], nave.get(i).get(j), nave.get(nx).get(ny))) {
+	        			
+	        			trovaModuloAtaccato(nx, ny, nave, isVisitato, gruppo);
+	        		}
+	        	}
+	        }
+	    }
+	}
+	
+	private boolean controlloConnettoreTraTessere(TipoLato dLato, Tessera tesseraP, Tessera tessera2) {
+		
+		switch(dLato) {
+		case TipoLato.UP->{
+			if(tesseraP.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO && tessera2.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO) {
+				if(tesseraP.getLatiTessera().getUp() == TipoConnettoriTessera.TRIPLO || tessera2.getLatiTessera().getDown() == TipoConnettoriTessera.TRIPLO) {
+					
+					return true;
+					
+				}else if(tesseraP.getLatiTessera().getUp() == tessera2.getLatiTessera().getDown()){
+					
+					return true;
+				}else {
+					//TODO ERRORE !!!!!!!!! LE DUE TESSERE NON SONO COLLEGATE CORRETTAMENTE
+				}
+			}
+		}
+		case TipoLato.RIGHT->{
+			if(tesseraP.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO && tessera2.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO) {
+				if(tesseraP.getLatiTessera().getRight() == TipoConnettoriTessera.TRIPLO || tessera2.getLatiTessera().getLeft() == TipoConnettoriTessera.TRIPLO) {
+					
+					return true;
+					
+				}else if(tesseraP.getLatiTessera().getRight() == tessera2.getLatiTessera().getLeft()){
+					
+					return true;
+				}else {
+					//TODO ERRORE !!!!!!!!! LE DUE TESSERE NON SONO COLLEGATE CORRETTAMENTE
+				}
+			}
+		}
+		case TipoLato.DOWN->{
+			if(tesseraP.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO && tessera2.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO) {
+				if(tesseraP.getLatiTessera().getDown() == TipoConnettoriTessera.TRIPLO || tessera2.getLatiTessera().getUp() == TipoConnettoriTessera.TRIPLO) {
+					
+					return true;
+					
+				}else if(tesseraP.getLatiTessera().getDown() == tessera2.getLatiTessera().getUp()){
+					
+					return true;
+				}else {
+					//TODO ERRORE !!!!!!!!! LE DUE TESSERE NON SONO COLLEGATE CORRETTAMENTE
+				}
+			}
+		}
+		case TipoLato.LEFT->{
+			if(tesseraP.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO && tessera2.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO) {
+				if(tesseraP.getLatiTessera().getLeft() == TipoConnettoriTessera.TRIPLO || tessera2.getLatiTessera().getRight() == TipoConnettoriTessera.TRIPLO) {
+					
+					return true;
+					
+				}else if(tesseraP.getLatiTessera().getLeft() == tessera2.getLatiTessera().getRight()){
+					
+					return true;
+				}else {
+					//TODO ERRORE !!!!!!!!! LE DUE TESSERE NON SONO COLLEGATE CORRETTAMENTE
+				}
+			}
+		}
+		default->{}
+		}
+		
+		return false;
+	}
+
 }
