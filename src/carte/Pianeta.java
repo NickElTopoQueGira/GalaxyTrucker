@@ -221,10 +221,35 @@ public class Pianeta extends Carta {
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		// TODO Auto-generated method stub
 		
+		int elenco = -1;
+		do {
+			elenco++;
+			
+			int scelta = sceltaPianeta(elencoPedine.get(elenco));
+			
+			if( scelta != (Integer) null) {
+				
+				elencoPedine.get(elenco).distribuzioneMerce(this.pianeti.get(scelta));
+				
+				elencoPedine.get(elenco).muoviPedina(-penalitagiorni);
+				
+				this.pianeti.remove(scelta);
+			}
+			
+		}while(elenco<elencoPedine.size() || pianeti == null);
+		
 		return elencoPedine;
 	}
 
-	
+	private int sceltaPianeta(Pedina pedina) {
+		
+		int sceltaPianeta = 0; // TODO richiesta all'utente se svbarcare in uno dei pianeti;
+								// gli passo ArrayList this.pianeti
+								// giocatore sceglie tra 1/2/3... in base al numero di pianeti 
+								// (Integer) null in caso non vuole sbarcare case 0 ad esempio;
+		
+		return sceltaPianeta;
+	}
 
 	
 }
