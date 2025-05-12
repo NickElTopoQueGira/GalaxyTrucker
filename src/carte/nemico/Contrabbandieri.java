@@ -15,8 +15,8 @@ public class Contrabbandieri extends Nemici {
 	private int penalitamerci; // numeri merci persi
 	private int penalitagiorni; // numeri giorni persi
 	private List<Merce> merci;
-	
 	private ComunicazioneConUtente stampa;
+	
 
 	public Contrabbandieri (int lvl) {		
 		super(lvl, TipoCarta.CONTRABBANDIERI);
@@ -81,7 +81,7 @@ public class Contrabbandieri extends Nemici {
 		}
 		default ->{
 			
-			System.out.println("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
+			stampa.printError("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
 		}
 		}
 
@@ -115,7 +115,7 @@ public class Contrabbandieri extends Nemici {
 			this.potenzanecc = random.nextInt(3) + 8;  //8-10
 		}
 		default ->{
-			System.out.println("ERROR: scelta randomica della potenza necessria per lo suconfiggere i contrabbandieri (errorTipe: switch) (class: Contrabbandieri)");
+			stampa.printError("ERROR: scelta randomica della potenza necessria per lo suconfiggere i contrabbandieri (errorTipe: switch) (class: Contrabbandieri)");
 		}
 			
 		}
@@ -133,7 +133,7 @@ public class Contrabbandieri extends Nemici {
 			this.penalitamerci = 2;
 		}
 		default ->{
-			System.out.println("ERROR: scelta numeri merci perse in caso in cui la potenza non basta (errorTipe: switch) (class: Contrabbandieri)");
+			stampa.printError("ERROR: scelta numeri merci perse in caso in cui la potenza non basta (errorTipe: switch) (class: Contrabbandieri)");
 		}
 			
 		}
@@ -154,7 +154,7 @@ public class Contrabbandieri extends Nemici {
 			this.penalitagiorni = 1;
 		}
 		default ->{
-			System.out.println("ERROR: scelta numeri giorni persi in caso in cui si decide diu prendere le merci (errorTipe: switch) (class: Contrabbandieri)");
+			stampa.printError("ERROR: scelta numeri giorni persi in caso in cui si decide diu prendere le merci (errorTipe: switch) (class: Contrabbandieri)");
 		}
 			
 		}

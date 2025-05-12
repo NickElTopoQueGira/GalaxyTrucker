@@ -33,7 +33,7 @@ public class PARTITATESTMAIN {
         
 
         ConfiguraGiocatore confG= new ConfiguraGiocatore();
-        Giocatore g=confG.craGiocatore();
+        Giocatore g=confG.creaGiocatore();
         ConfiguraNave conf=new ConfiguraNave(g);
         Nave nave= conf.creaNave(Livelli.TERZO);
         System.out.println(nave.getCosmonauti());

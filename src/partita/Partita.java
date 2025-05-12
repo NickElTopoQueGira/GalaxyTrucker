@@ -13,11 +13,14 @@ public class Partita {
 	private final ModalitaPartita modalitaPartita;
 	private final Set<Giocatore> giocatori;
 	private Livelli livelloPartita;
+	private ComunicazioneConUtente com;
 
 	public Partita(int numeroGiocatori, ModalitaPartita modalitaPartita){
 		this.giocatori = new LinkedHashSet<Giocatore>();
 		this.modalitaPartita = modalitaPartita;
 		this.numeroGiocatori = numeroGiocatori;
+		
+		ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
 	}
 
 	public Partita(int numeroGiocatori, Livelli livelloPartita){
@@ -25,6 +28,7 @@ public class Partita {
 		this.modalitaPartita = ModalitaPartita.SINGOLA;
 		this.numeroGiocatori = numeroGiocatori;
 		this.livelloPartita = livelloPartita;
+		ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
 	}
 	
 	public void aggiungiGiocatori(){
@@ -36,7 +40,7 @@ public class Partita {
 		
 		
 		//stampa riepilogo giocatori
-		ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
+		
 		com.clear();
 		com.print("--- Riepilogo Giocatori ---\n");
 		for(Giocatore giocatoreElenco : giocatori){
@@ -52,10 +56,10 @@ public class Partita {
 		Giocatore nuovoGiocatore = null;
 
 		try{
-			nuovoGiocatore = configuraGiocatore.craGiocatore();
+			nuovoGiocatore = configuraGiocatore.creaGiocatore();
 			verificaDuplicati(nuovoGiocatore); 
 		}catch(ErroreGiocatore eg){
-			System.out.println(eg.getMessage().toString());
+			com.printError(eg.getMessage().toString());
 			return creaGiocatore(configuraGiocatore);
 		}
 
@@ -74,6 +78,7 @@ public class Partita {
 	// livelli
 
 	public Livelli getLivelloPartita(){ return this.livelloPartita; }
+	public ModalitaPartita getModalitaPartita(){ return this.modalitaPartita; }
 
 	public void setLivelloPartita(Livelli livelloPartita) { this.livelloPartita = livelloPartita;}
 
