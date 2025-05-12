@@ -16,6 +16,11 @@ public class ModuloPasseggeri extends Tessera {
 
 	private final TipoModuloPasseggeri tipoModuloPasseggeri;
 
+	/**
+	 * costruttore
+	 * se viene ecceduto il numero massimo di elementi genera eccezione
+	 * @throws ErroreTessera
+	 */
 	public ModuloPasseggeri() throws ErroreTessera {
 		super(TipoTessera.MODULO_PASSEGGERI);
 		contatore++;
@@ -32,11 +37,18 @@ public class ModuloPasseggeri extends Tessera {
 		}
 	}
 
+	/**
+	 * random di enum TipomoduloPasseggeri
+	 * @return enum TipomoduloPasseggeri
+	 */
 	private TipoModuloPasseggeri randomTipo() {
 		TipoModuloPasseggeri[] tipiModuli = TipoModuloPasseggeri.values();
 		return tipiModuli[new Random().nextInt(tipiModuli.length)];
 	}
 
+	/**
+	 * set equipaggio in base al tipomodulopasseggeri
+	 */
 	private void setEquipaggio() {
 		switch (this.tipoModuloPasseggeri) {
 		case MODULO_ALIENO_MARRONE:
@@ -60,6 +72,10 @@ public class ModuloPasseggeri extends Tessera {
 		return this.numeroCosmonauti;
 	}
 
+	/**
+	 * modifica nueero di cosmonauti tramite edit
+	 * @param edit
+	 */
 	public void setNumeroCosmonauti(int edit) {
 		// no interfaccia con centro perchè l'utente
 		// può cambiare piu volte il numero paseggeri in fase di costruzione nave in base

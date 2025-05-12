@@ -34,6 +34,12 @@ public class Centro extends Tessera {
 		return passeggeriCorrenti;
 	}
 
+	
+	/**
+	 * rimuove i passeggeri di un edit intero, se edit>passeggeriCorrenti
+	 * imposta passeggeriCorrenti a 0
+	 * @param edit
+	 */
 	public void rimuoviPasseggeri(int edit) {
 		if (this.passeggeriCorrenti - edit >= 0) {
 			this.passeggeriCorrenti = this.passeggeriCorrenti + edit;

@@ -13,6 +13,11 @@ public class Batteria extends Tessera {
 	private final int capacity;
 	private int energiaAttuale;
 	
+	/**
+	 * costruttore
+	 * se viene ecceduto il numero massimo di elementi genera eccezione
+	 * @throws ErroreTessera
+	 */
 	public Batteria() throws ErroreTessera {
 		super(TipoTessera.BATTERIA);
 		contatore++;
@@ -25,6 +30,10 @@ public class Batteria extends Tessera {
 
 	}
 
+	/**
+	 * genera random un intero per determinare la capacità
+	 * @return
+	 */
 	private int RandomTipo() {
 		return new Random().nextInt(1) + 2;
 	}
@@ -37,6 +46,11 @@ public class Batteria extends Tessera {
 		return energiaAttuale;
 	}
 
+	
+	/**
+	 * decrementa di 1 il valore di energiaAttuale
+	 * @return false se non è stato possibile farlo, true se operazione eseguita correttamente
+	 */
 	public boolean decrese() {
 		if (this.energiaAttuale > 0) {
 			this.energiaAttuale = energiaAttuale - 1;
