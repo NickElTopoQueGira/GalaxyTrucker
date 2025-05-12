@@ -6,6 +6,7 @@ import tessera.merce.*;
 
 import java.util.*;
 
+import gioco.ComunicazioneConUtente;
 import partita.Pedina;
 
 public class Pianeta extends Carta {
@@ -13,11 +14,12 @@ public class Pianeta extends Carta {
 	private int penalitagiorni;
 	private List<Merce> merci = new ArrayList<>();
 	private ArrayList<ArrayList<Merce>> pianeti;
+	private ComunicazioneConUtente stampa;
 	
 	public Pianeta (int lvl) {
 		
 		super(lvl, TipoCarta.PIANETA);
-		
+		stampa= ComunicazioneConUtente.getIstanza();
 		pianeti = new ArrayList<>();
 		GeneraValori();
 	}
@@ -80,7 +82,7 @@ public class Pianeta extends Carta {
 			}while((vtdp<5 || vtdp>30) && numMerci < 6);
 		}
 		default ->{
-			System.out.println("ERROR: scelta randomica del valore totate dei pianeti della carta (errorTipe: switch) (class: Pianeta)");
+			stampa.printError("ERROR: scelta randomica del valore totate dei pianeti della carta (errorTipe: switch) (class: Pianeta)");
 		}
 		}
 		
@@ -118,7 +120,7 @@ public class Pianeta extends Carta {
 			pgv = Math.round(temp/2);
 		}
 		default ->{
-			System.out.println("ERROR: calcolo dei giorni di penalità della carta (errorTipe: switch) (class: Pianeta)");
+			stampa.printError("ERROR: calcolo dei giorni di penalità della carta (errorTipe: switch) (class: Pianeta)");
 		}
 		}
 		
@@ -140,7 +142,7 @@ public class Pianeta extends Carta {
             	percentuali = new double[]{0.4, 0.3, 0.2, 0.1};
             }
             default -> {
-            	System.out.println("ERROR: calcolo delle percentuali in base al pianeta (errorTipe: switch) (class: Pianeta)");
+            	stampa.printError("ERROR: calcolo delle percentuali in base al pianeta (errorTipe: switch) (class: Pianeta)");
             }
         }
 

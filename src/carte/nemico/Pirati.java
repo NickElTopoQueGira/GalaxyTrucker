@@ -4,6 +4,7 @@ import java.util.*;
 import carte.*;
 import carte.meteore.*;
 import eccezioniPersonalizzate.ErroreTessera;
+import gioco.ComunicazioneConUtente;
 import partita.Pedina;
 import partita.nave.Nave;
 import tessera.Tessera;
@@ -14,6 +15,7 @@ public class Pirati extends Nemici {
 	private int potenzanecc; // potenza necessaria
 	private int penalitagiorni; // numeri giorni persi
 	private int guadagno;
+	private ComunicazioneConUtente stampa;
 	
 	private ArrayList<Meteorite> colpi;
 	
@@ -22,6 +24,7 @@ public class Pirati extends Nemici {
 		super(lvl, TipoCarta.PIRATI);
 		colpi = new ArrayList<>();
 		GeneraValori();
+		stampa= ComunicazioneConUtente.getIstanza();
 	}
 	
 	private void GeneraValori() {
@@ -45,7 +48,7 @@ public class Pirati extends Nemici {
 			this.guadagno = random.nextInt(3) + 4; // 4-6
 		}
 		default ->{
-			System.out.println("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
+			stampa.printError("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
 		}
 		}
 		
@@ -66,7 +69,7 @@ public class Pirati extends Nemici {
 			this.potenzanecc = random.nextInt(3) + 8;  //8-10
 		}
 		default ->{
-			System.out.println("ERROR: scelta randomica della potenza necessria per lo suconfiggere i contrabbandieri (errorTipe: switch) (class: Contrabbandieri)");
+			stampa.printError("ERROR: scelta randomica della potenza necessria per lo suconfiggere i contrabbandieri (errorTipe: switch) (class: Contrabbandieri)");
 		}
 			
 		}
@@ -124,7 +127,7 @@ public class Pirati extends Nemici {
 			}
 		}
 		default ->{
-			System.out.println("ERROR: generazione colpi casuali (errorTipe: switch) (class: Contrabbandieri)");
+			stampa.printError("ERROR: generazione colpi casuali (errorTipe: switch) (class: Contrabbandieri)");
 		}
 			
 		}
@@ -145,7 +148,7 @@ public class Pirati extends Nemici {
 			this.penalitagiorni = 1;
 		}
 		default ->{
-			System.out.println("ERROR: scelta numeri giorni persi in caso in cui si decide diu prendere le merci (errorTipe: switch) (class: Contrabbandieri)");
+			stampa.printError("ERROR: scelta numeri giorni persi in caso in cui si decide diu prendere le merci (errorTipe: switch) (class: Contrabbandieri)");
 		}
 			
 		}
