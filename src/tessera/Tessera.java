@@ -12,7 +12,7 @@ public abstract class Tessera {
 	private static int currentSize = 0;
 	private static ArrayList<Tessera> lista = new ArrayList<Tessera>();
 	protected String[][] tessera_Disposizione = {
-			//         0    1    2    3    4    <- colonne
+			//Righe V  0    1    2    3    4    <- colonne
 			/* 0 */ { "┌", "─", "─", "─", "┐" },
 			/* 1 */ { "│", " ", " ", " ", "│" },
 			/* 2 */ { "│", " ", " ", " ", "│" },
@@ -20,6 +20,11 @@ public abstract class Tessera {
 			/* 4 */ { "└", "─", "─", "─", "┘" },
 			};
 
+	
+	/**
+	 * Costruttore
+	 * @param tipoTessera
+	 */
 	public Tessera(TipoTessera tipoTessera) {
 
 		this.tipoTessera = tipoTessera;
@@ -46,7 +51,7 @@ public abstract class Tessera {
 		this.coordinate = coordinate;
 	}
 
-	public ArrayList<Tessera> getBuffer_mazzo() {
+	public ArrayList<Tessera> getListaTessere() {
 		return lista;
 	}
 
@@ -58,17 +63,29 @@ public abstract class Tessera {
 		currentSize = currentSize + edit;
 	}
 
+	
+	/**
+	 * aggiunge alla lista di tessere la tessera ed incrementa la size di 1
+	 */
 	public void aggiungiTessera() {
 		setCurrentSize(+1);
 		lista.add(this);
 
 	}
 
+	/**
+	 * ruota i connettori della tessera tramite latitessera
+	 * @throws ErroreRotazione
+	 */
 	public void ruota() throws ErroreRotazione {
 		this.latiTessera.ruotaLati();
 
 	}
-
+	
+	/**
+	 * set dei caratteri di stampa della tessera sul lato up in base ai connettori
+	 * @return Stringa connettore
+	 */
 	private String stampaUp() {
 		switch (this.getLatiTessera().getUp()) {
 		case TipoConnettoriTessera.NULLO: {
@@ -87,6 +104,10 @@ public abstract class Tessera {
 		return null;
 	}
 
+	/**
+	 * set dei caratteri di stampa della tessera sul lato down in base ai connettori
+	 * @return Stringa connettore
+	 */
 	private String stampaDown() {
 		switch (this.getLatiTessera().getDown()) {
 		case TipoConnettoriTessera.NULLO: {
@@ -104,7 +125,11 @@ public abstract class Tessera {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * set dei caratteri di stampa della tessera sul lato left in base ai connettori
+	 * @return Stringa connettore
+	 */
 	private String stampaLeft() {
 		switch (this.getLatiTessera().getLeft()) {
 		case TipoConnettoriTessera.NULLO: {
@@ -122,7 +147,11 @@ public abstract class Tessera {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * set dei caratteri di stampa della tessera sul lato right in base ai connettori
+	 * @return Stringa connettore
+	 */
 	private String stampaRight() {
 		switch (this.getLatiTessera().getRight()) {
 		case TipoConnettoriTessera.NULLO: {
@@ -140,7 +169,11 @@ public abstract class Tessera {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * unisce i vari lati per stampa di tessera ed aggiunge il carattere centrale
+	 * identificativo del Tipotessera
+	 */
 	private void generaTessera_Disposizione() {
 		this.tessera_Disposizione[2][2] = this.getTipoTessera().getTipo();
 		this.tessera_Disposizione[1][2] = stampaUp();
@@ -149,6 +182,10 @@ public abstract class Tessera {
 		this.tessera_Disposizione[2][3] = stampaRight();
 	}
 
+	/**
+	 * to string della tessera
+	 * @return temp
+	 */
 	@Override
 	public String toString() {
 		String temp="";
@@ -164,6 +201,13 @@ public abstract class Tessera {
 
 	}
 
+	
+	/**
+	 * fornita la riga della nave in j, restituisce la stringa temp in cui è presente
+	 * la prima riga di caratteri della matrice di Tessera
+	 * @param j
+	 * @return temp
+	 */
 	public String getriga(int j) {
 		generaTessera_Disposizione();
 		String temp="";

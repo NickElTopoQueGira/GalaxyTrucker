@@ -8,6 +8,10 @@ public enum TipoMerce {
 
 	private final int valore;
 
+	/**
+	 * costruttore
+	 * @param valore
+	 */
 	TipoMerce(int valore) {
 		this.valore = valore;
 	}
@@ -16,6 +20,9 @@ public enum TipoMerce {
 		return this.valore;
 	}
 
+	/**
+	 * ritorna il valore dell'enum corrispondente al colore della merce
+	 */
 	@Override
 	public String toString() {
 		return this.name();

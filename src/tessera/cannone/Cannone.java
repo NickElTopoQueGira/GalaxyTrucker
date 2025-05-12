@@ -19,6 +19,15 @@ public class Cannone extends Tessera {
 	private String tempStampaCasella;
 	private final static String canna="\033[0;31m"+"!"+"\033[0m";
 	
+	/**
+	 * costruttore
+	 * se viene ecceduto il numero massimo di elementi genera eccezione.
+	 * verifica in maniera ricorsiva nel caso il lato cannone (di default up;
+	 * sovrascirve nella matrice di tessera il carattere "!")
+	 * settato come Nullo, non corrisponda con 
+	 * l'unico lato connettore presente originariamente diverso da Nullo  
+	 * @throws ErroreTessera
+	 */
 	public Cannone() throws ErroreTessera {
 		super(TipoTessera.CANNONE);
 		contatore++;
@@ -47,11 +56,19 @@ public class Cannone extends Tessera {
 		return this.latoCannone;
 	}
 
+	/**
+	 * random di enum TipoCannone
+	 * @return enum di TipoCannone
+	 */
 	private TipoCannone randomTipo() {
 		TipoCannone[] tipiCannone = TipoCannone.values();
 		return tipiCannone[new Random().nextInt(tipiCannone.length)];
 	}
 
+	/**
+	 * calcola valore del cannone in relazione tipoCannone ed alla direzione
+	 * @return float del valore del cannone
+	 */
 	public float calcolaValore() {
 		float valore=0;
 		int tipo=1;
@@ -71,6 +88,10 @@ public class Cannone extends Tessera {
 			valore=(float) (valore+(tipo/2.0));
 			break;
 		}
+		case DOWN: {
+			valore=(float) (valore+(tipo/2.0));
+			break;
+		}
 		default:
 			
 		}
@@ -79,6 +100,10 @@ public class Cannone extends Tessera {
 		
 	}
 	
+	/**
+	 * ruota canna del cannone di 90 gradi in senso orario e sovrascirve nella matrice di
+	 * tessera il carattere "!"
+	 */
 	@Override
 	public void ruota() throws ErroreRotazione {
 		super.ruota();

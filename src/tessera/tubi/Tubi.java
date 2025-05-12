@@ -10,6 +10,12 @@ public class Tubi extends Tessera {
 	private static final int massimo = 8;
 	private static int contatore = 0;
 	
+	/**
+	 * costruttore
+	 * se viene ecceduto il numero massimo di elementi genera eccezione.
+	 * verifica ricorsiva che non ci siano connettori di tipo Nullo, in caso rigenera connettori.
+	 * @throws ErroreTessera
+	 */
 	public Tubi() throws ErroreTessera {
 		super(TipoTessera.TUBI);
 		contatore++;

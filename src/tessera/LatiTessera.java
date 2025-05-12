@@ -9,10 +9,17 @@ public class LatiTessera {
 	private TipoConnettoriTessera right;
 	private TipoConnettoriTessera down;
 
+	/**
+	 * costruttore
+	 */
 	public LatiTessera() {
 		GeneraLatiTessera();
 	}
 
+	
+	/**
+	 * genera i lati tessera tramite delle random
+	 */
 	public void GeneraLatiTessera() {
 		this.up = randomTipo();
 		this.down = randomTipo();
@@ -27,6 +34,11 @@ public class LatiTessera {
 
 	}
 
+	
+	/**
+	 * verifica se tutti i connettori sono nulli, in tal caso restituisce false
+	 * @return boolean
+	 */
 	public boolean verificaTessera() {
 
 		if (up == down && left == right && right == down && down == TipoConnettoriTessera.NULLO) {
@@ -69,6 +81,10 @@ public class LatiTessera {
 		this.down = down;
 	}
 	
+	
+	/**
+	 * set tutti i lati in connettore Nullo
+	 */
 	public void setVuota() {
 		this.up = TipoConnettoriTessera.NULLO;
 		this.left = TipoConnettoriTessera.NULLO;
@@ -76,11 +92,20 @@ public class LatiTessera {
 		this.right = TipoConnettoriTessera.NULLO;
 	}
 
+	
+	/**
+	 * random lato con enum TipoConnettoriTessera
+	 * @return TipoConnettoriTessera
+	 */
 	private TipoConnettoriTessera randomTipo() {
 		TipoConnettoriTessera[] t = TipoConnettoriTessera.values();
 		return t[new Random().nextInt(t.length)];
 	}
 
+	
+	/**
+	 * ruota i connettori di 90 gradi in senso orario
+	 */
 	public void ruotaLati() {
 		TipoConnettoriTessera temp = this.up;
 		this.up = this.left;

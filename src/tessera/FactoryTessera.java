@@ -3,6 +3,7 @@ package tessera;
 import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import gioco.ComunicazioneConUtente;
 import tessera.batteria.Batteria;
 import tessera.cannone.Cannone;
 import tessera.merce.Stiva;
@@ -13,8 +14,19 @@ import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class FactoryTessera {
 	private static int numeroTessere=0;
+	private ComunicazioneConUtente stampa;
 
+	
+	/**
+	 * metodo per la creazione di una tessera specifica random.
+	 * Genera eccezione se superato numero di tessere massimo per ogni tipo. 
+	 * (totale max=152 tessere)
+	 * @return tessera specifica
+	 * @throws ErroreTessera
+	 */
 	public Tessera estraiTipo() throws ErroreTessera {
+		
+		stampa= ComunicazioneConUtente.getIstanza();
 		numeroTessere=numeroTessere+1;
 		TipoTessera tipo = randomTipo();
 		try {
@@ -47,7 +59,7 @@ public class FactoryTessera {
 			}
 		
 		} catch (ErroreTessera eT) {
-			System.err.println(eT.getMessage());
+			stampa.printError(eT.getMessage());
 			numeroTessere=numeroTessere-1;
 			if(numeroTessere<=152) {
 				return estraiTipo();
@@ -59,9 +71,14 @@ public class FactoryTessera {
 		}
 	}
 
-	public TipoTessera randomTipo() {
+	/**
+	 * viene fatta una random della lunghezza -2 
+	 * per escludere il tipotessera centro e tipotessera vuota
+	 * @return
+	 */
+	private TipoTessera randomTipo() {
 		TipoTessera tipiTessera[] = TipoTessera.values();
-		// viene fatta una random della lunghezza -2 per escludere il tipo centro e vuota
+		
 		return tipiTessera[new Random().nextInt(tipiTessera.length - 2)];
 	}
 }

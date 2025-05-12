@@ -21,13 +21,19 @@ public class Stiva extends Tessera {
 	private int numeroMerciAttuale;
 	private ArrayList<Merce>stiva;
 
+	
+	/**
+	 * costruttore
+	 * se viene ecceduto il numero massimo di elementi genera eccezione
+	 * @throws ErroreTessera
+	 */
 	public Stiva() throws ErroreTessera {
 		super(TipoTessera.PORTA_MERCI);
 		contatore++;
 		if (contatore <= massimo) {
 			this.tipoMerciGenerale = randomTipo(); // specifica il tipo se normale o speciale
 
-			this.MaxCapienza = new Random().nextInt(2) + 1;
+			this.MaxCapienza = new Random().nextInt(2) + 1; //random per la capienza
 			this.valore = 0;
 			this.numeroMerciAttuale = 0;
 		} else {
@@ -36,6 +42,14 @@ public class Stiva extends Tessera {
 
 	}
 
+	/**
+	 * inseirisce oggetto merce nella tessera stiva in base a tipostiva e tipomerce.
+	 * aggiorna il valore totale ed aggiunge oggetto merce in lista stiva.
+	 * in caso di errore di inerimento in realzione al tipo di stiva o merce o alla capienza,
+	 * genera eccezione.
+	 * @param merce
+	 * @throws ErroreRisorse
+	 */
 	public void inserisciMerci(Merce merce ) throws ErroreRisorse {
 		TipoMerce tipoSpecifico = merce.getTipoMerce();
 		if (this.numeroMerciAttuale < this.MaxCapienza) {
@@ -119,6 +133,11 @@ public class Stiva extends Tessera {
 		return tipoMerciGenerale;
 	}
 
+	
+	/**
+	 * genera random un enum tipostiva
+	 * @return il tipostiva enum
+	 */
 	private TipoStiva randomTipo() {
 		TipoStiva[] tipoMerceGenerale = TipoStiva.values();
 		return tipoMerceGenerale[new Random().nextInt(tipoMerceGenerale.length)];

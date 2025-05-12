@@ -22,6 +22,14 @@ public class Scudi extends Tessera {
 	private String tempStampaCasella1;
 	private String tempStampaCasella2;
 	
+	
+	/**
+	 * costruttore
+	 * se viene ecceduto il numero massimo di elementi genera eccezione.
+	 * sovrascrive in matrice di tessera il carattere "@" per indicare gli scudi
+	 * di deafult poszionati in up e right.
+	 * @throws ErroreTessera
+	 */
 	public Scudi() throws ErroreTessera {
 		super(TipoTessera.SCUDI);
 		contatore++;
@@ -36,6 +44,9 @@ public class Scudi extends Tessera {
 		super.tessera_Disposizione[rprec2][cprec2]="@";
 	}
 
+	/**
+	 * ruota gli scudi in matrice tessera ed in caso genera eccezione
+	 */
 	@Override
 	public void ruota() throws ErroreRotazione {
 		super.ruota();
