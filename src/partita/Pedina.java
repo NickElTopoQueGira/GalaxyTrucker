@@ -53,9 +53,13 @@ public class Pedina{
     public Giocatore getGiocatore() {
         return this.giocatore;
     }
-    
-    
-    
+    /**
+     * funzione che in base al numero di equipaggio che devono venir tolti, 
+     * ti mostra tutti i moduli da cui si può rimuovere un componente dell'equipaggio, 
+     * e specifica se alieno o no, e ti fa scegliere da dove toglierlo
+     * 
+     * @param elimEquipaggio int numero di equipaggio che verrà tolto
+     */
     public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {  ///TODO
     	int caso;
     	do {
