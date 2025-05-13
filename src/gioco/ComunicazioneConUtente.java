@@ -105,9 +105,44 @@ public class ComunicazioneConUtente {
     public String consoleRead(){
         return input.nextLine();
     }
+    /**
+     * Funzione per una decisione in cui il giocatore deve scegliere SI/NO
+     * 
+     * Es prima usiamo una prinln e scriviamo: "vuoi usare lo scudo: (SI/NO)"
+     * Poi usiamo questa funzione per far scegliere all'utente si o no
+     * E in base alla scelta:
+     * 
+     * @return true;
+     * @return false;
+     */
+    public boolean consoleChoice(){
+    	
+    	String scelta;
+    	
+    	do {
+    		scelta = input.nextLine();
+    		
+    		if(scelta != "si" || scelta != "SI" || scelta != "Si" || scelta != "sI" || 
+    			scelta != "no" || scelta != "NO" || scelta != "No" || scelta != "nO") {
+    			
+    			this.println("ERROR: input non valido riprovare");
+    		}
+    		
+    	}while(scelta != "si" || scelta != "SI" || scelta != "Si" || scelta != "sI" || 
+    			scelta != "no" || scelta != "NO" || scelta != "No" || scelta != "nO");
+    	
+    	if(scelta != "si" || scelta != "SI" || scelta != "Si" || scelta != "sI") {
+    		
+    		return true;
+    		
+    	}else {
+    		
+    		return false;
+    	}
+    }
 
     /**
-     * Funzione per pulire la console stampando 200 rihe vuote
+     * Funzione per pulire la console stampando 200 righe vuote
      */
     public void clear() {
     	for(int i=0; i<200; i++) {
