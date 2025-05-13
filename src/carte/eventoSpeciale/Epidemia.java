@@ -20,6 +20,8 @@ public class Epidemia extends EventiSpeciali {
 		
 		for(int x=0; x<elencoPedine.size(); x++) {
 			
+			int contatore = 0;
+			
 			boolean[][] isVisitato = new boolean[elencoPedine.get(x).getGiocatore().getNave().getRighe()][elencoPedine.get(x).getGiocatore().getNave().getColonne()];
 			
 			for(int i=0; i<elencoPedine.get(x).getGiocatore().getNave().getRighe(); i++) {
@@ -35,12 +37,14 @@ public class Epidemia extends EventiSpeciali {
 						if(gruppo.size() > 1) {
 							for (ModuloPasseggeri epidemia : gruppo) {
 								
-								epidemia.setNumeroCosmonauti(-1);;
+								epidemia.setNumeroCosmonauti(-1);
+								contatore++;
 							}
 						}
 					}
 				}
 			}
+			stampa.println("La nave di "+elencoPedine.get(x).getGiocatore().getNome()+" ha perso "+contatore+" membri dell'equipaggio");
 		}
 		return elencoPedine;
 	}

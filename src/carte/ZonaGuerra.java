@@ -7,7 +7,6 @@ import carte.meteore.*;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import partita.Pedina;
-import partita.giocatore.Giocatore;
 import partita.nave.Nave;
 import tessera.*;
 
@@ -180,7 +179,6 @@ public class ZonaGuerra extends Carta {
 
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
 		
 		for(int i=0; i<3; i++) {
 			
@@ -239,16 +237,11 @@ public class ZonaGuerra extends Carta {
 						
 						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
 							
-							
-							//TODO :
-							// sceltaFermareColpo = interazioneConUtente.richiestaUtilizzoScudi(); 
-							// 1) controlla se ha scudi
-							// 2) controlla la direzione
-							// 3) richiese de vuole usare gli scudi
-							
-							stampa.println("COLPO FERMATO DALLO SCUDO");
-							sceltaFermareColpo = true;
-							
+							if(pedina.sceltaEpossibilitaUtilizzoScudi()) {
+								
+								stampa.println("METEORITE FERMATO DALLO SCUDO");
+								sceltaFermareColpo = true;
+							}
 						}
 						
 						if(!sceltaFermareColpo){
@@ -374,7 +367,7 @@ public class ZonaGuerra extends Carta {
 				}
 			}
 			default->{
-				return null; //TODO 
+				return null;
 			}
 		
 		}

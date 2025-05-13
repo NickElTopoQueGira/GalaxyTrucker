@@ -120,7 +120,7 @@ public class Schiavisti extends Nemici {
 	}
 	
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
+		
 		boolean isCartaCompletata = false;
 		int elenco = -1;
 		
@@ -133,8 +133,11 @@ public class Schiavisti extends Nemici {
 						+this.potenzanecc+" PAREGGIA CON LA NAVE NEMICA");
 				
 			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
+
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+				+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" SCONFIGGE LA NAVE NEMICA");
 				
-				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere i crediti in cambio dei giorni persi
+				if(elencoPedine.get(elenco).sceltaScambioCreditiConGiorni(penalitagiorni, guadagno, 0)) {
 					
 					stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+"AL COSTO DI "+penalitagiorni+" GIORNO HA RICEVO "+this.guadagno+" \u00A2");
 					

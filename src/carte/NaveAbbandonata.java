@@ -137,7 +137,7 @@ public class NaveAbbandonata extends Carta {
 
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
+		
 		boolean isCartaCompletata = false;
 		int elenco = -1;
 		
@@ -146,7 +146,7 @@ public class NaveAbbandonata extends Carta {
 			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getEquipaggio() >= this.perditaequipaggio) {
 				
-				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole scambiare il numero di equipaggio con i crediti 
+				if(elencoPedine.get(elenco).sceltaScambioCreditiConGiorni(giornipersi, guadagno, perditaequipaggio)) {
 					
 					elencoPedine.get(elenco).selezionaEquipaggioDaEliminare(this.perditaequipaggio);
 					

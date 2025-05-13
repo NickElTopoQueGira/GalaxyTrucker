@@ -118,12 +118,8 @@ public class PioggiaMeteoriti extends Carta {
 							sceltaFermareMeteorite = true;
 							
 						}else {
-						//TODO :
-						// sceltaFermareMeteorite = interazioneConUtente.richiestaUtilizzoScudi(); 
-						// 1) controlla se ha scudi
-						// 2) controlla la direzione
-						// 3) richiese de vuole usare gli scudi
-							if(true) {
+						
+							if(elencoPedine.get(j).sceltaEpossibilitaUtilizzoScudi()) {
 								
 								stampa.println("METEORITE FERMATO DALLO SCUDO");
 								sceltaFermareMeteorite = true;
@@ -131,10 +127,10 @@ public class PioggiaMeteoriti extends Carta {
 						}
 					}else if(this.meteoriti.get(j).getType() == TypeMeteora.METEORITE_PICCOLO) { 
 						
-						switch(trovaCannone(this.meteoriti.get(j), elencoPedine.get(j).getGiocatore().getNave(), colpito)) {
+						switch(trovaCannone(this.meteoriti.get(j), elencoPedine.get(j).getGiocatore().getNave(), colpito, elencoPedine.get(j))) {
 						case 0->{}
 						case 1->{
-
+							
 							stampa.println("METEORITE FERMATO DAL CANNONE DOPPIO");
 							
 							try {
@@ -211,42 +207,28 @@ public class PioggiaMeteoriti extends Carta {
 		return false;
 	}
 	
-	private int sceltaUtilizzoCannone(Cannone cannone, Tessera colpita, Nave nave) {// TODO interazioneConUtente.richiestaUtilizzoCannoni
-		
-		//TODO bisogna mostrargli la tessera colpita E il tipo di cannone
-		
-		// case 0 non viene utilizzato il cannone 
-					// 1) non c'è nessun cannone disponibile
-					// 2) utente non utilizza cannone doppio (scelta sua / mancanza energia)
-		// case 1 viene utilizzato il cannone
-					// ma a costo di uno di energia   
-					// IMPORTANTE GIOCATORE DIRA SI/NO QUINDI UNICHE OPZIONI IN CASO IL GIOCATORE DOVRà SCEGLIERE SARANNO 0 E 1
-		// case 2 viene utilizzato il cannone automaticamente 
+	private int sceltaUtilizzoCannone(Cannone cannone, Tessera colpita, Nave nave, Pedina pedina) {
 		
 		if(nave.getEnergiaResidua() <= 0) {
 			
 			return 0;
-		}
-		
-		if(cannone.getTipoCannone() == TipoCannone.SINGOLO) {
+		}else if(cannone.getTipoCannone() == TipoCannone.SINGOLO) {
 			
-			if(true) { // TODO richiesta scelta all'utente
+			if(pedina.sceltaEpossibilitaUtilizzoCannoneDoppio()) { 
 				
 				return 1;
 			}else {
 				
 				return 0;
 			}
-		}
-		
-		if(cannone.getTipoCannone() == TipoCannone.SINGOLO) {
+		}else if(cannone.getTipoCannone() == TipoCannone.SINGOLO) {
 			
 			return 2;
 		}
 		return 0;
 	}
 	
-	private int trovaCannone(Meteorite colpo, Nave nave, Tessera colpita) {
+	private int trovaCannone(Meteorite colpo, Nave nave, Tessera colpita, Pedina pedina) {
 		
 		int scelta = 0;
 		
@@ -257,7 +239,7 @@ public class PioggiaMeteoriti extends Carta {
 				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE && 
 						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.UP) {
 					
-					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave);
+					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
 					if(scelta == 2) return scelta;
 				}
@@ -268,7 +250,7 @@ public class PioggiaMeteoriti extends Carta {
 				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE && 
 						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.DOWN) {
 					
-					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave);
+					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
 					if(scelta == 2) return scelta;
 				}
@@ -279,7 +261,7 @@ public class PioggiaMeteoriti extends Carta {
 				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE && 
 						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.RIGHT) {
 
-					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave);
+					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
 					if(scelta == 2) return scelta;
 				}
@@ -290,7 +272,7 @@ public class PioggiaMeteoriti extends Carta {
 				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE && 
 						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.LEFT) {
 
-					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave);
+					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
 					if(scelta == 2) return scelta;
 				}
@@ -338,7 +320,7 @@ public class PioggiaMeteoriti extends Carta {
 				}
 			}
 			default->{
-				return null; //TODO 
+				return null; 
 			}
 		
 		}

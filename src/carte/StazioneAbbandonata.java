@@ -180,7 +180,7 @@ public class StazioneAbbandonata extends Carta {
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getEquipaggio() <= this.giocatorinecessari) {
 				
 				
-				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere la merce 
+				if(elencoPedine.get(elenco).sceltaScambioMerciConGiorni(penalitagiorni, merci)) {
 					
 					stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+"AL COSTO DI "+penalitagiorni+" GIORNO HA RICEVO:");
 					for(int i=0; i<this.merci.size(); i++) {
@@ -195,7 +195,6 @@ public class StazioneAbbandonata extends Carta {
 					isCartaCompletata = true;
 				}
 			}
-			
 			
 		}while(!isCartaCompletata || elenco<elencoPedine.size());
 		

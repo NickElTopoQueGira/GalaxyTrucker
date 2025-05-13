@@ -11,6 +11,8 @@ import partita.Pedina;
 
 public class Pianeta extends Carta {
 	
+    private ComunicazioneConUtente cns;
+	
 	private int penalitagiorni;
 	private List<Merce> merci = new ArrayList<>();
 	private ArrayList<ArrayList<Merce>> pianeti;
@@ -248,6 +250,8 @@ public class Pianeta extends Carta {
 								// gli passo ArrayList this.pianeti
 								// giocatore sceglie tra 1/2/3... in base al numero di pianeti 
 								// (Integer) null in caso non vuole sbarcare case 0 ad esempio;
+		
+		
 		
 		return sceltaPianeta;
 	}

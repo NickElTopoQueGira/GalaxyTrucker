@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import eccezioniPersonalizzate.*;
+import gioco.ComunicazioneConUtente;
 import partita.giocatore.*;
 import tessera.Coordinate;
 import tessera.merce.Merce;
@@ -12,6 +13,7 @@ public class Pedina{
     private Colori colorePedina;
     private Giocatore giocatore;
     private int posizioneSulTabellone;
+    private ComunicazioneConUtente cns;
     private int numeroGiro;  // DA USARE
     
     public Pedina(Colori colorePedina){
@@ -89,12 +91,116 @@ public class Pedina{
 			}
     	}
     }
+    /**
+     * LE prossime due funzioni sono equvalenti una per i scudi e una per il cannone doppio
+     * 
+     * @return false se: nave non ha abbastanza energia / giocatore sceglie di non utilizzare la tessera (scudo o cannone doppio)
+     * 
+     * @return true giocatore sceglie di utilizzare la tessera (scudo o cannone doppio) e perde 1 di energia
+     */
     public Boolean sceltaEpossibilitaUtilizzoScudi() {
     	
+    	if(this.giocatore.getNave().getEnergiaResidua() > 0) {
+    		
+    		cns.print("Hai abbastanza energia, vuoi utilizzare lo scudo?");
+    		
+    		if(cns.conferma()) {
+    			
+    			cns.println("Scudo utilizzato");
+    			
+    			return true;
+    		}else {
+    			
+    			cns.println("Scudo non utilizzato");
+    			
+    			return false;
+    		}
+    		
+    	}else {
+    		
+    		cns.println("Non hai abbastanza enegia per utilizzare lo scudo");
+    		return false;
+    	}
+    }
+    public Boolean sceltaEpossibilitaUtilizzoCannoneDoppio() {
     	
-    	// si prenderà funzione 
+    	if(this.giocatore.getNave().getEnergiaResidua() > 0) {
+    		
+    		cns.print("Hai abbastanza energia, vuoi utilizzare il cannone doppio?");
+    		
+    		if(cns.conferma()) {
+    			
+    			cns.println("Cannone doppio utilizzato");
+    			
+    			return true;
+    		}else {
+    			
+    			cns.println("Cannone doppio non utilizzato");
+    			
+    			return false;
+    		}
+    		
+    	}else {
+    		
+    		cns.println("Non hai abbastanza enegia per utilizzare il cannone doppio");
+    		return false;
+    	}
+    }
+    /**
+     * LE prossime due funzioni sono equvalenti una per ricevere crediti in cambio di giorni e laltra per le merci
+     * 
+     * @return false se si sceglie di non accettare le merci o i crediti in cambio dei giorni 
+     * 
+     * @return true se si sceglie di accettare le merci o i crediti in cambio dei giorni 
+     */
+    public Boolean sceltaScambioMerciConGiorni(int giorniPersi, List<Merce> merci) {
     	
-    	return false;
+    	cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio per le seguenti merci?");
+    	for(int i=0; i<merci.size(); i++) {
+    		
+    		cns.println(i+") "+merci.get(i).getTipoMerce());
+    	}
+    		
+    	if(cns.conferma()) {
+    			
+    		cns.println("Hai ricevuto le merci ma perso "+giorniPersi+" giorni di viaggio");
+    			
+    		return true;
+    	}else {
+    			
+    		cns.println("Non hai ricevuto nessuna merce e non hai perso giorni di viaggio");
+    			
+    		return false;
+    	}
+    }
+    // isGiorni: 1) si scambiano giorni con crediti
+    //           0) si scambiano equipaggio con crediti
+    public Boolean sceltaScambioCreditiConGiorni(int giorniPersi, int crediti, int equipaggio) {
+    	
+		if(equipaggio == 0) {
+			cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio  per "+crediti+"\u00A2 (crediti)?");
+		}else {
+			cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio e "+giorniPersi+" mebri dell'equipaggio per "+crediti+"\u00A2 (crediti)?");
+		}
+    	
+    	if(cns.conferma()) {
+    		
+    		if(equipaggio == 0) {
+        		cns.println("Hai ricevuto "+crediti+"\u00A2 (crediti) ma perso "+giorniPersi+" giorni di viaggio");
+    		}else {
+    			cns.println("Hai ricevuto "+crediti+"\u00A2 (crediti) ma perso "+giorniPersi+" giorni di viaggio e "+equipaggio+" mebri dell'equipaggio");
+    		}
+    		return true;
+    	}else {
+    		
+    		if(equipaggio == 0) {
+        		cns.println("Non hai ricevuto nessun credito e non hai perso giorni di viaggio");
+    		}else {
+    			cns.println("Non hai ricevuto nessun credito e non hai perso ne mebri dell'equipaggio ne giorni di viaggio");
+    		}
+    			
+    		return false;
+    	}
     }
     
     //NICK QUA FAMMI UNA ROBA TIPO: 

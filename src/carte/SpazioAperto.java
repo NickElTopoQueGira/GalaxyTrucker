@@ -16,7 +16,6 @@ public class SpazioAperto extends Carta {
 	}
 
 	@Override
-
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
         for(int i=0; i<elencoPedine.size(); i++) {
         	

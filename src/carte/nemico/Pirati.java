@@ -170,7 +170,6 @@ public class Pirati extends Nemici {
 	
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
 		
 		boolean isCartaCompletata = false;
 		int elenco = -1;
@@ -185,7 +184,10 @@ public class Pirati extends Nemici {
 				
 			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
 				
-				if(true) {//TODO comunicazione con giocatore gli viene chiesto se vuole ricevere i crediti in cambio dei giorni persi
+				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
+				+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" SCONFIGGE LA NAVE NEMICA");
+				
+				if(elencoPedine.get(elenco).sceltaScambioCreditiConGiorni(penalitagiorni, guadagno, 0)) {
 					
 					stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+"AL COSTO DI "+penalitagiorni+" GIORNO HA RICEVO "+this.guadagno+" \u00A2");
 					
