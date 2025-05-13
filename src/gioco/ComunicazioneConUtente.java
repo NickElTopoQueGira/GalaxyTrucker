@@ -160,7 +160,26 @@ public void inizioGame() {
 		}
 	}
     
-    
+    /**
+     * come conferma ma in aggiunta di un commento specifico scelto in base al caso
+     * 
+     * @return true -> SI
+     *         false -> NO
+     */
+    public boolean confermaSpecifica(String stringa) {
+    	
+		if(this.conferma()) {
+			
+			this.println(stringa+" utilizzato");
+			
+			return true;
+		}else {
+			
+			this.println(stringa+" non utilizzzato");
+			
+			return false;
+		}
+    }
     
     /**
 	 * stampa inserimento giocatore

@@ -99,5 +99,23 @@ public class ModuloPasseggeri extends Tessera {
 	public void setNumeroAlieniViola(int numeroAlieniViola) {
 		this.numeroAlieniViola += numeroAlieniViola;
 	}
+	/**
+	 * in base al tipo del modulo automaticamente mi va a togliere l'equipaggio corretto dalla tessera
+	 */
+	public void rimuoviEquipaggio() {
+		
+		switch (this.tipoModuloPasseggeri) {
+		case MODULO_ALIENO_MARRONE:
+			this.setNumeroAlieniViola(-1);
+			break;
+		case MODULO_ALIENO_VIOLA:
+			this.setNumeroAlieniMarroni(-1);
+			break;
+		case MODULO_EQUIPAGGIO:
+			this.setNumeroCosmonauti(-1);
+		default:
+			break;
+		}
+	}
 
 }

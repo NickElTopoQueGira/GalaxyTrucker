@@ -1,13 +1,12 @@
 package partita;
 
-import java.util.List;
-
-
+import java.util.*;
 import eccezioniPersonalizzate.*;
 import gioco.ComunicazioneConUtente;
 import partita.giocatore.*;
-import tessera.Coordinate;
+import tessera.*;
 import tessera.merce.Merce;
+import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class Pedina{
     private Colori colorePedina;
@@ -58,11 +57,86 @@ public class Pedina{
     
     
     public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {  ///TODO
-    	
-    	for(int i=0; i<elimEquipaggio; i++) {
+    	int caso;
+    	do {
+    		caso=0;
+    		ArrayList<Coordinate> crd = new ArrayList();
     		
-    	}
+    		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
+    			
+    			for(int y=0; y<this.giocatore.getNave().getPlanciaDellaNave().get(x).size(); y++) {
+    				
+    				Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
+    				TipoTessera tipo = tessera.getTipoTessera();
+
+    				if (tipo == TipoTessera.MODULO_PASSEGGERI) {
+    				    if (((ModuloPasseggeri) tessera).getNumeroCosmonauti() > 0) {
+    				        
+    				    	caso++;
+    				    	
+    				    	cns.println(""+caso+") MODULO PASSEGGERI in posizione ("+x+";"+y+") e contiente "
+    				    				+specificaEquipaggio(((ModuloPasseggeri) tessera)));
+    				    	
+    				    	crd.add(new Coordinate(x, y));
+    				    }
+    				} else if (tipo == TipoTessera.CENTRO) {
+    				    if (((Centro) tessera).getPasseggeriCorrenti() > 0) {
+
+    				    	caso++;
+    				    	
+    				    	cns.println(""+caso+") CENTRO in posizione ("+x+";"+y+") e contiente "
+    				    				+((Centro) tessera).getPasseggeriCorrenti()+" cosmonauti");
+    				    	
+    				    	crd.add(new Coordinate(x, y));
+    				    }
+    				}
+    			}
+    		}
+    		int sceltaModulo;
+    		cns.println("Inserire il numero del Modulo da cui togliere 1 componentye dell'equipaggio");
+			
+    		do {
+    			sceltaModulo = Integer.parseInt(cns.consoleRead());
+    			
+    			if(sceltaModulo>0 && sceltaModulo<caso) {
+    				cns.println("VALORE IMMESSO NON VALIDO");
+    			}
+    			
+    		}while(sceltaModulo>0 && sceltaModulo<caso);
+    		
+    		if(this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY()).getTipoTessera() 
+    				== TipoTessera.MODULO_PASSEGGERI) {
+    			
+    			((ModuloPasseggeri)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY())).rimuoviEquipaggio();
+    		}else {
+    			
+    			((Centro)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY())).rimuoviPasseggeri(-1);
+    		}
+    		
+    		elimEquipaggio--;
+    	}while(elimEquipaggio == 0 || this.giocatore.getNave().getEquipaggio() == 0);
     }
+    
+    private String specificaEquipaggio(ModuloPasseggeri mp) {
+    	
+    	String txt = null;
+    	
+    	switch(mp.getTipoModuloPasseggeri()) {
+    	case MODULO_ALIENO_MARRONE:
+			txt = mp.getNumeroCosmonauti() + " alieno marrone";
+			break;
+		case MODULO_ALIENO_VIOLA:
+			txt = mp.getNumeroCosmonauti() + " alieno viola";
+			break;
+		case MODULO_EQUIPAGGIO:
+			txt = mp.getNumeroCosmonauti() + " cosmonauta";
+		default:
+			break;
+		}
+    	
+    	return txt;
+    }
+    
     public void selezionaMerceDaEliminare(int elimMerce) {///TODO
     	
     	for(int i=0; i<elimMerce; i++) {
@@ -98,20 +172,30 @@ public class Pedina{
      * 
      * @return true giocatore sceglie di utilizzare la tessera (scudo o cannone doppio) e perde 1 di energia
      */
-    public Boolean sceltaEpossibilitaUtilizzoScudi() {
+    public Boolean sceltaEpossibilitaUtilizzoScudi( ) {
     	
     	if(this.giocatore.getNave().getEnergiaResidua() > 0) {
     		
     		cns.print("Hai abbastanza energia, vuoi utilizzare lo scudo?");
     		
-    		if(cns.conferma()) {
+    		if(cns.confermaSpecifica("Scudo")) {
     			
-    			cns.println("Scudo utilizzato");
+    			try {
+					this.giocatore.getNave().utilizzaEnergia(1);
+				} catch (ErroreRisorse e) {
+					
+					e.printStackTrace();
+				}
     			
     			return true;
     		}else {
     			
-    			cns.println("Scudo non utilizzato");
+    			try {
+					this.giocatore.getNave().utilizzaEnergia(1);
+				} catch (ErroreRisorse e) {
+					
+					e.printStackTrace();
+				}
     			
     			return false;
     		}
@@ -128,14 +212,24 @@ public class Pedina{
     		
     		cns.print("Hai abbastanza energia, vuoi utilizzare il cannone doppio?");
     		
-    		if(cns.conferma()) {
+    		if(cns.confermaSpecifica("Cannone doppio")) {
     			
-    			cns.println("Cannone doppio utilizzato");
+    			try {
+					this.giocatore.getNave().utilizzaEnergia(1);
+				} catch (ErroreRisorse e) {
+					
+					e.printStackTrace();
+				}
     			
     			return true;
     		}else {
     			
-    			cns.println("Cannone doppio non utilizzato");
+    			try {
+					this.giocatore.getNave().utilizzaEnergia(1);
+				} catch (ErroreRisorse e) {
+					
+					e.printStackTrace();
+				}
     			
     			return false;
     		}
@@ -156,9 +250,10 @@ public class Pedina{
     public Boolean sceltaScambioMerciConGiorni(int giorniPersi, List<Merce> merci) {
     	
     	cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio per le seguenti merci?");
+    	
     	for(int i=0; i<merci.size(); i++) {
     		
-    		cns.println(i+") "+merci.get(i).getTipoMerce());
+    		cns.println((i+1)+") "+merci.get(i).getTipoMerce());
     	}
     		
     	if(cns.conferma()) {

@@ -31,13 +31,20 @@ public class Epidemia extends EventiSpeciali {
 							elencoPedine.get(x).getGiocatore().getNave().getPlanciaDellaNave().get(i).get(j).getTipoTessera() == TipoTessera.CENTRO) &&
 							!isVisitato[i][j]) {
 						
-						ArrayList<ModuloPasseggeri> gruppo = new ArrayList<>();
+						ArrayList<Tessera> gruppo = new ArrayList<>();
 						trovaModuloAtaccato(i, j, elencoPedine.get(x).getGiocatore().getNave().getPlanciaDellaNave(), isVisitato, gruppo);
 						
 						if(gruppo.size() > 1) {
-							for (ModuloPasseggeri epidemia : gruppo) {
+							for (Tessera epidemia : gruppo) {
 								
-								epidemia.setNumeroCosmonauti(-1);
+								if(epidemia.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
+									
+									((ModuloPasseggeri) epidemia).setNumeroCosmonauti(-1);
+									
+								}else if(epidemia.getTipoTessera() == TipoTessera.CENTRO){
+									
+									((Centro) epidemia).rimuoviPasseggeri(-1);
+								}
 								contatore++;
 							}
 						}
@@ -48,14 +55,14 @@ public class Epidemia extends EventiSpeciali {
 		}
 		return elencoPedine;
 	}
-	private void trovaModuloAtaccato(int i, int j, ArrayList<ArrayList<Tessera>> nave, boolean[][] isVisitato, ArrayList<ModuloPasseggeri> gruppo) {
+	private void trovaModuloAtaccato(int i, int j, ArrayList<ArrayList<Tessera>> nave, boolean[][] isVisitato, ArrayList<Tessera> gruppo) {
 		
 		int[] dx = {-1, 0, 1, 0}; 
 	    int[] dy = {0, 1, 0, -1};
 	    TipoLato[] dLato = {TipoLato.UP, TipoLato.RIGHT, TipoLato.DOWN, TipoLato.LEFT};
 
 	    isVisitato[i][j] = true;
-	    gruppo.add((ModuloPasseggeri) nave.get(i).get(j));
+	    gruppo.add(nave.get(i).get(j));
 	    
 	    for(int d=0; d<4; d++) { // FOR PER CONTROLLARE TUTTI E 4 I LATI
 	    	
