@@ -246,12 +246,32 @@ public class Pianeta extends Carta {
 
 	private int sceltaPianeta(Pedina pedina) {
 		
-		int sceltaPianeta = 0; // TODO richiesta all'utente se svbarcare in uno dei pianeti;
-								// gli passo ArrayList this.pianeti
-								// giocatore sceglie tra 1/2/3... in base al numero di pianeti 
-								// (Integer) null in caso non vuole sbarcare case 0 ad esempio;
+		int sceltaPianeta = 0;
 		
-		
+		for(int i=0; i<this.pianeti.size(); i++) {
+			
+			stampa.print("PIANETA "+(i+1)+") ");
+			
+			for(int j=0; j<this.pianeti.get(i).size(); j++) {
+				
+				stampa.print("{"+this.pianeti.get(i).get(j).getTipoMerce()+"} ");
+			}
+			stampa.println("");
+		}
+		do {
+			stampa.println("Inserire il numero del pianeta per scegliere di atterrarci");
+			stampa.println("In caso non si volesse scegliere nessuna dei pianeti inserire -> 0");
+			
+			do {
+				sceltaPianeta = Integer.parseInt(stampa.consoleRead());
+				
+				if(sceltaPianeta >= 0 && sceltaPianeta < this.pianeti.size()+1) {
+					stampa.println("VALORE IMMESSO NON VALIDO");
+				}
+				
+			}while(sceltaPianeta >= 0 && sceltaPianeta < this.pianeti.size()+1);
+			
+		}while(sceltaPianeta == 0 || pedina.sceltaScambioMerciConGiorni(this.penalitagiorni, this.merci));
 		
 		return sceltaPianeta;
 	}
