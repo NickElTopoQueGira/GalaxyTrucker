@@ -61,7 +61,7 @@ public class Pedina{
      * 
      * @param elimEquipaggio int numero di equipaggio che verrà tolto
      */
-    public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {  ///TODO
+    public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {
     	int caso;
     	do {
     		caso=0;
@@ -109,19 +109,18 @@ public class Pedina{
     			
     		}while(sceltaModulo<=0 || sceltaModulo>caso);
     		
-    		if(this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY()).getTipoTessera() 
+    		if(this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY()).getTipoTessera() 
     				== TipoTessera.MODULO_PASSEGGERI) {
     			
-    			((ModuloPasseggeri)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY())).rimuoviEquipaggio();
+    			((ModuloPasseggeri)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY())).rimuoviEquipaggio();
     		}else {
     			
-    			((Centro)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY())).rimuoviPasseggeri(-1);
+    			((Centro)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY())).rimuoviPasseggeri(-1);
     		}
     		
     		elimEquipaggio--;
     	}while(elimEquipaggio > 0 && this.giocatore.getNave().getEquipaggio() > 0);
     }
-    
     private String specificaEquipaggio(ModuloPasseggeri mp) {
     	
     	String txt = null;
@@ -142,7 +141,7 @@ public class Pedina{
     	return txt;
     }
     
-    public void selezionaMerceDaEliminare(int elimMerce) {///TODO
+    public void selezionaMerceDaEliminare(int elimMerce) {
     	
     	int caso;
     	do {
@@ -185,11 +184,11 @@ public class Pedina{
         			
         		}while(sceltaStiva<=0 || sceltaStiva>caso);
         		
-        		numeroMerci = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva).getX()).get(crd.get(sceltaStiva).getY())).getStiva().size();
+        		numeroMerci = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().size();
         		
         		for(int i=0; i<numeroMerci; i++) {
         			cns.println(""+(i+1)+") "
-        		+((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva).getX()).get(crd.get(sceltaStiva).getY())).getStiva().get(i).getTipoMerce());    		
+        		+((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().get(i).getTipoMerce());    		
         			
         			
         		}
@@ -208,6 +207,7 @@ public class Pedina{
         		
     		}while(sceltaMerci <= 0 || sceltaMerci > numeroMerci);
     		
+			((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva).getX()).get(crd.get(sceltaStiva).getY())).getStiva().remove(sceltaMerci-1);
     		
     		elimMerce--;
     	}while(elimMerce > 0 && this.giocatore.getNave().getEquipaggio() > 0);
