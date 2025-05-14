@@ -71,7 +71,7 @@ public abstract class Nave {
      */
     public void prenotaTessera(Tessera t) throws ErroreTessera{
         if(this.componentiPrenotati.size() > 2){
-            throw new ErroreTessera("Limie massimo di tessere prenotato raggiunto!!");
+            throw new ErroreTessera("Limite massimo di tessere prenotato raggiunto!!");
         }
         else{
             this.componentiPrenotati.add(t);
@@ -90,7 +90,7 @@ public abstract class Nave {
             return this.componentiPrenotati.get(index);
         }
         else{
-            throw new ErroreTessera("Tessera specificata non presente!!");
+            throw new ErroreTessera("Tessera specificata non presente!");
         }
     }
 
@@ -122,7 +122,7 @@ public abstract class Nave {
         if(controllaCoordinate(coordinata)){
             // Verifica se la nua tessera viene messa nel centro
             if(coordinata.getX() == centro.getX() && coordinata.getY() == centro.getY()){
-                throw new ErroreTessera("Posizione non valida!!");
+                throw new ErroreTessera("Posizione non valida!");
             }
 
             // verifica se il pezzo lo si vuole mettere in una posizione non valida

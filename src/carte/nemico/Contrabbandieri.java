@@ -115,7 +115,7 @@ public class Contrabbandieri extends Nemici {
 			this.potenzanecc = random.nextInt(3) + 8;  //8-10
 		}
 		default ->{
-			stampa.printError("ERROR: scelta randomica della potenza necessria per lo suconfiggere i contrabbandieri (errorTipe: switch) (class: Contrabbandieri)");
+			stampa.printError("ERROR: scelta randomica della potenza necessria per sconfiggere i contrabbandieri (errorTipe: switch) (class: Contrabbandieri)");
 		}
 			
 		}
@@ -154,7 +154,7 @@ public class Contrabbandieri extends Nemici {
 			this.penalitagiorni = 1;
 		}
 		default ->{
-			stampa.printError("ERROR: scelta numeri giorni persi in caso in cui si decide diu prendere le merci (errorTipe: switch) (class: Contrabbandieri)");
+			stampa.printError("ERROR: scelta numeri giorni persi in caso in cui si decida di prendere le merci (errorTipe: switch) (class: Contrabbandieri)");
 		}
 			
 		}
