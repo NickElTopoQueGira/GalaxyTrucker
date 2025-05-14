@@ -134,7 +134,7 @@ public class PioggiaMeteoriti extends Carta {
 							stampa.println("METEORITE FERMATO DAL CANNONE DOPPIO");
 							
 							try {
-								elencoPedine.get(j).getGiocatore().getNave().utilizzaEnergia(1);
+								elencoPedine.get(j).getGiocatore().getNave().utilizzaEnergia();
 							} catch (ErroreRisorse e) {
 								
 								e.printStackTrace();
