@@ -20,6 +20,16 @@ public class Stiva extends Tessera {
 	private int valore;
 	private int numeroMerciAttuale;
 	private ArrayList<Merce>stiva;
+	
+	public int getNumeroMerciAttuale() {
+		return numeroMerciAttuale;
+	}
+
+	public void setNumeroMerciAttuale(int numeroMerciAttuale) {
+		this.numeroMerciAttuale = numeroMerciAttuale;
+	}
+
+;
 
 	
 	/**

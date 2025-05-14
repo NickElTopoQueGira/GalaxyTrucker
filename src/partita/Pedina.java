@@ -6,6 +6,7 @@ import gioco.ComunicazioneConUtente;
 import partita.giocatore.*;
 import tessera.*;
 import tessera.merce.Merce;
+import tessera.merce.Stiva;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class Pedina{
@@ -142,6 +143,55 @@ public class Pedina{
     }
     
     public void selezionaMerceDaEliminare(int elimMerce) {///TODO
+    	
+    	int caso;
+    	do {
+    		caso=0;
+    		ArrayList<Coordinate> crd = new ArrayList();
+    		
+    		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
+    			
+    			for(int y=0; y<this.giocatore.getNave().getPlanciaDellaNave().get(x).size(); y++) {
+    				
+    				Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
+    				TipoTessera tipo = tessera.getTipoTessera();
+
+    				if (tipo == TipoTessera.PORTA_MERCI) {
+    				    if (((Stiva) tessera).getNumeroMerciAttuale() > 0) {
+    				        
+    				    	caso++;
+    				    	
+    				    	cns.println(""+caso+") MODULO PASSEGGERI in posizione ("+x+";"+y+") e contiente "
+    				    				+specificaEquipaggio(((ModuloPasseggeri) tessera)));
+    				    	
+    				    	crd.add(new Coordinate(x, y));
+    				    }
+    				}
+    			}
+    		}
+    		int sceltaModulo;
+    		cns.println("Inserire il numero del Modulo da cui togliere 1 componentye dell'equipaggio");
+			
+    		do {
+    			sceltaModulo = Integer.parseInt(cns.consoleRead());
+    			
+    			if(sceltaModulo>0 && sceltaModulo<caso) {
+    				cns.println("VALORE IMMESSO NON VALIDO");
+    			}
+    			
+    		}while(sceltaModulo>0 && sceltaModulo<caso);
+    		
+    		if(this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY()).getTipoTessera() 
+    				== TipoTessera.MODULO_PASSEGGERI) {
+    			
+    			((ModuloPasseggeri)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY())).rimuoviEquipaggio();
+    		}else {
+    			
+    			((Centro)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY())).rimuoviPasseggeri(-1);
+    		}
+    		
+    		elimEquipaggio--;
+    	}while(elimEquipaggio == 0 || this.giocatore.getNave().getEquipaggio() == 0);
     	
     	for(int i=0; i<elimMerce; i++) {
     		
