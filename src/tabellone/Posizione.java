@@ -1,41 +1,37 @@
 package tabellone;
 
-import eccezioniPersonalizzate.ErrorePedina;
 import partita.Pedina;
 
 public class Posizione {
     private int id;
-    private boolean occupata;
+    private boolean libera;
     private Pedina pedinaGiocatore;
 
     public Posizione(int id){
         this.id = id;
-        this.occupata = false;
+        this.libera = true;
         this.pedinaGiocatore = null;
     }
 
     public Posizione(int id, Pedina pedina){
         this.id = id; 
         this.pedinaGiocatore = pedina;
-        this.occupata = false;
+        this.libera = false;
     }
 
-    public void occupaPosizione(Pedina pedina) throws ErrorePedina{
+    public void occupaPosizione(Pedina pedina){
         if(this.pedinaGiocatore != null){
             this.pedinaGiocatore = pedina;
-            this.occupata = true;
-        }
-        else{
-            throw new ErrorePedina("Posizione occupata");
+            this.libera = false;
         }
     }
 
     public void liberaPosizione(){
         this.pedinaGiocatore = null;
-        this.occupata = false;
+        this.libera = true;
     }
 
-    public boolean isLibera(){ return this.occupata; }
+    public boolean isLibera(){ return this.libera; }
 
     public int getId() { return this.id; }
 }
