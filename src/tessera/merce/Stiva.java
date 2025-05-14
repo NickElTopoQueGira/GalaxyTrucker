@@ -142,4 +142,15 @@ public class Stiva extends Tessera {
 		TipoStiva[] tipoMerceGenerale = TipoStiva.values();
 		return tipoMerceGenerale[new Random().nextInt(tipoMerceGenerale.length)];
 	}
+	
+	
+	/**
+	 * metodo che ritorna stringa descrittiva della tessera
+	 * @return stringa descrittiva
+	 */
+	@Override
+	public String toLegenda() {
+		String temp="modulo stiva "+this.tipoMerciGenerale.toString()+" "+this.numeroMerciAttuale+"/"+this.MaxCapienza;
+		return temp;
+	}
 }

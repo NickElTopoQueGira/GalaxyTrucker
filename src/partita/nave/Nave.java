@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreTessera;
+import gioco.ComunicazioneConUtente;
 import eccezioniPersonalizzate.ErroreRisorse;
 import partita.giocatore.Colori;
 import tessera.Centro;
@@ -15,6 +16,7 @@ import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 import tessera.batteria.Batteria;
 import tessera.cannone.Cannone;
+import tessera.cannone.TipoCannone;
 import tessera.merce.Merce;
 import tessera.merce.Stiva;
 import tessera.merce.TipoMerce;
@@ -30,6 +32,7 @@ public abstract class Nave {
     private Colori coloreNave;
     private int energiaResidua;
     private int numeroConnettoriScoperti;
+    private ComunicazioneConUtente stampa;
     
     /**
      * Metodi astratti, implementati nelle sotto classi, per prendere 
@@ -46,6 +49,7 @@ public abstract class Nave {
      * @param coloreNave
      */
     public Nave(Colori coloreNave){
+    	stampa= ComunicazioneConUtente.getIstanza();
         this.componentiPrenotati = new ArrayList<Tessera>();
         this.nave = new ArrayList<>();
         this.NAVE_DEF = getMATRIX();
@@ -496,20 +500,62 @@ public abstract class Nave {
     }
 
     /**
-     * Funzione per 'utilizzare' l'energia residua sulla nave. 
+     * Funzione per 'utilizzare' (1 gemma) l'energia residua sulla nave. 
      * Viene generata l'eccezione ErroreRisorse quando si richiede + energia di 
      * quella disponibile
      * 
-     * @param quantita
+     * 
      * @throws ErroreRisorse
      */
-    public void utilizzaEnergia(int quantita) throws ErroreRisorse{
-        if(this.energiaResidua - quantita < 0){
+    public void utilizzaEnergia() throws ErroreRisorse{
+        if(this.energiaResidua - 1 < 0){
             throw new ErroreRisorse("Energia insufficente");
         }
         else{
-            this.energiaResidua =- quantita;
+        	stampa.println("vuoi utilizzare una gemma di energia?");
+        	if(stampa.conferma()) {
+        		selezionaTesseraEnergia();
+                this.caloclaEnergia();
+        	}else {
+        		throw new ErroreRisorse("");
+        	}
+            
         }
+    }
+    
+    
+    /**
+     * selezione e rimozione energia dalla tessera batteria selezionata
+     * @return 
+     */
+    public void selezionaTesseraEnergia(){
+    	stampa.println("Inserisci il numero corrispondente alla tessera a cui vuoi rimuovere energia:");
+    	ArrayList<String> visual = new ArrayList<String>();
+    	ArrayList<Tessera> Tessere = new ArrayList<Tessera>();
+    	for(ArrayList<Tessera> colonne : this.nave) {
+			for(Tessera tessera : colonne) {
+				
+				if(tessera.getTipoTessera()==TipoTessera.BATTERIA) {
+					Tessere.add(tessera);
+					visual.add("posizione("+(this.nave.indexOf(colonne)+1)+";"+(colonne.indexOf(tessera)+1)+") "+tessera.toLegenda());
+				}
+
+			}
+    	}
+    	
+    	boolean condizione=true;
+		do{
+    		stampa.visualizzaElenco(visual);
+    		int indice = Integer.parseInt(stampa.consoleRead())-1;
+        	
+        	if(((Batteria)Tessere.get(indice)).decrese() && 
+        			indice>=0 && indice<visual.size()) {
+        		
+        	}else {
+        		condizione=false;
+        	}
+    	}while(condizione);
+
     }
 
     /**
@@ -666,7 +712,21 @@ public abstract class Nave {
         	}
             temp = temp + "\n";
         }
+        temp+=legenda();
 		return temp;
+    }
+    
+    
+    public String legenda() {
+    	ArrayList<String> Legenda = new ArrayList<String>();
+    	
+    	for(ArrayList<Tessera> colonne : this.nave) {
+			for(Tessera tessera : colonne) {
+				Legenda.add("posizione("+(this.nave.indexOf(colonne)+1)+";"+(colonne.indexOf(tessera)+1)+") "+tessera.toLegenda());
+	    		
+			}
+    	}
+    	return stampa.visualizzaElenco(Legenda);
     }
     
     //-------------------- SETTER - GETTER --------------------
@@ -759,7 +819,14 @@ public abstract class Nave {
 					}
                     else{
                         // se il motore e' doppio
-						potenzaMotori += 2;
+                    	potenzaMotori += 2;
+                    	try {
+							this.utilizzaEnergia();
+						} catch (ErroreRisorse e) {
+							potenzaMotori -= 2;
+							e.printStackTrace();
+						}
+						
 					}
 				}
 			}
@@ -805,7 +872,17 @@ public abstract class Nave {
 		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera() == TipoTessera.CANNONE) {
-					potenzaCannoni += ((Cannone)tessera).calcolaValore();   //DA AGGIUNGERE CONTROLLO E RICHIESTA UTENTE ENERGIA
+					
+					potenzaCannoni += ((Cannone)tessera).calcolaValore(); 
+					
+					if(((Cannone)tessera).getTipoCannone()==TipoCannone.DOPPIO) {
+						try {
+							this.utilizzaEnergia();
+						} catch (ErroreRisorse e) {
+							potenzaCannoni -= ((Cannone)tessera).calcolaValore();
+							e.printStackTrace();
+						}
+					}
 				}
 			}
 		}

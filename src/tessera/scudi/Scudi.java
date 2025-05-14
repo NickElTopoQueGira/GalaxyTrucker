@@ -95,6 +95,17 @@ public class Scudi extends Tessera {
 		super.tessera_Disposizione[rprec2][cprec2]="@";
 		
 	}
+	
+	
+	/**
+	 * metodo che ritorna stringa descrittiva della tessera
+	 * @return stringa descrittiva
+	 */
+	@Override
+	public String toLegenda() {
+		String temp="modulo scudo";
+		return temp;
+	}
 
 }
 

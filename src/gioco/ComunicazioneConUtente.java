@@ -210,7 +210,7 @@ public void inizioGame() {
         lista.add(Colori.GIALLO.getname());
         lista.add(Colori.VERDE.getname());
         lista.add(Colori.BLU.getname());
-        this.visualizzaElenco(lista);
+        this.print(this.visualizzaElenco(lista));
         this.print("Inserisci il numero del colore: ");
         int t = Integer.parseInt(this.consoleRead());
         
@@ -238,7 +238,7 @@ public void inizioGame() {
 		if(p.getModalitaPartita() == ModalitaPartita.SINGOLA){
 			lista.add("Per modificare la modalita' della partita");
 		}
-		this.visualizzaElenco(lista);
+		this.print(this.visualizzaElenco(lista));
 		
 		this.print("Inserisci la voce: ");
 		try{
@@ -262,7 +262,7 @@ public void inizioGame() {
 		do{
 			this.println("Livelli disponibili: ");
 			
-			this.visualizzaElenco(lista);
+			this.print(this.visualizzaElenco(lista));
 			this.print("Inserisci il livello: ");
 			try{
 				livello = Integer.parseInt(this.consoleRead());
@@ -307,7 +307,7 @@ public void inizioGame() {
         lista.add("Partita multipla");
 		do{
 			this.println("Modalita' partita disponibile: ");
-			this.visualizzaElenco(lista);
+			this.print(this.visualizzaElenco(lista));
 			this.print("Inserisci la modalita' partita: ");
 			try{
 				mod = Integer.parseInt(this.consoleRead());
@@ -324,12 +324,14 @@ public void inizioGame() {
 	 * stampa elenco puntato degli elementi tipo stringa della lista
 	 * @param lista
 	 */
-	private void visualizzaElenco(ArrayList<String> lista) {
+	public String visualizzaElenco(ArrayList<String> lista) {
+		String temp="";
 		int i=1;
 		for(String stringa : lista) {
-			this.println(""+i+") "+stringa);
+			temp+=i+") "+stringa+"\n";
 			i++;
 		}
+		return temp;
 		
 	}
 	

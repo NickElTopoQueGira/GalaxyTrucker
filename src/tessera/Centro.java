@@ -49,6 +49,14 @@ public class Centro extends Tessera {
 
 	}
 	
+	/**
+	 * metodo che ritorna stringa descrittiva della tessera
+	 * @return "centro"
+	 */
+	@Override
+	public String toLegenda() {
+		return "centro";
+	}
 	
 
 }

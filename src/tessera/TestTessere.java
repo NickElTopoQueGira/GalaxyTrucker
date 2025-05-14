@@ -136,6 +136,7 @@ public class TestTessere {
 		
 		System.out.println(test);
 	
+		stampa.print(t5.toLegenda());
 	}
 	
 }

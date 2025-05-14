@@ -185,7 +185,7 @@ public class Pedina{
     		if(cns.confermaSpecifica("Scudo")) {
     			
     			try {
-					this.giocatore.getNave().utilizzaEnergia(1);
+					this.giocatore.getNave().utilizzaEnergia();
 				} catch (ErroreRisorse e) {
 					
 					e.printStackTrace();
@@ -195,7 +195,7 @@ public class Pedina{
     		}else {
     			
     			try {
-					this.giocatore.getNave().utilizzaEnergia(1);
+					this.giocatore.getNave().utilizzaEnergia();
 				} catch (ErroreRisorse e) {
 					
 					e.printStackTrace();
@@ -219,7 +219,7 @@ public class Pedina{
     		if(cns.confermaSpecifica("Cannone doppio")) {
     			
     			try {
-					this.giocatore.getNave().utilizzaEnergia(1);
+					this.giocatore.getNave().utilizzaEnergia();
 				} catch (ErroreRisorse e) {
 					
 					e.printStackTrace();
@@ -229,7 +229,7 @@ public class Pedina{
     		}else {
     			
     			try {
-					this.giocatore.getNave().utilizzaEnergia(1);
+					this.giocatore.getNave().utilizzaEnergia();
 				} catch (ErroreRisorse e) {
 					
 					e.printStackTrace();

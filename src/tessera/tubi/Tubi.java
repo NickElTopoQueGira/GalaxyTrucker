@@ -37,5 +37,16 @@ public class Tubi extends Tessera {
 		}
 		
 	}
+	
+	
+	/**
+	 * metodo che ritorna stringa descrittiva della tessera
+	 * @return stringa descrittiva
+	 */
+	@Override
+	public String toLegenda() {
+		String temp="modulo tubi";
+		return temp;
+	}
 
 }

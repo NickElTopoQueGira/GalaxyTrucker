@@ -13,6 +13,8 @@ public class ModuloPasseggeri extends Tessera {
 	private int numeroCosmonauti;
 	private int numeroAlieniViola;
 	private int numeroAlieniMarroni;
+	private int equipaggio;
+	private int equipaggioMax;
 
 	private final TipoModuloPasseggeri tipoModuloPasseggeri;
 
@@ -53,12 +55,15 @@ public class ModuloPasseggeri extends Tessera {
 		switch (this.tipoModuloPasseggeri) {
 		case MODULO_ALIENO_MARRONE:
 			this.setNumeroAlieniViola(1);
+			this.equipaggioMax=1;
 			break;
 		case MODULO_ALIENO_VIOLA:
 			this.setNumeroAlieniMarroni(1);
+			this.equipaggioMax=1;
 			break;
 		case MODULO_EQUIPAGGIO:
 			this.setNumeroCosmonauti(+2);
+			this.equipaggioMax=2;
 		default:
 			break;
 		}
@@ -73,7 +78,7 @@ public class ModuloPasseggeri extends Tessera {
 	}
 
 	/**
-	 * modifica nueero di cosmonauti tramite edit
+	 * modifica numero di cosmonauti tramite edit
 	 * @param edit
 	 */
 	public void setNumeroCosmonauti(int edit) {
@@ -93,14 +98,14 @@ public class ModuloPasseggeri extends Tessera {
 	}
 
 	public void setNumeroAlieniMarroni(int numeroAlieniMarroni) {
-		this.numeroAlieniMarroni += numeroAlieniMarroni;
+		this.numeroAlieniMarroni = numeroAlieniMarroni;
 	}
 
 	public void setNumeroAlieniViola(int numeroAlieniViola) {
-		this.numeroAlieniViola += numeroAlieniViola;
+		this.numeroAlieniViola = numeroAlieniViola;
 	}
 	/**
-	 * in base al tipo del modulo automaticamente mi va a togliere l'equipaggio corretto dalla tessera
+	 * in base al tipo del modulo automaticamente va a togliere l'equipaggio corretto dalla tessera
 	 */
 	public void rimuoviEquipaggio() {
 		
@@ -117,5 +122,24 @@ public class ModuloPasseggeri extends Tessera {
 			break;
 		}
 	}
+	
+	public int getEquipaggio() {
+		this.equipaggio+=this.getNumeroAlieniMarroni()+this.numeroAlieniViola+this.numeroCosmonauti;
+		
+		return this.equipaggio;
+	}
+
+	/**
+	 * metodo che ritorna stringa descrittiva della tessera
+	 * @return stringa descrittiva
+	 */
+	@Override
+	public String toLegenda() {
+		String temp="modulo equipaggio "+this.tipoModuloPasseggeri.toString()+" "+this.getEquipaggio()+"/"+this.equipaggioMax;
+		return temp;
+	}
+
+	
+
 
 }

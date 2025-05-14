@@ -140,5 +140,15 @@ public class Cannone extends Tessera {
 		super.tessera_Disposizione[rprec][cprec]=canna;
 	}
 
+	/**
+	 * metodo che ritorna stringa descrittiva della tessera
+	 * @return stringa descrittiva
+	 */
+	@Override
+	public String toLegenda() {
+		String temp="modulo cannone "+this.tipoCannone.toString();
+		return temp;
+	}
+
 
 }

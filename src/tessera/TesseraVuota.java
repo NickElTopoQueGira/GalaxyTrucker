@@ -6,6 +6,15 @@ public class TesseraVuota extends Tessera{
 		super(TipoTessera.VUOTA);
 		this.latiTessera.setVuota();
 	}
+
+	/**
+	 * metodo che ritorna stringa descrittiva della tessera
+	 * @return ""
+	 */
+	@Override
+	public String toLegenda() {
+		return "";
+	}
 	
 	
 

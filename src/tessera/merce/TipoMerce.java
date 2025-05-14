@@ -1,19 +1,23 @@
 package tessera.merce;
 
 public enum TipoMerce {
-	MERCE_ROSSA		(4), 
-	MERCE_GIALLA	(3), 
-	MERCE_VERDE		(2), 
-	MERCE_BLU		(1);
+	MERCE_ROSSA		(4,"\033[1;91m"+"merce Rossa"+"\u001B[0m"), //rosso, 
+	MERCE_GIALLA	(2,"\033[1;93m"+"merce Gialla"+"\u001B[0m"), 			//giallo 
+	MERCE_VERDE		(3,"\033[1;92m"+"merce Verde"+"\u001B[0m"), 			//verde 
+	MERCE_BLU		(1,"\033[1;94m"+"merce Blu"+"\u001B[0m");	//blu
 
 	private final int valore;
+	private final String name;
 
 	/**
 	 * costruttore
 	 * @param valore
+	 * @param name
 	 */
-	TipoMerce(int valore) {
+	TipoMerce(int valore, String name) {
 		this.valore = valore;
+		this.name = name;
+		
 	}
 
 	public int getValore() {

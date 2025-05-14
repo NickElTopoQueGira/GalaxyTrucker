@@ -59,4 +59,14 @@ public class Batteria extends Tessera {
 		return false;
 	}
 
+	/**
+	 * metodo che ritorna stringa descrittiva della tessera
+	 * @return stringa descrittiva
+	 */
+	@Override
+	public String toLegenda() {
+		String temp="modulo energia "+this.energiaAttuale+"/"+this.capacity;
+		return temp;
+	}
+
 }
