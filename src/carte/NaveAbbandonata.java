@@ -161,7 +161,7 @@ public class NaveAbbandonata extends Carta {
 				stampa.println("LA NAVE NON HA ABBASTANZA EQUIPAGGIO ");
 			}
 			
-		}while(!isCartaCompletata || elenco<elencoPedine.size());
+		}while(!isCartaCompletata && elenco<elencoPedine.size());
 		
 		return elencoPedine;
 	}

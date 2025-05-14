@@ -82,7 +82,7 @@ public class StazioneAbbandonata extends Carta {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<5 || vtdp>8) && numMerci < 6);
+			}while((vtdp<5 || vtdp>8) || numMerci > 5);
 		}
 		case 2 ->{
 			do {
@@ -95,7 +95,7 @@ public class StazioneAbbandonata extends Carta {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<7 || vtdp>10) && numMerci < 6);
+			}while((vtdp<7 || vtdp>10) || numMerci > 5);
 		}
 		case 3 ->{
 			do {
@@ -108,7 +108,7 @@ public class StazioneAbbandonata extends Carta {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<9 || vtdp>12) && numMerci < 6);
+			}while((vtdp<9 || vtdp>12) || numMerci > 5);
 		}
 		default ->{
 			System.out.println("ERROR: scelta randomica delle merci (errorTipe: switch) (class: Conmtrabandieri)");
@@ -161,7 +161,7 @@ public class StazioneAbbandonata extends Carta {
 				"\nGiorni Penalità:"+this.penalitagiorni+"\n"+
 				"\nEquipaggio Necessario:"+this.giocatorinecessari+"\n";
 				for(int i=0; i<this.merci.size(); i++) {
-					temp=temp+this.merci.get(i).getTipoMerce().name()+" | ";
+					temp=temp+this.merci.get(i).getTipoMerce().name()+" ";
 				}
 				temp=temp+"\n"; 
 

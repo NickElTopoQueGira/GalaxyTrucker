@@ -241,7 +241,7 @@ public class Pirati extends Nemici {
 					}
 					
 					j++;
-				}while(this.colpi.get(j) == null); // TODO || nave is distrutta ||....
+				}while(this.colpi.get(j) != null); // TODO || nave is distrutta ||....
 			}
 			
 			

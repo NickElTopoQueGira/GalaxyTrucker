@@ -261,7 +261,7 @@ public class ZonaGuerra extends Carta {
 					}
 					
 					j++;
-				}while(this.colpi.get(j) == null); // TODO || nave is distrutta ||....
+				}while(this.colpi.get(j) != null); // TODO || nave is distrutta ||....
 			}
 			default ->{
 				

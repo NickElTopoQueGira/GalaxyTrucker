@@ -103,11 +103,11 @@ public class Pedina{
     		do {
     			sceltaModulo = Integer.parseInt(cns.consoleRead());
     			
-    			if(sceltaModulo>0 && sceltaModulo<caso) {
+    			if(sceltaModulo<=0 && sceltaModulo>caso) {
     				cns.println("VALORE IMMESSO NON VALIDO");
     			}
     			
-    		}while(sceltaModulo>0 && sceltaModulo<caso);
+    		}while(sceltaModulo<=0 || sceltaModulo>caso);
     		
     		if(this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY()).getTipoTessera() 
     				== TipoTessera.MODULO_PASSEGGERI) {
@@ -119,7 +119,7 @@ public class Pedina{
     		}
     		
     		elimEquipaggio--;
-    	}while(elimEquipaggio == 0 || this.giocatore.getNave().getEquipaggio() == 0);
+    	}while(elimEquipaggio > 0 && this.giocatore.getNave().getEquipaggio() > 0);
     }
     
     private String specificaEquipaggio(ModuloPasseggeri mp) {
@@ -161,42 +161,69 @@ public class Pedina{
     				        
     				    	caso++;
     				    	
-    				    	cns.println(""+caso+") MODULO PASSEGGERI in posizione ("+x+";"+y+") e contiente "
-    				    				+specificaEquipaggio(((ModuloPasseggeri) tessera)));
+    				    	cns.println(""+caso+") "+((Stiva) tessera).getTipoMerciGenerale()+" in posizione ("+x+";"+y+") e contiente "
+    				    				+specificaMerci((Stiva) tessera));
     				    	
     				    	crd.add(new Coordinate(x, y));
     				    }
     				}
     			}
     		}
-    		int sceltaModulo;
-    		cns.println("Inserire il numero del Modulo da cui togliere 1 componentye dell'equipaggio");
-			
-    		do {
-    			sceltaModulo = Integer.parseInt(cns.consoleRead());
+    		int sceltaStiva;
+    		int sceltaMerci;
+    		int numeroMerci;
+			do {
     			
-    			if(sceltaModulo>0 && sceltaModulo<caso) {
-    				cns.println("VALORE IMMESSO NON VALIDO");
-    			}
+        		cns.println("Inserire il numero della stiva da cui togliere una merce");
     			
-    		}while(sceltaModulo>0 && sceltaModulo<caso);
+        		do {
+        			sceltaStiva = Integer.parseInt(cns.consoleRead());
+        			
+        			if(sceltaStiva<0 || sceltaStiva>caso) {
+        				cns.println("VALORE IMMESSO NON VALIDO");
+        			}
+        			
+        		}while(sceltaStiva<=0 || sceltaStiva>caso);
+        		
+        		numeroMerci = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva).getX()).get(crd.get(sceltaStiva).getY())).getStiva().size();
+        		
+        		for(int i=0; i<numeroMerci; i++) {
+        			cns.println(""+(i+1)+") "
+        		+((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva).getX()).get(crd.get(sceltaStiva).getY())).getStiva().get(i).getTipoMerce());    		
+        			
+        			
+        		}
+        		sceltaMerci = 0;
+        		
+        		cns.println("Inserire la merce che si vuole togliere, selezionare 0 per scegliere un altra stiva");
+    			
+        		do {
+        			sceltaMerci = Integer.parseInt(cns.consoleRead());
+        			
+        			if(sceltaMerci>0 && sceltaMerci<numeroMerci) {
+        				cns.println("VALORE IMMESSO NON VALIDO");
+        			}
+        			
+        		}while(sceltaMerci < 0 || sceltaMerci > numeroMerci);
+        		
+    		}while(sceltaMerci <= 0 || sceltaMerci > numeroMerci);
     		
-    		if(this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY()).getTipoTessera() 
-    				== TipoTessera.MODULO_PASSEGGERI) {
-    			
-    			((ModuloPasseggeri)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY())).rimuoviEquipaggio();
-    		}else {
-    			
-    			((Centro)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo).getX()).get(crd.get(sceltaModulo).getY())).rimuoviPasseggeri(-1);
-    		}
     		
-    		elimEquipaggio--;
-    	}while(elimEquipaggio == 0 || this.giocatore.getNave().getEquipaggio() == 0);
-    	
-    	for(int i=0; i<elimMerce; i++) {
-    		
-    	}
+    		elimMerce--;
+    	}while(elimMerce > 0 && this.giocatore.getNave().getEquipaggio() > 0);
     }
+    private String specificaMerci(Stiva stiva) {
+    	
+    	String txt = "";
+    	
+    	for(int i=0; i<stiva.getStiva().size(); i++) {
+    		
+    		txt = txt + stiva.getStiva().get(i).getTipoMerce() +" ";
+    	}
+    	
+    	return txt;
+    }
+    
     public void distribuzioneMerce(List<Merce> merci) {///TODO
     	Coordinate coordinate = null;
     	for(int i=0; i<merci.size(); i++) {

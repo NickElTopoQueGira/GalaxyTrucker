@@ -55,7 +55,7 @@ public class Pianeta extends Carta {
 				
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<25 || vtdp>50) && numMerci < 6);
+			}while((vtdp<25 || vtdp>50) || numMerci > 5);
 		}
 		case 3 ->{
 			do {
@@ -68,7 +68,7 @@ public class Pianeta extends Carta {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<15 || vtdp>40) && numMerci < 6);
+			}while((vtdp<15 || vtdp>40) || numMerci > 5);
 		}
 		case 2 ->{
 			do {
@@ -81,7 +81,7 @@ public class Pianeta extends Carta {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<5 || vtdp>30) && numMerci < 6);
+			}while((vtdp<5 || vtdp>30) || numMerci > 5);
 		}
 		default ->{
 			stampa.printError("ERROR: scelta randomica del valore totate dei pianeti della carta (errorTipe: switch) (class: Pianeta)");
@@ -197,7 +197,7 @@ public class Pianeta extends Carta {
 			temp=temp+"PAINETA"+i+" - ";
 			
 			for(int j=0; j<this.pianeti.get(i).size(); j++) {
-				temp=temp+this.pianeti.get(i).get(j).getTipoMerce().name()+" | ";
+				temp=temp+this.pianeti.get(i).get(j).getTipoMerce().name()+" ";
 			}
 			temp=temp+"\n";
 		}
@@ -239,7 +239,7 @@ public class Pianeta extends Carta {
 				this.pianeti.remove(scelta);
 			}
 			
-		}while(elenco<elencoPedine.size() || this.pianeti == null);
+		}while(elenco<elencoPedine.size() && this.pianeti != null);
 		
 		return elencoPedine;
 	}
@@ -269,9 +269,9 @@ public class Pianeta extends Carta {
 					stampa.println("VALORE IMMESSO NON VALIDO");
 				}
 				
-			}while(sceltaPianeta >= 0 && sceltaPianeta < this.pianeti.size()+1);
+			}while(sceltaPianeta < 0 || sceltaPianeta > this.pianeti.size()+1);
 			
-		}while(sceltaPianeta == 0 || pedina.sceltaScambioMerciConGiorni(this.penalitagiorni, this.merci));
+		}while(sceltaPianeta != 0 && !pedina.sceltaScambioMerciConGiorni(this.penalitagiorni, this.merci));
 		
 		return sceltaPianeta;
 	}

@@ -51,7 +51,7 @@ public class Contrabbandieri extends Nemici {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<5 || vtdp>9) && numMerci < 6);
+			}while((vtdp<5 || vtdp>9) || numMerci > 5);
 		}
 		case 2 ->{
 			do {
@@ -64,7 +64,7 @@ public class Contrabbandieri extends Nemici {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<10 || vtdp>14) && numMerci < 6);
+			}while((vtdp<10 || vtdp>14) || numMerci > 5);
 		}
 		case 3 ->{
 			do {
@@ -77,7 +77,7 @@ public class Contrabbandieri extends Nemici {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<15 || vtdp>19) && numMerci < 6);
+			}while((vtdp<15 || vtdp>19) || numMerci > 5);
 		}
 		default ->{
 			
@@ -168,7 +168,7 @@ public class Contrabbandieri extends Nemici {
 				"\nMerci Penalità:"+this.penalitamerci+
 				"\nGiorni Penalità:"+this.penalitagiorni+"\n";
 		for(int j=0; j<this.merci.size(); j++) {
-			temp=temp+this.merci.get(j).getTipoMerce().name()+" | ";
+			temp=temp+this.merci.get(j).getTipoMerce().name()+" ";
 		}
 		
 		return temp;

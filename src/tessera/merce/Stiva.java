@@ -21,6 +21,14 @@ public class Stiva extends Tessera {
 	private int numeroMerciAttuale;
 	private ArrayList<Merce>stiva;
 	
+	public ArrayList<Merce> getStiva() {
+		return stiva;
+	}
+
+	public void setStiva(ArrayList<Merce> stiva) {
+		this.stiva = stiva;
+	}
+
 	public int getNumeroMerciAttuale() {
 		return numeroMerciAttuale;
 	}

@@ -1,8 +1,8 @@
 package tessera.merce;
 
 public enum TipoStiva {
-	NORMALI 	("\033[1;96m"+"standard"+"\u001B[0m"), //ciano 
-	SPECIALI 	("\033[1;91m"+"speciale"+"\u001B[0m"); //rosso
+	NORMALI 	("\033[1;96m"+"stiva standard"+"\u001B[0m"), //ciano 
+	SPECIALI 	("\033[1;91m"+"stiva speciale"+"\u001B[0m"); //rosso
 	
 	
 
