@@ -21,6 +21,11 @@ public class Stiva extends Tessera {
 	private int numeroMerciAttuale;
 	private ArrayList<Merce>stiva;
 	
+	
+	public int getMaxCapienza() {
+		return MaxCapienza;
+	}
+
 	public ArrayList<Merce> getStiva() {
 		return stiva;
 	}

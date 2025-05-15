@@ -14,7 +14,7 @@ public class Contrabbandieri extends Nemici {
 	private int potenzanecc; // potenza necessaria
 	private int penalitamerci; // numeri merci persi
 	private int penalitagiorni; // numeri giorni persi
-	private List<Merce> merci;
+	private ArrayList<Merce> merci;
 	private ComunicazioneConUtente stampa;
 	
 

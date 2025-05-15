@@ -14,7 +14,7 @@ public class StazioneAbbandonata extends Carta {
 	
 	private int giocatorinecessari;
 	private int penalitagiorni;
-	private List<Merce> merci;
+	private ArrayList<Merce> merci;
 	
 	private ComunicazioneConUtente stampa;
 	
@@ -129,30 +129,6 @@ public class StazioneAbbandonata extends Carta {
 		}
 	}
 
-	public int getGiocatorinecessari() {
-		return giocatorinecessari;
-	}
-
-	public void setGiocatorinecessari(int giocatorinecessari) {
-		this.giocatorinecessari = giocatorinecessari;
-	}
-
-	public int getPenalitagiorni() {
-		return penalitagiorni;
-	}
-
-	public void setPenalitagiorni(int penalitagiorni) {
-		this.penalitagiorni = penalitagiorni;
-	}
-
-	public List<Merce> getMerci() {
-		return merci;
-	}
-
-	public void setMerci(List<Merce> merci) {
-		this.merci = merci;
-	}
-	
 	@Override
 	public String toString() {
 		String temp="";
