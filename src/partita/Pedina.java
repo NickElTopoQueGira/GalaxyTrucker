@@ -7,6 +7,7 @@ import partita.giocatore.*;
 import tessera.*;
 import tessera.merce.Merce;
 import tessera.merce.Stiva;
+import tessera.merce.TipoMerce;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class Pedina{
@@ -113,7 +114,7 @@ public class Pedina{
     				== TipoTessera.MODULO_PASSEGGERI) {
     			
     			((ModuloPasseggeri)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY())).rimuoviEquipaggio();
-    		}else {
+    		}else {//TODO rifare togli equipaggio
     			
     			((Centro)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY())).rimuoviPasseggeri(-1);
     		}
@@ -148,7 +149,13 @@ public class Pedina{
     		caso=0;
     		ArrayList<Coordinate> crd = new ArrayList();
     		
-    		crd = trovaStiveConSpazio();
+    		crd = trovaStiveNonVuote();
+    		
+    		if(crd == null) { 
+    			
+    			cns.println("Non ci sono merci nella nave");
+    			break; 
+    		}
     		
     		caso = crd.size();
     		
@@ -191,8 +198,21 @@ public class Pedina{
         		
     		}while(sceltaMerci <= 0 || sceltaMerci > numeroMerci);
     		
-			((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva).getX()).get(crd.get(sceltaStiva).getY())).getStiva().remove(sceltaMerci-1);
+			Merce merce = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().get(sceltaMerci-1);
     		
+			try {
+				this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce);
+			} catch (ErroreCoordinate e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ErroreTessera e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ErroreRisorse e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
     		elimMerce--;
     	}while(elimMerce > 0 && this.giocatore.getNave().getEquipaggio() > 0);
     }
@@ -215,9 +235,10 @@ public class Pedina{
     	return txt;
     }
     
-    private ArrayList<Coordinate> trovaStiveConSpazio(){
+    private ArrayList<Coordinate> trovaStiveNonVuote(boolean isSpeciale){
     	int caso = 0;
     	ArrayList<Coordinate> crd = new ArrayList();
+    	crd = null;
 		
 		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
 			
@@ -225,7 +246,7 @@ public class Pedina{
 				
 				Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
 				TipoTessera tipo = tessera.getTipoTessera();
-
+				
 				if (tipo == TipoTessera.PORTA_MERCI) {
 				    if (((Stiva) tessera).getNumeroMerciAttuale() > 0) {
 				        
@@ -239,45 +260,126 @@ public class Pedina{
 				}
 			}
 		}
-    	
     	return crd;
     }
     
-    public void distribuzioneMerce(ArrayList<Merce> merci) {///TODO
-    	Coordinate coordinate = null;
+    public void distribuzioneMerce(ArrayList<Merce> merci) {///TODO CONTROLLO STIVA SPECIALE E NON
+    
     	int grandezza = merci.size();
+    	int sceltaStiva;
+    	boolean conferma, sceltoPieno, isSpeciale;
+    	
     	for(int i=0; i<grandezza; i++) {
+    		
+    		if(merci.get(0).getTipoMerce() == TipoMerce.MERCE_ROSSA) {
+    			isSpeciale = true;
+    		}else {
+    			isSpeciale = false;
+    		}
+    		
+    		ArrayList<Coordinate> crd = new ArrayList();
     		
     		cns.println("Merci da posizionare: "+specificaMerci(merci));
     		
-    		//TODO il giocatore sceglie il in quale possivile stiva posizionare la merce in questione
-    		cns.println("STIVE CON SPAZIO:");
+    		cns.println("Stive presenti nella nave:");
+    		
+    		crd = trovaStiveNonVuote();
+    		
+    		crd.addAll(trovaStiveVuote(crd.size()));
     		
     		cns.println("");
-    		cns.println("STIVE RIEMPITE:");
     		
-    		cns.println("");
-    		
-    		cns.println("La merce in posizone 1 ->"+merci.get(0).getTipoMerce()+" vuoi posizionarla sulla nave? (in caso contrario verra distrutta)");
+    		cns.println("La merce in N* 1 ->"+merci.get(0).getTipoMerce()+" la vuoi posizionarla sulla nave? (in caso contrario verrà distrutta)");
     		
     		
     		if(cns.conferma()) {
     			
-    			//TODO seleziona in quale stiva mettere
+    			cns.println("Inserire il numero della stiva da cui inserire una merce");
+    			do {
+    				conferma = true;
+    				sceltoPieno = false;
+            		do {
+            			sceltaStiva = Integer.parseInt(cns.consoleRead());
+            			
+            			if(sceltaStiva<0 || sceltaStiva>crd.size()) {
+            				cns.println("VALORE IMMESSO NON VALIDO");
+            			}
+            			
+            		}while(sceltaStiva<=0 || sceltaStiva>crd.size());
+            		
+            		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().size() < 1){
+            			
+            			cns.println("La stiva selezionata è piena! se confermi dovrai selezionare una merce da eliminare per liberare spazio");
+            			cns.println("(in caso non si conferma si può scegliere un altra stiva)");
+            			
+            			if(cns.conferma()) {
+            				conferma = false;
+            				sceltoPieno = true;
+            			}
+            		}
+            		
+    			}while(!conferma);
     			
-    			
-        		try {
-    				this.giocatore.getNave().inserisciMerce(coordinate, merci.get(i));
-    			} catch (ErroreCoordinate e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			} catch (ErroreRisorse e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			} catch (ErroreTessera e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
+        		if(sceltoPieno) {
+        			
+        			int sceltaEliminare = 0;
+        			
+        			ArrayList<Merce> merce = ((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva();
+        			
+        			cns.println("Selezionare la mercve che si vuole eliminare per far spazio alla nuova merce:");
+        			specificaMerci(merce);
+        			
+        			do {
+        				sceltaEliminare = Integer.parseInt(cns.consoleRead());
+            			
+            			if(sceltaEliminare<=0 || sceltaEliminare>merce.size()) {
+            				cns.println("VALORE IMMESSO NON VALIDO");
+            			}
+            			
+            		}while(sceltaEliminare<=0 || sceltaEliminare>merce.size());
+        			
+        			try {
+        				this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce.get(sceltaEliminare));
+        			} catch (ErroreCoordinate e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			} catch (ErroreTessera e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			} catch (ErroreRisorse e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
+        			
+        			try {
+        				this.giocatore.getNave().inserisciMerce(crd.get(sceltaStiva-1), merci.get(0));
+        				
+        			} catch (ErroreCoordinate e) {
+        				
+        				e.printStackTrace();
+        			} catch (ErroreRisorse e) {
+        				
+        				e.printStackTrace();
+        			} catch (ErroreTessera e) {
+        				
+        				e.printStackTrace();
+        			}
+        		}else {
+        			
+        			try {
+        				this.giocatore.getNave().inserisciMerce(crd.get(sceltaStiva), merci.get(0));
+        				
+        			} catch (ErroreCoordinate e) {
+        				
+        				e.printStackTrace();
+        			} catch (ErroreRisorse e) {
+        				
+        				e.printStackTrace();
+        			} catch (ErroreTessera e) {
+        				
+        				e.printStackTrace();
+        			}
+        		}
     		}else {
     			
         		cns.println("La merce "+merci.get(i).getTipoMerce()+" è stata distrutta");
@@ -286,11 +388,12 @@ public class Pedina{
     	}
     }
     
-    private ArrayList<Coordinate> trovaStiveSenzaSpazio(int n){
+    private ArrayList<Coordinate> trovaStiveVuote(int n, boolean isSpeciale){
     	
     	int caso = n;
     	
     	ArrayList<Coordinate> crd = new ArrayList();
+    	crd = null;
 		
 		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
 			
@@ -300,12 +403,11 @@ public class Pedina{
 				TipoTessera tipo = tessera.getTipoTessera();
 
 				if (tipo == TipoTessera.PORTA_MERCI) {
-				    if (((Stiva) tessera).getNumeroMerciAttuale() >= ((Stiva) tessera).getMaxCapienza()) {
+				    if (((Stiva) tessera).getNumeroMerciAttuale() == 0) {
 				        
 				    	caso++;
 				    	
-				    	cns.println(""+caso+") "+((Stiva) tessera).getTipoMerciGenerale()+" in posizione ("+x+";"+y+") e contiente "
-				    				+specificaMerci(((Stiva) tessera).getStiva()));
+				    	cns.println(""+caso+") "+((Stiva) tessera).getTipoMerciGenerale()+" vuota in posizione ("+x+";"+y+")");
 				    	
 				    	crd.add(new Coordinate(x, y));
 				    }
@@ -315,6 +417,7 @@ public class Pedina{
     	
     	return crd;
     }
+    
     /**
      * LE prossime due funzioni sono equvalenti una per i scudi e una per il cannone doppio
      * 
