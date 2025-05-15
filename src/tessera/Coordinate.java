@@ -16,5 +16,38 @@ public class Coordinate {
 
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
+
+	public Coordinate adiacente(TipoLato dir) {
+		Coordinate adiacente=new Coordinate();
+		switch (dir) {
+		case UP: {
+			adiacente.setX(this.getX());
+			adiacente.setY(this.getY()-1);
+			break;
+		}
+		case LEFT: {
+			adiacente.setX(this.getX()-1);
+			adiacente.setY(this.getY());
+			break;		
+				}
+		case DOWN: {
+			adiacente.setX(this.getX());
+			adiacente.setY(this.getY()+1);
+			break;
+			
+		}
+		case RIGHT: {
+			adiacente.setX(this.getX()+1);
+			adiacente.setY(this.getY());
+			break;
+			
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + dir);
+		}
+		return adiacente;
+	}
+
+	
     
 }

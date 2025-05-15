@@ -219,4 +219,6 @@ public abstract class Tessera {
 	}
 	
 	public abstract String toLegenda();
+
+	
 }

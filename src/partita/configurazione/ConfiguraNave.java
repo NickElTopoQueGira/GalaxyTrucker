@@ -35,4 +35,10 @@ public class ConfiguraNave{
 
         return nave;
     }
+    
+    
+    public Nave configuraNave(Nave nave) {
+		return nave;
+    	//TODO
+    }
 }

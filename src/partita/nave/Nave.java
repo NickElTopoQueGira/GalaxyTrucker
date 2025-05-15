@@ -1,9 +1,13 @@
 package partita.nave;
 
 import java.util.ArrayList;
-
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
+import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import eccezioniPersonalizzate.ErroreRisorse;
@@ -12,14 +16,15 @@ import tessera.Centro;
 import tessera.Coordinate;
 import tessera.LatiTessera;
 import tessera.Tessera;
+import tessera.TesseraVuota;
 import tessera.TipoConnettoriTessera;
+import tessera.TipoLato;
 import tessera.TipoTessera;
 import tessera.batteria.Batteria;
 import tessera.cannone.Cannone;
 import tessera.cannone.TipoCannone;
 import tessera.merce.Merce;
 import tessera.merce.Stiva;
-import tessera.merce.TipoMerce;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.motore.Motore;
 import tessera.motore.TipoMotore;
@@ -252,10 +257,106 @@ public abstract class Nave {
 
         // rimozione della tessera
         this.nave.get(coordinate.getX()).set(coordinate.getY(), null);
+        
+        try {
+			this.nave = this.distruggiNave();
+		} catch (ErroreGiocatore e) {
+			e.printStackTrace();
+		}
 
     }
-
+    
     /**
+     * distruzione nave. distrugge le tessere non collegate al centro e le rimpiazza
+     * con oggetti TesseraVuota
+     * @return nave
+     * @throws ErroreGiocatore 
+     */
+    public ArrayList<ArrayList<Tessera>> distruggiNave() throws ErroreGiocatore {
+    	Set<Coordinate> visitate = new HashSet<>();
+    	Queue<Coordinate> daVisitare = new LinkedList<>();
+    	
+    	//controlla ci sia il centro
+        if(controllaIntegritaNave()) {
+            daVisitare.add(centro);
+            visitate.add(centro);
+
+            while (!daVisitare.isEmpty()) {
+           	    Coordinate corrente = daVisitare.poll(); //prende il primo elemento
+   				Tessera tesseraCorrente = nave.get(corrente.getX()).get(corrente.getY());
+   				
+   				for (TipoLato dir : TipoLato.values()) {
+   				    Coordinate adiacente = corrente.adiacente(dir);
+   				    Tessera tesseraAdiacente = nave.get(adiacente.getX()).get(adiacente.getY());
+   				
+   				    if (tesseraAdiacente != null &&tesseraAdiacente.getTipoTessera() != TipoTessera.VUOTA && !visitate.contains(adiacente)) {
+   				    	boolean condizione=false;
+						switch (dir) {
+   						case UP: {
+   							if(this.controllaCollegamentoUP(tesseraCorrente, corrente)) {
+   								condizione=true;
+   							}
+   							break;
+   						}
+   						case LEFT: {
+   							if(this.controllaCollegamentoSX(tesseraCorrente, corrente)) {
+   								condizione=true;
+   							}
+   							break;		
+   								}
+   						case DOWN: {
+   							if(this.controllaCollegamentoDW(tesseraCorrente, corrente)) {
+   								condizione=true;
+   							}
+   							break;
+   							
+   						}
+   						case RIGHT: {
+   							if(this.controllaCollegamentoDX(tesseraCorrente, corrente)) {
+   								condizione=true;
+   							}
+   							break;
+   							
+   						}
+   						default:
+   							throw new IllegalArgumentException("Unexpected value: " + dir);
+   						}
+   				    	if(condizione) {
+   				    		visitate.add(adiacente);
+   				            daVisitare.add(adiacente);
+   				    	}
+   				    }
+   				}
+   	         }
+        }else {
+        	//TODO eliminare la pedina dal tabellone
+        	throw new ErroreGiocatore("Giocatore eliminato perchè è stato distrutto il centro");
+            
+        }
+        
+        //sovrascrive con tessereVuote in nave le tessere che non sono state visitate
+        for(ArrayList<Tessera> colonne : this.nave) {
+			for(Tessera tessera : colonne) {
+				boolean check=true;
+				for(Coordinate coordinateTessera : visitate) {
+					if(coordinateTessera==tessera.getCoordinate()) {
+						check=false;
+					}
+				}
+				if(check) {
+					tessera=new TesseraVuota();
+				}
+			}
+    	}
+        
+		return nave; 
+    }
+	
+
+    
+    
+    
+	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
      * 
      * @param coordinate
@@ -335,7 +436,7 @@ public abstract class Nave {
             return true;
         }
 
-        // controllo sei il ati sono compatibil
+        // controllo sei i lati sono compatibil
         if((latiTesseraNave.getRight() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO)){
                 return true;
