@@ -278,6 +278,8 @@ public abstract class Nave {
     	
     	//controlla ci sia il centro
         if(controllaIntegritaNave()) {
+        	
+        	
             daVisitare.add(centro);
             visitate.add(centro);
 
@@ -319,7 +321,7 @@ public abstract class Nave {
    							
    						}
    						default:
-   							throw new IllegalArgumentException("Unexpected value: " + dir);
+   							throw new IllegalArgumentException("direzione " + dir.toString()+" non valida");
    						}
    				    	if(condizione) {
    				    		visitate.add(adiacente);
