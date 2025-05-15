@@ -634,7 +634,7 @@ public abstract class Nave {
             if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
                 ModuloPasseggeri moduloPasseggeri = (ModuloPasseggeri)tessera;
                 try{
-                    rimuoviEquipaggio(moduloPasseggeri, qta);
+                    rimuoviEquipaggio(moduloPasseggeri, qta); // farlo dirett amente in tessera
                 }catch(ErroreRisorse er){
                     throw er;
                 }
@@ -649,6 +649,9 @@ public abstract class Nave {
     }
 
     /**
+     * 
+     *--------@Shvets: CONSIIGLIO DI TOGLIERE: NON VIENE UTILIZZATO E LA TESSERA LO FA AUTOMATICAMENTE
+     * 
      * Funzione per rimuovere l'equipaggio in base al tipo di modulo passeggeri
      * 
      * @param modulo
@@ -691,8 +694,7 @@ public abstract class Nave {
         }
         return modulo;
     }
-
-
+ 
     /**
      * Stampa della nave
      * @return 
