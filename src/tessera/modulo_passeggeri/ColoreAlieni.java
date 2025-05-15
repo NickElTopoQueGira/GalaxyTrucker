@@ -1,8 +1,8 @@
 package tessera.modulo_passeggeri;
 
 public enum ColoreAlieni {
-	VIOLA	("da fare"),
-	MARRONE ("");
+	VIOLA	("\033[1;95m"+"viola"+"\u001B[0m"), //viola
+	MARRONE ("\033[1;93m"+"marrone"+"\u001B[0m"); //giallo
 	
 	
 	private final String nome;

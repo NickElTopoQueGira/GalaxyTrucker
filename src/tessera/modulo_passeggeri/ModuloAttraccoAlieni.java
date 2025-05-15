@@ -9,7 +9,7 @@ import tessera.TipoTessera;
 
 public class ModuloAttraccoAlieni extends Tessera{
 	
-	private static final int massimo = 29;
+	private static final int massimo = 12;
 	private static int contatore = 0;
 	
 	private final ColoreAlieni colore;
@@ -45,7 +45,7 @@ public class ModuloAttraccoAlieni extends Tessera{
 	 */
 	@Override
 	public String toLegenda() {
-		String temp="modulo alieno "+this.colore.toString();
+		String temp="modulo attracco alieno "+this.colore.toString();
 		return temp;
 	}
 
