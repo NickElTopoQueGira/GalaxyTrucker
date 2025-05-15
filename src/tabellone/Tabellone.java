@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import carte.Carta;
 import partita.Livelli;
 import partita.Pedina;
-import partita.giocatore.Colori;
 
 public class Tabellone{
 	private ArrayList<Pedina> elencoPedine;
@@ -14,19 +13,6 @@ public class Tabellone{
 	private int numeroPosizioni;
 	private Livelli livello;
 	
-	public static void main(String[] args){
-		Tabellone t = new Tabellone(Livelli.PRIMO);
-		
-		Pedina p = new Pedina(Colori.BLU);
-		
-		p.setPosizioneSulTabellone(0);
-		System.out.println(p.getPosizioneSulTabellone());
-		
-		t.muoviPedina(p, 2);
-		System.out.println(p.getPosizioneSulTabellone());
-	}
-
-
 	public Tabellone(Livelli livello){
 		this.elencoPedine = new ArrayList<Pedina>();
 		this.mazzoCarte = new ArrayList<Carta>();
@@ -38,7 +24,7 @@ public class Tabellone{
 	}
 
 	/**
-	 * Funzione per aggiungere la pedina sul tabellone
+	 * Metodo per aggiungere la pedina sul tabellone
 	 * 
 	 * @param nuovaPedina
 	 */
@@ -47,7 +33,7 @@ public class Tabellone{
 	}
 
 	/**
-	 * Funzione per impostare il numero di posizioni presenti sul tabellone. 
+	 * Metodo per impostare il numero di posizioni presenti sul tabellone. 
 	 * Le posizioni variano in base al livello selezionato.
 	 * 
 	 * @return numero di posizioni x livello
@@ -96,36 +82,43 @@ public class Tabellone{
 		 */
 		if(mossa > 0){
 			while(mossa > 0){
-				posizionePedinaAttuale += 1;
+				// il calcolo del resto mi serve per calcolare la posizione 
+				// della pedina anche quando sono ai bordi
+				posizionePedinaAttuale = (posizionePedinaAttuale + 1) % this.numeroPosizioni;
 				
 				if(this.posizioni.get(posizionePedinaAttuale).isLibera()){
 					// decremento dei passi da fare se e solo se la la posizone dove 
 					// si trova attualmente la pedina e' libera
 					mossa += -1;
 				}
-				else{
-					// occupata
-				}
 			}
+			// Occupazione pedina
 			this.posizioni.get(posizionePedinaAttuale).occupaPosizione(pedina);
 			pedina.setPosizioneSulTabellone(posizionePedinaAttuale);
 		}
 		else{
 			// mossa < 0 (la pedina retrocede)
-			int passiFatti = 0; 
-			while (passiFatti < mossa){
-				
+			while(mossa < 0){
+				posizionePedinaAttuale = (posizionePedinaAttuale - 1 + this.numeroPosizioni) % this.numeroPosizioni;
+
+				if(this.posizioni.get(posizionePedinaAttuale).isLibera()){
+					mossa += 1;
+				}
 			}
+			// Occupazione pedina
+			this.posizioni.get(posizionePedinaAttuale).occupaPosizione(pedina);
+			pedina.setPosizioneSulTabellone(posizionePedinaAttuale);
 		}
 	}
 
-	
+	/**
+	 * Metodo per liberare la posizione 
+	 * 
+	 * @param posizione
+	 */
 	public void liberaPosizione(int posizione){
 		if(this.posizioni.get(posizione).isLibera() == false){
 			this.posizioni.get(posizione).liberaPosizione();
 		}		
-	}
-
-
-	
+	}	
 }
