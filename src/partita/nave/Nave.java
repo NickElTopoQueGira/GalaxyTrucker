@@ -2,6 +2,7 @@ package partita.nave;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
@@ -38,6 +39,7 @@ public abstract class Nave {
     private int energiaResidua;
     private int numeroConnettoriScoperti;
     private ComunicazioneConUtente stampa;
+	private ArrayList<ArrayList<Tessera>> parteRestante;
     
     /**
      * Metodi astratti, implementati nelle sotto classi, per prendere 
@@ -257,85 +259,102 @@ public abstract class Nave {
 
         // rimozione della tessera
         this.nave.get(coordinate.getX()).set(coordinate.getY(), null);
-        
-        try {
-			this.nave = this.distruggiNave();
-		} catch (ErroreGiocatore e) {
-			e.printStackTrace();
-		}
+        this.nave = this.getTroncamentoNave();
 
     }
     
+    
+    
     /**
-     * distruzione nave. distrugge le tessere non collegate al centro e le rimpiazza
-     * con oggetti TesseraVuota
-     * @return nave
-     * @throws ErroreGiocatore 
+     * metodo che crea una lista di tronconiNave e fa scegliere all'utente quale tenere
+     * @return troncone di nave scelta
      */
-    public ArrayList<ArrayList<Tessera>> distruggiNave() throws ErroreGiocatore {
+    private ArrayList<ArrayList<Tessera>> getTroncamentoNave() {
+    	Set<ArrayList<ArrayList<Tessera>>> troncamentiNave =new LinkedHashSet<ArrayList<ArrayList<Tessera>>>();
+    	
+    	troncamentiNave.add(this.distruggiNave(centro, true));
+    	
+    	//scorre nave e utilizza ogni tessera come centroRamificazione in distruggiNave e poi mette i tronconi nel set
+		for(ArrayList<Tessera> colonne : this.nave) {
+			for(Tessera tessera : colonne) {
+				if(this.parteRestante.contains(tessera)) {
+					troncamentiNave.equals(this.distruggiNave(tessera.getCoordinate(),false));
+				}
+				
+			}
+    	}
+
+    	Object[] opzioni=troncamentiNave.toArray();
+    	
+		return (ArrayList<ArrayList<Tessera>>) opzioni[stampa.scegliTroncamenti(opzioni)];
+	}
+    
+    
+	/**
+     * distruzione nave. distrugge le tessere non collegate al centroRamificazione e le rimpiazza
+     * con oggetti TesseraVuota in nave. se centroRamificazione=centro genera anche ParteRestante 
+	 * @param isCentro 
+	 * @param centroRamificazione
+     * @return nave
+     */
+    public ArrayList<ArrayList<Tessera>> distruggiNave(Coordinate centroRamificazione, boolean isCentro){
     	Set<Coordinate> visitate = new HashSet<>();
     	Queue<Coordinate> daVisitare = new LinkedList<>();
     	
-    	//controlla ci sia il centro
-        if(controllaIntegritaNave()) {
-        	
-        	
-            daVisitare.add(centro);
-            visitate.add(centro);
 
-            while (!daVisitare.isEmpty()) {
-           	    Coordinate corrente = daVisitare.poll(); //prende il primo elemento
-   				Tessera tesseraCorrente = nave.get(corrente.getX()).get(corrente.getY());
-   				
-   				for (TipoLato dir : TipoLato.values()) {
-   				    Coordinate adiacente = corrente.adiacente(dir);
-   				    Tessera tesseraAdiacente = nave.get(adiacente.getX()).get(adiacente.getY());
-   				
-   				    if (tesseraAdiacente != null &&tesseraAdiacente.getTipoTessera() != TipoTessera.VUOTA && !visitate.contains(adiacente)) {
-   				    	boolean condizione=false;
-						switch (dir) {
-   						case UP: {
-   							if(this.controllaCollegamentoUP(tesseraCorrente, corrente)) {
-   								condizione=true;
-   							}
-   							break;
-   						}
-   						case LEFT: {
-   							if(this.controllaCollegamentoSX(tesseraCorrente, corrente)) {
-   								condizione=true;
-   							}
-   							break;		
-   								}
-   						case DOWN: {
-   							if(this.controllaCollegamentoDW(tesseraCorrente, corrente)) {
-   								condizione=true;
-   							}
-   							break;
-   							
-   						}
-   						case RIGHT: {
-   							if(this.controllaCollegamentoDX(tesseraCorrente, corrente)) {
-   								condizione=true;
-   							}
-   							break;
-   							
-   						}
-   						default:
-   							throw new IllegalArgumentException("direzione " + dir.toString()+" non valida");
-   						}
-   				    	if(condizione) {
-   				    		visitate.add(adiacente);
-   				            daVisitare.add(adiacente);
-   				    	}
-   				    }
-   				}
-   	         }
-        }else {
-        	//TODO eliminare la pedina dal tabellone
-        	throw new ErroreGiocatore("Giocatore eliminato perchè è stato distrutto il centro");
-            
-        }
+        daVisitare.add(centroRamificazione);
+        visitate.add(centroRamificazione);
+
+        while (!daVisitare.isEmpty()) {
+       	    Coordinate corrente = daVisitare.poll(); //prende il primo elemento
+			Tessera tesseraCorrente = nave.get(corrente.getX()).get(corrente.getY());
+			
+			for (TipoLato dir : TipoLato.values()) {
+			    Coordinate adiacente = corrente.adiacente(dir);
+			    Tessera tesseraAdiacente = nave.get(adiacente.getX()).get(adiacente.getY());
+			
+			    if (tesseraAdiacente != null &&tesseraAdiacente.getTipoTessera() != TipoTessera.VUOTA && !visitate.contains(adiacente)) {
+			    	boolean condizione=false;
+					switch (dir) {
+					case UP: {
+						if(this.controllaCollegamentoUP(tesseraCorrente, corrente)) {
+							condizione=true;
+						}
+						break;
+					}
+					case LEFT: {
+						if(this.controllaCollegamentoSX(tesseraCorrente, corrente)) {
+							condizione=true;
+						}
+						break;		
+							}
+					case DOWN: {
+						if(this.controllaCollegamentoDW(tesseraCorrente, corrente)) {
+							condizione=true;
+						}
+						break;
+						
+					}
+					case RIGHT: {
+						if(this.controllaCollegamentoDX(tesseraCorrente, corrente)) {
+							condizione=true;
+						}
+						break;
+						
+					}
+					default:
+						throw new IllegalArgumentException("direzione " + dir.toString()+" non valida");
+					}
+			    	if(condizione) {
+			    		visitate.add(adiacente);
+			            daVisitare.add(adiacente);
+			    	}
+			    }
+			}
+         }
         
+        
+        this.parteRestante=(ArrayList<ArrayList<Tessera>>) this.nave.clone();
         //sovrascrive con tessereVuote in nave le tessere che non sono state visitate
         for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
@@ -350,6 +369,22 @@ public abstract class Nave {
 				}
 			}
     	}
+        
+        //creazione parte restante
+        if(isCentro) {
+        	for(ArrayList<Tessera> colonne : this.parteRestante) {
+    			for(Tessera tessera : colonne) {
+    				boolean check=true;
+    				for(Coordinate coordinateTessera : visitate) {
+    					if(coordinateTessera==tessera.getCoordinate()) {
+    						tessera=new TesseraVuota();
+    					}
+    				}
+    				
+    			}
+        	}
+        }
+        
         
 		return nave; 
     }

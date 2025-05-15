@@ -349,5 +349,22 @@ public void inizioGame() {
 		}
 	}
 
+	public int scegliTroncamenti(Object[] opzioni) {
+		ArrayList<String> temp = null;
+		int scelta=0;
+		this.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
+		for(int i=0; i< opzioni.length; i++) {
+			
+			temp.add(opzioni[i].toString());
+		}
+		this.println(this.visualizzaElenco(temp));
+
+		scelta = Integer.parseInt(this.consoleRead());
+		if(scelta<1 || scelta>opzioni.length) {
+			return scegliTroncamenti(opzioni);
+		}
+		return scelta;
+	}
+
 	
 }
