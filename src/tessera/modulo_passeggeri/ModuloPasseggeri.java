@@ -7,7 +7,7 @@ import tessera.Tessera;
 import tessera.TipoTessera;
 
 public class ModuloPasseggeri extends Tessera {
-	private static final int massimo = 29;
+	private static final int massimo = 17;
 	private static int contatore = 0;
 	
 	private int numeroCosmonauti;

@@ -10,6 +10,7 @@ import tessera.merce.Stiva;
 import tessera.motore.Motore;
 import tessera.scudi.Scudi;
 import tessera.tubi.Tubi;
+import tessera.modulo_passeggeri.ModuloAttraccoAlieni;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class FactoryTessera {
@@ -42,6 +43,9 @@ public class FactoryTessera {
 			}
 			case TipoTessera.MODULO_PASSEGGERI: {
 				return new ModuloPasseggeri();
+			}
+			case TipoTessera.MODULO_ATTRACCO_ALIENI: {
+				return new ModuloAttraccoAlieni();
 			}
 			case TipoTessera.BATTERIA: {
 				return new Batteria();
