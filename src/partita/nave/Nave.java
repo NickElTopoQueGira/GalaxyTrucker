@@ -276,7 +276,11 @@ public abstract class Nave {
     		//scorre nave e utilizza la prima tessera non vuota come centroRamificazione in distruggiNave
     		for(ArrayList<Tessera> colonne : this.nave) {
     			for(Tessera tessera : colonne) {
-    				troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(), true));
+    				if(tessera.getTipoTessera()!=TipoTessera.VUOTA) {
+    					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(), true));
+    					break;
+    				}
+    				
     			}
         	}
     	}

@@ -152,7 +152,7 @@ public class Pedina{
 		    if (((ModuloPasseggeri) tessera).getNumeroCosmonauti() > 0) {
 		        
 		    	caso++;
-		    	
+	//TODO USA IL TOLEGENDA();    	
 		    	cns.println(""+caso+") MODULO PASSEGGERI in posizione ("+x+";"+y+") e contiente "
 		    				+specificaEquipaggio(((ModuloPasseggeri) tessera)));
 		    	
@@ -162,7 +162,7 @@ public class Pedina{
 		    if (((Centro) tessera).getPasseggeriCorrenti() > 0) {
 
 		    	caso++;
-		    	
+	//TODO USA IL TOLEGENDA();	    	
 		    	cns.println(""+caso+") CENTRO in posizione ("+x+";"+y+") e contiente "
 		    				+((Centro) tessera).getPasseggeriCorrenti()+" cosmonauti");
 		    	
@@ -189,13 +189,13 @@ public class Pedina{
 
     		
     		int sceltaModulo;
-    		cns.println("Inserire il numero del Modulo da cui togliere 1 componentye dell'equipaggio");
+    		cns.println("Inserire il numero del Modulo da cui togliere 1 componente dell'equipaggio");
 			
     		do {
     			sceltaModulo = Integer.parseInt(cns.consoleRead());
     			
     			if(sceltaModulo<=0 && sceltaModulo>caso) {
-    				cns.println("VALORE IMMESSO NON VALIDO");
+    				cns.ErroreImmissioneValore();;
     			}
     			
     		}while(sceltaModulo<=0 || sceltaModulo>caso);
@@ -262,7 +262,7 @@ public class Pedina{
         			sceltaStiva = Integer.parseInt(cns.consoleRead());
         			
         			if(sceltaStiva<0 || sceltaStiva>caso) {
-        				cns.println("VALORE IMMESSO NON VALIDO");
+        				cns.ErroreImmissioneValore();
         			}
         			
         		}while(sceltaStiva<=0 || sceltaStiva>caso);
@@ -283,7 +283,7 @@ public class Pedina{
         			sceltaMerci = Integer.parseInt(cns.consoleRead());
         			
         			if(sceltaMerci>0 && sceltaMerci<numeroMerci) {
-        				cns.println("VALORE IMMESSO NON VALIDO");
+        				cns.ErroreImmissioneValore();
         			}
         			
         		}while(sceltaMerci < 0 || sceltaMerci > numeroMerci);
@@ -317,7 +317,7 @@ public class Pedina{
         	}
     	}else {
     		
-    		txt = "nulla";
+    		txt = "vuota";
     	}
     	return txt;
     }
@@ -361,7 +361,7 @@ public class Pedina{
             			sceltaStiva = Integer.parseInt(cns.consoleRead());
             			
             			if(sceltaStiva<0 || sceltaStiva>crd.size()) {
-            				cns.println("VALORE IMMESSO NON VALIDO");
+            				cns.ErroreImmissioneValore();
             			}
             			
             		}while(sceltaStiva<=0 || sceltaStiva>crd.size());
