@@ -388,10 +388,6 @@ public abstract class Nave {
         
 		return nave; 
     }
-	
-
-    
-    
     
 	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
@@ -448,9 +444,9 @@ public abstract class Nave {
          *             DW
          */
 
-        return controllaCollegamentoSX(tessera, coordinate) ||
-                controllaCollegamentoDX(tessera, coordinate) ||
-                controllaCollegamentoUP(tessera, coordinate) ||
+        return controllaCollegamentoSX(tessera, coordinate) &&
+                controllaCollegamentoDX(tessera, coordinate) &&
+                controllaCollegamentoUP(tessera, coordinate) &&
                 controllaCollegamentoDW(tessera, coordinate);    
     }
     
@@ -462,7 +458,7 @@ public abstract class Nave {
      * @return si, no
      */
     private boolean controllaCollegamentoSX(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getX() - 1 < 0 || null == this.nave.get(coordinate.getX() - 1).get(coordinate.getY())){
+        if(coordinate.getX() - 1 < 0 || TipoTessera.VUOTA == this.nave.get(coordinate.getX() - 1).get(coordinate.getY()).getTipoTessera()){
             return true;
         }
 
@@ -491,7 +487,7 @@ public abstract class Nave {
      * @return si, no
      */
     private boolean controllaCollegamentoDX(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getX() + 1 > getRighe() || null == this.nave.get(coordinate.getX() + 1).get(coordinate.getY())){
+        if(coordinate.getX() + 1 > getRighe() || TipoTessera.VUOTA == this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getTipoTessera()){
             return true;
         }
 
@@ -520,7 +516,7 @@ public abstract class Nave {
      * @return si, no
      */
     private boolean controllaCollegamentoUP(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getY() - 1 < 0 || null == this.nave.get(coordinate.getX()).get(coordinate.getY() - 1)){
+        if(coordinate.getY() - 1 < 0 || TipoTessera.VUOTA == this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).getTipoTessera()){
             return true;
         }
 
@@ -549,7 +545,7 @@ public abstract class Nave {
      * @return si, no
      */
     private boolean controllaCollegamentoDW(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getY() + 1 > getColonne() || null == this.nave.get(coordinate.getX()).get(coordinate.getY() + 1)){
+        if(coordinate.getY() + 1 > getColonne() || TipoTessera.VUOTA == this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getTipoTessera()){
             return true;
         }
 

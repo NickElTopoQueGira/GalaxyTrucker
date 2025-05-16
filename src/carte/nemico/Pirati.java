@@ -205,23 +205,20 @@ public class Pirati extends Nemici {
 				
 				int j = 0;
 				do {
+
 					boolean sceltaFermareColpo = false;
 					
 					Tessera colpito = trovaTesseraColpita(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave());
-					
+					 
 					if(colpito != null) {
-							
+						
 						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
 							
-							
-							//TODO :
-							// sceltaFermareColpo = interazioneConUtente.richiestaUtilizzoScudi(); 
-							// 1) controlla se ha scudi
-							// 2) controlla la direzione
-							// 3) richiese de vuole usare gli scudi
-							
-							stampa.println("COLPO FERMATO DALLO SCUDO");
-							sceltaFermareColpo = true;
+							if(elencoPedine.get(elenco).sceltaEpossibilitaUtilizzoScudi()) {
+								
+								stampa.println("METEORITE FERMATO DALLO SCUDO");
+								sceltaFermareColpo = true;
+							}
 						}
 						
 						if(!sceltaFermareColpo){

@@ -415,36 +415,22 @@ public class Pedina{
         				// TODO Auto-generated catch block
         				e.printStackTrace();
         			}
-        			
-        			try {
-        				this.giocatore.getNave().inserisciMerce(crd.get(sceltaStiva-1), merci.get(0));
-        				
-        			} catch (ErroreCoordinate e) {
-        				
-        				e.printStackTrace();
-        			} catch (ErroreRisorse e) {
-        				
-        				e.printStackTrace();
-        			} catch (ErroreTessera e) {
-        				
-        				e.printStackTrace();
-        			}
-        		}else {
-        			
-        			try {
-        				this.giocatore.getNave().inserisciMerce(crd.get(sceltaStiva), merci.get(0));
-        				
-        			} catch (ErroreCoordinate e) {
-        				
-        				e.printStackTrace();
-        			} catch (ErroreRisorse e) {
-        				
-        				e.printStackTrace();
-        			} catch (ErroreTessera e) {
-        				
-        				e.printStackTrace();
-        			}
         		}
+        		
+        		try {
+    				this.giocatore.getNave().inserisciMerce(crd.get(sceltaStiva-1), merci.get(0));
+    				
+    			} catch (ErroreCoordinate e) {
+    				
+    				e.printStackTrace();
+    			} catch (ErroreRisorse e) {
+    				
+    				e.printStackTrace();
+    			} catch (ErroreTessera e) {
+    				
+    				e.printStackTrace();
+    			}
+        		
     		}else {
     			
         		cns.println("La merce "+merci.get(i).getTipoMerce()+" è stata distrutta");
