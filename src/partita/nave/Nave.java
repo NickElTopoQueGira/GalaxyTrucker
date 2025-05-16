@@ -769,15 +769,18 @@ public abstract class Nave {
 
         if(controllaCoordinate(coordianteModulo)){
             Tessera tessera = this.nave.get(coordianteModulo.getX()).get(coordianteModulo.getY());
+            
             if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+            	
                 ModuloPasseggeri moduloPasseggeri = (ModuloPasseggeri)tessera;
-                try{
-                    rimuoviEquipaggio(moduloPasseggeri, qta); // farlo dirett amente in tessera
-                }catch(ErroreRisorse er){
-                    throw er;
-                }
-            }
-            else{
+                moduloPasseggeri.rimuoviEquipaggio();
+                
+            }else if(tessera.getTipoTessera() == TipoTessera.CENTRO){
+            	
+            	Centro centro = (Centro)tessera;
+                centro.rimuoviPasseggeri(-1);
+                
+            }else{
                 throw new ErroreTessera("La cella selezionata non e' del tipo modulo");
             }
         }

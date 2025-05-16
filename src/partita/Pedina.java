@@ -200,14 +200,7 @@ public class Pedina{
     			
     		}while(sceltaModulo<=0 || sceltaModulo>caso);
     		
-    		if(this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY()).getTipoTessera() 
-    				== TipoTessera.MODULO_PASSEGGERI) {
-    			
-    			((ModuloPasseggeri)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY())).rimuoviEquipaggio();
-    		}else {//TODO rifare togli equipaggio
-    			
-    			((Centro)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY())).rimuoviPasseggeri(-1);
-    		}// TODO da completare
+    		// TODO da completare
     		try {
 				this.giocatore.getNave().rimuoviEquipaggio(crd.get(sceltaModulo-1), sceltaModulo);
 			} catch (ErroreCoordinate e) {
