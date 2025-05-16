@@ -204,13 +204,10 @@ public class Pedina{
     		try {
 				this.giocatore.getNave().rimuoviEquipaggio(crd.get(sceltaModulo-1), sceltaModulo);
 			} catch (ErroreCoordinate e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ErroreRisorse e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ErroreTessera e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     		
@@ -298,13 +295,10 @@ public class Pedina{
 			try {
 				this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce);
 			} catch (ErroreCoordinate e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ErroreTessera e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ErroreRisorse e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -406,13 +400,10 @@ public class Pedina{
         			try {
         				this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce.get(sceltaEliminare));
         			} catch (ErroreCoordinate e) {
-        				// TODO Auto-generated catch block
         				e.printStackTrace();
         			} catch (ErroreTessera e) {
-        				// TODO Auto-generated catch block
         				e.printStackTrace();
         			} catch (ErroreRisorse e) {
-        				// TODO Auto-generated catch block
         				e.printStackTrace();
         			}
         		}
