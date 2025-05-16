@@ -214,13 +214,13 @@ public class Pedina{
     		elimEquipaggio--;
     	}while(elimEquipaggio > 0 && this.giocatore.getNave().getEquipaggio() > 0);
     }
-    private String specificaEquipaggio(ModuloPasseggeri mp) {
+    private String specificaEquipaggio(ModuloPasseggeri mp) { //non serve, c'è gia nel toLegenda() della tessera modulopassggeri
     	
     	String txt = null;
     	
     	switch(mp.getTipoModuloPasseggeri()) {
     	case MODULO_ALIENO_MARRONE:
-			txt = mp.getNumeroCosmonauti() + " alieno marrone";
+			txt = mp.getNumeroCosmonauti() + " alieno marrone"; //txt=mp.toLegenda();  il tutto senza switch, solo questo metodo e fa da solo lui la stampa
 			break;
 		case MODULO_ALIENO_VIOLA:
 			txt = mp.getNumeroCosmonauti() + " alieno viola";
