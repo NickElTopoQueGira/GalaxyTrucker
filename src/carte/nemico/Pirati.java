@@ -287,7 +287,7 @@ public class Pirati extends Nemici {
 				}
 			}
 			default->{
-				return null; //TODO 
+				return null;
 			}
 		
 		}

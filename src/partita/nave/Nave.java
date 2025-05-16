@@ -560,7 +560,7 @@ public abstract class Nave {
             return true;
         }
 
-        // controllo sei il ati sono compatibil
+        // controllo sei il lati sono compatibil
         if((latiTesseraNave.getUp() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO)){
                 return true;
@@ -788,54 +788,6 @@ public abstract class Nave {
             throw new ErroreCoordinate("Coordinate immesse non valide");
         }
     }
-
-    /**
-     * 
-     *--------@Shvets: CONSIIGLIO DI TOGLIERE: NON VIENE UTILIZZATO E LA TESSERA LO FA AUTOMATICAMENTE
-     * 
-     * Funzione per rimuovere l'equipaggio in base al tipo di modulo passeggeri
-     * 
-     * @param modulo
-     * @param qta
-     * @return
-     * @throws ErroreRisorse
-     */
-    private ModuloPasseggeri rimuoviEquipaggio(ModuloPasseggeri modulo, int qta) throws ErroreRisorse{
-        switch (modulo.getTipoModuloPasseggeri()) {
-            case MODULO_EQUIPAGGIO ->{
-                if(qta > 2){
-                    throw new ErroreRisorse("Non puoi toglire + di 2 cosmonauti");
-                }
-                if (modulo.getNumeroCosmonauti() - qta >= 0) {
-                    modulo.setNumeroCosmonauti(-qta);
-                } else {
-                    throw new ErroreRisorse("Equipaggio insufficiente per la cella selezionata");
-                }    
-            }
-            case MODULO_ALIENO_MARRONE ->{
-                if(qta > 1){
-                    throw new ErroreRisorse("Non puoi toglire + di 1 alieno marrone");
-                }
-                if (modulo.getNumeroAlieniMarroni() - qta >= 0) {
-                    modulo.setNumeroAlieniMarroni(-qta);
-                } else {
-                    throw new ErroreRisorse("Equipaggio insufficiente per la cella selezionata");
-                }
-            }
-            case MODULO_ALIENO_VIOLA ->{
-                if(qta > 1){
-                    throw new ErroreRisorse("Non puoi toglire + di 1 alieno rosso");
-                }
-                if (modulo.getNumeroAlieniViola() - qta >= 0) {
-                    modulo.setNumeroAlieniViola(-qta);
-                } else {
-                    throw new ErroreRisorse("Equipaggio insufficiente per la cella selezionata");
-                }
-            }
-        }
-        return modulo;
-    }
- 
     /**
      * Stampa della nave
      * @return 

@@ -72,16 +72,22 @@ public class Mazzo {
 	private Carta CreaCartaRandom(int lvl){  // va nel mazzo
 		
 		int x = 0;
-		Random random = new Random();
 		Carta crt = null;
 		
-		if(lvl == 3) {
-			x = random.nextInt(11) + 2;
-		}else if(lvl == 2){
-			x = random.nextInt(11) + 1;
-		}else {
-			x = random.nextInt(10) + 1;
-		}
+		do {
+			Random random = new Random();
+			
+			if(lvl == 3) {
+				x = random.nextInt(11) + 2;
+			}else if(lvl == 2){
+				x = random.nextInt(11) + 1;
+			}else {
+				x = random.nextInt(10) + 1;
+			}
+			
+		}while(conteggio[lvl-1][x-1] == 0);
+		
+		conteggio[lvl-1][x-1]--;
 		
 		switch(x) {
 		case 1: // POLVERE_STELLARE,
