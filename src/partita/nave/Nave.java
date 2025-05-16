@@ -8,7 +8,6 @@ import java.util.Queue;
 import java.util.Set;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
-import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import eccezioniPersonalizzate.ErroreRisorse;
@@ -280,7 +279,6 @@ public abstract class Nave {
 				if(this.parteRestante.contains(tessera)) {
 					troncamentiNave.equals(this.distruggiNave(tessera.getCoordinate(),false));
 				}
-				
 			}
     	}
 
@@ -374,7 +372,6 @@ public abstract class Nave {
         if(isCentro) {
         	for(ArrayList<Tessera> colonne : this.parteRestante) {
     			for(Tessera tessera : colonne) {
-    				boolean check=true;
     				for(Coordinate coordinateTessera : visitate) {
     					if(coordinateTessera==tessera.getCoordinate()) {
     						tessera=new TesseraVuota();
@@ -384,11 +381,13 @@ public abstract class Nave {
     			}
         	}
         }
-        
-        
 		return nave; 
     }
+<<<<<<< HEAD
     
+=======
+	
+>>>>>>> c10bc6faf2d44493500b712be08b1fc0f002dc5e
 	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
      * 
@@ -758,10 +757,10 @@ public abstract class Nave {
      * 
      * @param coordianteModulo
      * @param qta
-     * @throws ErroreRisorse
+     * @throws ErroreCoordinate, ErroreTessera
      */
     public void rimuoviEquipaggio(Coordinate coordianteModulo, int qta) 
-        throws ErroreCoordinate, ErroreRisorse, ErroreTessera{
+        throws ErroreCoordinate, ErroreTessera{
 
         if(controllaCoordinate(coordianteModulo)){
             Tessera tessera = this.nave.get(coordianteModulo.getX()).get(coordianteModulo.getY());
