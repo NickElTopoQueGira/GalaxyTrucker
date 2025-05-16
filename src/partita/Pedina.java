@@ -219,7 +219,7 @@ public class Pedina{
     	String txt = null;
     	
     	switch(mp.getTipoModuloPasseggeri()) {
-    	case MODULO_ALIENO_MARRONE:
+    	case MODULO_ALIENO_MARRONE:								//togli tutto il metotodo ed utilizza direttamente il tolegenda() a sto punto
 			txt = mp.getNumeroCosmonauti() + " alieno marrone"; //txt=mp.toLegenda();  il tutto senza switch, solo questo metodo e fa da solo lui la stampa
 			break;
 		case MODULO_ALIENO_VIOLA:
