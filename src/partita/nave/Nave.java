@@ -271,7 +271,18 @@ public abstract class Nave {
     private ArrayList<ArrayList<Tessera>> getTroncamentoNave() {
     	Set<ArrayList<ArrayList<Tessera>>> troncamentiNave =new LinkedHashSet<ArrayList<ArrayList<Tessera>>>();
     	
-    	troncamentiNave.add(this.distruggiNave(centro, true));
+    	//controlla esista ancora il centro
+    	if(this.controllaPresenzaCentro()) {
+        	troncamentiNave.add(this.distruggiNave(centro, true));
+    	}else {
+    		//scorre nave e utilizza la prima tessera non vuota come centroRamificazione in distruggiNave
+    		for(ArrayList<Tessera> colonne : this.nave) {
+    			for(Tessera tessera : colonne) {
+    				troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(), true));
+    			}
+        	}
+    	}
+
     	
     	//scorre nave e utilizza ogni tessera come centroRamificazione in distruggiNave e poi mette i tronconi nel set
 		for(ArrayList<Tessera> colonne : this.nave) {
@@ -383,11 +394,7 @@ public abstract class Nave {
         }
 		return nave; 
     }
-<<<<<<< HEAD
-    
-=======
-	
->>>>>>> c10bc6faf2d44493500b712be08b1fc0f002dc5e
+
 	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
      * 
@@ -410,12 +417,12 @@ public abstract class Nave {
     /**
      * Metodo per il controllo dell'integrita' della nave
      * 
-     * @return true -> la nave puo' continare con il suo volo | 
-     *         false -> la nave non pu' continare con il suo volo
+     * @return true -> la nave ha ancora il centro | 
+     *         false -> la nave non ha il centro
      */
-    private boolean controllaIntegritaNave(){
-        // la partita e' persa se non si ha piu' il centro
-        if(null == this.nave.get(centro.getX()).get(centro.getY())){
+    private boolean controllaPresenzaCentro(){
+
+        if(TipoTessera.VUOTA == this.nave.get(centro.getX()).get(centro.getY()).getTipoTessera()){
             return false;
         }
         return true;
