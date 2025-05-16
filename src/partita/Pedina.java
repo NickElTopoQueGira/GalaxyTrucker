@@ -8,6 +8,7 @@ import tessera.*;
 import tessera.merce.Merce;
 import tessera.merce.Stiva;
 import tessera.merce.TipoMerce;
+import tessera.merce.TipoStiva;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class Pedina{
@@ -62,42 +63,131 @@ public class Pedina{
      * 
      * @param elimEquipaggio int numero di equipaggio che verrà tolto
      */
+    private ArrayList<Coordinate> trova(int n, int scelta){
+    	
+    	int caso = n;
+    	
+    	ArrayList<Coordinate> crd = new ArrayList();
+    	crd = null;
+		
+		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
+			
+			for(int y=0; y<this.giocatore.getNave().getPlanciaDellaNave().get(x).size(); y++) {
+				
+				switch(scelta) {
+				case 1: caso = StiveVuote(caso, crd, x, y); break;
+					
+				case 2: caso = StiveNonVuote(caso, crd, x, y); break;
+				
+				case 3: caso = StiveSpeciali(caso, crd, x, y); break;
+				
+				case 4: caso = Modulo(caso, crd, x, y); break;
+				
+				default:	break;
+				}
+			}
+		}
+    	
+    	return crd;
+    }
+    private int StiveVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
+    	
+    	Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
+		TipoTessera tipo = tessera.getTipoTessera();
+
+		if (tipo == TipoTessera.PORTA_MERCI) {
+		    if (((Stiva) tessera).getNumeroMerciAttuale() == 0) {
+		        
+		    	caso++;
+		    	
+		    	cns.println(""+caso+") "+((Stiva) tessera).getTipoMerciGenerale()+" vuota in posizione ("+x+";"+y+")");
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		}
+		return caso;
+    }
+    private int StiveNonVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
+    	
+    	Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
+		TipoTessera tipo = tessera.getTipoTessera();
+		
+		if (tipo == TipoTessera.PORTA_MERCI) {
+		    if (((Stiva) tessera).getNumeroMerciAttuale() > 0) {
+		        
+		    	caso++;
+		    	
+		    	cns.println(""+caso+") "+((Stiva) tessera).getTipoMerciGenerale()+" in posizione ("+x+";"+y+") e contiente "
+		    				+specificaMerci(((Stiva) tessera).getStiva()));
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		}
+		return caso;
+    }
+    private int StiveSpeciali(int caso, ArrayList<Coordinate> crd, int x, int y){
+    	
+    	Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
+		TipoTessera tipo = tessera.getTipoTessera();
+
+		if (tipo == TipoTessera.PORTA_MERCI) {
+		    if (((Stiva) tessera).getTipoMerciGenerale() == TipoStiva.SPECIALI) {
+		        
+		    	caso++;
+		    	
+		    	cns.println(""+caso+") "+((Stiva) tessera).getTipoMerciGenerale()+" vuota in posizione ("+x+";"+y+") e contiente "
+		    			+specificaMerci(((Stiva) tessera).getStiva()));
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		}
+		return caso;
+    }
+    private int Modulo(int caso, ArrayList<Coordinate> crd, int x, int y){
+    	
+    	Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
+		TipoTessera tipo = tessera.getTipoTessera();
+
+		if (tipo == TipoTessera.MODULO_PASSEGGERI) {
+		    if (((ModuloPasseggeri) tessera).getNumeroCosmonauti() > 0) {
+		        
+		    	caso++;
+		    	
+		    	cns.println(""+caso+") MODULO PASSEGGERI in posizione ("+x+";"+y+") e contiente "
+		    				+specificaEquipaggio(((ModuloPasseggeri) tessera)));
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		} else if (tipo == TipoTessera.CENTRO) {
+		    if (((Centro) tessera).getPasseggeriCorrenti() > 0) {
+
+		    	caso++;
+		    	
+		    	cns.println(""+caso+") CENTRO in posizione ("+x+";"+y+") e contiente "
+		    				+((Centro) tessera).getPasseggeriCorrenti()+" cosmonauti");
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		}
+		return caso;
+    }
     public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {
     	int caso;
     	do {
     		caso=0;
     		ArrayList<Coordinate> crd = new ArrayList();
     		
-    		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
+    		crd = trova(caso, 4);
+    		
+    		if(crd == null) { 
     			
-    			for(int y=0; y<this.giocatore.getNave().getPlanciaDellaNave().get(x).size(); y++) {
-    				
-    				Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
-    				TipoTessera tipo = tessera.getTipoTessera();
-
-    				if (tipo == TipoTessera.MODULO_PASSEGGERI) {
-    				    if (((ModuloPasseggeri) tessera).getNumeroCosmonauti() > 0) {
-    				        
-    				    	caso++;
-    				    	
-    				    	cns.println(""+caso+") MODULO PASSEGGERI in posizione ("+x+";"+y+") e contiente "
-    				    				+specificaEquipaggio(((ModuloPasseggeri) tessera)));
-    				    	
-    				    	crd.add(new Coordinate(x, y));
-    				    }
-    				} else if (tipo == TipoTessera.CENTRO) {
-    				    if (((Centro) tessera).getPasseggeriCorrenti() > 0) {
-
-    				    	caso++;
-    				    	
-    				    	cns.println(""+caso+") CENTRO in posizione ("+x+";"+y+") e contiente "
-    				    				+((Centro) tessera).getPasseggeriCorrenti()+" cosmonauti");
-    				    	
-    				    	crd.add(new Coordinate(x, y));
-    				    }
-    				}
-    			}
+    			cns.println("Non ci sono merci nella nave");
+    			break; 
     		}
+    		
+    		caso = crd.size();
+
+    		
     		int sceltaModulo;
     		cns.println("Inserire il numero del Modulo da cui togliere 1 componentye dell'equipaggio");
 			
@@ -149,7 +239,7 @@ public class Pedina{
     		caso=0;
     		ArrayList<Coordinate> crd = new ArrayList();
     		
-    		crd = trovaStiveNonVuote();
+    		crd = trova(caso, 2);
     		
     		if(crd == null) { 
     			
@@ -217,7 +307,7 @@ public class Pedina{
     	}while(elimMerce > 0 && this.giocatore.getNave().getEquipaggio() > 0);
     }
     
-    private String specificaMerci(ArrayList<Merce> stiva) {
+	private String specificaMerci(ArrayList<Merce> stiva) {
     	
     	String txt = "";
     	if(stiva != null) {
@@ -226,41 +316,11 @@ public class Pedina{
         		
         		txt = txt +(i+1)+") "+ stiva.get(i).getTipoMerce() +"  ";
         	}
-    		
     	}else {
     		
     		txt = "nulla";
     	}
-    	
     	return txt;
-    }
-    
-    private ArrayList<Coordinate> trovaStiveNonVuote(boolean isSpeciale){
-    	int caso = 0;
-    	ArrayList<Coordinate> crd = new ArrayList();
-    	crd = null;
-		
-		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
-			
-			for(int y=0; y<this.giocatore.getNave().getPlanciaDellaNave().get(x).size(); y++) {
-				
-				Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
-				TipoTessera tipo = tessera.getTipoTessera();
-				
-				if (tipo == TipoTessera.PORTA_MERCI) {
-				    if (((Stiva) tessera).getNumeroMerciAttuale() > 0) {
-				        
-				    	caso++;
-				    	
-				    	cns.println(""+caso+") "+((Stiva) tessera).getTipoMerciGenerale()+" in posizione ("+x+";"+y+") e contiente "
-				    				+specificaMerci(((Stiva) tessera).getStiva()));
-				    	
-				    	crd.add(new Coordinate(x, y));
-				    }
-				}
-			}
-		}
-    	return crd;
     }
     
     public void distribuzioneMerce(ArrayList<Merce> merci) {///TODO CONTROLLO STIVA SPECIALE E NON
@@ -283,9 +343,9 @@ public class Pedina{
     		
     		cns.println("Stive presenti nella nave:");
     		
-    		crd = trovaStiveNonVuote();
+    		crd = trova(0, 2);
     		
-    		crd.addAll(trovaStiveVuote(crd.size()));
+    		crd.addAll(trova(crd.size(), 3));
     		
     		cns.println("");
     		
@@ -387,37 +447,6 @@ public class Pedina{
     		merci.remove(0);
     	}
     }
-    
-    private ArrayList<Coordinate> trovaStiveVuote(int n, boolean isSpeciale){
-    	
-    	int caso = n;
-    	
-    	ArrayList<Coordinate> crd = new ArrayList();
-    	crd = null;
-		
-		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
-			
-			for(int y=0; y<this.giocatore.getNave().getPlanciaDellaNave().get(x).size(); y++) {
-				
-				Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
-				TipoTessera tipo = tessera.getTipoTessera();
-
-				if (tipo == TipoTessera.PORTA_MERCI) {
-				    if (((Stiva) tessera).getNumeroMerciAttuale() == 0) {
-				        
-				    	caso++;
-				    	
-				    	cns.println(""+caso+") "+((Stiva) tessera).getTipoMerciGenerale()+" vuota in posizione ("+x+";"+y+")");
-				    	
-				    	crd.add(new Coordinate(x, y));
-				    }
-				}
-			}
-		}
-    	
-    	return crd;
-    }
-    
     /**
      * LE prossime due funzioni sono equvalenti una per i scudi e una per il cannone doppio
      * 
