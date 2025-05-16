@@ -262,8 +262,6 @@ public abstract class Nave {
 
     }
     
-    
-    
     /**
      * metodo che crea una lista di tronconiNave e fa scegliere all'utente quale tenere
      * @return troncone di nave scelta
@@ -586,7 +584,7 @@ public abstract class Nave {
     }
 
     /**
-     * Funzione per il conteggio dei connettori scoperti
+     * Metodo per il conteggio dei connettori scoperti
      * Verifica se la tessera e' collegata a qualche cosa
      * Vengono conteggiati tutti i lati che non hanno connessione
      * 
@@ -616,14 +614,14 @@ public abstract class Nave {
     }
 
     /**
-     * Funzione per calcolare l'energia
+     * Metodo per calcolare l'energia
      * dalle batterie sulla nave.
      * 
      * (da eseguire solo all'inizio della 
      * partita, indifferentemente dal livello)
      * 
      * @param tessera
-     * @return
+     * @return totale energia nave
      */
     public int caloclaEnergia(){
         int energia = 0;
@@ -635,16 +633,15 @@ public abstract class Nave {
                 }
             }
         }
-
+        
         return energia;
     }
 
     /**
-     * Funzione per 'utilizzare' (1 gemma) l'energia residua sulla nave. 
+     * Metodo per 'utilizzare' (1 gemma) l'energia residua sulla nave. 
      * Viene generata l'eccezione ErroreRisorse quando si richiede + energia di 
      * quella disponibile
-     * 
-     * 
+     *
      * @throws ErroreRisorse
      */
     public void utilizzaEnergia() throws ErroreRisorse{
@@ -656,10 +653,7 @@ public abstract class Nave {
         	if(stampa.conferma()) {
         		selezionaTesseraEnergia();
                 this.caloclaEnergia();
-        	}else {
-        		throw new ErroreRisorse("");
-        	}
-            
+        	}            
         }
     }
     
@@ -683,7 +677,7 @@ public abstract class Nave {
 			}
     	}
     	
-    	boolean condizione=true;
+    	boolean condizione = true;
 		do{
     		stampa.visualizzaElenco(visual);
     		int indice = Integer.parseInt(stampa.consoleRead())-1;
@@ -695,11 +689,10 @@ public abstract class Nave {
         		condizione=false;
         	}
     	}while(condizione);
-
     }
 
     /**
-     * Funzione per per inserire la merce nella stiva della nave
+     * Metodo per per inserire la merce nella stiva della nave
      * passando l'oggetto merce<
      * 
      * @param coordinate
@@ -708,8 +701,7 @@ public abstract class Nave {
      * @throws ErroreRisorse
      * @throws ErroreTessera
      */
-    public void inserisciMerce(Coordinate coordinate, Merce merceDaInserire)
-    
+    public void inserisciMerce(Coordinate coordinate, Merce merceDaInserire)    
         throws ErroreCoordinate, ErroreRisorse, ErroreTessera{
 
         if(controllaCoordinate(coordinate)){
@@ -727,7 +719,7 @@ public abstract class Nave {
     }
 
     /**
-     * Funzione per rimuovere una merce specifica date coordinate 
+     * Metodo per rimuovere una merce specifica date coordinate 
      * e l'oggetto merce
      * 
      * @param coordinate
@@ -759,7 +751,7 @@ public abstract class Nave {
     }
 
     /**
-     * Funzione per rimuovere l'equipaggio data una cella di coordinate conosciute
+     * Metodo per rimuovere l'equipaggio data una cella di coordinate conosciute
      * e numero di equipaggio da rimuovere
      * 
      * @param coordianteModulo
@@ -771,17 +763,13 @@ public abstract class Nave {
 
         if(controllaCoordinate(coordianteModulo)){
             Tessera tessera = this.nave.get(coordianteModulo.getX()).get(coordianteModulo.getY());
-            
+
             if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-            	
                 ModuloPasseggeri moduloPasseggeri = (ModuloPasseggeri)tessera;
                 moduloPasseggeri.rimuoviEquipaggio();
-                
             }else if(tessera.getTipoTessera() == TipoTessera.CENTRO){
-            	
             	Centro centro = (Centro)tessera;
                 centro.rimuoviPasseggeri(-1);
-                
             }else{
                 throw new ErroreTessera("La cella selezionata non e' del tipo modulo");
             }
@@ -790,6 +778,7 @@ public abstract class Nave {
             throw new ErroreCoordinate("Coordinate immesse non valide");
         }
     }
+    
     /**
      * Stampa della nave
      * @return 
@@ -836,7 +825,7 @@ public abstract class Nave {
     public int getNumeroConnettoriScoperti(){ return this.numeroConnettoriScoperti; }
 
     /**
-     * Funzione che restituisce il numero totale dell'equipaggio presente sulla nave
+     * Metodo che restituisce il numero totale dell'equipaggio presente sulla nave
      * (cosmonauti + alieni rossi + alieni marroni)
      * 
      * @return equipaggio totale (int)
@@ -846,7 +835,7 @@ public abstract class Nave {
 	}
     
     /**
-     * Funzione che restituisce solo il numero di alini viola
+     * Metodo che restituisce solo il numero di alini viola
      * 
      * @return numero di alini viola attualmente presenti sulla nave
      */
@@ -863,7 +852,7 @@ public abstract class Nave {
     }
 
     /**
-     * Funzione che restituisce solo il numero di alini marroni
+     * Metodo che restituisce solo il numero di alini marroni
      * 
      * @return numero di alini marroni attualmente presenti sulla nave
      */
@@ -880,7 +869,7 @@ public abstract class Nave {
     }
     
     /**
-     * Funzione che restituisce solo il numero di astronauti presenti sulla nave
+     * Metodo che restituisce solo il numero di astronauti presenti sulla nave
      * 
      * @return numero di cosmonauti attualmenrte presenti sulla nave
      */
@@ -900,7 +889,7 @@ public abstract class Nave {
 	}
 	
     /**
-     * Funzione che ritorna la potenza dei motori
+     * Metodo che ritorna la potenza dei motori
      * Nel conteggio e' gia' presente il bust portato dagli alini
      * 
      * @return potenza motori
@@ -944,7 +933,7 @@ public abstract class Nave {
 	}
 	
     /**
-     * Funzione che ritorna la potenza dei motori
+     * Metodo che ritorna la potenza dei motori
      * Nel conteggio e' gia' presente il bust portato dagli alini
      * 
      * @return potenza cannoni
