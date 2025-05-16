@@ -207,7 +207,19 @@ public class Pedina{
     		}else {//TODO rifare togli equipaggio
     			
     			((Centro)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaModulo-1).getX()).get(crd.get(sceltaModulo-1).getY())).rimuoviPasseggeri(-1);
-    		}
+    		}// TODO da completare
+    		try {
+				this.giocatore.getNave().rimuoviEquipaggio(crd.get(sceltaModulo-1), sceltaModulo);
+			} catch (ErroreCoordinate e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ErroreRisorse e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ErroreTessera e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		
     		elimEquipaggio--;
     	}while(elimEquipaggio > 0 && this.giocatore.getNave().getEquipaggio() > 0);
