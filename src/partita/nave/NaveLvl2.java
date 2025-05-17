@@ -45,7 +45,7 @@ public class NaveLvl2 extends Nave {
     public NaveLvl2(Colori coloreNave){
         super(coloreNave);
         ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
-        // inizializzazione della nave con elementi nulli
+        // inizializzazione della nave con elementi TessereVuote
         for(int i = 0; i < numeroRighe; i++){
             ArrayList<Tessera> riga = new ArrayList<>();
             for(int j = 0; j < numeroColonne; j++){
