@@ -23,8 +23,6 @@ package gioco;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import partita.ModalitaPartita;
-import partita.configurazione.ConfiguraPartita;
 import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
 
@@ -55,8 +53,8 @@ public class ComunicazioneConUtente {
     }
 
     /**
-     * Funzione per stampare sulla console un messaggio per l'utente
-     * Questa funzione stampa senza l'acapo in automatico
+     * Metodo per stampare sulla console un messaggio per l'utente
+     * Questa Metodo stampa senza l'acapo in automatico
      *  
      * @param msg -> messaggio che si vuole stampare sulla console
      */
@@ -65,8 +63,8 @@ public class ComunicazioneConUtente {
     }
 
     /**
-     * Funzione per stampare sulla console un messaggio per l'utente
-     * Questa funzione stampa l'acapo in automatico
+     * Metodo per stampare sulla console un messaggio per l'utente
+     * Questa Metodo stampa l'acapo in automatico
      *  
      * @param msg -> messaggio che si vuole stampare sulla console
      */
@@ -75,7 +73,7 @@ public class ComunicazioneConUtente {
     }
         
     /**
-     * Funzione per stampare sulla console valori interi
+     * Metodo per stampare sulla console valori interi
      * @param numero
      */
   	public void printNumber(int t) {
@@ -83,7 +81,7 @@ public class ComunicazioneConUtente {
   	}
 
     /**
-     * Funzione per stampare sulla console un errore per l'utente
+     * Metodo per stampare sulla console un errore per l'utente
      * Richiama la: System.err.println()
      *  
      * @param error -> errore che si vuole stampare sulla console
@@ -93,8 +91,8 @@ public class ComunicazioneConUtente {
     }
 
     /**
-     * Funzione per leggere l'input dell'utente sulla console. 
-     * Questa funzione ritorna una stringa, sta al metodo che la chiama 
+     * Metodo per leggere l'input dell'utente sulla console. 
+     * Questa Metodo ritorna una stringa, sta al metodo che la chiama 
      * fare la conversione sul dato che viene immesso. 
      * 
      * Es. (si vuole leggere un numero)
@@ -107,7 +105,7 @@ public class ComunicazioneConUtente {
     }
 
     /**
-     * Funzione per pulire la console stampando 200 righe vuote
+     * Metodo per pulire la console stampando 200 righe vuote
      */
     public void clear() {
     	for(int i=0; i<200; i++) {
@@ -116,12 +114,15 @@ public class ComunicazioneConUtente {
     	
     }
     
-public void inizioGame() {
-	this.println("\033[1;95m"+"GALAXY TRUCKER\n"+"\u001B[0m");
-	this.print("Premi invio per iniziare...");
-	this.consoleRead();
-	this.clear();
-}
+	/**
+	 * Stampa di inizio game
+	 */
+	public void inizioGame() {
+		this.println("\033[1;95m"+"GALAXY TRUCKER\n"+"\u001B[0m");
+		this.print("Premi invio per iniziare...");
+		this.consoleRead();
+		this.clear();
+	}
     
     
     /**
@@ -135,7 +136,7 @@ public void inizioGame() {
     /**
 	 * errore immissione valore non valido
 	 */
-	public void ErroreImmissioneValore() {
+	public void erroreImmissioneValore() {
 		this.printError("Valore immesso non valido!!");
 	}
 
@@ -221,104 +222,7 @@ public void inizioGame() {
             return colorePedina();
         }
         return c;
-    }
-	
-	
-	
-	/**
-	 * stampa interfaccia per modifica conf. partita
-	 * @param p
-	 * @return 
-	 */
-	public int menuModificaScelte(ConfiguraPartita p){
-		int s=0;
-		ArrayList<String> lista=new ArrayList<String>();
-        lista.add("Per modificare il numero dei giocatori");
-        lista.add("Per modificare la modalita' della partita");
-		if(p.getModalitaPartita() == ModalitaPartita.SINGOLA){
-			lista.add("Per modificare la modalita' della partita");
-		}
-		this.print(this.visualizzaElenco(lista));
-		
-		this.print("Inserisci la voce: ");
-		try{
-			s = Integer.parseInt(this.consoleRead());
-		}catch(NumberFormatException nfe){
-			this.ErroreImmissioneValore();
-		}
-		return s;
 	}
-	
-	/**
-	 * stampa interfaccia utente scelta livello partita
-	 * @return livello
-	 */
-	public int livelloPartita() {
-		int livello = 0;
-		ArrayList<String> lista=new ArrayList<String>();
-        lista.add("Primo Livello");
-        lista.add("Secondo Livello");
-        lista.add("Terzo Livello");
-		do{
-			this.println("Livelli disponibili: ");
-			
-			this.print(this.visualizzaElenco(lista));
-			this.print("Inserisci il livello: ");
-			try{
-				livello = Integer.parseInt(this.consoleRead());
-			}catch(NumberFormatException nfe){
-				this.ErroreImmissioneValore();
-			}
-			
-		}while(livello < 1 || livello > 3);
-		
-		return livello;
-	}
-	
-	
-	/**
-	 * interfaccia utente per inserimento num giocatori in conf partita
-	 * @return
-	 */
-	public int numeroGiocatori(){
-		int numeroGiocatori = 0;
-		do{
-			this.print("Inserisci il numero dei giocatori (min 2, max 4): ");
-			try{
-				numeroGiocatori = Integer.parseInt(this.consoleRead());
-			}catch(NumberFormatException nfe){
-				this.ErroreImmissioneValore();
-			}
-		}while(numeroGiocatori < 2 || numeroGiocatori > 4);
-
-		return numeroGiocatori;
-	}
-	
-	
-	
-	/**
-	 * stampa interfaccia utente per scelta modalità partita
-	 * @return ModalitaPartita
-	 */
-	public ModalitaPartita modalitaPartita(){
-		int mod = 0;
-		ArrayList<String> lista=new ArrayList<String>();
-        lista.add("Partita singola");
-        lista.add("Partita multipla");
-		do{
-			this.println("Modalita' partita disponibile: ");
-			this.print(this.visualizzaElenco(lista));
-			this.print("Inserisci la modalita' partita: ");
-			try{
-				mod = Integer.parseInt(this.consoleRead());
-			}catch(NumberFormatException nfe){
-				this.ErroreImmissioneValore();
-			}
-		}while(mod != 1 && mod != 2);
-
-		return (mod == 1)? ModalitaPartita.SINGOLA : ModalitaPartita.MULTIPLA;
-	}
-	
 	
 	/**
 	 * stampa elenco puntato degli elementi tipo stringa della lista
@@ -332,23 +236,9 @@ public void inizioGame() {
 			i++;
 		}
 		return temp;
-		
 	}
 	
 	
-	/**
-	 * stampa resoconto configurazione partita
-	 */
-	public void visualizzaScelte(ConfiguraPartita p){
-		this.clear();
-		this.println("--- Conferma dei valori immessi ---");
-		this.println("Numero giocatori: " + p.getNumeroGiocatori());
-		this.println("Modalita' partita: " + p.getModalitaPartita());
-		if(p.getModalitaPartita() == ModalitaPartita.SINGOLA){
-			this.println("Livello partita: " + p.getLivelloPartita());
-		}
-	}
-
 	public int scegliTroncamenti(Object[] opzioni) {
 		ArrayList<String> temp = null;
 		int scelta=0;
