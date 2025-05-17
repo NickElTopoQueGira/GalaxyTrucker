@@ -8,6 +8,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
+import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import eccezioniPersonalizzate.ErroreRisorse;
@@ -244,9 +245,12 @@ public abstract class Nave {
      * 
      * @param coordinate
      * @throws ErroreTessera
+     * @throws ErroreGiocatore 
      */
-    public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera{
-        // Verifica delle coordinate
+    public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera, ErroreGiocatore{
+    	
+    	
+    	// Verifica delle coordinate
         if(!controllaCoordinate(coordinate)){
             throw new ErroreTessera("Posizione non valida");
         }
@@ -257,8 +261,17 @@ public abstract class Nave {
         }
 
         // rimozione della tessera
-        this.nave.get(coordinate.getX()).set(coordinate.getY(), null);
-        this.nave = this.getTroncamentoNave();
+        Tessera vuota=new TesseraVuota();
+        this.nave.get(coordinate.getX()).set(coordinate.getY(), vuota);
+        
+        //controlla se esiste ancora la nave ed in caso chiama getTroncamento
+        if(this.controllaEsistenzaNave()) {
+        	this.nave = this.getTroncamentoNave();
+        }else {
+        	throw new ErroreGiocatore("La nave è stata totalmete distrutta");
+            
+        }
+        
 
     }
     
@@ -268,6 +281,8 @@ public abstract class Nave {
      */
     private ArrayList<ArrayList<Tessera>> getTroncamentoNave() {
     	Set<ArrayList<ArrayList<Tessera>>> troncamentiNave =new LinkedHashSet<ArrayList<ArrayList<Tessera>>>();
+    	
+    	
     	
     	//controlla esista ancora il centro
     	if(this.controllaPresenzaCentro()) {
@@ -417,7 +432,7 @@ public abstract class Nave {
     }
 
     /**
-     * Metodo per il controllo dell'integrita' della nave
+     * Metodo per il controllo della presenza del centro
      * 
      * @return true -> la nave ha ancora il centro | 
      *         false -> la nave non ha il centro
@@ -428,6 +443,23 @@ public abstract class Nave {
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Metodo per il controllo che la nave esista, ovvero abbia almeno una tessera diversa da TesseraVuota
+     * @return false se non c'è più la nave (tutte le tessere = TesseraVuota)
+     */
+    private boolean controllaEsistenzaNave() {
+    	for(ArrayList<Tessera> colonne : this.parteRestante) {
+			for(Tessera tessera : colonne) {
+				if(tessera.getTipoTessera()!=TipoTessera.VUOTA) {
+					return true;
+				}
+				
+			}
+    	}
+    	return false;
+    	
     }
   
     /**
