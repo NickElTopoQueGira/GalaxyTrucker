@@ -182,26 +182,27 @@ public abstract class Nave {
      */
     private boolean verificaInserimetnoCannone(Coordinate coordinate, Tessera tessera) {
         Cannone cannone = (Cannone) tessera;
+        Tessera vuota= new TesseraVuota();
         // controllo se la cella subito dopo il cannone e' presente un blocco
         try {
             switch (cannone.getLatoCannone()) {
                 case UP -> {
-                    if (nave.get(coordinate.getX()).get(coordinate.getY() - 1) == null) {
+                    if (nave.get(coordinate.getX()).get(coordinate.getY() - 1) == vuota) {
                         return true;
                     }
                 }
                 case LEFT -> {
-                    if (nave.get(coordinate.getX() - 1).get(coordinate.getY()) == null) {
+                    if (nave.get(coordinate.getX() - 1).get(coordinate.getY()) == vuota) {
                         return true;
                     }
                 }
                 case RIGHT -> {
-                    if (nave.get(coordinate.getX() + 1).get(coordinate.getY()) == null) {
+                    if (nave.get(coordinate.getX() + 1).get(coordinate.getY()) == vuota) {
                         return true;
                     }
                 }
                 case DOWN -> {
-                    if (nave.get(coordinate.getX()).get(coordinate.getY() + 1) == null) {
+                    if (nave.get(coordinate.getX()).get(coordinate.getY() + 1) == vuota) {
                         return true;
                     }
                 }
@@ -227,9 +228,10 @@ public abstract class Nave {
      *         falso -> il motore non puo' essere posizionato
      */
     private boolean verificaInserimentoMotore(Coordinate coordinate, Tessera tessera){
+    	Tessera vuota= new TesseraVuota();
         // controllo se il pezzo subito sotto e' libero
         try{
-            if(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()) == null){
+            if(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()) == vuota){
                 return true;
             }
         }catch(IndexOutOfBoundsException iobx){
@@ -248,7 +250,7 @@ public abstract class Nave {
      * @throws ErroreGiocatore 
      */
     public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera, ErroreGiocatore{
-    	
+    	Tessera vuota=new TesseraVuota();
     	
     	// Verifica delle coordinate
         if(!controllaCoordinate(coordinate)){
@@ -256,12 +258,12 @@ public abstract class Nave {
         }
 
         // rimozione tessera
-        if(null == this.nave.get(coordinate.getX()).get(coordinate.getY())){
+        if(vuota == this.nave.get(coordinate.getX()).get(coordinate.getY())){
             throw new ErroreTessera("Impossibile rimuovere la tessera nella posizoine specificata");
         }
 
         // rimozione della tessera
-        Tessera vuota=new TesseraVuota();
+        
         this.nave.get(coordinate.getX()).set(coordinate.getY(), vuota);
         
         //controlla se esiste ancora la nave ed in caso chiama getTroncamento
