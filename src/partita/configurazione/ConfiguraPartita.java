@@ -141,7 +141,7 @@ public class ConfiguraPartita{
 		elenco.add("Per modificare la modalita' della partita");
 		
 		if(this.modalitaPartita == ModalitaPartita.SINGOLA){
-			elenco.add("Per modificare la modalita' della partita");
+			elenco.add("Per modificare il livello della partita");
 		}
 		this.com.print(this.com.visualizzaElenco(elenco));
 		this.com.print("Inserisci la voce: ");
