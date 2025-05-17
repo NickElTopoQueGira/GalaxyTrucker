@@ -89,7 +89,7 @@ public class ConfiguraPartita{
 			}
 		}while(mod != 1 && mod != 2);
 
-		return (mod == 1)? ModalitaPartita.SINGOLA : ModalitaPartita.MULTIPLA;
+		return ModalitaPartita.toModalitaPartita(mod);
 	}
 
 	/**
