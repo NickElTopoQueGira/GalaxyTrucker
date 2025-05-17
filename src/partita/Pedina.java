@@ -18,46 +18,31 @@ public class Pedina{
     private ComunicazioneConUtente cns;
     private int numeroGiro;  // DA USARE
     
-    public Pedina(Colori colorePedina){
-        this.colorePedina = colorePedina;
+    public Pedina(Giocatore giocatore, Colori colorePedina){
+        this.giocatore = giocatore;
+		this.colorePedina = colorePedina;
         this.posizioneSulTabellone = 0;
         this.numeroGiro = 1;
     }
     
-   public void controlloPosizioneSulTabellone() {
-	 /*
-	  * NICK QUA FAMMI UNA ROBA TIPO: if(this.posizioneSulTabellone > numeroPosizioniTabellone) {
-	  * 									this.posizioneSulTabellone = this.posizioneSulTabellone - numeroPosizioniTabellone; 
-	  * 									numeroGiri++;
-	  * 								}
-	  */
-																						
-   }
-
     public Colori getColorePedina() { 
         return this.colorePedina; 
-    }
-
-    public void muoviPedina(int posizioni){
-        this.posizioneSulTabellone += posizioni;
     }
 
     public void setPosizioneSulTabellone(int posizioneSulTabellone){
         this.posizioneSulTabellone = posizioneSulTabellone;
     }
 
-    public int getPosizioneSulTabellone(){ 
-        return this.posizioneSulTabellone; 
-    }
-    public void setGiocatore(Giocatore giocatore) {
-        this.giocatore = giocatore;
-    }
+    public int getPosizioneSulTabellone(){ return this.posizioneSulTabellone; }
 
-    public Giocatore getGiocatore() {
-        return this.giocatore;
-    }
+	public Giocatore getGiocatore(){ return this.giocatore; }
+
+	public int getNumeroGiro(){ return this.numeroGiro; }
+
+	public void setNumeroGiro(int numeroGiro){ this.numeroGiro += numeroGiro;}
+
     /**
-     * funzione che in base al numero di equipaggio che devono venir tolti, 
+     * Metodo che in base al numero di equipaggio che devono venir tolti, 
      * ti mostra tutti i moduli da cui si può rimuovere un componente dell'equipaggio, 
      * e specifica se alieno o no, e ti fa scegliere da dove toglierlo
      * 
@@ -67,7 +52,7 @@ public class Pedina{
     	
     	int caso = n;
     	
-    	ArrayList<Coordinate> crd = new ArrayList();
+    	ArrayList<Coordinate> crd = new ArrayList<Coordinate>();
     	crd = null;
 		
 		for(int x=0; x<this.giocatore.getNave().getPlanciaDellaNave().size(); x++) {
@@ -90,6 +75,7 @@ public class Pedina{
     	
     	return crd;
     }
+
     private int StiveVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
     	Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
@@ -107,7 +93,8 @@ public class Pedina{
 		}
 		return caso;
     }
-    private int StiveNonVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
+    
+	private int StiveNonVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
     	Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
@@ -125,7 +112,8 @@ public class Pedina{
 		}
 		return caso;
     }
-    private int StiveSpeciali(int caso, ArrayList<Coordinate> crd, int x, int y){
+    
+	private int StiveSpeciali(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
     	Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
@@ -143,7 +131,8 @@ public class Pedina{
 		}
 		return caso;
     }
-    private int Modulo(int caso, ArrayList<Coordinate> crd, int x, int y){
+    
+	private int Modulo(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
     	Tessera tessera = this.giocatore.getNave().getPlanciaDellaNave().get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
@@ -171,11 +160,12 @@ public class Pedina{
 		}
 		return caso;
     }
+
     public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {
     	int caso;
     	do {
     		caso=0;
-    		ArrayList<Coordinate> crd = new ArrayList();
+    		ArrayList<Coordinate> crd = new ArrayList<Coordinate>();
     		
     		crd = trova(caso, 4);
     		
@@ -205,8 +195,6 @@ public class Pedina{
 				this.giocatore.getNave().rimuoviEquipaggio(crd.get(sceltaModulo-1), sceltaModulo);
 			} catch (ErroreCoordinate e) {
 				e.printStackTrace();
-			} catch (ErroreRisorse e) {
-				e.printStackTrace();
 			} catch (ErroreTessera e) {
 				e.printStackTrace();
 			}
@@ -214,7 +202,8 @@ public class Pedina{
     		elimEquipaggio--;
     	}while(elimEquipaggio > 0 && this.giocatore.getNave().getEquipaggio() > 0);
     }
-    private String specificaEquipaggio(ModuloPasseggeri mp) { //non serve, c'è gia nel toLegenda() della tessera modulopassggeri
+    
+	private String specificaEquipaggio(ModuloPasseggeri mp) { //non serve, c'è gia nel toLegenda() della tessera modulopassggeri
     	
     	String txt = null;
     	
