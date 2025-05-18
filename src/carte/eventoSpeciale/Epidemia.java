@@ -10,11 +10,16 @@ import tessera.modulo_passeggeri.*;
 public class Epidemia extends EventiSpeciali {
 	
 	private ComunicazioneConUtente stampa;
-	
+	/**
+	 * Costruttore Epidemia
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * @param lvl
+	 */
 	public Epidemia (int lvl) {
 		
 		super(lvl, TipoCarta.EPIDEMIA);
 	}
+	
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		

@@ -18,6 +18,12 @@ public class Pianeta extends Carta {
 	private ArrayList<ArrayList<Merce>> pianeti;
 	private ComunicazioneConUtente stampa;
 	
+	/**
+	 * Costruttore Pianeta
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * metodo: GeneraValori() per generare i attributi della carta
+	 * @param lvl
+	 */
 	public Pianeta (int lvl) {
 		
 		super(lvl, TipoCarta.PIANETA);
@@ -234,7 +240,7 @@ public class Pianeta extends Carta {
 				
 				elencoPedine.get(elenco).distribuzioneMerce(this.pianeti.get(scelta));
 				
-				elencoPedine.get(elenco).muoviPedina(-penalitagiorni);
+				elencoPedine.get(elenco).getTabellone().muoviPedina(elencoPedine.get(elenco), -penalitagiorni);
 				
 				this.pianeti.remove(scelta);
 			}

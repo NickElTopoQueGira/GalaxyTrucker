@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import carte.meteore.*;
+import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import partita.Pedina;
@@ -19,6 +20,12 @@ public class ZonaGuerra extends Carta {
 	private int equipaggiPersi, giorniPersi, merciPersi;
 	private ComunicazioneConUtente stampa;
 	
+	/**
+	 * Costruttore ZonaGuerra
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * metodo: GeneraValori() per generare i attributi della carta
+	 * @param lvl
+	 */
 	public ZonaGuerra (int lvl) {
 		
 		super(lvl, TipoCarta.ZONA_GUERRA);
@@ -247,7 +254,12 @@ public class ZonaGuerra extends Carta {
 						if(!sceltaFermareColpo){
 							
 							try {
-								pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+								try {
+									pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+								} catch (ErroreGiocatore e) {
+									
+									e.printStackTrace();
+								}
 								
 							} catch (ErroreTessera e) {
 								
@@ -259,9 +271,9 @@ public class ZonaGuerra extends Carta {
 						
 						stampa.println("COLPO HA MANCATO LA NAVE");
 					}
-					
+					//TODO controllo integrita nave
 					j++;
-				}while(this.colpi.get(j) != null); // TODO || nave is distrutta ||....
+				}while(j < this.colpi.size()); 
 			}
 			default ->{
 				

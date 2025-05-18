@@ -17,7 +17,12 @@ public class Contrabbandieri extends Nemici {
 	private ArrayList<Merce> merci;
 	private ComunicazioneConUtente stampa;
 	
-
+	/**
+	 * Costruttore della carta Contrabbandieri.
+	 * In base al livello (1-3), inizializza la potenza necessaria, merci ottenibili,
+	 * penalità in giorni e merci perse. Ottiene inoltre l'istanza della classe di comunicazione.
+	 * @param lvl 
+	 */
 	public Contrabbandieri (int lvl) {		
 		super(lvl, TipoCarta.CONTRABBANDIERI);
 		
@@ -27,6 +32,10 @@ public class Contrabbandieri extends Nemici {
 		GeneraValori();
 	}
 	
+	/**
+	 * Metodo principale di generazione dei valori.
+	 * Richiama i metodi per inizializzare merci, potenza, merci perse e giorni persi.
+	 */
 	private void GeneraValori() {
 		GeneraMerci();
 		GeneraPotenzaNecessaria();
@@ -34,6 +43,10 @@ public class Contrabbandieri extends Nemici {
 		GeneraGiorniPersi();
 	}
 	
+	/**
+	 * Genera casualmente la combinazione di merci ottenibili sconfiggendo i contrabbandieri.
+	 * I tipi e la quantità di merci dipendono dal livello della carta.
+	 */
 	private void GeneraMerci() {
 		Random random = new Random();
 		int vtdp=0, numMerci=0;
@@ -100,6 +113,10 @@ public class Contrabbandieri extends Nemici {
 		
 	}
 	
+	/**
+	 * Genera la potenza minima necessaria affinché una nave possa sconfiggere i contrabbandieri.
+	 * Il valore è casuale e dipende dal livello della carta.
+	 */
 	private void GeneraPotenzaNecessaria() {
 		
 		Random random = new Random();
@@ -121,6 +138,10 @@ public class Contrabbandieri extends Nemici {
 		}
 	}
 	
+	/**
+	 * Imposta il numero di merci perse se la nave non ha abbastanza potenza per sconfiggere i nemici.
+	 * Il valore dipende dal livello della carta.
+	 */
 	private void GeneraMercePersa() {
 		switch(this.lvl) {
 		case 3 ->{
@@ -139,6 +160,10 @@ public class Contrabbandieri extends Nemici {
 		}
 	}
 	
+	/**
+	 * Genera la penalità in giorni da subire se si desidera ottenere le merci.
+	 * Il valore varia in base al livello della carta.
+	 */
 	private void GeneraGiorniPersi() {
 		
 		Random random = new Random();
@@ -174,6 +199,13 @@ public class Contrabbandieri extends Nemici {
 		return temp;
 	}
 	
+	/**
+	 * Esegue l'effetto della carta Contrabbandieri. Per ogni giocatore ancora in gara:
+	 * - se ha potenza sufficiente, può scegliere se ottenere merci perdendo giorni;
+	 * - se ha potenza insufficiente, perde un certo numero di merci.
+	 * @param elencoPedine lista delle pedine dei giocatori
+	 * @return la lista aggiornata delle pedine dopo l'esecuzione della carta
+	 */
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
@@ -202,7 +234,7 @@ public class Contrabbandieri extends Nemici {
 					}
 					elencoPedine.get(elenco).distribuzioneMerce(this.merci);
 					
-					elencoPedine.get(elenco).muoviPedina(-this.penalitagiorni);
+					elencoPedine.get(elenco).getTabellone().muoviPedina(elencoPedine.get(elenco), -this.penalitagiorni);
 				}
 				
 				isCartaCompletata = true;

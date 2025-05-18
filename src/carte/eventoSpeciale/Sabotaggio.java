@@ -3,6 +3,7 @@ package carte.eventoSpeciale;
 import java.util.ArrayList;
 import java.util.Random;
 import carte.*;
+import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import partita.Pedina;
 import partita.giocatore.Giocatore;
@@ -10,7 +11,12 @@ import tessera.Coordinate;
 import tessera.TipoTessera;
 
 public class Sabotaggio extends EventiSpeciali {
-
+	
+	/**
+	 * Costruttore Sabotaggio
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * @param lvl
+	 */
 	public Sabotaggio (int lvl) {
 		
 		super(lvl, TipoCarta.SABOTAGGIO);
@@ -57,7 +63,12 @@ public class Sabotaggio extends EventiSpeciali {
 			if(elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().getPlanciaDellaNave().get(colonna).get(riga).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
 				
 				try {
-					elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().rimuoviTessera(new Coordinate(colonna, riga));
+					try {
+						elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().rimuoviTessera(new Coordinate(colonna, riga));
+					} catch (ErroreGiocatore e) {
+						
+						e.printStackTrace();
+					}
 					
 					isUnitaAbitativaColpita = true;
 				} catch (ErroreTessera err) {

@@ -3,6 +3,7 @@ package carte.nemico;
 import java.util.*;
 import carte.*;
 import carte.meteore.*;
+import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import partita.Pedina;
@@ -19,6 +20,12 @@ public class Pirati extends Nemici {
 	
 	private ArrayList<Meteorite> colpi;
 	
+	/**
+	 * Costruttore Pirati
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * metodo: GeneraValori() per generare i attributi della carta
+	 * @param lvl
+	 */
 	public Pirati (int lvl) {
 		
 		super(lvl, TipoCarta.PIRATI);
@@ -193,7 +200,7 @@ public class Pirati extends Nemici {
 					
 					elencoPedine.get(elenco).getGiocatore().aggiornaCrediti(this.guadagno);
 					
-					elencoPedine.get(elenco).muoviPedina(-this.penalitagiorni);
+					elencoPedine.get(elenco).getTabellone().muoviPedina(elencoPedine.get(elenco), -this.penalitagiorni);
 				}
 				
 				isCartaCompletata = true;
@@ -224,7 +231,12 @@ public class Pirati extends Nemici {
 						if(!sceltaFermareColpo){
 							
 							try {
-								elencoPedine.get(elenco).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+								try {
+									elencoPedine.get(elenco).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+								} catch (ErroreGiocatore e) {
+									
+									e.printStackTrace();
+								}
 								
 							} catch (ErroreTessera e) {
 								
@@ -236,13 +248,13 @@ public class Pirati extends Nemici {
 						
 						stampa.println("COLPO HA MANCATO LA NAVE");
 					}
-					
+					//TODO controllo integrita nave
 					j++;
-				}while(this.colpi.get(j) != null); // TODO || nave is distrutta ||....
+				}while(j < this.colpi.size()); 
 			}
 			
 			
-		}while(!isCartaCompletata || elenco<elencoPedine.size());
+		}while(!isCartaCompletata && elenco < elencoPedine.size());
 		
 		
 		return elencoPedine;

@@ -55,7 +55,9 @@ public class Centro extends Tessera {
 	 */
 	@Override
 	public String toLegenda() {
-		return "centro";
+		
+		String temp="centro cosmonauti: "+this.getPasseggeriCorrenti()+"/"+this.massimo;
+		return temp;
 	}
 	
 

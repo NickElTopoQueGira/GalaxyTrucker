@@ -1,6 +1,7 @@
 package carte;
 
 import carte.meteore.*;
+import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
@@ -20,6 +21,12 @@ public class PioggiaMeteoriti extends Carta {
 	public ArrayList<Meteorite> meteoriti;
 	private ComunicazioneConUtente stampa;
 	
+	/**
+	 * Costruttore PioggiaMeteoriti
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * metodo: GeneraValori() per generare i attributi della carta
+	 * @param lvl
+	 */
 	public PioggiaMeteoriti (int lvl) {
 		
 		super(lvl, TipoCarta.PIOGGIA_METEORITI);
@@ -155,7 +162,12 @@ public class PioggiaMeteoriti extends Carta {
 					if(!sceltaFermareMeteorite){
 						
 						try {
-							elencoPedine.get(j).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+							try {
+								elencoPedine.get(j).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+							} catch (ErroreGiocatore e) {
+								
+								e.printStackTrace();
+							}
 							 
 						} catch (ErroreTessera e) {
 							

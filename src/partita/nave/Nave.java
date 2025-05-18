@@ -26,6 +26,7 @@ import tessera.cannone.Cannone;
 import tessera.cannone.TipoCannone;
 import tessera.merce.Merce;
 import tessera.merce.Stiva;
+import tessera.merce.TipoStiva;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.motore.Motore;
 import tessera.motore.TipoMotore;
@@ -52,7 +53,7 @@ public abstract class Nave {
 
     /**
      * Costruttore della Nave
-     * (fa tante cose belle)
+     * (fa tante cose belle) :D
      * @param coloreNave
      */
     public Nave(Colori coloreNave){
@@ -181,7 +182,8 @@ public abstract class Nave {
      *         falso -> il cannone non puo' essere posizionato
      */
     private boolean verificaInserimetnoCannone(Coordinate coordinate, Tessera tessera) {
-        Cannone cannone = (Cannone) tessera;
+        
+    	Cannone cannone = (Cannone) tessera;
         Tessera vuota= new TesseraVuota();
         // controllo se la cella subito dopo il cannone e' presente un blocco
         try {
@@ -212,7 +214,6 @@ public abstract class Nave {
             // quindi di default, posso mettere il pezzo
             return true;
         }
-
         return false;
     }
 
@@ -273,8 +274,6 @@ public abstract class Nave {
         	throw new ErroreGiocatore("La nave è stata totalmete distrutta");
             
         }
-        
-
     }
     
     /**
@@ -1024,4 +1023,113 @@ public abstract class Nave {
         }
 		return potenzaCannoni;
 	}
+	
+    public ArrayList<Coordinate> trova(int n, int scelta){
+    	
+    	int caso = n;
+    	
+    	ArrayList<Coordinate> crd = new ArrayList<Coordinate>();
+    	crd = null;
+		
+		for(int x=0; x<this.nave.size(); x++) {
+			
+			for(int y=0; y<this.nave.get(x).size(); y++) {
+				
+				switch(scelta) {
+				case 1: caso = StiveVuote(caso, crd, x, y); break;
+					
+				case 2: caso = StiveNonVuote(caso, crd, x, y); break;
+				
+				case 3: caso = StiveSpeciali(caso, crd, x, y); break;
+				
+				case 4: caso = Modulo(caso, crd, x, y); break;
+				
+				default:	break;
+				}
+			}
+		}
+    	
+    	return crd;
+    }
+
+    private int StiveVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
+    	
+    	Tessera tessera = this.nave.get(x).get(y);
+		TipoTessera tipo = tessera.getTipoTessera();
+
+		if (tipo == TipoTessera.PORTA_MERCI) {
+		    if (((Stiva) tessera).getNumeroMerciAttuale() == 0) {
+		        
+		    	caso++;
+		    	
+		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		}
+		return caso;
+    }
+    
+	private int StiveNonVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
+    	
+    	Tessera tessera = this.nave.get(x).get(y);
+		TipoTessera tipo = tessera.getTipoTessera();
+		
+		if (tipo == TipoTessera.PORTA_MERCI) {
+		    if (((Stiva) tessera).getNumeroMerciAttuale() > 0) {
+		        
+		    	caso++;
+		    	
+		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		}
+		return caso;
+    }
+    
+	private int StiveSpeciali(int caso, ArrayList<Coordinate> crd, int x, int y){
+    	
+    	Tessera tessera = this.nave.get(x).get(y);
+		TipoTessera tipo = tessera.getTipoTessera();
+
+		if (tipo == TipoTessera.PORTA_MERCI) {
+		    if (((Stiva) tessera).getTipoMerciGenerale() == TipoStiva.SPECIALI) {
+		        
+		    	caso++;
+		    	
+		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		}
+		return caso;
+    }
+    
+	private int Modulo(int caso, ArrayList<Coordinate> crd, int x, int y){
+    	
+    	Tessera tessera = this.nave.get(x).get(y);
+		TipoTessera tipo = tessera.getTipoTessera();
+
+		if (tipo == TipoTessera.MODULO_PASSEGGERI) {
+		    if (((ModuloPasseggeri) tessera).getNumeroCosmonauti() > 0) {
+		        
+		    	caso++;
+   	
+		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	 
+		    	crd.add(new Coordinate(x, y));
+		    }
+		} else if (tipo == TipoTessera.CENTRO) {
+		    if (((Centro) tessera).getPasseggeriCorrenti() > 0) {
+
+		    	caso++;
+   	
+		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	
+		    	crd.add(new Coordinate(x, y));
+		    }
+		}
+		return caso;
+    }
 }

@@ -10,6 +10,12 @@ public class NaveAbbandonata extends Carta {
 	private int guadagno, giornipersi, perditaequipaggio;
 	private ComunicazioneConUtente stampa;
 	
+	/**
+	 * Costruttore NaveAbbandonata
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * metodo: GeneraValori() per generare i attributi della carta
+	 * @param lvl
+	 */
 	public NaveAbbandonata (int lvl) {
 		
 		super(lvl, TipoCarta.NAVE_ABBANDONATA);
@@ -18,12 +24,25 @@ public class NaveAbbandonata extends Carta {
 		
 	}
 	
+	/**
+	 * Metodo per riodinare le varie creazioni dei attributi
+	 * e chiama i metodi:
+	 * -GeneraGuadagno()
+	 * -GeneraPerditaEquipaggio()
+	 * -GeneraGiorniPersi()
+	 */
 	private void GeneraValori() {
 		GeneraGuadagno();
 		GeneraPerditaEquipaggio();
 		GeneraGiorniPersi();
 	}
 	
+	/**
+	 * Metodo che in base al livello della carta genera in maniera 
+	 * random l'attribbuto guadagno della carta 
+	 * this.guadagno -> se il giocatore completa la carta guadagnerà
+	 * 					ciceverà 'this.guadagno' crediti cosmici
+	 */
 	private void GeneraGuadagno() {
 		
 		Random random = new Random();
@@ -44,8 +63,13 @@ public class NaveAbbandonata extends Carta {
 		}
 	}
 	
+	/**
+	 * Metodo che in base al livello della carta e al numero di 'this.guadagno' 
+	 * genera in maniera random l'attribbuto numero dell'equipaggio che si perderà
+	 * this.perditaequipaggio -> il giocatore per completare la carta (e avere i crediti)
+	 * 							 dovra perdere 'this.perditaequipaggio' mebri dell'equipaggio
+	 */
 	private void GeneraPerditaEquipaggio() {
-		
 		
 		Random random = new Random();
 		
@@ -89,6 +113,14 @@ public class NaveAbbandonata extends Carta {
 		}
 	}
 	
+	/**
+	 * Metodo  che in base al numero di 'this.guadagno' 
+	 * genera in maniera random l'attribbuto numero dei giorni 
+	 * di viaggio persi 
+	 * 
+	 * this.giornipersi -> al completamento dellla carta il giocatore
+	 * 					   perderà 'this.giornipersi' giorni di volo
+	 */
 	private void GeneraGiorniPersi() {
 		
 		if(this.guadagno < 8) {
@@ -136,7 +168,7 @@ public class NaveAbbandonata extends Carta {
 	}
 
 	@Override
-	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
+	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) { 
 		
 		boolean isCartaCompletata = false;
 		int elenco = -1;
@@ -144,15 +176,15 @@ public class NaveAbbandonata extends Carta {
 		do {
 			elenco++;
 			
-			if(elencoPedine.get(elenco).getGiocatore().getNave().getEquipaggio() >= this.perditaequipaggio) {
+			if(elencoPedine.get(elenco).getGiocatore().getNave().getEquipaggio() >= this.perditaequipaggio) { // CONTROLLA SE HA ABBASTANZA NUMERO DI EQUIPAGGIO
 				
-				if(elencoPedine.get(elenco).sceltaScambioCreditiConGiorni(giornipersi, guadagno, perditaequipaggio)) {
+				if(elencoPedine.get(elenco).sceltaScambioCreditiConGiorni(giornipersi, guadagno, perditaequipaggio)) { // FA SCEGLIERE AL GIOCATORE SE VUOLE COMPLETARE LA CARTYA
 					
 					elencoPedine.get(elenco).selezionaEquipaggioDaEliminare(this.perditaequipaggio);
 					
 					elencoPedine.get(elenco).getGiocatore().aggiornaCrediti(this.guadagno);
 					
-					elencoPedine.get(elenco).muoviPedina(-this.giornipersi);
+					elencoPedine.get(elenco).getTabellone().muoviPedina(elencoPedine.get(elenco), -this.giornipersi);
 					
 					isCartaCompletata = true;
 				}
@@ -161,13 +193,8 @@ public class NaveAbbandonata extends Carta {
 				stampa.println("LA NAVE NON HA ABBASTANZA EQUIPAGGIO ");
 			}
 			
-		}while(!isCartaCompletata && elenco<elencoPedine.size());
+		}while(!isCartaCompletata && elenco<elencoPedine.size()); //CONTROLLO SE LA CARTA è STATA COMPLETATA O SE NON CI SONO ALTRI GIOCATORI
 		
 		return elencoPedine;
 	}
-
-	
-
-
-	
 }

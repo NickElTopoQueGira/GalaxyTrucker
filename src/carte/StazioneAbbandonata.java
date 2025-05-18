@@ -18,6 +18,13 @@ public class StazioneAbbandonata extends Carta {
 	
 	private ComunicazioneConUtente stampa;
 	
+	/**
+	 * Costruttore StazioneAbbandonata
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * inizializza la lista merci e genera gli attributi della carta
+	 * metodo: GeneraValori() per creare i valori iniziali
+	 * @param lvl
+	 */
 	public StazioneAbbandonata (int lvl) {
 		
 		super(lvl, TipoCarta.STAZIONE_ABBANDONATA);
@@ -25,12 +32,27 @@ public class StazioneAbbandonata extends Carta {
 		GeneraValori();
 	}
 	
+	/**
+	 * Metodo per riodinare le varie creazioni dei attributi
+	 * e chiama i metodi:
+	 * -GeneraGiocatoriNecessari()
+	 * -SceltaGiorniPenalita()
+	 * -GeneraMerce()
+	 */
 	private void GeneraValori() {
 		GeneraGiocatoriNecessari();
 		SceltaGiorniPenalita();
 		GeneraMerce();
 	}
 	
+	/**
+	 * Metodo che in base al livello della carta genera in maniera 
+	 * random l'attribbuto numero di membri dell'equipaggio necessari
+	 * per completare la carta 
+	 * 
+	 * this.giocatorinecessari -> il numero minimo di membri dell'equipaggio
+	 * 							  richiesti sulla nave del giocatore
+	 */
 	private void GeneraGiocatoriNecessari() {
 
 		Random random = new Random();
@@ -53,6 +75,13 @@ public class StazioneAbbandonata extends Carta {
 		}
 	}
 	
+	/**
+	 * Metodo che in base al numero di 'this.giocatorinecessari' 
+	 * genera in maniera determinata il numero dei giorni di penalità
+	 * 
+	 * this.penalitagiorni -> al completamento della carta il giocatore
+	 * 						  perderà 'this.penalitagiorni' giorni di volo
+	 */
 	private void SceltaGiorniPenalita() {
 		
 		
@@ -64,6 +93,13 @@ public class StazioneAbbandonata extends Carta {
 		}
 	}
 	
+	/**
+	 * Metodo che in base al livello della carta genera in maniera randomica 
+	 * un numero di merci (rosse, gialle, verdi, blu) da assegnare al giocatore
+	 * 
+	 * this.merci -> lista di oggetti 'Merce' che rappresentano le risorse
+	 * 				 ottenute al completamento della carta
+	 */
 	private void GeneraMerce() {
 		
 		Random random = new Random();
@@ -166,7 +202,7 @@ public class StazioneAbbandonata extends Carta {
 					
 					elencoPedine.get(elenco).distribuzioneMerce(this.merci);
 					
-					elencoPedine.get(elenco).muoviPedina(-penalitagiorni);
+					elencoPedine.get(elenco).getTabellone().muoviPedina(elencoPedine.get(elenco), -penalitagiorni);
 					
 					isCartaCompletata = true;
 				}

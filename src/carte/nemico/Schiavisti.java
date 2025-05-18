@@ -13,6 +13,12 @@ public class Schiavisti extends Nemici {
 	private int guadagno;
 	private ComunicazioneConUtente stampa;
 	
+	/**
+	 * Costruttore Schiavisti
+	 * super -> gli passiamo il livello e il tipo di carta SCHIAVISTI
+	 * inizializza i valori relativi al nemico tramite il metodo GeneraValori()
+	 * @param lvl 
+	 */
 	public Schiavisti (int lvl) {
 		
 		super(lvl, TipoCarta.SCHIAVISTI);
@@ -20,6 +26,10 @@ public class Schiavisti extends Nemici {
 		stampa= ComunicazioneConUtente.getIstanza();
 	}
 	
+	/**
+     * Metodo di supporto che genera i valori caratteristici della carta:
+     * potenza necessaria, penalità in termini di equipaggio e giorni, e guadagno.
+     */
 	private void GeneraValori() {
 		GeneraGuadagno();
 		GeneraPotenzaNecessaria();
@@ -27,6 +37,10 @@ public class Schiavisti extends Nemici {
 		GeneraGiorniPersi();
 	}
 	
+	/**
+     * Genera casualmente il numero di crediti che si possono guadagnare
+     * in caso di vittoria, in base al livello della carta.
+     */
 	private void GeneraGuadagno() {
 		Random random = new Random();
 		
@@ -47,6 +61,10 @@ public class Schiavisti extends Nemici {
 		
 	}
 	
+	/**
+     * Genera la potenza necessaria per sconfiggere il nemico,
+     * in base al livello della carta.
+     */
 	private void GeneraPotenzaNecessaria() {
 		
 		Random random = new Random();
@@ -68,6 +86,11 @@ public class Schiavisti extends Nemici {
 		}
 	}
 	
+	/**
+	 * Imposta la quantità di membri dell'equipaggio che verranno persi se la nave
+	 * non ha potenza sufficiente a sconfiggere i nemici.
+	 * Il valore dipende dal livello della carta.
+	 */
 	private void GeneraEquipaggioPerso() {
 		switch(this.lvl) {
 		case 3 ->{
@@ -86,6 +109,10 @@ public class Schiavisti extends Nemici {
 		}
 	}
 	
+	/**
+	 * Genera la penalità in giorni da subire se si desidera ottenere il guadagno in crediti.
+	 * Il valore varia in base al livello della carta.
+	 */
 	private void GeneraGiorniPersi() {
 		
 		Random random = new Random();
@@ -119,6 +146,13 @@ public class Schiavisti extends Nemici {
 		return temp;
 	}
 	
+	/**
+	 * Esegue l'effetto della carta Schiavisti. Per ogni giocatore ancora in gara:
+	 * - se ha potenza sufficiente, può scegliere se ottenere crediti perdendo giorni;
+	 * - se ha potenza insufficiente, perde membri dell'equipaggio.
+	 * @param elencoPedine lista delle pedine dei giocatori
+	 * @return la lista aggiornata delle pedine dopo l'esecuzione della carta
+	 */
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
 		boolean isCartaCompletata = false;
@@ -143,7 +177,7 @@ public class Schiavisti extends Nemici {
 					
 					elencoPedine.get(elenco).getGiocatore().aggiornaCrediti(this.guadagno);
 					
-					elencoPedine.get(elenco).muoviPedina(-this.penalitagiorni);
+					elencoPedine.get(elenco).getTabellone().muoviPedina(elencoPedine.get(elenco), -this.penalitagiorni);
 				}
 				
 				isCartaCompletata = true;
