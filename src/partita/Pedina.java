@@ -15,6 +15,7 @@ public class Pedina{
     private int posizioneSulTabellone;
     private ComunicazioneConUtente cns;
     private int numeroGiro;
+	private boolean inGioco;
     
 	public Pedina(Giocatore giocatore){
 		this.tabellone = null;
@@ -22,6 +23,7 @@ public class Pedina{
 		this.colorePedina = this.giocatore.getColorePedina();
 		this.posizioneSulTabellone = 0;
 		this.numeroGiro = 1;
+		this.inGioco = true;
 	}
 
     public Pedina(Tabellone tabellone, Giocatore giocatore){
@@ -30,6 +32,7 @@ public class Pedina{
 		this.colorePedina = this.giocatore.getColorePedina();
         this.posizioneSulTabellone = 0;
         this.numeroGiro = 1;
+		this.inGioco = true;
     }
     
     public Tabellone getTabellone() {
@@ -55,6 +58,12 @@ public class Pedina{
 	public int getNumeroGiro(){ return this.numeroGiro; }
 
 	public void setNumeroGiro(int numeroGiro){ this.numeroGiro += numeroGiro;}
+
+	public boolean isPedinaInGioco(){ return this.inGioco; }
+
+	public void setPedinaOutGioco(){ this.inGioco = false; }
+
+	public void setPedinaInGioco(){ this.inGioco = true; }
 
     /**
      * Metodo che in base al numero di equipaggio che devono venir tolti, 
