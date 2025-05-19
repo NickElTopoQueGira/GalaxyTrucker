@@ -7,8 +7,6 @@ import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Tessera;
 import tessera.TipoTessera;
-import tessera.motore.Motore;
-import tessera.motore.TipoMotore;
 
 public class Stiva extends Tessera {
 

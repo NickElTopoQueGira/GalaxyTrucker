@@ -17,7 +17,6 @@ public enum TipoMerce {
 	TipoMerce(int valore, String name) {
 		this.valore = valore;
 		this.name = name;
-		
 	}
 
 	public int getValore() {
