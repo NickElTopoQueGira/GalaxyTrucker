@@ -9,14 +9,10 @@ import partita.nave.NaveLvl2;
 import partita.nave.NaveLvl3;
 
 public class ConfiguraNave{
-    
-    private Livelli livello;
     private Colori colorePedina;
     
     public ConfiguraNave(Giocatore giocatore){
-        
-        this.colorePedina = giocatore.getPedina().getColorePedina();
-        
+        this.colorePedina = giocatore.getColorePedina();
     }
 
     public Nave creaNave(Livelli livello){
@@ -32,13 +28,6 @@ public class ConfiguraNave{
 				nave = new NaveLvl3(this.colorePedina);
 			}
 		}
-
         return nave;
-    }
-    
-    
-    public Nave configuraNave(Nave nave) {
-		return nave;
-    	//TODO
     }
 }

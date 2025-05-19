@@ -23,7 +23,7 @@ public class ConfiguraPartita{
 		if(this.modalitaPartita == ModalitaPartita.SINGOLA){
 			return new Partita(this.numeroGiocatori, this.livelloPartita);	
 		}	
-		return new Partita(this.numeroGiocatori, this.modalitaPartita);
+		return new Partita(this.numeroGiocatori);
     }
 
 	/**

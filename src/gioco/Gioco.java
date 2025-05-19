@@ -1,45 +1,88 @@
 package gioco;
 
-import partita.ModalitaPartita;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import eccezioniPersonalizzate.ErroreGiocatore;
 import partita.Partita;
-
+import partita.configurazione.ConfiguraGiocatore;
 import partita.configurazione.ConfiguraPartita;
-import tabellone.Tabellone;
+import partita.giocatore.Giocatore;
 
-public class Gioco {
-	
-	public Gioco() {
-		ConfiguraPartita configurazione = new ConfiguraPartita();
-		Partita partita = configurazione.creaPartita();
-		partita.aggiungiGiocatori();
+public class Gioco{
+	private ComunicazioneConUtente com;
+	private Partita partita;
+	private Set<Giocatore> elencoGiocatori;
 		
-		int counter;
-		if(partita.getModalitaPartita()==ModalitaPartita.SINGOLA) {
-			counter=1;
-		}else {
-			counter=3;
-			
-			
-		}
-		
-		for(int i=0; i<counter; i++) {
+	public Gioco(){
+		com = ComunicazioneConUtente.getIstanza();
 
-			//creazioni nave ecc..
-			
-			
-			
-			
-			//fase 2
-			Tabellone tabellone= new Tabellone(partita.getLivelloPartita());
-			partita.setLivelloPartita(partita.getLivelloPartita().next());
-		}
-		
-		
+		// Creazione della partita
+		ConfiguraPartita configuraPartita = new ConfiguraPartita();
+		this.partita = configuraPartita.creaPartita();
+
+		// Creazione dei giocatori
+		this.elencoGiocatori = new LinkedHashSet<>();
+		inserimentoGiocatore();		
+
+		// Aggiunta dei giocatori alla partita
+		this.partita.aggiungiGiocatori(this.elencoGiocatori);
 	}
-	
-	
-	
-	
-	
+
+	// --------------------------- GESTIONE GIOCATORI ---------------------------
+	private void inserimentoGiocatore(){
+		for(int i = 0; i < this.partita.getNumeroGiocatori(); i += 1){
+			this.elencoGiocatori.add(creaGiocatore());
+		}
+	}
+
+	private void riepilogoGiocatori(){
+		com.clear();
+		com.print("--- Riepilogo Giocatori ---\n");
+		for(Giocatore giocatoreElenco : this.elencoGiocatori){
+			com.print("-) "+giocatoreElenco.getPedina().getColorePedina().getCodiceColore()+
+					giocatoreElenco.getNome()+"\u001B[0m"+"\n");
+		}
+		com.print("premere invio per continuare...");
+		com.consoleRead();
+		com.clear();
+	}
+
+	/**
+	 * Creazione del giocatore
+	 * 
+	 * @return nuovo gicatore
+	 */
+	private Giocatore creaGiocatore(){
+		ConfiguraGiocatore conf = new ConfiguraGiocatore();
+		Giocatore giocatore = conf.craGiocatore();
+		try{
+			isGiocatoreDuplicato(giocatore);
+		}catch(ErroreGiocatore eg){
+			com.printError(eg.getMessage());
+			return creaGiocatore();
+		}
+		
+		return giocatore;
+	}
+
+	/**
+	 * Verifica se il giocatore e' duplicato
+	 * 
+	 * @param giocatore
+	 * @return
+	 */
+	private void isGiocatoreDuplicato(Giocatore giocatore)throws ErroreGiocatore{
+		for(Giocatore g : this.elencoGiocatori){
+			if(g.equals(giocatore)){
+				throw new ErroreGiocatore("Giocatore gia0 esistente");
+			}	
+		}
+	}
+
+	// --------------------------- GIOCO ---------------------------
+	public void gioca(){
+		riepilogoGiocatori();
+		this.partita.gioca();
+	}
 }

@@ -23,9 +23,6 @@ package gioco;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import partita.giocatore.Colori;
-import partita.giocatore.Giocatore;
-
 public class ComunicazioneConUtente {
     private Scanner input;
     private static ComunicazioneConUtente istanza = null;
@@ -123,16 +120,7 @@ public class ComunicazioneConUtente {
 		this.consoleRead();
 		this.clear();
 	}
-    
-    
-    /**
-	 * stampa nome giocatore colorato
-	 * @param g
-	 */
-	public void nomeGiocatore(Giocatore g) {
-		 this.println(g.getPedina().getColorePedina().getCodiceColore()+ g.getNome()+"\u001B[0m");
-	}
-    
+        
     /**
 	 * errore immissione valore non valido
 	 */
@@ -181,49 +169,7 @@ public class ComunicazioneConUtente {
 			return false;
 		}
     }
-    
-    /**
-	 * stampa inserimento giocatore
-	 * @return
-	 */
-	public String setNomeGiocatore(){
-        String temp = "";
-        this.print("Inserisci il nome del giocatore (25 caratteri max): ");
-        temp = this.consoleRead();
-        if(temp.length() <= 25){
-            return temp;
-        }
-        else{
-        	this.println("Nome troppo lungo");
-            return setNomeGiocatore();
-        }
-    }
-	
-	
-	/**
-	 * stampa interfaccia utente per scelta colore giocatore
-	 * @return c
-	 */
-	public  Colori colorePedina(){
-        Colori c;
-        ArrayList<String> lista=new ArrayList<String>();
-        lista.add(Colori.ROSSO.getname());
-        lista.add(Colori.GIALLO.getname());
-        lista.add(Colori.VERDE.getname());
-        lista.add(Colori.BLU.getname());
-        this.print(this.visualizzaElenco(lista));
-        this.print("Inserisci il numero del colore: ");
-        int t = Integer.parseInt(this.consoleRead());
-        
-        try{
-            c = Colori.coloreSelezionato(t); 
-        }catch(IllegalArgumentException iax){
-        	this.println(iax.getMessage().toString());
-            return colorePedina();
-        }
-        return c;
-	}
-	
+    	
 	/**
 	 * stampa elenco puntato degli elementi tipo stringa della lista
 	 * @param lista
@@ -240,7 +186,7 @@ public class ComunicazioneConUtente {
 	
 	
 	public int scegliTroncamenti(Object[] opzioni) {
-		ArrayList<String> temp = null;
+		ArrayList<String> temp = new ArrayList<String>();
 		int scelta=0;
 		this.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
 		for(int i=0; i< opzioni.length; i++) {
@@ -254,7 +200,5 @@ public class ComunicazioneConUtente {
 			return scegliTroncamenti(opzioni);
 		}
 		return scelta;
-	}
-
-	
+	}	
 }

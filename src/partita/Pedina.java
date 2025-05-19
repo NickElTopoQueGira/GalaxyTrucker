@@ -7,7 +7,6 @@ import partita.giocatore.*;
 import tabellone.Tabellone;
 import tessera.*;
 import tessera.merce.*;
-import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class Pedina{
     private Colori colorePedina;
@@ -15,19 +14,26 @@ public class Pedina{
     private Tabellone tabellone;
     private int posizioneSulTabellone;
     private ComunicazioneConUtente cns;
-    private int numeroGiro;  // DA USARE
+    private int numeroGiro;
     
-    public Pedina(Tabellone tabellone, Giocatore giocatore, Colori colorePedina){
-    	
+	public Pedina(Giocatore giocatore){
+		this.tabellone = null;
+		this.giocatore = giocatore;
+		this.colorePedina = this.giocatore.getColorePedina();
+		this.posizioneSulTabellone = 0;
+		this.numeroGiro = 1;
+	}
+
+    public Pedina(Tabellone tabellone, Giocatore giocatore){
     	this.tabellone = tabellone;
         this.giocatore = giocatore;
-		this.colorePedina = colorePedina;
+		this.colorePedina = this.giocatore.getColorePedina();
         this.posizioneSulTabellone = 0;
         this.numeroGiro = 1;
     }
     
     public Tabellone getTabellone() {
-		return tabellone;
+		return this.tabellone;
 	}
 
 	public void setTabellone(Tabellone tabellone) {
