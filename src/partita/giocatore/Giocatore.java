@@ -12,11 +12,13 @@ public class Giocatore {
 	private int crediti;
 	private Nave nave;
 	private Colori colorePedina;
+	private boolean isNaveFinita;
 
 	public Giocatore(String nome, Colori colorePedina){
 		this.nome = nome;  
 		this.crediti = 0;
 		this.nave = null;
+		this.isNaveFinita = false;
 
 		if(this.pedina == null){
 			this.pedina = new Pedina(this);
@@ -67,6 +69,10 @@ public class Giocatore {
 	 * Utilizzato quando si termina un livello e si passa a quello successivo
 	 */
 	public void eliminaNave(){ this.nave = null; }
+
+	public void naveFinita(){ this.isNaveFinita = true; }
+
+	public boolean isNaveFinita(){ return this.isNaveFinita; }
 
 	public Colori getColorePedina(){ return this.colorePedina; }
 }
