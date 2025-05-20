@@ -23,6 +23,8 @@ package gioco;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import partita.giocatore.Giocatore;
+
 public class ComunicazioneConUtente {
     private Scanner input;
     private static ComunicazioneConUtente istanza = null;
@@ -184,7 +186,6 @@ public class ComunicazioneConUtente {
 		return temp;
 	}
 	
-	
 	public int scegliTroncamenti(Object[] opzioni) {
 		ArrayList<String> temp = new ArrayList<String>();
 		int scelta=0;
@@ -200,5 +201,12 @@ public class ComunicazioneConUtente {
 			return scegliTroncamenti(opzioni);
 		}
 		return scelta;
-	}	
+	}
+	
+	public boolean richiestaAbbandonaVolo(Giocatore giocatore) {
+		
+		this.println(giocatore.getNome()+" vuoi abbanonare il volo?");
+		
+		return this.conferma();
+	}
 }

@@ -67,6 +67,7 @@ public class Mazzo {
 		break;
 		}
 		
+		this.shiffleMazzo();
 	}
 	
 	private Carta CreaCartaRandom(int lvl){  // va nel mazzo
@@ -143,7 +144,11 @@ public class Mazzo {
 			
 		}
 		return temp;
+	}
+	
+	public void shiffleMazzo() {
 		
+		Collections.shuffle(lista);
 	}
 
 	public ArrayList<Carta> getLista() {

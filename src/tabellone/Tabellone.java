@@ -3,6 +3,7 @@ package tabellone;
 import java.util.ArrayList;
 
 import carte.Carta;
+import gioco.ComunicazioneConUtente;
 import partita.Livelli;
 import partita.Pedina;
 
@@ -14,6 +15,7 @@ public class Tabellone{
 	private ArrayList<Posizione> posizioni;
 	private int numeroPosizioni;
 	private Livelli livello;
+	private ComunicazioneConUtente cns;
 	
 	public Tabellone(Livelli livello){
 		this.elencoPedine = new ArrayList<Pedina>();
@@ -24,7 +26,43 @@ public class Tabellone{
 
 		inizializzaPosizioni();
 	}
-
+	
+	public void gioca() {
+		
+		int i=0;
+		do {
+			//----estrazione carta--------
+			
+			mazzoCarte.get(i).eseguiCarta(elencoPedine);
+			
+			//-----controlli e richieste-----
+			
+			//1) controllo doppiaggio
+			this.controlloDoppiaggio();
+			
+			//controlli singoli
+			for(int j=0; j<elencoPedine.size(); j++) {
+				
+				//2) controllo equipaggio
+				if(!elencoPedine.get(i).getGiocatore().getNave().controlloSonoPresentiCosmonauti()) {
+					
+					this.elencoNaviAbbandonate.add(elencoPedine.get(i));
+					elencoPedine.remove(i);
+					i--;
+				}
+				
+				//4) Richiesta abbandono nave
+				if(cns.richiestaAbbandonaVolo(elencoPedine.get(i).getGiocatore())) {
+					
+					this.elencoNaviAbbandonate.add(elencoPedine.get(i));
+					elencoPedine.remove(i);
+					i--;
+				}
+			}
+			i++;
+		}while(mazzoCarte.get(i)!= null && elencoPedine.size() == 0);
+	}
+	
 	/**
 	 * Metodo per aggiungere la pedina sul tabellone
 	 * 
@@ -33,7 +71,7 @@ public class Tabellone{
 	public void aggiungiPedina(Pedina nuovaPedina){
 		this.elencoPedine.add(nuovaPedina);
 	}
-
+	
 	/**
 	 * Metodo per impostare il numero di posizioni presenti sul tabellone. 
 	 * Le posizioni variano in base al livello selezionato.
