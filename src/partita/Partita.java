@@ -184,7 +184,8 @@ public class Partita{
 					}
 
 					// azioni
-					switch(azioneCarta()){
+					int azioneCarta = azioneCarta();
+					switch(azioneCarta){
 						case 1 ->{
 							visualizzaElencoTessere(elencoTessere);
 							Tessera tesseraSelezionata = selezionaTesseraDalMazzo(elencoTessere);
@@ -426,8 +427,9 @@ public class Partita{
 		ArrayList<String> elenco = new ArrayList<>();
 		elenco.add("Per utilizzare una tessera dal mazzo");
 		elenco.add("Per generare una nuova tessera");
-		elenco.add("Per utilizzare una tessera prenotata"); 
-
+		elenco.add("Per utilizzare una tessera prenotata");
+		this.com.println(this.com.visualizzaElenco(elenco));
+		
 		int rispota = 0;
 		do{
 			
@@ -436,7 +438,7 @@ public class Partita{
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 			}
-		}while(rispota < 0 || rispota > 3);
+		}while(rispota < 1 || rispota > 3);
 		return rispota;
 	}
 

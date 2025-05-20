@@ -86,7 +86,7 @@ public class ComunicazioneConUtente {
      * @param error -> errore che si vuole stampare sulla console
      */
     public void printError(String error){
-        System.err.println(error);
+        System.out.println("\u001B[31m" + error + "\u001B[0m");
     }
 
     /**
@@ -117,7 +117,19 @@ public class ComunicazioneConUtente {
 	 * Stampa di inizio game
 	 */
 	public void inizioGame() {
-		this.println("\033[1;95m"+"GALAXY TRUCKER\n"+"\u001B[0m");
+        this.println("\033[1;95m");
+		this.println("  /$$$$$$            /$$                               /$$$$$$$$                               /$$                           ");
+        this.println(" /$$__  $$          | $$                              |__  $$__/                              | $$                           ");
+        this.println("| $$  \\__/  /$$$$$$ | $$  /$$$$$$  /$$   /$$ /$$   /$$   | $$     /$$$$$$  /$$   /$$  /$$$$$$$| $$   /$$  /$$$$$$   /$$$$$$  ");
+        this.println("| $$ /$$$$ |____  $$| $$ |____  $$|  $$ /$$/| $$  | $$   | $$    /$$__  $$| $$  | $$ /$$_____/| $$  /$$/ /$$__  $$ /$$__  $$ ");
+        this.println("| $$|_  $$  /$$$$$$$| $$  /$$$$$$$ \\  $$$$/ | $$  | $$   | $$   | $$  \\__/| $$  | $$| $$      | $$$$$$/ | $$$$$$$$| $$  \\__/ ");
+        this.println("| $$  \\ $$ /$$__  $$| $$ /$$__  $$  >$$  $$ | $$  | $$   | $$   | $$      | $$  | $$| $$      | $$_  $$ | $$_____/| $$       ");
+        this.println("|  $$$$$$/|  $$$$$$$| $$|  $$$$$$$ /$$/\\  $$|  $$$$$$$   | $$   | $$      |  $$$$$$/|  $$$$$$$| $$ \\  $$|  $$$$$$$| $$       ");
+        this.println(" \\______/  \\_______/|__/ \\_______/|__/  \\__/ \\____  $$   |__/   |__/       \\______/  \\_______/|__/  \\__/ \\_______/|__/       ");
+        this.println("                                             /$$  | $$                                                                       ");
+        this.println("                                            |  $$$$$$/                                                                       ");
+        this.println("                                             \\______/                                                                        ");
+		this.println("\u001B[0m");
 		this.print("Premi invio per iniziare...");
 		this.consoleRead();
 		this.clear();
