@@ -1,7 +1,6 @@
 package carte.eventoSpeciale;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 import carte.*;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
