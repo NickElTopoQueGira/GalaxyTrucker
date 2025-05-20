@@ -603,6 +603,7 @@ public abstract class Nave {
                 return true;
             }
         else{
+        	
             return false;
         }
     }
@@ -612,12 +613,47 @@ public abstract class Nave {
      * Questo metodo va ad aggiornare this.numeroConnettoriScoperti
      * Per accedere al numero di connettori scoperti, utilizzare l'apposito metodo
      */
-    public void connettoriScoperti(){
+    public void connettoriScoperti(){ // TODO utilita?
         for(ArrayList<Tessera> colonna : this.nave){
             for(Tessera tessera : colonna){
                 this.numeroConnettoriScoperti += conteggioConettoriEsposti(tessera);        
             }
         }
+    }
+    
+    /**
+     * metodo che controlla se ci sono ancora presenti cosmonauti
+     * sulla nave
+     * 
+     * @return: if (cosmonauti > 0){ true
+     * 				}else{ false }
+     */
+    public boolean controlloSonoPresentiCosmonauti() { // TODO da chiamare ogni volta che viene estratta una carta
+    	
+    	if(this.getCosmonauti() > 0) {
+    		
+    		return true;
+    	}else {
+    		
+    		return false;
+    	}
+    }
+    
+    /**
+     * metodo che controlla se la potenza motore è  superiore a 0
+     * 
+     * @return: if (potenza motore > 0){ true
+     * 				}else{ false }
+     */
+    public boolean controlloPotenzaMotore() { //TODO da chiamare prima che venga estratta la carta "spazio aperto"
+    	
+    	if(this.getPotenzaMotori() > 0) {
+    		
+    		return true;
+    	}else {
+    		
+    		return false;
+    	}
     }
 
     /**

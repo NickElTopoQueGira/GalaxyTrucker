@@ -35,6 +35,15 @@ public class Pedina{
 		this.inGioco = true;
     }
     
+    public Pedina(Tabellone tabellone, Giocatore giocatore, int posizione){
+    	this.tabellone = tabellone;
+        this.giocatore = giocatore;
+		this.colorePedina = this.giocatore.getColorePedina();
+        this.posizioneSulTabellone = posizione;
+        this.numeroGiro = 1;
+		this.inGioco = true;
+    }
+    
     public Tabellone getTabellone() {
 		return this.tabellone;
 	}

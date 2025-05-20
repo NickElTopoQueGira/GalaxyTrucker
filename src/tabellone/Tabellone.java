@@ -8,6 +8,8 @@ import partita.Pedina;
 
 public class Tabellone{
 	private ArrayList<Pedina> elencoPedine;
+	private ArrayList<Pedina> elencoNaviDistrutte; //PROVVISORIO
+	private ArrayList<Pedina> elencoNaviAbbandonate; //PROVVISORIO
 	private ArrayList<Carta> mazzoCarte;
 	private ArrayList<Posizione> posizioni;
 	private int numeroPosizioni;
@@ -93,7 +95,7 @@ public class Tabellone{
 				}
 			}
 			// Occupazione pedina
-			this.posizioni.get(posizionePedinaAttuale).occupaPosizione(pedina);
+			this.posizioni.get(posizionePedinaAttuale).occupaPosizione(pedina); 
 			pedina.setPosizioneSulTabellone(posizionePedinaAttuale);
 		}
 		else{
@@ -120,5 +122,37 @@ public class Tabellone{
 		if(this.posizioni.get(posizione).isLibera() == false){
 			this.posizioni.get(posizione).liberaPosizione();
 		}		
-	}	
+	}
+	
+	public void controlloDoppiaggio() { //TODO da usare mentre si completa la carta   !problems
+		
+		
+		int i=0;
+		
+		do{
+			
+			for(int j=i+1; j<elencoPedine.size(); j++) {
+				
+				if(elencoPedine.get(i).getNumeroGiro() > elencoPedine.get(j).getNumeroGiro()) {
+					if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(j).getPosizioneSulTabellone()) {
+						
+						//TODO elencoPedine.get(j) è stato doppiato
+						this.elencoNaviDistrutte.add(elencoPedine.get(j));
+						elencoPedine.remove(j);
+					}
+				}
+			}
+			
+			i++;
+		}while(i<elencoPedine.size()-1);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

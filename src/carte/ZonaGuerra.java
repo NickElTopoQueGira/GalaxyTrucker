@@ -187,36 +187,41 @@ public class ZonaGuerra extends Carta {
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
-		for(int i=0; i<3; i++) {
+		if(elencoPedine.size()<=1) {
 			
-			int pedinaSubisce;
+			stampa.println("Il giocatore è da solo, la carta Zona di guerra non viene eseguita");
 			
-			switch(valori[i][0]) {
-				case "EQUIPAGGI" ->{
-					
-					pedinaSubisce = selezionaMinorEquipaggio(elencoPedine);
-					
-					penalitaCarta(elencoPedine.get(pedinaSubisce),i);
-					
-				}
-				case "RAZZI" ->{
-					
-					pedinaSubisce = selezionaMinorMotore(elencoPedine);
-					
-					penalitaCarta(elencoPedine.get(pedinaSubisce),i);
-				}
-				case "CANNONI" ->{
-					
-					pedinaSubisce = selezionaMinorCannone(elencoPedine);
-					
-					penalitaCarta(elencoPedine.get(pedinaSubisce),i);
-				}
-				default ->{
-					
+		}else {
+			for(int i=0; i<3; i++) {
+				
+				int pedinaSubisce;
+				
+				switch(valori[i][0]) {
+					case "EQUIPAGGI" ->{
+						
+						pedinaSubisce = selezionaMinorEquipaggio(elencoPedine);
+						
+						penalitaCarta(elencoPedine.get(pedinaSubisce),i);
+						
+					}
+					case "RAZZI" ->{
+						
+						pedinaSubisce = selezionaMinorMotore(elencoPedine);
+						
+						penalitaCarta(elencoPedine.get(pedinaSubisce),i);
+					}
+					case "CANNONI" ->{
+						
+						pedinaSubisce = selezionaMinorCannone(elencoPedine);
+						
+						penalitaCarta(elencoPedine.get(pedinaSubisce),i);
+					}
+					default ->{
+						
+					}
 				}
 			}
 		}
-
 		return elencoPedine;
 	}
 	
