@@ -6,6 +6,6 @@ public class Main {
 		ComunicazioneConUtente comu = ComunicazioneConUtente.getIstanza();
 		comu.inizioGame();
 
-		new Gioco();
+		new Gioco().gioca();;
 	}	
 }

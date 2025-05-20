@@ -19,6 +19,7 @@ public class Giocatore {
 		this.crediti = 0;
 		this.nave = null;
 		this.isNaveFinita = false;
+		this.colorePedina = colorePedina;
 
 		if(this.pedina == null){
 			this.pedina = new Pedina(this);
