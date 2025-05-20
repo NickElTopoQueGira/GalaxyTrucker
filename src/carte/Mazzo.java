@@ -154,8 +154,4 @@ public class Mazzo {
 	public ArrayList<Carta> getLista() {
 		return lista;
 	}
-
-	public void setLista(ArrayList<Carta> buffer) {
-		this.lista = buffer;
-	}
 }

@@ -730,7 +730,6 @@ public abstract class Nave {
         }
     }
     
-    
     /**
      * selezione e rimozione energia dalla tessera batteria selezionata
      * @return 

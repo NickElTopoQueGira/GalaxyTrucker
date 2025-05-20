@@ -148,7 +148,7 @@ public class Schiavisti extends Nemici {
 	
 	/**
 	 * Esegue l'effetto della carta Schiavisti. Per ogni giocatore ancora in gara:
-	 * - se ha potenza sufficiente, può scegliere se ottenere crediti perdendo giorni;
+	 * - se ha potenza sufficiente, può scegliere se ottenere crediti perdendo giorni
 	 * - se ha potenza insufficiente, perde membri dell'equipaggio.
 	 * @param elencoPedine lista delle pedine dei giocatori
 	 * @return la lista aggiornata delle pedine dopo l'esecuzione della carta
