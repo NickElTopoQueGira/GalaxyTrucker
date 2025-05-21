@@ -77,8 +77,8 @@ public class Partita{
 			assemblaNavi();
 
 			// -------------- FASE DI GIOCO (ESECUZIONE DELLE CARTE) --------------
-			// tabellone
-
+			
+			tabellone.gioca();
 
 			// -------------- FINE DELLA PARTITA --------------
 			/**
