@@ -149,7 +149,7 @@ public class ComunicazioneConUtente {
      *         false -> NO
      */
     public boolean conferma(){
-		this.print("inserire risposta (s/n): ");
+		this.print("\ninserire risposta (s/n): ");
 		String t = this.consoleRead();
 		if(t.toUpperCase().charAt(0) == 'S'){
 			return true;
