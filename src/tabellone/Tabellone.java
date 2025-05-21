@@ -10,7 +10,7 @@ import partita.Pedina;
 public class Tabellone{
 	private ArrayList<Pedina> elencoPedine;
 	private ArrayList<Pedina> elencoNaviDistrutte; //PROVVISORIO
-	private ArrayList<Pedina> elencoNaviAbbandonate; //PROVVISORIO
+	private ArrayList<Pedina> elencoNaviAbbandonate; 
 	private ArrayList<Carta> mazzoCarte;
 	private ArrayList<Posizione> posizioni;
 	private int numeroPosizioni;
@@ -184,13 +184,12 @@ public class Tabellone{
 			i++;
 		}while(i<elencoPedine.size()-1);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public ArrayList<Pedina> getElencoPedine() {
+		return elencoPedine;
+	}
+
+	public ArrayList<Pedina> getElencoNaviAbbandonate() {
+		return elencoNaviAbbandonate;
+	}
 }
