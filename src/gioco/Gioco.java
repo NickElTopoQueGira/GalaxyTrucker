@@ -74,8 +74,12 @@ public class Gioco{
 	 */
 	private void isGiocatoreDuplicato(Giocatore giocatore)throws ErroreGiocatore{
 		for(Giocatore g : this.elencoGiocatori){
+			if(g.getColorePedina() == giocatore.getColorePedina()) {
+				throw new ErroreGiocatore("Giocatore gia' esistente");
+			}
+			
 			if(g.equals(giocatore)){
-				throw new ErroreGiocatore("Giocatore gia0 esistente");
+				throw new ErroreGiocatore("Giocatore gia' esistente");
 			}	
 		}
 	}
