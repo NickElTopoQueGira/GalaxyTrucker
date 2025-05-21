@@ -1,7 +1,7 @@
 package eccezioniPersonalizzate;
 
 public class EccezioneGioco extends Exception{
-    public EccezioneGioco(String errore){
-        super(errore);
+    public EccezioneGioco(String msg){
+        super(msg);
     }
 }

@@ -174,7 +174,7 @@ public class Partita{
 				}
 
 				this.com.println("Turno del giocatore: " + g.getNome());
-				this.com.println("Vuoi modificare la nave? ");
+				this.com.println("Vuoi modificare la nave? \n");
 				if(this.com.conferma()){
 					// visualizzazione delle tessere prenotate
 					if(g.getNave().tesserePrenotateToString() == ""){
@@ -189,7 +189,7 @@ public class Partita{
 						case 1 ->{
 							visualizzaElencoTessere(elencoTessere);
 							Tessera tesseraSelezionata = selezionaTesseraDalMazzo(elencoTessere);
-							this.com.println("Vuoi prenotare la tessera?");
+							this.com.println("Vuoi prenotare la tessera?\n");
 							if(this.com.conferma()){
 								prenotaTessera(g, tesseraSelezionata);
 							}else{
@@ -203,7 +203,7 @@ public class Partita{
 							Tessera tessera = nuovaTesseraRandom();
 							this.com.println("Tessera estratta: ");
 							this.com.print(tessera.toString());
-							this.com.print("Vuoi prenotare la tessera?");
+							this.com.print("Vuoi prenotare la tessera?\n");
 							if(this.com.conferma()){
 								prenotaTessera(g, tessera);
 							}else if(!inserisciTessera(g, tessera)){
@@ -281,7 +281,9 @@ public class Partita{
 	 * Metodo per chiedere conferma se la nave e' finita
 	 */
 	private boolean naveFinita(){
-		this.com.print("Hai finito la nave? ");
+		com.clear();
+//TODO aggiungere stampa nave del giocatore SEMPRE
+		this.com.print("Hai finito la nave? \n");
 		return this.com.conferma();
 	}
 
