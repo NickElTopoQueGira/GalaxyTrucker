@@ -139,7 +139,7 @@ public class ComunicazioneConUtente {
 	 * errore immissione valore non valido
 	 */
 	public void erroreImmissioneValore() {
-		this.printError("Valore immesso non valido!!");
+		this.printError("Valore immesso non valido");
 	}
 
     /**
@@ -149,7 +149,7 @@ public class ComunicazioneConUtente {
      *         false -> NO
      */
     public boolean conferma(){
-		this.print("Vuoi confermare? (s/n): ");
+		this.print("inserire risposta (s/n): ");
 		String t = this.consoleRead();
 		if(t.toUpperCase().charAt(0) == 'S'){
 			return true;
