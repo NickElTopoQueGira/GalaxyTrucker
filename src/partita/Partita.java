@@ -76,8 +76,7 @@ public class Partita{
 			creaNavi();
 			assemblaNavi();
 
-			// -------------- FASE DI GIOCO (ESECUZIONE DELLE CARTE) --------------
-			
+			// -------------- FASE DI GIOCO (ESECUZIONE DELLE CARTE) --------------		
 			tabellone.gioca();
 
 			// -------------- FINE DELLA PARTITA --------------
@@ -176,15 +175,21 @@ public class Partita{
 				this.com.println("Turno del giocatore: " + g.getNome());
 				this.com.println("Vuoi modificare la nave? \n");
 				if(this.com.conferma()){
-					// visualizzazione delle tessere prenotate
-					if(g.getNave().tesserePrenotateToString() == ""){
-						this.com.println("Non ci sono tessere prenotate");
-					}else{
-						this.com.println(g.getNave().tesserePrenotateToString());
-					}
-
 					// azioni
 					int azioneCarta = azioneCarta();
+					if(azioneCarta == 1 && elencoTessere.isEmpty()) {
+						this.com.println("Nessuna carta disponibile");
+						azioneCarta = azioneCarta();
+					}
+					if(azioneCarta == 3) {
+						if(g.getNave().tesserePrenotateToString() == ""){
+							this.com.println("Non ci sono tessere prenotate");
+							azioneCarta = azioneCarta();
+						}else{
+							this.com.println(g.getNave().tesserePrenotateToString());
+						}
+					}
+					
 					switch(azioneCarta){
 						case 1 ->{
 							visualizzaElencoTessere(elencoTessere);
@@ -230,7 +235,7 @@ public class Partita{
 					finito = true;
 				}else{
 					// chiedo se ha finito la nave
-					if(naveFinita()){
+					if(naveFinita(g)){
 						g.naveFinita();
 						this.com.println("Il giocatore " + g.getNome() + " ha finito la nave");
 						finito = true;
@@ -280,10 +285,12 @@ public class Partita{
 	/**
 	 * Metodo per chiedere conferma se la nave e' finita
 	 */
-	private boolean naveFinita(){
-		com.clear();
-//TODO aggiungere stampa nave del giocatore SEMPRE
-		this.com.print("Hai finito la nave? \n");
+	private boolean naveFinita(Giocatore giocatore){
+		this.com.clear();
+		// visualizzazione della nave
+		this.com.println(giocatore.getNave().toString());
+
+		this.com.println("Hai finito la nave? ");
 		return this.com.conferma();
 	}
 
