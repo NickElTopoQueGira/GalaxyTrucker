@@ -36,6 +36,10 @@ public class PioggiaMeteoriti extends Carta {
 		GeneraValori();
 	}
 	
+	/**
+	 * Metodo che in base al livello della carta genera casualmente 
+	 * i meteoriti e il tipo dei meteoriti 
+	 */
 	private void GeneraValori() {  //VALORI ATTUALMENTE CASUALI E DA RIVEDERE
 		
 		Random random = new Random();
@@ -102,7 +106,15 @@ public class PioggiaMeteoriti extends Carta {
 		}
 		return temp;
 	}
-
+	/**
+	 * Metodo che prende tutti i giocatori e per ogni meteorite in base se:
+	 * colpisce o manca la nave:
+	 * 	-il meteorite è piccolo:
+	 * 		-se dove colpisce c'è un connettore scoperto o no
+	 * 			- se ha i scudi o no e se vuole  utilizzare o se ha energia
+	 * 	-il meteorite è grande:
+	 * 		-se nella fila di dove colpisce c'è un cannone
+	 */
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
@@ -186,6 +198,15 @@ public class PioggiaMeteoriti extends Carta {
 		return elencoPedine;
 	}
 	
+	/**
+	 * metodo che in base a dove colpisce la nave ti "dice" se in quel punto
+	 * il c'è un connettore scoperto o no
+	 * 
+	 * @param tes
+	 * @param p
+	 * @return se il lato ha un connettore scoperto su quel lato -> false 
+	 * 			senno -> true
+	 */
 	private boolean controlloLatoIsCoperto(Tessera tes, PuntiCardinali p) {
 		
 		switch(p) {
@@ -219,6 +240,19 @@ public class PioggiaMeteoriti extends Carta {
 		return false;
 	}
 	
+	/**
+	 * metodo che in base a quale tipologia di cannone è
+	 * se doppio  fa scegliere all'utente se usarlo o no
+	 * se singolo non chiede 
+	 * 
+	 * @param cannone
+	 * @param colpita
+	 * @param nave
+	 * @param pedina
+	 * @return 0 se non c'è energia
+	 * 			1 se il giocatore decide di usare il cannone doppio
+	 * 			2 è un cannone singolo
+	 */
 	private int sceltaUtilizzoCannone(Cannone cannone, Tessera colpita, Nave nave, Pedina pedina) {
 		
 		if(nave.getEnergiaResidua() <= 0) {
@@ -240,6 +274,20 @@ public class PioggiaMeteoriti extends Carta {
 		return 0;
 	}
 	
+	/**
+	 * metodo che in base alla direzione del meteorite questo metodo 
+	 * trova uno per uno tutti i cannoni (che guardano in direzzione corretta)
+	 * che si trovano nella linea di tiro del meteorite e se il cannone è doppio 
+	 * lascia che il giocatore decida se utilizzarlo o no
+	 * 
+	 * @param colpo
+	 * @param nave
+	 * @param colpita
+	 * @param pedina
+	 * @return 0 se non ci sono cannoni corretti o il giocatore decide di non usarli o non c'è energia
+	 * 			1 se il giocatore decide di usare il cannone doppio
+	 * 			2 c'è un cannone singolo
+	 */
 	private int trovaCannone(Meteorite colpo, Nave nave, Tessera colpita, Pedina pedina) {
 		
 		int scelta = 0;
@@ -264,7 +312,7 @@ public class PioggiaMeteoriti extends Carta {
 					
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
-					if(scelta == 2) return scelta;
+					if(scelta != 0) return scelta;
 				}
 			}
 		}
@@ -275,7 +323,7 @@ public class PioggiaMeteoriti extends Carta {
 
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
-					if(scelta == 2) return scelta;
+					if(scelta != 0) return scelta;
 				}
 			}
 		}
@@ -286,7 +334,7 @@ public class PioggiaMeteoriti extends Carta {
 
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
-					if(scelta == 2) return scelta;
+					if(scelta != 0) return scelta;
 				}
 			}
 		}
@@ -296,6 +344,13 @@ public class PioggiaMeteoriti extends Carta {
 	return scelta;
 	}
 	
+	/**
+	 * metodo che trova quale tessera viene colpita dal meteorite
+	 * 
+	 * @param colpo
+	 * @param nave
+	 * @return la tessera colpita
+	 */
 	private Tessera trovaTesseraColpita(Meteorite colpo, Nave nave) {
 		
 		switch(colpo.getDirezione()) {

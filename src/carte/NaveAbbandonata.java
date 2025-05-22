@@ -166,7 +166,12 @@ public class NaveAbbandonata extends Carta {
 		
 		return temp;
 	}
-
+	/**
+	 * esegue la carta:
+	 * 
+	 * fa sceliere uno ad uno se vuole completare la carta (solo se ha i parametri corretti)
+	 * e consegna la ricompensa tgliendo i giorni di volo
+	 */
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) { 
 		

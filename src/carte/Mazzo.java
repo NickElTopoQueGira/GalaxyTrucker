@@ -14,21 +14,44 @@ public class Mazzo {
 	private int[][] conteggio;
 	private ComunicazioneConUtente stampa;
 	
+	/**
+	 * costruttore di mazzo
+	 * metodo: GeneraConteggio() per generare la matrice conteggio
+	 * metodo: CreaMazzo(@param lvl) per generare il mazzo (tutte le carte)	
+	 * 
+	 * @param lvl
+	 */
 	public Mazzo(int lvl) {
 		stampa= ComunicazioneConUtente.getIstanza();
 		this.lista = new ArrayList<>();
+		
+		generaConteggio();
+		CreaMazzo(lvl);
+	}
+	
+	/**
+	 * metodo che genera i valori della matrice conteggio che ha l'utiltà
+	 * di tenere il conteggio delle carte e non avere un eccessio di una
+	 * tipologia di carta
+	 */
+	private void generaConteggio() {
 		
 		conteggio = new int[][] {
 		    {1, 1, 3, 4, 1, 1, 1, 2, 2, 4, 0, 0}, // livello 1
 		    {1, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 0},  // livello 2
 		    {0, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 1}   // livello 3
 		};
-		CreaMazzo(lvl);
 	}
 	
+	/**
+	 * metodo per rigenrerare il mazzo da  0
+	 * 
+	 * @param lvl
+	 */
 	public void RigeneraMazzo(int lvl) { 
 		
 		AzzeraMazzo();
+		generaConteggio();
 		CreaMazzo(lvl);
 	}
 	

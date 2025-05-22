@@ -32,6 +32,14 @@ public class Pianeta extends Carta {
 		GeneraValori();
 	}
 	
+	/**
+	 * Metodo per riodinare le varie creazioni dei attributi
+	 * 
+	 * 1) genera casualmente il numero dei pianeti
+	 * 2) calcola il valore totale dei pianeti e crea tutte le merci
+	 * 3) calcola la penalità giorni
+	 * 4) divide le merci ai vari pianeti
+	 */
 	private void GeneraValori() {
 		Random random = new Random();
 		
@@ -40,7 +48,13 @@ public class Pianeta extends Carta {
 		penalitagiorni = CalcoloPGV(numpianeti, valorecarta);
 		AssegnaMerci(numpianeti, valorecarta);
 	}
-	
+	/**
+	 * Metodo che in base al numero dei pianeti che ci sono (numero generato casualmente e passato comeparametro)
+	 * genera le merci di tutti i pianeti e ne calcola anche il valore totale
+	 * 
+	 * @param numpianeti
+	 * @return VALORE TOTALE DEI PIANETI
+	 */
 	//VALORE TOTALE DEI PIANETI = VTDP / PENALITA GIORNI VIAGGIO = PGV
 	private int SceltaVTDP(int numpianeti) {
 		
@@ -61,7 +75,7 @@ public class Pianeta extends Carta {
 				
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<25 || vtdp>50) || numMerci > 5);
+			}while((vtdp<25 || vtdp>50) || numMerci > 5*4);
 		}
 		case 3 ->{
 			do {
@@ -74,7 +88,7 @@ public class Pianeta extends Carta {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<15 || vtdp>40) || numMerci > 5);
+			}while((vtdp<15 || vtdp>40) || numMerci > 5*3);
 		}
 		case 2 ->{
 			do {
@@ -87,7 +101,7 @@ public class Pianeta extends Carta {
 
 				numMerci = r+g+v+b;
 				
-			}while((vtdp<5 || vtdp>30) || numMerci > 5);
+			}while((vtdp<5 || vtdp>30) || numMerci > 5*2);
 		}
 		default ->{
 			stampa.printError("ERROR: scelta randomica del valore totate dei pianeti della carta (errorTipe: switch) (class: Pianeta)");
@@ -110,6 +124,14 @@ public class Pianeta extends Carta {
 		return vtdp;
 	}
 	
+	/**
+	 * metodo che in base al numero dei pianeti e al valore totale delle merci
+	 * della carta calcola i giorni di penalità del completamento della carta
+	 * 
+	 * @param numpianeti
+	 * @param vtdp
+	 * @return PENALITA GIORNI VIAGGIO
+	 */
 	private int CalcoloPGV(int numpianeti, int vtdp) {
 		
 		int pgv=0;
@@ -135,6 +157,14 @@ public class Pianeta extends Carta {
 		return pgv;
 	}
 	
+	/**
+	 * Metodo che in base in base ai vari parametri distribuscie le merci
+	 * non in maniera equa ma in modo tale che il primo pianeta abbia un 
+	 * valore di merce superiore ai pianeti che lo seguono
+	 * 
+	 * @param numpianeti
+	 * @param valorecarta
+	 */
 	private void AssegnaMerci(int numpianeti, int valorecarta) {
 		
 		double[] percentuali = null;
@@ -226,7 +256,11 @@ public class Pianeta extends Carta {
 	public void setPianeti(ArrayList<ArrayList<Merce>> pianeti) {
 		this.pianeti = pianeti;
 	}
-
+	
+	/**
+	 * Metodo che in base alla scelta delgiocatore assegna le merci togliendo 
+	 * i giorni di volo oppure nulla se il giocatore sceglie di non atterrare
+	 */
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
@@ -236,7 +270,7 @@ public class Pianeta extends Carta {
 			
 			int scelta = sceltaPianeta(elencoPedine.get(elenco));
 			
-			if( scelta != (Integer) null) {
+			if( scelta != 0) {
 				
 				elencoPedine.get(elenco).distribuzioneMerce(this.pianeti.get(scelta));
 				
@@ -249,7 +283,13 @@ public class Pianeta extends Carta {
 		
 		return elencoPedine;
 	}
-
+	
+	/**
+	 * metodo che fa scegliere al giocatore in quale pianeta atterrare o non atterrare proprio
+	 * 
+	 * @param pedina
+	 * @return sceltaPianeta
+	 */
 	private int sceltaPianeta(Pedina pedina) {
 		
 		int sceltaPianeta = 0;

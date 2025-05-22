@@ -7,6 +7,12 @@ import partita.giocatore.Giocatore;
 
 public class EventiSpeciali extends Carta {
 	
+	/**
+	 * Costruttore Nemici
+	 * super -> gli passiamo il lvl della carta e il tipo
+	 * @param lvl
+	 * @param tipo carta
+	 */
 	public EventiSpeciali (int lvl, TipoCarta c) {
 		
 		super(lvl, c);

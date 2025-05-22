@@ -10,11 +10,21 @@ public abstract class Carta {
 	protected int lvl;
 	protected TipoCarta tipo;
 	
-	
+	/**
+	 * Costruttore di Carta
+	 * 
+	 * @param lvl
+	 */
 	public Carta(int lvl) {
 		this.lvl = lvl;
 		this.tipo = null;
 	}
+	/**
+	 * Costruttore di Carta
+	 * 
+	 * @param lvl
+	 * @param tipo
+	 */
 	public Carta(int lvl , TipoCarta  tipo) {
 		
 		this.lvl = lvl;

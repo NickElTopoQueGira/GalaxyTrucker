@@ -34,6 +34,10 @@ public class Pirati extends Nemici {
 		stampa= ComunicazioneConUtente.getIstanza();
 	}
 	
+	/**
+     * Metodo di supporto che genera i valori caratteristici della carta:
+     * potenza necessaria, penalità in termini di equipaggio e giorni, e guadagno.
+     */
 	private void GeneraValori() {
 		GeneraGuadagno();
 		GeneraPotenzaNecessaria();
@@ -41,6 +45,10 @@ public class Pirati extends Nemici {
 		GeneraGiorniPersi();
 	}
 	
+	/**
+     * Genera casualmente il numero di crediti che si possono guadagnare
+     * in caso di vittoria, in base al livello della carta.
+     */
 	private void GeneraGuadagno() {
 		Random random = new Random();
 		
@@ -61,6 +69,10 @@ public class Pirati extends Nemici {
 		
 	}
 	
+	/**
+     * Genera la potenza necessaria per sconfiggere il nemico,
+     * in base al livello della carta.
+     */
 	private void GeneraPotenzaNecessaria() {
 		
 		Random random = new Random();
@@ -82,6 +94,11 @@ public class Pirati extends Nemici {
 		}
 	}
 	
+	/**
+	 * metodo che genera i colpi (avviene sempre siccomelultima sfida 
+	 * avviene sempre la pioggia di colpi) anchesso in base al lvl della 
+	 * carta e anche il tipo del colpo
+	 */
 	private void GeneraColpi() {
 		
 		Random random = new Random();
@@ -139,7 +156,12 @@ public class Pirati extends Nemici {
 			
 		}
 	}
-	
+
+	/**
+	 * Imposta la quantità di membri dell'equipaggio che verranno persi se la nave
+	 * non ha potenza sufficiente a sconfiggere i nemici.
+	 * Il valore dipende dal livello della carta.
+	 */
 	private void GeneraGiorniPersi() {
 		
 		Random random = new Random();
@@ -175,6 +197,13 @@ public class Pirati extends Nemici {
 		return temp;
 	}
 	
+	/**
+	 * Esegue l'effetto della carta Schiavisti. Per ogni giocatore ancora in gara:
+	 * - se ha potenza sufficiente, può scegliere se ottenere crediti perdendo giorni
+	 * - se ha potenza insufficiente, il giocatore riceve una pioggia di colpi.
+	 * @param elencoPedine lista delle pedine dei giocatori
+	 * @return la lista aggiornata delle pedine dopo l'esecuzione della carta
+	 */
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
@@ -260,6 +289,13 @@ public class Pirati extends Nemici {
 		return elencoPedine;
 	}
 	
+	/**
+	 * metodo che trova quale tessera viene colpita dal meteorite
+	 * 
+	 * @param colpo
+	 * @param nave
+	 * @return la tessera colpita
+	 */
 	private Tessera trovaTesseraColpita(Meteorite colpo, Nave nave) {
 		
 		switch(colpo.getDirezione()) {

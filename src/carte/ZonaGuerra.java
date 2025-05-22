@@ -40,6 +40,9 @@ public class ZonaGuerra extends Carta {
 		GeneraValori();
 	}
 	
+	/**
+	 * metodo che genera random le sfide e le penalità
+	 */
 	private void GeneraValori() {
 		
 		Random random = new Random();
@@ -80,6 +83,9 @@ public class ZonaGuerra extends Carta {
 		GeneraColpi();
 	}
 	
+	/**
+	 * metodo che in base a quale tipo di penalità è genera random il numero di perdite anche in base al lvl
+	 */
 	private void GeneraPerdite() {
 		
 		Random random = new Random();
@@ -103,6 +109,11 @@ public class ZonaGuerra extends Carta {
 		}
 	}
 	
+	/**
+	 * metodo che genera i colpi (avviene sempre siccomelultima sfida 
+	 * avviene sempre la pioggia di colpi) anchesso in base al lvl della 
+	 * carta e anche il tipo del colpo
+	 */
 	private void GeneraColpi() {
 		
 		Random random = new Random();
@@ -183,7 +194,11 @@ public class ZonaGuerra extends Carta {
 	public static void setValori(String[][] valori) {
 		ZonaGuerra.valori = valori;
 	}
-
+	
+	/**
+	 * metodo che trova il giocatore con il parametro della sfida più basso
+	 * e in seguito esegue la penitenza in base alla fase
+	 */
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
@@ -225,6 +240,13 @@ public class ZonaGuerra extends Carta {
 		return elencoPedine;
 	}
 	
+	/**
+	 * metodo che in base a quale penitenza si tratta esegue la penitenza a quella pedina
+	 * 
+	 * @param pedina
+	 * @param i
+	 * @return
+	 */
 	private Pedina penalitaCarta(Pedina pedina, int i) {
 		
 		switch(valori[i][1]) {
@@ -288,6 +310,11 @@ public class ZonaGuerra extends Carta {
 		return pedina;
 	}
 	
+	/***
+	 * metodo che trova il giocatore con il minor numero di equipaggio
+	 * @param elencoPedine
+	 * @return pedina 
+	 */
  	private int selezionaMinorEquipaggio(ArrayList<Pedina> elencoPedine) {
 		
 		int giocatoreMinorEquipaggio = 0;
@@ -308,6 +335,11 @@ public class ZonaGuerra extends Carta {
 		return giocatoreMinorEquipaggio;
 	}
 	
+	/***
+	 * metodo che trova il giocatore con il minor potenza motori
+	 * @param elencoPedine
+	 * @return pedina 
+	 */
 	private int selezionaMinorMotore(ArrayList<Pedina> elencoPedine) {
 		
 		int minorPotenzaMotore = 0;
@@ -328,6 +360,11 @@ public class ZonaGuerra extends Carta {
 		return minorPotenzaMotore;
 	}
 	
+	/***
+	 * metodo che trova il giocatore con il minor potenza cannone
+	 * @param elencoPedine
+	 * @return pedina 
+	 */
 	private int selezionaMinorCannone(ArrayList<Pedina> elencoPedine) {
 		
 		int minorPotenzaCannone = 0;
@@ -347,7 +384,14 @@ public class ZonaGuerra extends Carta {
 		}
 		return minorPotenzaCannone;
 	}
-
+	
+	/**
+	 * metodo che trova quale tessera viene colpita dal meteorite
+	 * 
+	 * @param colpo
+	 * @param nave
+	 * @return tessera colpita
+	 */
 	private Tessera trovaTesseraColpita(Meteorite colpo, Nave nave) {
 		
 		switch(colpo.getDirezione()) {
