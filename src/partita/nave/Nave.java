@@ -882,10 +882,20 @@ public abstract class Nave {
                 		temp=temp + this.nave.get(i).get(j).getriga(k)+ " "; 
                 	}
 	            }
-        		temp += "\n";
+        		temp += "│\n";
         	}
             temp = temp + "\n";
         }
+        for(int i=3; i<12;i++) {
+        	if(i>=10) {
+        		temp = temp + "───"+i+"─";
+        	}else {
+        		temp = temp + "───"+i+"──";
+        	}
+        	
+        	
+        }
+        temp+="┘\n";
         temp+=legenda();
 		return temp;
     }
@@ -896,7 +906,7 @@ public abstract class Nave {
     	
     	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
-				Legenda.add("posizione("+(this.nave.indexOf(colonne)+1)+";"+(colonne.indexOf(tessera)+1)+") "+tessera.toLegenda());
+				Legenda.add("posizione("+(colonne.indexOf(tessera)+1)+";"+(this.nave.indexOf(colonne)+1)+") "+tessera.toLegenda());
 	    		
 			}
     	}
