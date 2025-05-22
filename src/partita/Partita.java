@@ -15,7 +15,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 
 import partita.giocatore.Giocatore;
-import partita.nave.NaveLvl1;
 import tabellone.Tabellone;
 import tessera.Coordinate;
 import tessera.FactoryTessera;
@@ -200,7 +199,7 @@ public class Partita{
 							Tessera tessera = nuovaTesseraRandom();
 							this.com.println("Tessera estratta: ");
 							this.com.print(tessera.toString());
-							this.com.print("Vuoi prenotare la tessera?\n");
+							this.com.println("Vuoi prenotare la tessera?\n");
 							if(this.com.conferma()){
 								prenotaTessera(g, tessera);
 							}else if(!inserisciTessera(g, tessera)){
@@ -280,6 +279,7 @@ public class Partita{
 	private boolean naveFinita(Giocatore giocatore){
 		this.com.clear();
 		// visualizzazione della nave
+		this.com.println("Nave di "+giocatore.getNome());
 		this.com.println(giocatore.getNave().toString());
 
 		this.com.println("Hai finito la nave? ");
@@ -294,7 +294,7 @@ public class Partita{
 	private Tessera selezionaTesseraDalMazzo(ArrayList<Tessera> elencoTessere){
 		int selezione;
 		try{
-			this.com.println("Inserisci il numero della tessera che si vule inserire: ");
+			this.com.println("Inserisci il numero della tessera che si vuole inserire: ");
 			selezione = Integer.parseInt(this.com.consoleRead());
 		}catch(NumberFormatException nfe){
 			this.com.erroreImmissioneValore();
@@ -308,7 +308,7 @@ public class Partita{
 			this.com.println(t.toString());
 			return t;
 		}else{
-			this.com.print("Tessera selezionata non presente");
+			this.com.println("Tessera selezionata non presente");
 			return selezionaTesseraDalMazzo(elencoTessere);
 		}
 		
