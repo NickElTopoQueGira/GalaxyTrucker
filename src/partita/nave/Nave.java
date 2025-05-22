@@ -102,21 +102,7 @@ public abstract class Nave {
         }
     }
 
-    /**
-     * Metodo per la visualizzazione degli elementi presenti 
-     * in componenti prenotati
-     * 
-     * @return messaggio da stampare sulla console
-     */
-    public String tesserePrenotateToString(){
-        String s = "";
 
-        for(int i = 0; i < this.componentiPrenotati.size(); i += 1){
-            s += (i + this.componentiPrenotati.get(i).toString() + "\t");
-        }
-        
-        return s;
-    }
 
     /**
      * Metodo per inserire una tessera nella nave durante la fase di creazione della nave
@@ -849,6 +835,31 @@ public abstract class Nave {
         else{
             throw new ErroreCoordinate("Coordinate immesse non valide");
         }
+    }
+    
+    /**
+     * Metodo per la visualizzazione degli elementi presenti 
+     * in componenti prenotati
+     * 
+     * @return messaggio da stampare sulla console
+     */
+
+    public String tesserePrenotateToString(){
+    	String temp = "";
+    	temp += "Tessere Prenotate:\n";
+    	for(int k=0; k<this.componentiPrenotati.size();k++) {
+			temp=temp+"  "+(k+1)+"  ";
+		}
+		temp+="\n";
+    	for(int i =0; i<5; i++) {
+    		for(int j = 0; j < this.componentiPrenotati.size(); j += 1){
+        		temp=temp + this.componentiPrenotati.get(j).getriga(i)+ " "; 
+            }
+    		temp += "\n";
+    	}
+        temp = temp + "\n";
+        
+		return temp;
     }
     
     /**
