@@ -43,7 +43,7 @@ public class NaveLvl3 extends Nave {
 
     private final int numeroRighe        = 6;
     private final int numeroColonne      = 9;
-    private final Coordinate coordinateCentro = new Coordinate(3, 4);
+    private final Coordinate coordinateCentro = new Coordinate(4, 3);
 
     public NaveLvl3(Colori coloreNave){
         super(coloreNave);
