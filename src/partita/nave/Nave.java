@@ -171,12 +171,8 @@ public abstract class Nave {
     private boolean verificaInserimentoCannone(Coordinate coordinate, Tessera tessera) {
         
     	Cannone cannone = (Cannone) tessera;
-        Tessera vuota=null;
-		try {
-			vuota = new TesseraVuota();
-		} catch (ErroreTessera e) {
-			e.printStackTrace();
-		}
+        Tessera vuota= new TesseraVuota();
+		
         // controllo se la cella subito dopo il cannone e' presente un blocco
         try {
             switch (cannone.getLatoCannone()) {
@@ -222,12 +218,8 @@ public abstract class Nave {
      */
     private boolean verificaInserimentoMotore(Coordinate coordinate, Tessera tessera){
     	
-    	Tessera vuota=null;
-		try {
-			vuota = new TesseraVuota();
-		} catch (ErroreTessera e) {
-			e.printStackTrace();
-		}
+    	Tessera vuota= new TesseraVuota();
+		
         // controllo se il pezzo subito sotto e' libero
         try{
             if(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()) == vuota){
@@ -390,12 +382,9 @@ public abstract class Nave {
 					}
 				}
 				if(check) {
-					try {
-						tessera=new TesseraVuota();
-					} catch (ErroreTessera e) {
-						
-						e.printStackTrace();
-					}
+					
+					tessera=new TesseraVuota();
+					
 				}
 			}
     	}
@@ -406,12 +395,7 @@ public abstract class Nave {
     			for(Tessera tessera : colonne) {
     				for(Coordinate coordinateTessera : visitate) {
     					if(coordinateTessera==tessera.getCoordinate()) {
-    						try {
-    							tessera=new TesseraVuota();
-    						} catch (ErroreTessera e) {
-    							
-    							e.printStackTrace();
-    						}
+    						tessera=new TesseraVuota();
     					}
     				}
     				
@@ -865,7 +849,6 @@ public abstract class Nave {
      * 
      * @return messaggio da stampare sulla console
      */
-
     public String tesserePrenotateToString(){
     	String temp = "";
     	temp += "Tessere Prenotate:\n";

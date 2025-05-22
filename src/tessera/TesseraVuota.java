@@ -1,10 +1,8 @@
 package tessera;
 
-import eccezioniPersonalizzate.ErroreTessera;
-
 public class TesseraVuota extends Tessera{
 
-	public TesseraVuota() throws ErroreTessera{
+	public TesseraVuota(){
 		super(TipoTessera.VUOTA);
 		this.latiTessera.setVuota();
 		

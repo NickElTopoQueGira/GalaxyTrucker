@@ -71,19 +71,13 @@ public abstract class Tessera {
 
 	
 	/**
-	 * aggiunge alla lista di tessere la tessera ed incrementa la size di 1
+	 * aggiunge al set di tessere la tessera ed incrementa la size di 1
 	 * @throws ErroreTessera 
 	 */
 	public void aggiungiTessera(){	
-		LinkedHashSet<Tessera> temp = lista;
 		lista.add(this);
-		if(temp.size()==lista.size()) {
-			//TODO eccezione tessera gia generata
-		}else {
-			setCurrentSize(+1);
-		}
-		
-		
+		setCurrentSize(+1);
+
 	}
 
 	/**
