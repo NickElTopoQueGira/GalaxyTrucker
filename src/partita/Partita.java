@@ -363,9 +363,9 @@ public class Partita{
 		do {
 			try{
 				this.com.println("Inserisci la coordinata x: ");
-				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveO();
+				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveX();
 				this.com.println("Inserisci la coordinata y: ");
-				y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveV();
+				y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveY();
 				
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
