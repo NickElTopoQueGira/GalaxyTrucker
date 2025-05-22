@@ -2,6 +2,7 @@ package partita;
 
 import java.util.Set;
 
+
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
@@ -14,6 +15,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 
 import partita.giocatore.Giocatore;
+import partita.nave.NaveLvl1;
 import tabellone.Tabellone;
 import tessera.Coordinate;
 import tessera.FactoryTessera;
@@ -361,15 +363,14 @@ public class Partita{
 	 * @param tessera
 	 */
 	private void inserisciTesseraNellaNave(Giocatore giocatore, Tessera tessera){
-		this.com.println("La tua nave: ");
 		this.com.println(giocatore.getNave().toString());
 
 		int x = 0, y = 0;
 		try{
 			this.com.println("Inserisci la coordinata x: ");
-			x = Integer.parseInt(this.com.consoleRead());
+			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveO();
 			this.com.println("Inserisci la coordinata y: ");
-			y = Integer.parseInt(this.com.consoleRead());
+			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveV();
 		}catch(NumberFormatException nfe){
 			this.com.erroreImmissioneValore();
 			inserisciTesseraNellaNave(giocatore, tessera);

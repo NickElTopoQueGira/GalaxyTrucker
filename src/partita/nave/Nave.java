@@ -42,6 +42,10 @@ public abstract class Nave {
     private int numeroConnettoriScoperti;
     private ComunicazioneConUtente stampa;
 	private ArrayList<ArrayList<Tessera>> parteRestante;
+	private final int inizioNaveO;
+	private final int fineNaveO;
+	private final int inizioNaveV;
+	private final int fineNaveV;
     
     /**
      * Metodi astratti, implementati nelle sotto classi, per prendere 
@@ -64,12 +68,22 @@ public abstract class Nave {
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
         this.coloreNave = coloreNave;
-
+        this.fineNaveO=setFineNaveO();
+        this.inizioNaveO=setInizioNaveO();
+        this.fineNaveV=setFineNaveV();
+        this.inizioNaveV=setInizioNaveV();
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
     }
     
-    /**
+    
+    
+    
+	public abstract int setInizioNaveV();
+	public abstract int setFineNaveV();
+	public abstract int setInizioNaveO();
+    public abstract int setFineNaveO();
+	/**
      * Metodo per prenotare le tessere da mettere.
      * Si possono prenotare al massimo 2 tessere
      * 
@@ -171,7 +185,7 @@ public abstract class Nave {
     private boolean verificaInserimentoCannone(Coordinate coordinate, Tessera tessera) {
         
     	Cannone cannone = (Cannone) tessera;
-        Tessera vuota= new TesseraVuota();
+        Tessera vuota= new TesseraVuota(coordinate.getX(),coordinate.getY());
 		
         // controllo se la cella subito dopo il cannone e' presente un blocco
         try {
@@ -218,7 +232,7 @@ public abstract class Nave {
      */
     private boolean verificaInserimentoMotore(Coordinate coordinate, Tessera tessera){
     	
-    	Tessera vuota= new TesseraVuota();
+    	Tessera vuota= new TesseraVuota(coordinate.getX(),coordinate.getY());
 		
         // controllo se il pezzo subito sotto e' libero
         try{
@@ -241,7 +255,7 @@ public abstract class Nave {
      * @throws ErroreGiocatore 
      */
     public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera, ErroreGiocatore{
-    	Tessera vuota=new TesseraVuota();
+    	Tessera vuota=new TesseraVuota(coordinate.getX(), coordinate.getY());
     	
     	// Verifica delle coordinate
         if(!controllaCoordinate(coordinate)){
@@ -383,7 +397,7 @@ public abstract class Nave {
 				}
 				if(check) {
 					
-					tessera=new TesseraVuota();
+					tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY());
 					
 				}
 			}
@@ -395,7 +409,7 @@ public abstract class Nave {
     			for(Tessera tessera : colonne) {
     				for(Coordinate coordinateTessera : visitate) {
     					if(coordinateTessera==tessera.getCoordinate()) {
-    						tessera=new TesseraVuota();
+    						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY());
     					}
     				}
     				
@@ -882,15 +896,23 @@ public abstract class Nave {
                 		temp=temp + this.nave.get(i).get(j).getriga(k)+ " "; 
                 	}
 	            }
-        		temp += "│\n";
+        		if(k==2) {
+        			temp+=""+(i+this.inizioNaveV)+"\n";
+        		}else {
+        			temp += "│\n";
+        		}
+        		
         	}
-            temp = temp + "\n";
+        	for(int j=this.inizioNaveO; j<this.fineNaveO;j++) {
+        		temp += "      ";
+        	}
+            temp += "│\n";
         }
-        for(int i=3; i<12;i++) {
+        for(int i=inizioNaveO; i<fineNaveO;i++) {
         	if(i>=10) {
-        		temp = temp + "───"+i+"─";
+        		temp = temp + "──"+i+"──";
         	}else {
-        		temp = temp + "───"+i+"──";
+        		temp = temp + "──"+i+"───";
         	}
         	
         	
@@ -905,13 +927,16 @@ public abstract class Nave {
     	ArrayList<String> Legenda = new ArrayList<String>();
     	
     	for(ArrayList<Tessera> colonne : this.nave) {
+    		int contatore=0;
 			for(Tessera tessera : colonne) {
-				Legenda.add("posizione("+(colonne.indexOf(tessera)+1)+";"+(this.nave.indexOf(colonne)+1)+") "+tessera.toLegenda());
+				String temp = "posizione("+(tessera.getCoordinate().getX()+this.inizioNaveO)+";"+(tessera.getCoordinate().getY()+inizioNaveV)+") "+tessera.toLegenda();
+				Legenda.add(temp);
 	    		
 			}
     	}
     	return stampa.visualizzaElenco(Legenda);
     }
+   
     
     
     //per il set dei troncamenti della nave

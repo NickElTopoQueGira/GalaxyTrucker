@@ -11,7 +11,7 @@ public abstract class Tessera {
 
 	protected final TipoTessera tipoTessera;
 	protected LatiTessera latiTessera = new LatiTessera();
-	private Coordinate coordinate;
+	private Coordinate coordinate=new Coordinate();
 	private static int currentSize = 0;
 	private static LinkedHashSet<Tessera> lista = new LinkedHashSet<Tessera>();
 	protected String[][] tessera_Disposizione = {

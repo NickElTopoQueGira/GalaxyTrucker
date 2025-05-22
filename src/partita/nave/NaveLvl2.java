@@ -59,7 +59,7 @@ public class NaveLvl2 extends Nave {
                     }
                 }
                 else{
-                	Tessera vuota = new TesseraVuota();
+                	Tessera vuota = new TesseraVuota(i, j);
                     riga.add(vuota);
                 }
                 
@@ -81,4 +81,24 @@ public class NaveLvl2 extends Nave {
     protected Coordinate getCoordinateCentro() { 
         return new Coordinate(coordinateCentro.getX(), coordinateCentro.getY()); 
     }
+    
+    @Override
+    public int setInizioNaveO() {
+		return 4;
+	}
+
+	@Override
+	public int setFineNaveO() {
+		return 11;
+	}
+    
+	@Override
+	public int setInizioNaveV() {
+		return 5;
+	}
+
+	@Override
+	public int setFineNaveV() {
+		return 10;
+	}
 }

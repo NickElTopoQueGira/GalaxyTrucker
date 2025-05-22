@@ -2,10 +2,11 @@ package tessera;
 
 public class TesseraVuota extends Tessera{
 
-	public TesseraVuota(){
+	public TesseraVuota(int x, int y){
 		super(TipoTessera.VUOTA);
 		this.latiTessera.setVuota();
-		
+		super.getCoordinate().setX(x);
+		super.getCoordinate().setY(y);
 	}
 
 	/**
