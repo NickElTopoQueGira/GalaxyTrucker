@@ -35,7 +35,7 @@ public class NaveLvl3 extends Nave {
             {0, 0, 0, 0, 1, 0, 0, 0, 0},    // riga 0
             {0, 0, 0, 1, 1, 1, 0, 0, 0},    // riga 1
             {1, 0, 1, 1, 1, 1, 1, 0, 1},    // riga 2
-            {1, 1, 1, 1, 2, 1, 1, 1, 1},    // riga 3
+            {1, 1, 1, 1, 3, 1, 1, 1, 1},    // riga 3
             {1, 1, 1, 1, 1, 1, 1, 1, 1},    // riga 4
             {1, 1, 0, 1, 1, 1, 0, 1, 1}     // riga 5
 
@@ -87,22 +87,22 @@ public class NaveLvl3 extends Nave {
     }
     
     @Override
-    public int setInizioNaveO() {
+    public int getCentroNaveX() {
 		return 3;
 	}
 
 	@Override
-	public int setFineNaveO() {
+	public int getConfineNaveX() {
 		return 12;
 	}
 	
 	@Override
-	public int setInizioNaveV() {
+	public int getCentroNaveY() {
 		return 4;
 	}
 
 	@Override
-	public int setFineNaveV() {
+	public int getConfineNaveY() {
 		return 10;
 	}
     

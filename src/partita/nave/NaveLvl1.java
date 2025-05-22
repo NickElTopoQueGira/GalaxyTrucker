@@ -83,22 +83,22 @@ public class NaveLvl1 extends Nave {
     }
 
 	@Override
-	public int setInizioNaveO() {
+	public int getCentroNaveX() {
 		return 4;
 	}
 
 	@Override
-	public int setFineNaveO() {
+	public int getConfineNaveX() {
 		return 11;
 	}
 
 	@Override
-	public int setInizioNaveV() {
+	public int getCentroNaveY() {
 		return 5;
 	}
 
 	@Override
-	public int setFineNaveV() {
+	public int getConfineNaveY() {
 		return 10;
 	}
 

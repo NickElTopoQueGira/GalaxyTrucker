@@ -68,19 +68,19 @@ public abstract class Nave {
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
         this.coloreNave = coloreNave;
-        this.fineNaveO=setFineNaveO();
-        this.inizioNaveO=setInizioNaveO();
-        this.fineNaveV=setFineNaveV();
-        this.inizioNaveV=setInizioNaveV();
+        this.fineNaveO = getConfineNaveX();
+        this.inizioNaveO = getCentroNaveX();
+        this.fineNaveV = getConfineNaveY();
+        this.inizioNaveV = getCentroNaveY();
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
     }
 
 	
-    public abstract int setInizioNaveV();
-    public abstract int setFineNaveV();
-	public abstract int setInizioNaveO();
-	public abstract int setFineNaveO();
+    public abstract int getCentroNaveY();
+    public abstract int getConfineNaveY();
+	public abstract int getCentroNaveX();
+	public abstract int getConfineNaveX();
 	
 	/**
 =======
@@ -143,16 +143,8 @@ public abstract class Nave {
      */
     private Coordinate impostaCordinate(Coordinate coordinataArrivo) {
     	
-    	Coordinate crd;
-    	
-    	if(this.getRighe() == 5) {
+    	return new Coordinate(coordinataArrivo.getX()-this.getCentroNaveX(), coordinataArrivo.getY()-this.getCentroNaveY());
     		
-    		return new Coordinate(coordinataArrivo.getX()-4, coordinataArrivo.getY()-5);
-    		
-    	}else {
-    		
-    		return new Coordinate(coordinataArrivo.getX()-3, coordinataArrivo.getY()-4);
-    	}
     }
     
     /**
@@ -164,6 +156,8 @@ public abstract class Nave {
      * @throws ErroreCoordinate
      */
     public void inserisciTessera(Coordinate coordinata, Tessera tessera) throws ErroreTessera, ErroreCoordinate{
+    	
+    	coordinata = impostaCordinate(coordinata);
     	
         if(controllaCoordinate(coordinata)){
             // Verifica se la sua tessera viene messa nel centro
