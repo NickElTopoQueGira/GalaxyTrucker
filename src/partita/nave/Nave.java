@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
 
@@ -170,7 +171,12 @@ public abstract class Nave {
     private boolean verificaInserimetnoCannone(Coordinate coordinate, Tessera tessera) {
         
     	Cannone cannone = (Cannone) tessera;
-        Tessera vuota= new TesseraVuota();
+        Tessera vuota=null;
+		try {
+			vuota = new TesseraVuota();
+		} catch (ErroreTessera e) {
+			e.printStackTrace();
+		}
         // controllo se la cella subito dopo il cannone e' presente un blocco
         try {
             switch (cannone.getLatoCannone()) {
@@ -215,7 +221,13 @@ public abstract class Nave {
      *         falso -> il motore non puo' essere posizionato
      */
     private boolean verificaInserimentoMotore(Coordinate coordinate, Tessera tessera){
-    	Tessera vuota= new TesseraVuota();
+    	
+    	Tessera vuota=null;
+		try {
+			vuota = new TesseraVuota();
+		} catch (ErroreTessera e) {
+			e.printStackTrace();
+		}
         // controllo se il pezzo subito sotto e' libero
         try{
             if(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()) == vuota){
@@ -378,7 +390,12 @@ public abstract class Nave {
 					}
 				}
 				if(check) {
-					tessera=new TesseraVuota();
+					try {
+						tessera=new TesseraVuota();
+					} catch (ErroreTessera e) {
+						
+						e.printStackTrace();
+					}
 				}
 			}
     	}
@@ -389,7 +406,12 @@ public abstract class Nave {
     			for(Tessera tessera : colonne) {
     				for(Coordinate coordinateTessera : visitate) {
     					if(coordinateTessera==tessera.getCoordinate()) {
-    						tessera=new TesseraVuota();
+    						try {
+    							tessera=new TesseraVuota();
+    						} catch (ErroreTessera e) {
+    							
+    							e.printStackTrace();
+    						}
     					}
     				}
     				
@@ -898,7 +920,24 @@ public abstract class Nave {
     	return stampa.visualizzaElenco(Legenda);
     }
     
-    //-------------------- SETTER - GETTER --------------------
+    
+    //per il set dei troncamenti della nave
+    @Override
+	public int hashCode() {
+		return Objects.hash(nave);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Nave other = (Nave) obj;
+		return Objects.equals(nave, other.nave);
+	}
+	//-------------------- SETTER - GETTER --------------------
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave(){ return this.nave; }
 
     public Colori getColoreNave(){ return this.coloreNave; }

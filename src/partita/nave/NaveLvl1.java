@@ -58,7 +58,13 @@ public class NaveLvl1 extends Nave {
                     }
                 }
                 else{
-                	Tessera vuota=new TesseraVuota();
+                	Tessera vuota = null;
+					try {
+						vuota = new TesseraVuota();
+					} catch (ErroreTessera e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                     riga.add(vuota);
                 }
                 

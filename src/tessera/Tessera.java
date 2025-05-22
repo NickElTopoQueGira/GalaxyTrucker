@@ -1,8 +1,11 @@
 package tessera;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Objects;
 
 import eccezioniPersonalizzate.ErroreRotazione;
+import eccezioniPersonalizzate.ErroreTessera;
 
 public abstract class Tessera {
 
@@ -10,7 +13,7 @@ public abstract class Tessera {
 	protected LatiTessera latiTessera = new LatiTessera();
 	private Coordinate coordinate;
 	private static int currentSize = 0;
-	private static ArrayList<Tessera> lista = new ArrayList<Tessera>();
+	private static LinkedHashSet<Tessera> lista = new LinkedHashSet<Tessera>();
 	protected String[][] tessera_Disposizione = {
 			//Righe V  0    1    2    3    4    <- colonne
 			/* 0 */ { "┌", "─", "─", "─", "┐" },
@@ -24,8 +27,9 @@ public abstract class Tessera {
 	/**
 	 * Costruttore
 	 * @param tipoTessera
+	 * @throws ErroreTessera 
 	 */
-	public Tessera(TipoTessera tipoTessera) {
+	public Tessera(TipoTessera tipoTessera) throws ErroreTessera {
 
 		this.tipoTessera = tipoTessera;
 
@@ -51,7 +55,7 @@ public abstract class Tessera {
 		this.coordinate = coordinate;
 	}
 
-	public ArrayList<Tessera> getListaTessere() {
+	public LinkedHashSet<Tessera> getListaTessere() {
 		return lista;
 	}
 
@@ -66,11 +70,17 @@ public abstract class Tessera {
 	
 	/**
 	 * aggiunge alla lista di tessere la tessera ed incrementa la size di 1
+	 * @throws ErroreTessera 
 	 */
-	public void aggiungiTessera() {
-		setCurrentSize(+1);
+	public void aggiungiTessera() throws ErroreTessera {
+		LinkedHashSet<Tessera> temp = lista;	
 		lista.add(this);
-
+		if(lista==temp) {
+			throw new ErroreTessera("");
+			
+		}else {
+			setCurrentSize(+1);
+		}
 	}
 
 	/**
@@ -219,6 +229,29 @@ public abstract class Tessera {
 	}
 	
 	public abstract String toLegenda();
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(tessera_Disposizione);
+		result = prime * result + Objects.hash(coordinate, latiTessera, tipoTessera);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tessera other = (Tessera) obj;
+		return Objects.equals(coordinate, other.coordinate) && Objects.equals(latiTessera, other.latiTessera)
+				&& Arrays.deepEquals(tessera_Disposizione, other.tessera_Disposizione)
+				&& tipoTessera == other.tipoTessera;
+	}
 
 	
 }
