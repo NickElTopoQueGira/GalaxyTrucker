@@ -69,6 +69,8 @@ public abstract class Nave {
         this.numeroConnettoriScoperti = 0;
     }
     
+    // ---------------------------- TESSERE PRENOTATE ---------------------------- 
+    
     /**
      * Metodo per prenotare le tessere da mettere.
      * Si possono prenotare al massimo 2 tessere
@@ -103,7 +105,18 @@ public abstract class Nave {
         }
     }
 
+    /**
+     * Metodo per sapere se la collezione di componenti prenotati 
+     * e' vuota o e' piena
+     * 
+     * @return true -> vuota 
+     * 		   false -> piena
+     */
+    public boolean isComponentiPrenotatiEmpty(){
+    	return this.componentiPrenotati.isEmpty();
+    }
 
+    // ---------------------------- INSERIMENTO TESSERE NELLA NAVE ----------------------------
 
     /**
      * Metodo per inserire una tessera nella nave durante la fase di creazione della nave
