@@ -384,8 +384,36 @@ public class Partita{
 					this.com.print("Pezzo inserito correttamente");
 				}
 			}
+		
+		try{
+			this.com.println("Inserisci la coordinata x: ");
+			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveO();
+			this.com.println("Inserisci la coordinata y: ");
+			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveV();
 			
-		}while(false); 
+		}catch(NumberFormatException nfe){
+			this.com.erroreImmissioneValore();
+			inserisciTesseraNellaNave(giocatore, tessera);
+		}
+		
+		Coordinate c = new Coordinate(x, y);
+		if(aggiungiTesseraNellanave(giocatore, tessera, c)){
+			this.com.println("Tessera aggiunta alla nave con successo!");
+		}else{
+			inserisciTesseraNellaNave(giocatore, tessera);
+		}
+	}
+
+	private boolean aggiungiTesseraNellanave(Giocatore giocatore, Tessera tessera, Coordinate coordinate){
+		try {
+			giocatore.getNave().inserisciTessera(coordinate, tessera);
+			return true;
+		}catch(ErroreTessera et){
+			this.com.printError(et.getMessage());
+		}catch(ErroreCoordinate ec){
+			this.com.printError(ec.getMessage());
+		}
+		return false;
 	}
 
 	/**

@@ -82,12 +82,9 @@ public abstract class Nave {
 	public abstract int getCentroNaveX();
 	public abstract int getConfineNaveX();
 	
-	/**
-=======
     // ---------------------------- TESSERE PRENOTATE ---------------------------- 
     
     /**
->>>>>>> 4a04235649a083f4ca95175e3468ae437d7a9509
      * Metodo per prenotare le tessere da mettere.
      * Si possono prenotare al massimo 2 tessere
      * 
