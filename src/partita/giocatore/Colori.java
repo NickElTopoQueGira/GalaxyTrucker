@@ -28,8 +28,6 @@ public enum Colori {
 		
 	}
 	
-	
-
 	public static Colori coloreSelezionato(int numeroColore) {
 		for(Colori colori : Colori.values()){
 			if(colori.getIdColore() == numeroColore){

@@ -33,6 +33,7 @@ public class Partita{
 	 * @param numeroGiocatori
 	 */
 	public Partita(int numeroGiocatori){
+		
 		this.com = ComunicazioneConUtente.getIstanza();
 		this.numeroGiocatori = numeroGiocatori;
 		this.modalitaPartita = ModalitaPartita.MULTIPLA;
@@ -157,7 +158,8 @@ public class Partita{
 		while(assemblaggioInCorso){
 			for(int i = 0; i < this.numeroGiocatori; i += 1){
 				Giocatore g = giocatori.get(i);
-
+				this.com.println("");
+				this.com.println("");
 				/**
 				 * Verifica nel caso in cui il giocatore non abbia finito 
 				 * pre primo l'assemblaggio della nave, quanti turni 
@@ -172,7 +174,7 @@ public class Partita{
 					this.com.printNumber(turniResidui.get(g));
 					this.com.println("");
 				}
-
+				
 				this.com.println("Turno del giocatore: " + g.getNome());
 				this.com.println("Vuoi modificare la nave? \n");
 				if(this.com.conferma()){
@@ -354,28 +356,34 @@ public class Partita{
 	 */
 	private void inserisciTesseraNellaNave(Giocatore giocatore, Tessera tessera){
 		this.com.println(giocatore.getNave().toString());
-
+		
 		int x = 0, y = 0;
-		try{
-			this.com.println("Inserisci la coordinata x: ");
-			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveO();
-			this.com.println("Inserisci la coordinata y: ");
-			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveV();
-		}catch(NumberFormatException nfe){
-			this.com.erroreImmissioneValore();
-			inserisciTesseraNellaNave(giocatore, tessera);
-		}finally{
-			Coordinate c = new Coordinate(x, y);
+		do {
 			try{
-				giocatore.getNave().inserisciTessera(c, tessera);
-			}catch(ErroreTessera et){
-				this.com.printError(et.getMessage());
-			}catch(ErroreCoordinate ec){
-				this.com.printError(ec.getMessage());
+				this.com.println("Inserisci la coordinata x: ");
+				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveO();
+				this.com.println("Inserisci la coordinata y: ");
+				y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveV();
+				
+			}catch(NumberFormatException nfe){
+				this.com.erroreImmissioneValore();
+				inserisciTesseraNellaNave(giocatore, tessera);
 			}finally{
-				this.com.print("Pezzo inserito correttamente");
+				Coordinate c = new Coordinate(x, y);
+				try{
+					giocatore.getNave().inserisciTessera(c, tessera);
+				}catch(ErroreTessera et){
+					this.com.printError(et.getMessage());
+					
+				}catch(ErroreCoordinate ec){
+					this.com.printError(ec.getMessage());
+					
+				}finally{
+					this.com.print("Pezzo inserito correttamente");
+				}
 			}
-		}
+			
+		}while(false); 
 	}
 
 	/**

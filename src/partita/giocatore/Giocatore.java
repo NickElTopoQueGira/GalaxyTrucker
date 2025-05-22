@@ -25,8 +25,8 @@ public class Giocatore {
 			this.pedina = new Pedina(this);
 		}
 	}
-
-	public String getNome(){ return this.nome; }
+	
+	public String getNome(){ return this.colorePedina.getCodiceColore()+this.nome+"\u001B[0m"; }
 
 	public Pedina getPedina(){ return this.pedina; }
 

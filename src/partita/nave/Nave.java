@@ -143,8 +143,9 @@ public abstract class Nave {
      * @throws ErroreCoordinate
      */
     public void inserisciTessera(Coordinate coordinata, Tessera tessera) throws ErroreTessera, ErroreCoordinate{
+    	
         if(controllaCoordinate(coordinata)){
-            // Verifica se la nua tessera viene messa nel centro
+            // Verifica se la sua tessera viene messa nel centro
             if(coordinata.getX() == centro.getX() && coordinata.getY() == centro.getY()){
                 throw new ErroreTessera("Posizione non valida!");
             }
