@@ -11,7 +11,10 @@ import tessera.Tessera;
 import tessera.TesseraVuota;
 
 public class NaveLvl1 extends Nave {
-
+	
+	private final int numeroRighe        = 5;
+    private final int numeroColonne      = 7;
+    private final Coordinate coordinateCentro = new Coordinate(3, 2);
     /**
      * Plancia nave
      * Legenda:
@@ -36,10 +39,6 @@ public class NaveLvl1 extends Nave {
             {0, 1, 1, 1, 1, 1, 0},  // riga 3
             {0, 1, 1, 0, 1, 1, 0}   // riga 4
     };
-
-    private final int numeroRighe        = 5;
-    private final int numeroColonne      = 7;
-    private final Coordinate coordinateCentro = new Coordinate(3, 2);
 
     public NaveLvl1(Colori coloreNave){
         super(coloreNave);
@@ -79,7 +78,7 @@ public class NaveLvl1 extends Nave {
 
     @Override
     protected Coordinate getCoordinateCentro() { 
-        return new Coordinate(coordinateCentro.getX(), coordinateCentro.getY()); 
+        return coordinateCentro; 
     }
 
 	@Override

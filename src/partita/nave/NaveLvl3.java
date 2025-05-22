@@ -83,7 +83,7 @@ public class NaveLvl3 extends Nave {
 
     @Override
     protected Coordinate getCoordinateCentro() { 
-        return new Coordinate(coordinateCentro.getX(), coordinateCentro.getY()); 
+        return coordinateCentro; 
     }
     
     @Override
