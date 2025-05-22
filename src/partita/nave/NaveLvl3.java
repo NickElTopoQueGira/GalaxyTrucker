@@ -29,7 +29,7 @@ public class NaveLvl3 extends Nave {
      * 9    1   1   0   1   1   1   0   1   1
      * */
 
-    private static final int[][] NAVE_DEF = {
+    private final int[][] NAVE_DEF = {
         // Colonne
         //   0  1  2  3  4  5  6  7  8
             {0, 0, 0, 0, 1, 0, 0, 0, 0},    // riga 0
@@ -41,9 +41,9 @@ public class NaveLvl3 extends Nave {
 
     };
 
-    private static final int numeroRighe        = 6;
-    private static final int numeroColonne      = 9;
-    private static final Coordinate coordinateCentro = new Coordinate(3, 4);
+    private final int numeroRighe        = 6;
+    private final int numeroColonne      = 9;
+    private final Coordinate coordinateCentro = new Coordinate(3, 4);
 
     public NaveLvl3(Colori coloreNave){
         super(coloreNave);

@@ -133,7 +133,28 @@ public abstract class Nave {
     }
 
     // ---------------------------- INSERIMENTO TESSERE NELLA NAVE ----------------------------
-
+    
+    /**
+     * metodo per impostare le coordinate date dal giocatore
+     * associabile alla nave in questione
+     * 
+     * @param coordinataArrivo
+     * @return coordinate in base alla nave
+     */
+    private Coordinate impostaCordinate(Coordinate coordinataArrivo) {
+    	
+    	Coordinate crd;
+    	
+    	if(this.getRighe() == 5) {
+    		
+    		return new Coordinate(coordinataArrivo.getX()-4, coordinataArrivo.getY()-5);
+    		
+    	}else {
+    		
+    		return new Coordinate(coordinataArrivo.getX()-3, coordinataArrivo.getY()-4);
+    	}
+    }
+    
     /**
      * Metodo per inserire una tessera nella nave durante la fase di creazione della nave
      * 
