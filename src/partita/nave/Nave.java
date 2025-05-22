@@ -131,7 +131,7 @@ public abstract class Nave {
              * - Motore : non puo' avere pezzi subito dietro
              */
             if(tessera.getTipoTessera() == TipoTessera.CANNONE){
-                if(false == verificaInserimetnoCannone(coordinata, tessera)){
+                if(false == verificaInserimentoCannone(coordinata, tessera)){
                     throw new ErroreTessera("Impossibile aggiungere il cannone in questa posizione");
                 }
             }
@@ -168,7 +168,7 @@ public abstract class Nave {
      * @return vero -> il cannone puo' essere posizionato |
      *         falso -> il cannone non puo' essere posizionato
      */
-    private boolean verificaInserimetnoCannone(Coordinate coordinate, Tessera tessera) {
+    private boolean verificaInserimentoCannone(Coordinate coordinate, Tessera tessera) {
         
     	Cannone cannone = (Cannone) tessera;
         Tessera vuota=null;
@@ -304,7 +304,7 @@ public abstract class Nave {
 		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(this.parteRestante.contains(tessera)) {
-					troncamentiNave.equals(this.distruggiNave(tessera.getCoordinate(),false));
+					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(),false));
 				}
 			}
     	}
@@ -923,24 +923,26 @@ public abstract class Nave {
     
     //per il set dei troncamenti della nave
     @Override
-	public int hashCode() {
-		return Objects.hash(nave);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Nave other = (Nave) obj;
-		return Objects.equals(nave, other.nave);
-	}
+   	public int hashCode() {
+   		return Objects.hash(coloreNave, nave);
+   	}
+   	@Override
+   	public boolean equals(Object obj) {
+   		if (this == obj)
+   			return true;
+   		if (obj == null)
+   			return false;
+   		if (getClass() != obj.getClass())
+   			return false;
+   		Nave other = (Nave) obj;
+   		return coloreNave == other.coloreNave && Objects.equals(nave, other.nave);
+   	}
+   	
 	//-------------------- SETTER - GETTER --------------------
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave(){ return this.nave; }
 
-    public Colori getColoreNave(){ return this.coloreNave; }
+   
+	public Colori getColoreNave(){ return this.coloreNave; }
 
     public int getEnergiaResidua(){ return this.energiaResidua; }
 

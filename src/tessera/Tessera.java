@@ -29,12 +29,14 @@ public abstract class Tessera {
 	 * @param tipoTessera
 	 * @throws ErroreTessera 
 	 */
-	public Tessera(TipoTessera tipoTessera) throws ErroreTessera {
+	public Tessera(TipoTessera tipoTessera){
 
 		this.tipoTessera = tipoTessera;
 
-		if (this.tipoTessera != TipoTessera.CENTRO) {
-			aggiungiTessera();
+		if (this.tipoTessera != TipoTessera.CENTRO && this.tipoTessera != TipoTessera.VUOTA) {
+		
+				aggiungiTessera();
+			
 		}
 
 	}
@@ -72,15 +74,16 @@ public abstract class Tessera {
 	 * aggiunge alla lista di tessere la tessera ed incrementa la size di 1
 	 * @throws ErroreTessera 
 	 */
-	public void aggiungiTessera() throws ErroreTessera {
-		LinkedHashSet<Tessera> temp = lista;	
+	public void aggiungiTessera(){	
+		LinkedHashSet<Tessera> temp = lista;
 		lista.add(this);
-		if(lista==temp) {
-			throw new ErroreTessera("");
-			
+		if(temp.size()==lista.size()) {
+			//TODO eccezione tessera gia generata
 		}else {
 			setCurrentSize(+1);
 		}
+		
+		
 	}
 
 	/**
@@ -252,10 +255,5 @@ public abstract class Tessera {
 				&& Arrays.deepEquals(tessera_Disposizione, other.tessera_Disposizione)
 				&& tipoTessera == other.tipoTessera;
 	}
-
-	
-
-	
-
 	
 }
