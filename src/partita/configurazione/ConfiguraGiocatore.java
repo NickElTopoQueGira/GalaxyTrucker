@@ -5,7 +5,7 @@ import partita.giocatore.Colori;
 import partita.giocatore.Giocatore;
 
 public class ConfiguraGiocatore{
-    private ComunicazioneConUtente com;
+    private final ComunicazioneConUtente com;
     private String nome;
     private Colori colorePedina;
 
@@ -25,13 +25,12 @@ public class ConfiguraGiocatore{
     }
 
     private String nome(){
-        String temp = "";
+        String temp;
         com.print("Inserisci il nome del giocatore (25 caratteri max): ");
         temp = com.consoleRead();
-        if(temp.length() <= 25){
+        if(temp.isBlank() == false && temp.length() <= 25){
             return temp;
-        }
-        else{
+        }else{
             com.erroreImmissioneValore();
             return nome();
         }
@@ -41,14 +40,24 @@ public class ConfiguraGiocatore{
         Colori c;
         visualizzaColori();
         com.print("Inserisci il numero del colore: ");
-        int t = Integer.parseInt(com.consoleRead());
         
-        try{
-            c = Colori.coloreSelezionato(t); 
-        }catch(IllegalArgumentException iax){
-            com.println(iax.getMessage().toString());
+        String val = this.com.consoleRead();
+        if(val.isBlank() || val.isEmpty()){
+            this.com.erroreImmissioneValore();
             return colorePedina();
         }
+        
+        try{
+            int t = Integer.parseInt(val);
+            c = Colori.coloreSelezionato(t); 
+        }catch(NumberFormatException nfe){
+            this.com.erroreImmissioneValore();
+            return colorePedina();
+        }catch(IllegalArgumentException iax){
+            this.com.printError(iax.getMessage());
+            return colorePedina();
+        }
+
         return c;
     }
 

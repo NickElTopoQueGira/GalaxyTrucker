@@ -1,14 +1,13 @@
 package partita.configurazione;
 
-import java.util.ArrayList;
-
 import gioco.ComunicazioneConUtente;
+import java.util.ArrayList;
 import partita.Livelli;
 import partita.ModalitaPartita;
 import partita.Partita;
 
 public class ConfiguraPartita{
-	private ComunicazioneConUtente com;	
+	private final ComunicazioneConUtente com;	
     private int numeroGiocatori;
     private ModalitaPartita modalitaPartita;
 	private Livelli livelloPartita;
@@ -38,7 +37,7 @@ public class ConfiguraPartita{
 		}
 		
 		// conferma e modifica scelte
-		boolean conferma = true;
+		boolean conferma;
 		do{
 			visualizzaScelte();
 			conferma = this.com.conferma();
@@ -56,16 +55,22 @@ public class ConfiguraPartita{
 	 * Metodo per l'immissione del numero dei giocatori
 	 */
 	private int numeroGiocatori(){
-		int numeroGiocatori = 0;
+		int numeroGiocatori = 2;
+		boolean uscita = false;
 		do{
 			this.com.print("Inserisci il numero dei giocatori (min 2, max 4): ");
 			try{
 				numeroGiocatori = Integer.parseInt(this.com.consoleRead());
+				if(numeroGiocatori < 2 || numeroGiocatori > 4) {
+					this.com.erroreImmissioneValore();
+					uscita = false;
+				}else {
+					uscita = true;
+				}
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
-			}
-		}while(numeroGiocatori < 2 || numeroGiocatori > 4);
-
+			}			
+		}while(false == uscita);
 		return numeroGiocatori;
 	}
 
@@ -78,16 +83,23 @@ public class ConfiguraPartita{
 		ArrayList<String> elenco = new ArrayList<>();
 		elenco.add("Partita singola");
 		elenco.add("Partita multipla");
+		boolean uscita = false;
 		do{
 			this.com.println("Modalita' partita disponibile: ");
 			this.com.print(this.com.visualizzaElenco(elenco));
 			this.com.print("Inserisci la modalita' partita: ");
 			try{
 				mod = Integer.parseInt(this.com.consoleRead());
+				if(mod == 1 || mod == 2){
+					uscita = true;
+				}else{
+					this.com.erroreImmissioneValore();
+					uscita = false;
+				}
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 			}
-		}while(mod != 1 && mod != 2);
+		}while(false == uscita);
 
 		return ModalitaPartita.toModalitaPartita(mod);
 	}
@@ -103,17 +115,24 @@ public class ConfiguraPartita{
 		elenco.add("Livello 2");
 		elenco.add("Livello 3");
 
+		boolean uscita = false;
 		do{
 			this.com.println("Livelli disponibili: ");
 			this.com.print(this.com.visualizzaElenco(elenco));
 			this.com.print("Inserisci il livello: ");
 			try{
 				livello = Integer.parseInt(this.com.consoleRead());
+				if(livello == 1 || livello == 2 || livello == 3){
+					uscita = true;
+				}else{
+					this.com.erroreImmissioneValore();
+					uscita = false;
+				}
 			}catch(NumberFormatException nfe){
-				this.com.println("Inserisci un numero valido!!");
+				this.com.erroreImmissioneValore();
 			}
 			
-		}while(livello < 1 || livello > 3);
+		}while(false == uscita);
 
 		return Livelli.getLivello(livello);
 	}
@@ -136,7 +155,7 @@ public class ConfiguraPartita{
 	 */
 	private void modificaScelte(){
 		int s = 0;
-		ArrayList<String> elenco = new ArrayList<String>();
+		ArrayList<String> elenco = new ArrayList<>();
 		elenco.add("Per modificare il numero dei giocatori");
 		elenco.add("Per modificare la modalita' della partita");
 		
@@ -148,7 +167,7 @@ public class ConfiguraPartita{
 		try{
 			s = Integer.parseInt(this.com.consoleRead());
 		}catch(NumberFormatException nfe){
-			this.com.println("Inserisci un valore valido!!");
+			this.com.erroreImmissioneValore();
 		}
 		
 		switch(s){

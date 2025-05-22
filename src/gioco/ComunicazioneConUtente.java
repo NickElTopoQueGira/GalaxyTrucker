@@ -21,6 +21,7 @@
 package gioco;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import partita.giocatore.Giocatore;
@@ -28,7 +29,7 @@ import partita.giocatore.Giocatore;
 public class ComunicazioneConUtente {
     private Scanner input;
     private static ComunicazioneConUtente istanza = null;
-
+    
     private ComunicazioneConUtente(){
         this.input = new Scanner(System.in);
     }
@@ -100,17 +101,24 @@ public class ComunicazioneConUtente {
      * @return input.nextLine() -> stringa letta dalla console
      */
     public String consoleRead(){
-        return input.nextLine();
+    	String risp = "";
+    	try {
+    		risp = input.nextLine();
+    	}catch(NoSuchElementException nee) {
+    		return consoleRead();
+    	}
+    	
+        return risp;
     }
 
     /**
      * Metodo per pulire la console stampando 200 righe vuote
      */
-    public void clear() {
-    	for(int i=0; i<200; i++) {
-    		System.out.print("\n");
+    public void clear(){
+    	for(int i = 0; i < 100; i+= 1){
+    		System.out.println();
     	}
-    	
+    	System.out.flush();
     }
     
 	/**
@@ -150,17 +158,23 @@ public class ComunicazioneConUtente {
      */
     public boolean conferma(){
 		this.print("\ninserire risposta (s/n): ");
-		String t = this.consoleRead();
-		if(t.toUpperCase().charAt(0) == 'S'){
-			return true;
-		}
-		else if(t.toUpperCase().charAt(0) == 'N'){
-			return false;
-		}
-		else{
-			this.println("Valore immesso non valido");
-			return conferma();
-		}
+		String t = "";
+		do {
+			t = this.consoleRead();
+		}while(t.isBlank());
+		
+        switch(t.toUpperCase().charAt(0)){
+            case 'S'->{
+                return true;
+            }
+            case 'N'->{
+                return false;
+            }
+            default->{
+                erroreImmissioneValore();
+			    return conferma();
+            }
+        }
 	}
     
     /**

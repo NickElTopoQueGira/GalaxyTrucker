@@ -177,21 +177,11 @@ public class Partita{
 				this.com.println("Turno del giocatore: " + g.getNome());
 				this.com.println("Vuoi modificare la nave? \n");
 				if(this.com.conferma()){
-					// azioni
-					int azioneCarta = azioneCarta();
-					if(azioneCarta == 1 && elencoTessere.isEmpty()) {
-						this.com.println("Nessuna carta disponibile");
-						azioneCarta = azioneCarta();
-					}
-					if(azioneCarta == 3) {
-						if(g.getNave().tesserePrenotateToString() == ""){
-							this.com.println("Non ci sono tessere prenotate");
-							azioneCarta = azioneCarta();
-						}else{
-							this.com.println(g.getNave().tesserePrenotateToString());
-						}
-					}
 					
+					// azioneCarta verifica gia' a monte se si puo' fare 
+					// una determinata azione
+					int azioneCarta = azioneCarta(g, elencoTessere);
+										
 					switch(azioneCarta){
 						case 1 ->{
 							visualizzaElencoTessere(elencoTessere);
@@ -433,7 +423,7 @@ public class Partita{
 	 * 
 	 * @return scelta
 	 */
-	private int azioneCarta(){
+	private int azioneCarta(Giocatore g, ArrayList<Tessera> elencoTessereEstratte){
 		ArrayList<String> elenco = new ArrayList<>();
 		elenco.add("Per utilizzare una tessera dal mazzo");
 		elenco.add("Per generare una nuova tessera");
@@ -449,6 +439,24 @@ public class Partita{
 				this.com.erroreImmissioneValore();
 			}
 		}while(rispota < 1 || rispota > 3);
+
+
+        // controllo se la selezione fatta e' possibile 
+		switch(rispota) {
+			case 1 ->{
+				if(elencoTessereEstratte.isEmpty()){
+					this.com.printError("Non ci sono tessere estratte");
+					return azioneCarta(g, elencoTessereEstratte);
+				}
+			}
+			case 3 ->{
+				if(g.getNave().isComponentiPrenotatiEmpty()){
+					this.com.printError("Non hai tessere prenotate da usare");
+					return azioneCarta(g, elencoTessereEstratte);
+				}
+			}
+		}
+
 		return rispota;
 	}
 
