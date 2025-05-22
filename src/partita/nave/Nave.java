@@ -75,14 +75,12 @@ public abstract class Nave {
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
     }
-    
+
+	
     public abstract int setInizioNaveV();
-	public abstract int setFineNaveV();
+    public abstract int setFineNaveV();
 	public abstract int setInizioNaveO();
-    public abstract int setFineNaveO();
-    
-    
-    
+	public abstract int setFineNaveO();
 	
 	/**
 =======
