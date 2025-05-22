@@ -1,19 +1,15 @@
 package partita;
 
-import java.util.Set;
-
-
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map;
-
+import java.util.Set;
 import partita.giocatore.Giocatore;
 import tabellone.Tabellone;
 import tessera.Coordinate;
@@ -21,7 +17,7 @@ import tessera.FactoryTessera;
 import tessera.Tessera;
 
 public class Partita{
-	private ComunicazioneConUtente com;
+	private final ComunicazioneConUtente com;
 	private final int numeroGiocatori;
 	private final ModalitaPartita modalitaPartita;
 	private final Set<Giocatore> giocatori;
@@ -37,7 +33,7 @@ public class Partita{
 		this.com = ComunicazioneConUtente.getIstanza();
 		this.numeroGiocatori = numeroGiocatori;
 		this.modalitaPartita = ModalitaPartita.MULTIPLA;
-		this.giocatori = new LinkedHashSet<Giocatore>();
+		this.giocatori = new LinkedHashSet<>();
 		this.tabellone = null;
 	}
 
@@ -48,7 +44,7 @@ public class Partita{
 	 */
 	public Partita(int numeroGiocatori, Livelli livelloPartita){
 		this.com = ComunicazioneConUtente.getIstanza();
-		this.giocatori = new LinkedHashSet<Giocatore>();
+		this.giocatori = new LinkedHashSet<>();
 		this.modalitaPartita = ModalitaPartita.SINGOLA;
 		this.numeroGiocatori = numeroGiocatori;
 		this.livelloPartita = livelloPartita;
@@ -145,11 +141,11 @@ public class Partita{
 	 * Meto per assemblare la nave a turno
 	 */
 	private void assemblaNavi(){
-		ArrayList<Giocatore> giocatori = new ArrayList<Giocatore>(this.giocatori);
+		ArrayList<Giocatore> giocatori = new ArrayList<>(this.giocatori);
 		Map<Giocatore, Integer> turniResidui = new HashMap<>();
 		final int TURNI_EXTRA = 10;
 		boolean assemblaggioInCorso = true;
-		ArrayList<Tessera> elencoTessere = new ArrayList<Tessera>();
+		ArrayList<Tessera> elencoTessere = new ArrayList<>();
 
 		// per controllare se qualche giocatore ha finito per primo la nave
 		boolean finito = false; 
@@ -187,7 +183,7 @@ public class Partita{
 						case 1 ->{
 							visualizzaElencoTessere(elencoTessere);
 							Tessera tesseraSelezionata = selezionaTesseraDalMazzo(elencoTessere);
-							this.com.println("Vuoi prenotare la tessera?\n");
+							this.com.println("Vuoi prenotare la tessera?");
 							if(this.com.conferma()){
 								prenotaTessera(g, tesseraSelezionata);
 							}else{
@@ -201,7 +197,7 @@ public class Partita{
 							Tessera tessera = nuovaTesseraRandom();
 							this.com.println("Tessera estratta: ");
 							this.com.print(tessera.toString());
-							this.com.println("Vuoi prenotare la tessera?\n");
+							this.com.println("Vuoi prenotare la tessera?");
 							if(this.com.conferma()){
 								prenotaTessera(g, tessera);
 							}else if(!inserisciTessera(g, tessera)){
@@ -281,7 +277,7 @@ public class Partita{
 	private boolean naveFinita(Giocatore giocatore){
 		this.com.clear();
 		// visualizzazione della nave
-		this.com.println("Nave di "+giocatore.getNome());
+		this.com.println("Nave di "+ giocatore.getNome());
 		this.com.println(giocatore.getNave().toString());
 
 		this.com.println("Hai finito la nave? ");
@@ -303,17 +299,23 @@ public class Partita{
 			return selezionaTesseraDalMazzo(elencoTessere);
 		}
 
-		Tessera t;
-		if(elencoTessere.contains(elencoTessere.get(selezione))){
-			this.com.print("Tessera selezionata: ");
-			t = elencoTessere.get(selezione);
-			this.com.println(t.toString());
-			return t;
-		}else{
-			this.com.println("Tessera selezionata non presente");
+		Tessera t = null;
+		try{
+			if(elencoTessere.contains(elencoTessere.get(selezione))){
+				this.com.print("Tessera selezionata: ");
+				t = elencoTessere.get(selezione);
+				this.com.println(t.toString());
+			}
+		}catch(IndexOutOfBoundsException ioobe){
+			this.com.printError("Tessera selezionata non presente");
+			return selezionaTesseraDalMazzo(elencoTessere);
+		}
+
+		if(t == null){
 			return selezionaTesseraDalMazzo(elencoTessere);
 		}
 		
+		return t;
 	}
 
 	/**

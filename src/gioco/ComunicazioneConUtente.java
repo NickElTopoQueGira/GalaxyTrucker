@@ -23,11 +23,10 @@ package gioco;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
 import partita.giocatore.Giocatore;
 
 public class ComunicazioneConUtente {
-    private Scanner input;
+    private final Scanner input;
     private static ComunicazioneConUtente istanza = null;
     
     private ComunicazioneConUtente(){
@@ -213,7 +212,7 @@ public class ComunicazioneConUtente {
 	}
 	
 	public int scegliTroncamenti(Object[] opzioni) {
-		ArrayList<String> temp = new ArrayList<String>();
+		ArrayList<String> temp = new ArrayList<>();
 		int scelta=0;
 		this.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
 		for(int i=0; i< opzioni.length; i++) {
