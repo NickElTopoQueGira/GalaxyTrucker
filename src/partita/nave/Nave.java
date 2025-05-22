@@ -536,8 +536,14 @@ public abstract class Nave {
         if((latiTesseraNave.getRight() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO)){
                 return true;
-            }
-        else{
+                
+        }else if((latiTesseraNave.getRight() == TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.TRIPLO)){
+
+            return true;
+            
+        } else{
+        	
             return false;
         }
     }
@@ -565,8 +571,12 @@ public abstract class Nave {
         if((latiTesseraNave.getLeft() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO)){
                 return true;
-            }
-        else{
+                
+        }else if((latiTesseraNave.getLeft() == TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.TRIPLO)){
+            return true;
+            
+        }else {
             return false;
         }
     }
@@ -592,7 +602,11 @@ public abstract class Nave {
 
         // controllo sei il ati sono compatibil
         if((latiTesseraNave.getDown() == TipoConnettoriTessera.TRIPLO) && 
-            (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO)){
+                (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO)){
+                    return true;
+            }
+        else if((latiTesseraNave.getDown() == TipoConnettoriTessera.NULLO) && 
+            (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.TRIPLO)){
                 return true;
             }
         else{
@@ -624,7 +638,11 @@ public abstract class Nave {
             (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO)){
                 return true;
             }
-        else{
+        else if((latiTesseraNave.getUp() == TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.TRIPLO)){
+            return true;
+	        }
+	    else{
         	
             return false;
         }
