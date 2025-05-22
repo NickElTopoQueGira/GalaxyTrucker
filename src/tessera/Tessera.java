@@ -235,7 +235,7 @@ public abstract class Tessera {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.deepHashCode(tessera_Disposizione);
-		result = prime * result + Objects.hash(coordinate, latiTessera, tipoTessera);
+		result = prime * result + Objects.hash(latiTessera, tipoTessera);
 		return result;
 	}
 
@@ -248,10 +248,14 @@ public abstract class Tessera {
 		if (getClass() != obj.getClass())
 			return false;
 		Tessera other = (Tessera) obj;
-		return Objects.equals(coordinate, other.coordinate) && Objects.equals(latiTessera, other.latiTessera)
+		return Objects.equals(latiTessera, other.latiTessera)
 				&& Arrays.deepEquals(tessera_Disposizione, other.tessera_Disposizione)
 				&& tipoTessera == other.tipoTessera;
 	}
+
+	
+
+	
 
 	
 }
