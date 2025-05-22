@@ -360,7 +360,6 @@ public class Partita{
 		this.com.println(giocatore.getNave().toString());
 		
 		int x = 0, y = 0;
-		do {
 			try{
 				this.com.println("Inserisci la coordinata x: ");
 				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveX();
@@ -387,9 +386,9 @@ public class Partita{
 		
 		try{
 			this.com.println("Inserisci la coordinata x: ");
-			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveO();
+			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveX();
 			this.com.println("Inserisci la coordinata y: ");
-			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().setInizioNaveV();
+			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveY();
 			
 		}catch(NumberFormatException nfe){
 			this.com.erroreImmissioneValore();
