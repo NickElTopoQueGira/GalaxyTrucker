@@ -379,11 +379,15 @@ public class Partita{
 		
 		int x = 0, y = 0;
 			try{
+				this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
 				this.com.println("Inserisci la coordinata x: ");
 				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveX();
 				this.com.println("Inserisci la coordinata y: ");
 				y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveY();
 				
+				if(x+giocatore.getNave().getCentroNaveX() == 0 && y+giocatore.getNave().getCentroNaveX() == 0) {
+					return;
+				}
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 				inserisciTesseraNellaNave(giocatore, tessera);

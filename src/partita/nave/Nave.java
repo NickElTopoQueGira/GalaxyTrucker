@@ -149,20 +149,17 @@ public abstract class Nave {
      */
     
     private void stampaNavetta() {
-    	for(int i =0; i<this.getRighe(); i++) {
-        	for(int j =0; j<this.getColonne(); j++) {
-        		
-        		if(this.nave.get(j).get(i).getTipoTessera() != TipoTessera.VUOTA) {
-
-        			stampa.print(" 1");
-        		}else {
-        			
-        			stampa.print(" 0");
-        		}
-        	}
-        	stampa.println("");
-    	}
-    	stampa.println("{fine debug}");
+        for (int i = 0; i < this.getRighe(); i++) {
+            for (int j = 0; j < this.getColonne(); j++) {
+                if (this.nave.get(i).get(j).getTipoTessera() != TipoTessera.VUOTA) {
+                    stampa.print(" 1");
+                } else {
+                    stampa.print(" 0");
+                }
+            }
+            stampa.println("");
+        }
+        stampa.println("{fine debug}");
     }
     
     public void inserisciTessera(Coordinate coordinata, Tessera tessera) throws ErroreTessera, ErroreCoordinate{
@@ -170,8 +167,8 @@ public abstract class Nave {
         stampa.println("{inizio debug} coordinate controllata in: ("+coordinata.getX()+", "+coordinata.getY()+")");
         stampaNavetta();
         if(controllaCoordinate(coordinata)){
-            // Verifica se la sua tessera viene messa nel centro
-            if(coordinata.getX() == centro.getX() && coordinata.getY() == centro.getY()){
+            // Verifica se la tessera viene su una tessera gia esistente
+            if(this.nave.get(coordinata.getX()).get(coordinata.getY()).getTipoTessera() == TipoTessera.VUOTA){
                 throw new ErroreTessera("Posizione non valida!");
             }
  
@@ -229,28 +226,27 @@ public abstract class Nave {
     private boolean verificaInserimentoCannone(Coordinate coordinate, Tessera tessera) {
         
     	Cannone cannone = (Cannone) tessera;
-        Tessera vuota= new TesseraVuota(coordinate.getX(),coordinate.getY());
 		
         // controllo se la cella subito dopo il cannone e' presente un blocco
         try {
             switch (cannone.getLatoCannone()) {
                 case UP -> {
-                    if (nave.get(coordinate.getX()).get(coordinate.getY() - 1) == vuota) {
+                    if (nave.get(coordinate.getX()).get(coordinate.getY() - 1).getTipoTessera() == TipoTessera.VUOTA) {
                         return true;
                     }
                 }
                 case LEFT -> {
-                    if (nave.get(coordinate.getX() - 1).get(coordinate.getY()) == vuota) {
+                    if (nave.get(coordinate.getX() - 1).get(coordinate.getY()).getTipoTessera() == TipoTessera.VUOTA) {
                         return true;
                     }
                 }
                 case RIGHT -> {
-                    if (nave.get(coordinate.getX() + 1).get(coordinate.getY()) == vuota) {
+                    if (nave.get(coordinate.getX() + 1).get(coordinate.getY()).getTipoTessera() == TipoTessera.VUOTA) {
                         return true;
                     }
                 }
                 case DOWN -> {
-                    if (nave.get(coordinate.getX()).get(coordinate.getY() + 1) == vuota) {
+                    if (nave.get(coordinate.getX()).get(coordinate.getY() + 1).getTipoTessera() == TipoTessera.VUOTA) {
                         return true;
                     }
                 }
@@ -276,11 +272,9 @@ public abstract class Nave {
      */
     private boolean verificaInserimentoMotore(Coordinate coordinate, Tessera tessera){
     	
-    	Tessera vuota= new TesseraVuota(coordinate.getX(),coordinate.getY());
-		
         // controllo se il pezzo subito sotto e' libero
         try{
-            if(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()) == vuota){
+            if(this.nave.get(coordinate.getX()).get(coordinate.getY()+1).getTipoTessera() == TipoTessera.VUOTA){
                 return true;
             }
         }catch(IndexOutOfBoundsException iobx){
@@ -574,7 +568,7 @@ public abstract class Nave {
             return 0;
         }
         stampa.println("{debug} la tessere a sinistra è occupata da qualcosa");
-        stampa.println(this.nave.get(coordinate.getX()-1).get(coordinate.getY()).toLegenda());
+        stampa.println(this.nave.get(coordinate.getX()).get(coordinate.getY()-1).toLegenda());
         
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getX() - 1).get(coordinate.getY()).getLatiTessera();
 
@@ -607,11 +601,11 @@ public abstract class Nave {
      * @return si, no
      */
     private int controllaCollegamentoDX(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getX() + 1 > getRighe() || TipoTessera.VUOTA == this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getTipoTessera()){
+        if(coordinate.getX() + 1 >= getRighe() || TipoTessera.VUOTA == this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getTipoTessera()){
             return 0;
         }
         stampa.println("{debug} la tessere a destra è occupata da qualcosa");
-        stampa.println(this.nave.get(coordinate.getX()+1).get(coordinate.getY()).toLegenda());
+        stampa.println(this.nave.get(coordinate.getX()).get(coordinate.getY()+1).toLegenda());
 
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getLatiTessera();
 
@@ -646,7 +640,7 @@ public abstract class Nave {
             return 0;
         }
         stampa.println("{debug} la tessere a su è occupata da qualcosa");
-        stampa.println(this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).toLegenda());
+        stampa.println(this.nave.get(coordinate.getX() - 1).get(coordinate.getY()).toLegenda());
 
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).getLatiTessera();
 
@@ -677,11 +671,11 @@ public abstract class Nave {
      * @return si, no
      */
     private int controllaCollegamentoDW(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getY() + 1 > getColonne() || TipoTessera.VUOTA == this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getTipoTessera()){
+        if(coordinate.getY() + 1 >= getColonne() || TipoTessera.VUOTA == this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getTipoTessera()){
             return 0;
         }
         stampa.println("{inizio debug} la tessere a giu è occupata da qualcosa");
-        stampa.println(this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).toLegenda());
+        stampa.println(this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).toLegenda());
 
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getLatiTessera();
 
@@ -1021,10 +1015,15 @@ public abstract class Nave {
     	temp += "Nave del giocatore: " + this.coloreNave.getname() + "\n";
         for(int i = 0; i < this.nave.size(); i += 1){
         	for(int k =0; k<5; k++) {
+        		
         		for(int j = 0; j < this.nave.get(i).size(); j += 1){
+        			
+        			
             		if(null != temp) {
                 		temp=temp + this.nave.get(i).get(j).getriga(k)+ " "; 
+
                 	}
+            		
 	            }
         		if(k==2) {
         			temp+=""+(i+this.inizioNaveV)+"\n";

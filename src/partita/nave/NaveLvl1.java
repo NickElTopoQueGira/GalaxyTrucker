@@ -46,10 +46,10 @@ public class NaveLvl1 extends Nave {
         this.coordinateCentro = new Coordinate(3, 2);
         ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
         // inizializzazione della nave con elementi TessereVuote
-        for(int j = 0; j < numeroRighe; j++){
+        for(int i = 0; i < numeroRighe; i++){
             ArrayList<Tessera> riga = new ArrayList<>();
-            for(int i = 0; i < numeroColonne; i++){
-                if(i == coordinateCentro.getX() && j == coordinateCentro.getY()){
+            for(int j = 0; j < numeroColonne; j++){
+                if(j == coordinateCentro.getX() && i == coordinateCentro.getY()){
                     try{
                     	Tessera centro=new Centro(coloreNave);
                         riga.add(centro);
@@ -60,7 +60,7 @@ public class NaveLvl1 extends Nave {
                     }
                 }
                 else{
-                	Tessera vuota= new TesseraVuota(i, j);
+                	Tessera vuota= new TesseraVuota(j, i);
 
                     riga.add(vuota);
                 }
