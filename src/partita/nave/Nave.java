@@ -186,6 +186,7 @@ public abstract class Nave {
 
             // inserimento del pezzo nella nave
             tessera.setCoordinate(coordinata);
+            stampa.println("{debug} coordinate nave piazzata in: ("+coordinata.getX()+", "+coordinata.getY()+")");
             this.nave.get(coordinata.getX()).set(coordinata.getY(), tessera);
         }
         else{
