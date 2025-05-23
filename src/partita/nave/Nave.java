@@ -180,6 +180,8 @@ public abstract class Nave {
             // verifica se il pezzo e' collegato a qualche cosa
             if(!controllaCollegamento(tessera, coordinata)){
                 throw new ErroreTessera("Questo pezzo non puo' essere piazzato cosi' come e'");
+            }else {
+            	stampa.println("tessera inserita correttamente");
             }
 
             // inserimento del pezzo nella nave
@@ -369,26 +371,26 @@ public abstract class Nave {
 			    	boolean condizione=false;
 					switch (dir) {
 					case UP: {
-						if(this.controllaCollegamentoUP(tesseraCorrente, corrente)) {
+						if(this.controllaCollegamentoUP(tesseraCorrente, corrente) == 1) {
 							condizione=true;
 						}
 						break;
 					}
 					case LEFT: {
-						if(this.controllaCollegamentoSX(tesseraCorrente, corrente)) {
+						if(this.controllaCollegamentoSX(tesseraCorrente, corrente) == 1) {
 							condizione=true;
 						}
 						break;		
 							}
 					case DOWN: {
-						if(this.controllaCollegamentoDW(tesseraCorrente, corrente)) {
+						if(this.controllaCollegamentoDW(tesseraCorrente, corrente) == 1) {
 							condizione=true;
 						}
 						break;
 						
 					}
 					case RIGHT: {
-						if(this.controllaCollegamentoDX(tesseraCorrente, corrente)) {
+						if(this.controllaCollegamentoDX(tesseraCorrente, corrente) == 1) {
 							condizione=true;
 						}
 						break;
@@ -512,11 +514,31 @@ public abstract class Nave {
          *             DW
          */
     	stampa.println("{debug} controllo collegamento");
+    	int sx, dx, up, dw;
     	
-        return controllaCollegamentoSX(tessera, coordinate) &&
-                controllaCollegamentoDX(tessera, coordinate) &&
-                controllaCollegamentoUP(tessera, coordinate) &&
-                controllaCollegamentoDW(tessera, coordinate);    
+    	sx = controllaCollegamentoSX(tessera, coordinate);
+    	if(sx == -1) {
+    		return false;
+    	}
+    	dx = controllaCollegamentoDX(tessera, coordinate);
+    	if(sx == -1) {
+    		return false;
+    	}
+    	up = controllaCollegamentoUP(tessera, coordinate);
+    	if(sx == -1) {
+    		return false;
+    	}
+    	dw = controllaCollegamentoDW(tessera, coordinate);
+    	if(sx == -1) {
+    		return false;
+    	}
+    	if(sx+dx+up+dw > 0) {
+
+            return true;
+    	}else {
+    		stampa.println("{debug} non si collega da nessuna parte");
+            return false;
+    	}
     }
     
     /**
@@ -526,9 +548,9 @@ public abstract class Nave {
      * @param coordinate
      * @return si, no
      */
-    private boolean controllaCollegamentoSX(Tessera tessera, Coordinate coordinate){
+    private int controllaCollegamentoSX(Tessera tessera, Coordinate coordinate){
         if(coordinate.getX() - 1 < 0 || TipoTessera.VUOTA == this.nave.get(coordinate.getX() - 1).get(coordinate.getY()).getTipoTessera()){
-            return true;
+            return 0;
         }
         stampa.println("{debug} la tessere a sinistra è occupata da qualcosa");
         stampa.println(this.nave.get(coordinate.getX()-1).get(coordinate.getY()).toLegenda());
@@ -537,22 +559,22 @@ public abstract class Nave {
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft()){
-            return true;
+            return 1;
         }
 
         // controllo sei i lati sono compatibil
         if((latiTesseraNave.getRight() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO)){
-                return true;
+                return 1;
                 
         }else if((latiTesseraNave.getRight() == TipoConnettoriTessera.NULLO) && 
                 (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.TRIPLO)){
 
-            return true;
+            return 1;
             
         } else{
         	
-            return false;
+            return -1;
         }
     }
 
@@ -563,9 +585,9 @@ public abstract class Nave {
      * @param coordinate
      * @return si, no
      */
-    private boolean controllaCollegamentoDX(Tessera tessera, Coordinate coordinate){
+    private int controllaCollegamentoDX(Tessera tessera, Coordinate coordinate){
         if(coordinate.getX() + 1 > getRighe() || TipoTessera.VUOTA == this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getTipoTessera()){
-            return true;
+            return 0;
         }
         stampa.println("{debug} la tessere a destra è occupata da qualcosa");
         stampa.println(this.nave.get(coordinate.getX()+1).get(coordinate.getY()).toLegenda());
@@ -574,20 +596,20 @@ public abstract class Nave {
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getLeft() == tessera.getLatiTessera().getRight()){
-            return true;
+            return 1;
         }
 
         // controllo sei il ati sono compatibil
         if((latiTesseraNave.getLeft() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO)){
-                return true;
+                return 1;
                 
         }else if((latiTesseraNave.getLeft() == TipoConnettoriTessera.NULLO) && 
                 (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.TRIPLO)){
-            return true;
+            return 1;
             
         }else {
-            return false;
+            return -1;
         }
     }
 
@@ -598,9 +620,9 @@ public abstract class Nave {
      * @param coordinate
      * @return si, no
      */
-    private boolean controllaCollegamentoUP(Tessera tessera, Coordinate coordinate){
+    private int controllaCollegamentoUP(Tessera tessera, Coordinate coordinate){
         if(coordinate.getY() - 1 < 0 || TipoTessera.VUOTA == this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).getTipoTessera()){
-            return true;
+            return 0;
         }
         stampa.println("{debug} la tessere a su è occupata da qualcosa");
         stampa.println(this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).toLegenda());
@@ -609,20 +631,20 @@ public abstract class Nave {
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getDown() == tessera.getLatiTessera().getUp()){
-            return true;
+            return 1;
         }
 
         // controllo sei il ati sono compatibil
         if((latiTesseraNave.getDown() == TipoConnettoriTessera.TRIPLO) && 
                 (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO)){
-                    return true;
+                    return 1;
             }
         else if((latiTesseraNave.getDown() == TipoConnettoriTessera.NULLO) && 
             (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.TRIPLO)){
-                return true;
+                return 1;
             }
         else{
-            return false;
+            return -1;
         }
     }
 
@@ -633,9 +655,9 @@ public abstract class Nave {
      * @param coordinate
      * @return si, no
      */
-    private boolean controllaCollegamentoDW(Tessera tessera, Coordinate coordinate){
+    private int controllaCollegamentoDW(Tessera tessera, Coordinate coordinate){
         if(coordinate.getY() + 1 > getColonne() || TipoTessera.VUOTA == this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getTipoTessera()){
-            return true;
+            return 0;
         }
         stampa.println("{inizio debug} la tessere a giu è occupata da qualcosa");
         stampa.println(this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).toLegenda());
@@ -644,21 +666,20 @@ public abstract class Nave {
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown()){
-            return true;
+            return 1;
         }
-
         // controllo sei il lati sono compatibil
         if((latiTesseraNave.getUp() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO)){
-                return true;
+                return 1;
             }
         else if((latiTesseraNave.getUp() == TipoConnettoriTessera.NULLO) && 
                 (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.TRIPLO)){
-            return true;
+            return 1;
 	        }
 	    else{
         	
-            return false;
+            return -1;
         }
     }
 
@@ -709,7 +730,47 @@ public abstract class Nave {
     		return false;
     	}
     }
-
+    private boolean controlloConnettore(TipoLato dir, Tessera tessera) {
+    	
+    	//this.nave.get(adiacente.getX()).get(adiacente.getY())
+    	
+    	Coordinate adiacente = tessera.getCoordinate().adiacente(dir);
+    	
+    	switch (dir) {
+		case UP: {
+			if(tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO && 
+					this.nave.get(adiacente.getX()).get(adiacente.getY()).getTipoTessera() == TipoTessera.VUOTA) {
+				return true;
+			}
+			break;
+		}
+		case LEFT: {
+			if(tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO && 
+					this.nave.get(adiacente.getX()).get(adiacente.getY()).getTipoTessera() == TipoTessera.VUOTA) {
+				return true;
+			}
+			break;		
+				}
+		case DOWN: {
+			if(tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO && 
+					this.nave.get(adiacente.getX()).get(adiacente.getY()).getTipoTessera() == TipoTessera.VUOTA) {
+				return true;
+			}
+			break;
+		}
+		case RIGHT: {
+			if(tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO && 
+					this.nave.get(adiacente.getX()).get(adiacente.getY()).getTipoTessera() == TipoTessera.VUOTA) {
+				return true;
+			}
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + dir);
+		}
+    	
+    	return false;
+    }
     /**
      * Metodo per il conteggio dei connettori scoperti
      * Verifica se la tessera e' collegata a qualche cosa
@@ -721,19 +782,19 @@ public abstract class Nave {
     private int conteggioConettoriEsposti(Tessera tessera) {
     	int conteggio = 0;
     	
-    	if(!controllaCollegamentoSX(tessera, tessera.getCoordinate())) {
+    	if(controlloConnettore(TipoLato.UP, tessera)) {
     		conteggio += 1;
     	}
     	
-        if(!controllaCollegamentoDX(tessera, tessera.getCoordinate())) {
+        if(controlloConnettore(TipoLato.LEFT, tessera)) {
     		conteggio += 1;
     	}
     	
-        if(!controllaCollegamentoUP(tessera, tessera.getCoordinate())) {
+        if(controlloConnettore(TipoLato.DOWN, tessera)) {
     		conteggio += 1;
     	}
 
-    	if(!controllaCollegamentoDW(tessera, tessera.getCoordinate())) {
+    	if(controlloConnettore(TipoLato.RIGHT, tessera)) {
     		conteggio += 1;
     	}
     	
