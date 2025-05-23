@@ -106,7 +106,7 @@ public class ComunicazioneConUtente {
     	}catch(NoSuchElementException nee) {
     		return consoleRead();
     	}
-    	
+		println("");
         return risp;
     }
 

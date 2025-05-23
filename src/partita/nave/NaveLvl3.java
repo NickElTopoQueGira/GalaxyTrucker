@@ -47,15 +47,17 @@ public class NaveLvl3 extends Nave {
 
     public NaveLvl3(Colori coloreNave){
         super(coloreNave);
+        inizializzaNave();
         ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
         // inizializzazione della nave con elementi TessereVuote
-        for(int i = 0; i < numeroRighe; i++){
+        for(int j = 0; j < numeroRighe; j++){
             ArrayList<Tessera> riga = new ArrayList<>();
-            for(int j = 0; j < numeroColonne; j++){
+            for(int i = 0; i < numeroColonne; i++){
                 if(i == coordinateCentro.getX() && j == coordinateCentro.getY()){
                     try{
                     	Tessera centro=new Centro(coloreNave);
                         riga.add(centro);
+                        this.centro = getCoordinateCentro();
                     }
                     catch(ErroreTessera eT){
                     	com.printError(eT.getMessage());
@@ -83,7 +85,7 @@ public class NaveLvl3 extends Nave {
 
     @Override
     protected Coordinate getCoordinateCentro() { 
-        return coordinateCentro; 
+        return coordinateCentro;
     }
     
     @Override

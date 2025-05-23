@@ -36,16 +36,16 @@ public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
     private ArrayList<Tessera> componentiPrenotati;
     private int[][] NAVE_DEF;
-    private Coordinate centro;
+    protected Coordinate centro;
     private Colori coloreNave;
     private int energiaResidua;
     private int numeroConnettoriScoperti;
     private ComunicazioneConUtente stampa;
 	private ArrayList<ArrayList<Tessera>> parteRestante;
-	private final int inizioNaveO;
-	private final int fineNaveO;
-	private final int inizioNaveV;
-	private final int fineNaveV;
+	private int inizioNaveO;
+	private int fineNaveO;
+	private int inizioNaveV;
+	private int fineNaveV;
     
     /**
      * Metodi astratti, implementati nelle sotto classi, per prendere 
@@ -62,22 +62,30 @@ public abstract class Nave {
      * @param coloreNave
      */
     public Nave(Colori coloreNave){
-    	stampa= ComunicazioneConUtente.getIstanza();
+        stampa= ComunicazioneConUtente.getIstanza();
         this.componentiPrenotati = new ArrayList<Tessera>();
         this.nave = new ArrayList<>();
+        this.centro = null;
+        this.coloreNave = coloreNave;
+        this.fineNaveO = 0; 
+        this.inizioNaveO = 0;
+        this.fineNaveV = 0;
+        this.inizioNaveV = 0;
+        this.energiaResidua = 0;
+        this.numeroConnettoriScoperti = 0; 
+    }
+
+    // Metodo per inizializzare la nave da chiamare dopo il costruttore
+    protected void inizializzaNave() {
         this.NAVE_DEF = getMATRIX();
         this.centro = getCoordinateCentro();
-        this.coloreNave = coloreNave;
         this.fineNaveO = getConfineNaveX();
         this.inizioNaveO = getCentroNaveX();
         this.fineNaveV = getConfineNaveY();
         this.inizioNaveV = getCentroNaveY();
-        this.energiaResidua = 0;
-        this.numeroConnettoriScoperti = 0;
     }
-
-	
-    public abstract int getCentroNaveY();
+    
+	public abstract int getCentroNaveY();
     public abstract int getConfineNaveY();
 	public abstract int getCentroNaveX();
 	public abstract int getConfineNaveX();
@@ -146,7 +154,7 @@ public abstract class Nave {
             if(coordinata.getX() == centro.getX() && coordinata.getY() == centro.getY()){
                 throw new ErroreTessera("Posizione non valida!");
             }
-
+ 
             // verifica se il pezzo lo si vuole mettere in una posizione non valida
             if(0 == NAVE_DEF[coordinata.getX()][coordinata.getY()]){
                 throw new ErroreTessera("Non puoi posizionare il pezzo in questa posizione");
@@ -503,7 +511,8 @@ public abstract class Nave {
          *         ( k + 1 )
          *             DW
          */
-
+    	stampa.println("{debug} controllo collegamento");
+    	
         return controllaCollegamentoSX(tessera, coordinate) &&
                 controllaCollegamentoDX(tessera, coordinate) &&
                 controllaCollegamentoUP(tessera, coordinate) &&
@@ -521,7 +530,9 @@ public abstract class Nave {
         if(coordinate.getX() - 1 < 0 || TipoTessera.VUOTA == this.nave.get(coordinate.getX() - 1).get(coordinate.getY()).getTipoTessera()){
             return true;
         }
-
+        stampa.println("{debug} la tessere a sinistra è occupata da qualcosa");
+        stampa.println(this.nave.get(coordinate.getX()-1).get(coordinate.getY()).toLegenda());
+        
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getX() - 1).get(coordinate.getY()).getLatiTessera();
 
         // controllo se i lati sono uguali
@@ -556,6 +567,8 @@ public abstract class Nave {
         if(coordinate.getX() + 1 > getRighe() || TipoTessera.VUOTA == this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getTipoTessera()){
             return true;
         }
+        stampa.println("{debug} la tessere a destra è occupata da qualcosa");
+        stampa.println(this.nave.get(coordinate.getX()+1).get(coordinate.getY()).toLegenda());
 
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getX() + 1).get(coordinate.getY()).getLatiTessera();
 
@@ -589,6 +602,8 @@ public abstract class Nave {
         if(coordinate.getY() - 1 < 0 || TipoTessera.VUOTA == this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).getTipoTessera()){
             return true;
         }
+        stampa.println("{debug} la tessere a su è occupata da qualcosa");
+        stampa.println(this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).toLegenda());
 
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getX()).get(coordinate.getY() - 1).getLatiTessera();
 
@@ -622,6 +637,8 @@ public abstract class Nave {
         if(coordinate.getY() + 1 > getColonne() || TipoTessera.VUOTA == this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getTipoTessera()){
             return true;
         }
+        stampa.println("{inizio debug} la tessere a giu è occupata da qualcosa");
+        stampa.println(this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).toLegenda());
 
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getX()).get(coordinate.getY() + 1).getLatiTessera();
 

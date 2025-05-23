@@ -14,7 +14,7 @@ public class NaveLvl1 extends Nave {
 	
 	private final int numeroRighe        = 5;
     private final int numeroColonne      = 7;
-    private final Coordinate coordinateCentro = new Coordinate(3, 2);
+    private final Coordinate coordinateCentro;
     /**
      * Plancia nave
      * Legenda:
@@ -36,21 +36,24 @@ public class NaveLvl1 extends Nave {
             {0, 0, 0, 1, 0, 0, 0},  // riga 0
             {0, 0, 1, 1, 1, 0, 0},  // riga 1
             {0, 1, 1, 2, 1, 1, 0},  // riga 2
-            {0, 1, 1, 1, 1, 1, 0},  // riga 3
+            {0, 1, 1, 1, 1, 1, 0},  // riga 3 
             {0, 1, 1, 0, 1, 1, 0}   // riga 4
     };
 
     public NaveLvl1(Colori coloreNave){
         super(coloreNave);
+        inizializzaNave();
+        this.coordinateCentro = new Coordinate(3, 2);
         ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
         // inizializzazione della nave con elementi TessereVuote
-        for(int i = 0; i < numeroRighe; i++){
+        for(int j = 0; j < numeroRighe; j++){
             ArrayList<Tessera> riga = new ArrayList<>();
-            for(int j = 0; j < numeroColonne; j++){
+            for(int i = 0; i < numeroColonne; i++){
                 if(i == coordinateCentro.getX() && j == coordinateCentro.getY()){
                     try{
                     	Tessera centro=new Centro(coloreNave);
                         riga.add(centro);
+                        this.centro = getCoordinateCentro();
                     }
                     catch(ErroreTessera eT){
                         com.printError(eT.getMessage());

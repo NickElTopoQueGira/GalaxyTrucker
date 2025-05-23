@@ -15,6 +15,8 @@ import tabellone.Tabellone;
 import tessera.Coordinate;
 import tessera.FactoryTessera;
 import tessera.Tessera;
+import tessera.TesseraVuota;
+import tessera.TipoTessera;
 
 public class Partita{
 	private final ComunicazioneConUtente com;
@@ -172,7 +174,7 @@ public class Partita{
 				}
 				
 				this.com.println("Turno del giocatore: " + g.getNome());
-				this.com.println("Vuoi modificare la nave? \n");
+				this.com.println("Vuoi modificare la nave?");
 				if(this.com.conferma()){
 					
 					// azioneCarta verifica gia' a monte se si puo' fare 
@@ -183,20 +185,30 @@ public class Partita{
 						case 1 ->{
 							visualizzaElencoTessere(elencoTessere);
 							Tessera tesseraSelezionata = selezionaTesseraDalMazzo(elencoTessere);
-							this.com.println("Vuoi prenotare la tessera?");
-							if(this.com.conferma()){
-								prenotaTessera(g, tesseraSelezionata);
-							}else{
-								if(inserisciTessera(g, tesseraSelezionata)){
-									elencoTessere.remove(tesseraSelezionata);
-									continue;
+							
+							if(tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA) {
+								
+								this.com.println("Vuoi prenotare la tessera?");
+								if(this.com.conferma()){
+									prenotaTessera(g, tesseraSelezionata);
+								}else{
+									if(inserisciTessera(g, tesseraSelezionata)){
+										elencoTessere.remove(tesseraSelezionata);
+										continue;
+									}
 								}
+							}else {
+								i--;
+								continue;
 							}
 						}
 						case 2 ->{		
 							Tessera tessera = nuovaTesseraRandom();
 							this.com.println("Tessera estratta: ");
 							this.com.print(tessera.toString());
+							this.com.println("{inizio debug}");
+							this.com.println(tessera.toLegenda());
+							this.com.println("{fine debug}");
 							this.com.println("Vuoi prenotare la tessera?");
 							if(this.com.conferma()){
 								prenotaTessera(g, tessera);
@@ -291,15 +303,20 @@ public class Partita{
 	 */
 	private Tessera selezionaTesseraDalMazzo(ArrayList<Tessera> elencoTessere){
 		int selezione;
+		Tessera t = null;
+		
 		try{
-			this.com.println("Inserisci il numero della tessera che si vuole inserire: ");
-			selezione = Integer.parseInt(this.com.consoleRead());
+			this.com.println("Inserisci il numero della tessera che si vuole inserire (inserire 0 per tornare al menu): ");
+			selezione = Integer.parseInt(this.com.consoleRead())-1;
+			
+			if(selezione == -1) {
+				return t = new TesseraVuota(0,0);
+			}
+			
 		}catch(NumberFormatException nfe){
 			this.com.erroreImmissioneValore();
 			return selezionaTesseraDalMazzo(elencoTessere);
 		}
-
-		Tessera t = null;
 		try{
 			if(elencoTessere.contains(elencoTessere.get(selezione))){
 				this.com.print("Tessera selezionata: ");
@@ -372,7 +389,9 @@ public class Partita{
 			}finally{
 				Coordinate c = new Coordinate(x, y);
 				try{
+					this.com.println("XY:("+x+"; "+y+") {debug}");
 					giocatore.getNave().inserisciTessera(c, tessera);
+					
 				}catch(ErroreTessera et){
 					this.com.printError(et.getMessage());
 					
@@ -380,7 +399,7 @@ public class Partita{
 					this.com.printError(ec.getMessage());
 					
 				}finally{
-					this.com.print("Pezzo inserito correttamente");
+					//this.com.print("Pezzo inserito correttamente"); // TODO ta togliere o spostare 
 				}
 			}
 		
