@@ -147,8 +147,28 @@ public abstract class Nave {
      * @throws ErroreTessera
      * @throws ErroreCoordinate
      */
+    
+    private void stampaNavetta() {
+    	for(int i =0; i<this.getRighe(); i++) {
+        	for(int j =0; j<this.getColonne(); j++) {
+        		
+        		if(this.nave.get(j).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+
+        			stampa.print(" 1");
+        		}else {
+        			
+        			stampa.print(" 0");
+        		}
+        	}
+        	stampa.println("");
+    	}
+    	stampa.println("{fine debug}");
+    }
+    
     public void inserisciTessera(Coordinate coordinata, Tessera tessera) throws ErroreTessera, ErroreCoordinate{
     	
+        stampa.println("{inizio debug} coordinate controllata in: ("+coordinata.getX()+", "+coordinata.getY()+")");
+        stampaNavetta();
         if(controllaCoordinate(coordinata)){
             // Verifica se la sua tessera viene messa nel centro
             if(coordinata.getX() == centro.getX() && coordinata.getY() == centro.getY()){
