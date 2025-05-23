@@ -1,11 +1,8 @@
 package carte.nemico;
 
-import java.util.*;
-
-
 import carte.*;
 import gioco.ComunicazioneConUtente;
-
+import java.util.*;
 import partita.Pedina;
 import tessera.merce.*;
 
@@ -15,7 +12,7 @@ public class Contrabbandieri extends Nemici {
 	private int penalitamerci; // numeri merci persi
 	private int penalitagiorni; // numeri giorni persi
 	private ArrayList<Merce> merci;
-	private ComunicazioneConUtente stampa;
+	private final ComunicazioneConUtente stampa;
 	
 	/**
 	 * Costruttore della carta Contrabbandieri.

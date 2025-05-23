@@ -1,11 +1,11 @@
 package carte.nemico;
 
-import java.util.*;
 import carte.*;
 import carte.meteore.*;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
+import java.util.*;
 import partita.Pedina;
 import partita.nave.Nave;
 import tessera.Tessera;
@@ -16,9 +16,9 @@ public class Pirati extends Nemici {
 	private int potenzanecc; // potenza necessaria
 	private int penalitagiorni; // numeri giorni persi
 	private int guadagno;
-	private ComunicazioneConUtente stampa;
+	private final ComunicazioneConUtente stampa;
 	
-	private ArrayList<Meteorite> colpi;
+	private final ArrayList<Meteorite> colpi;
 	
 	/**
 	 * Costruttore Pirati

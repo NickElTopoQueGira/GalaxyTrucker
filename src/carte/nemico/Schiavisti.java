@@ -1,8 +1,8 @@
 package carte.nemico;
 
-import java.util.*;
 import carte.*;
 import gioco.ComunicazioneConUtente;
+import java.util.*;
 import partita.Pedina;
 
 public class Schiavisti extends Nemici {
@@ -11,7 +11,7 @@ public class Schiavisti extends Nemici {
 	private int penalitaequipaggio; // numeri merci persi
 	private int penalitagiorni; // numeri giorni persi
 	private int guadagno;
-	private ComunicazioneConUtente stampa;
+	private final ComunicazioneConUtente stampa;
 	
 	/**
 	 * Costruttore Schiavisti
@@ -153,6 +153,7 @@ public class Schiavisti extends Nemici {
 	 * @param elencoPedine lista delle pedine dei giocatori
 	 * @return la lista aggiornata delle pedine dopo l'esecuzione della carta
 	 */
+	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
 		boolean isCartaCompletata = false;

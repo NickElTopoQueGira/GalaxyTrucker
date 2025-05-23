@@ -5,6 +5,7 @@ import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
+import java.util.*;
 import partita.Pedina;
 import partita.nave.Nave;
 import tessera.Tessera;
@@ -14,12 +15,10 @@ import tessera.TipoTessera;
 import tessera.cannone.Cannone;
 import tessera.cannone.TipoCannone;
 
-import java.util.*;
-
 public class PioggiaMeteoriti extends Carta {
 	
 	public ArrayList<Meteorite> meteoriti;
-	private ComunicazioneConUtente stampa;
+	private final ComunicazioneConUtente stampa;
 	
 	/**
 	 * Costruttore PioggiaMeteoriti

@@ -1,22 +1,16 @@
 package carte;
 
-// import merce.*;
-import tessera.merce.*;
-
-
-import java.util.*;
-
 import gioco.ComunicazioneConUtente;
+import java.util.*;
 import partita.Pedina;
+import tessera.merce.*;
 
 public class Pianeta extends Carta {
 	
-    private ComunicazioneConUtente cns;
-	
 	private int penalitagiorni;
-	private List<Merce> merci = new ArrayList<>();
+	private final List<Merce> merci = new ArrayList<>();
 	private ArrayList<ArrayList<Merce>> pianeti;
-	private ComunicazioneConUtente stampa;
+	private final ComunicazioneConUtente stampa;
 	
 	/**
 	 * Costruttore Pianeta

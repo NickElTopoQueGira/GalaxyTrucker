@@ -37,6 +37,7 @@ public class Partita{
 		this.modalitaPartita = ModalitaPartita.MULTIPLA;
 		this.giocatori = new LinkedHashSet<>();
 		this.tabellone = null;
+		this.livelloPartita = Livelli.PRIMO;
 	}
 
 	/**

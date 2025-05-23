@@ -1,14 +1,13 @@
 package carte;
 
-import java.util.*;
-
 import gioco.ComunicazioneConUtente;
+import java.util.*;
 import partita.Pedina;
 
 public class NaveAbbandonata extends Carta {
 	
 	private int guadagno, giornipersi, perditaequipaggio;
-	private ComunicazioneConUtente stampa;
+	private final ComunicazioneConUtente stampa;
 	
 	/**
 	 * Costruttore NaveAbbandonata

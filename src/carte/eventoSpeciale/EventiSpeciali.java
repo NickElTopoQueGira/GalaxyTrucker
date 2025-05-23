@@ -1,33 +1,23 @@
 package carte.eventoSpeciale;
 
-import java.util.ArrayList;
 import carte.*;
+import java.util.ArrayList;
 import partita.Pedina;
-import partita.giocatore.Giocatore;
 
 public class EventiSpeciali extends Carta {
-	
-	/**
-	 * Costruttore Nemici
-	 * super -> gli passiamo il lvl della carta e il tipo
-	 * @param lvl
-	 * @param tipo carta
-	 */
-	public EventiSpeciali (int lvl, TipoCarta c) {
-		
-		super(lvl, c);
-	}
 
-	@Override
-	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
-		// TODO Auto-generated method stub
-		
-		return elencoPedine;
-	}
+    /**
+     * Costruttore Nemici super -> gli passiamo il lvl della carta e il tipo
+     *
+     * @param lvl
+     * @param tipo carta
+     */
+    public EventiSpeciali(int lvl, TipoCarta c) {
+        super(lvl, c);
+    }
 
-	
-
-
-
-	
+    @Override
+    public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
+        return elencoPedine;
+    }
 }
