@@ -210,13 +210,39 @@ public class Partita{
 							this.com.println("{inizio debug}");
 							this.com.println(tessera.toLegenda());
 							this.com.println("{fine debug}");
-							this.com.println("Vuoi prenotare la tessera?");
-							if(this.com.conferma()){
+							this.com.println("Inserire numero dell'azione desiderata");
+							ArrayList<String> temp = new ArrayList();
+							temp.add("prenotare la tessera");
+							temp.add("inserisci tessera");
+							Boolean check;
+							do {
+								check = true;
+								this.com.println(this.com.visualizzaElenco(temp));
+								int scelta = Integer.parseInt(this.com.consoleRead());
+								
+								switch (scelta) {
+								case 1: {
+									prenotaTessera(g, tessera);
+									break;
+								}
+								case 2: {
+									if(!inserisciTessera(g, tessera)){
+										elencoTessere.add(tessera);
+									}
+									break;
+								}
+								default:
+									check=false;
+								}
+							}while(check==false);
+							
+							
+							/**if(this.com.conferma()){
 								prenotaTessera(g, tessera);
 							}else if(!inserisciTessera(g, tessera)){
 								elencoTessere.add(tessera);
 							}
-							continue;
+							continue;**/
 						}
 						case 3 -> {
 							inserisciTessera(g, usaTesseraPrenotata(g));
