@@ -1,17 +1,13 @@
 package partita.nave;
 
 import java.util.ArrayList;
-
-import eccezioniPersonalizzate.ErroreTessera;
-import gioco.ComunicazioneConUtente;
 import partita.giocatore.Colori;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.Tessera;
 import tessera.TesseraVuota;
 
-public class NaveLvl2 extends Nave {
-
+public class NaveLvl2 extends Nave{
     /**
      * Plancia nave
      * Legenda:
@@ -40,33 +36,23 @@ public class NaveLvl2 extends Nave {
 
     private final int numeroRighe        = 5;
     private final int numeroColonne      = 7;
-    private final Coordinate coordinateCentro = new Coordinate(3, 2);
+    private Coordinate coordinateCentro;
 
     public NaveLvl2(Colori coloreNave){
         super(coloreNave);
-        inizializzaNave();
-        ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
-        // inizializzazione della nave con elementi TessereVuote
-        for(int j = 0; j < numeroRighe; j++){
+        for(int i = 0; i < this.numeroRighe; i += 1){
             ArrayList<Tessera> riga = new ArrayList<>();
-            for(int i = 0; i < numeroColonne; i++){
-                if(i == coordinateCentro.getX() && j == coordinateCentro.getY()){
-                    try{
-                    	Tessera centro=new Centro(coloreNave);
-                        riga.add(centro);
-                        this.centro = getCoordinateCentro();
-                    }
-                    catch(ErroreTessera eT){
-                    	com.printError(eT.getMessage());
-                    }
+            for(int j = 0; j < this.numeroColonne; j += 1){
+                if(NAVE_DEF[i][j] == 2){
+                    // creo il centro
+                    this.coordinateCentro = new Coordinate(i, j);
+                    riga.add(new Centro(coloreNave, coordinateCentro));
+                }else if(NAVE_DEF[i][j] == 0){
+                    // tessera vuota
+                    riga.add(new TesseraVuota(i, j));
                 }
-                else{
-                	Tessera vuota = new TesseraVuota(i, j);
-                    riga.add(vuota);
-                }
-                
             }
-            nave.add(riga);
+            this.nave.add(riga);
         }
     }
 

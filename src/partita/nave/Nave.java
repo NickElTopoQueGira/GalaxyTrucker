@@ -41,20 +41,24 @@ public abstract class Nave {
     private int energiaResidua;
     private int numeroConnettoriScoperti;
     private ComunicazioneConUtente stampa;
-	private ArrayList<ArrayList<Tessera>> parteRestante;
-	private int inizioNaveO;
-	private int fineNaveO;
-	private int inizioNaveV;
-	private int fineNaveV;
+    private ArrayList<ArrayList<Tessera>> parteRestante;
+    private int inizioNaveO;
+    private int fineNaveO;
+    private int inizioNaveV;
+    private int fineNaveV;
     
     /**
-     * Metodi astratti, implementati nelle sotto classi, per prendere 
-     * i dati statici e privati delle sotto classi
+     * Metodi astratti, implementati nelle sotto classi
      */
     protected abstract int[][] getMATRIX();
+    protected abstract Coordinate getCoordinateCentro();
     public abstract int getRighe();
     public abstract int getColonne();
-    protected abstract Coordinate getCoordinateCentro();
+
+    public abstract int getCentroNaveY();
+    public abstract int getConfineNaveY();
+	public abstract int getCentroNaveX();
+	public abstract int getConfineNaveX();
 
     /**
      * Costruttore della Nave
@@ -63,7 +67,7 @@ public abstract class Nave {
      */
     public Nave(Colori coloreNave){
         stampa= ComunicazioneConUtente.getIstanza();
-        this.componentiPrenotati = new ArrayList<Tessera>();
+        this.componentiPrenotati = new ArrayList<>();
         this.nave = new ArrayList<>();
         this.centro = null;
         this.coloreNave = coloreNave;
@@ -85,11 +89,6 @@ public abstract class Nave {
         this.inizioNaveV = getCentroNaveY();
     }
     
-	public abstract int getCentroNaveY();
-    public abstract int getConfineNaveY();
-	public abstract int getCentroNaveX();
-	public abstract int getConfineNaveX();
-	
     // ---------------------------- TESSERE PRENOTATE ---------------------------- 
     
     /**
@@ -102,7 +101,7 @@ public abstract class Nave {
      * @throws ErroreTessera
      */
     public void prenotaTessera(Tessera t) throws ErroreTessera{
-        if(this.componentiPrenotati.size() > 2){
+        if(this.componentiPrenotati.size() >= 2){
             throw new ErroreTessera("Limite massimo di tessere prenotato raggiunto!!");
         }
         else{
@@ -118,12 +117,17 @@ public abstract class Nave {
      * @throws ErroreTessera se si immette un valore non esistente
      */
     public Tessera togliTesseraPrenotata(int index) throws ErroreTessera{
-        if(index > 0 && index < 2){
-            return this.componentiPrenotati.get(index);
+        Tessera tessaraRimossa = null;
+        try{
+            if(this.componentiPrenotati.contains(this.componentiPrenotati.get(index))){
+                tessaraRimossa = this.componentiPrenotati.get(index);
+                this.componentiPrenotati.remove(index);
+            }    
+        }catch(IndexOutOfBoundsException ioobe){
+            throw new ErroreTessera("Tessera specificata non presente!"); 
         }
-        else{
-            throw new ErroreTessera("Tessera specificata non presente!");
-        }
+
+        return tessaraRimossa;
     }
 
     /**

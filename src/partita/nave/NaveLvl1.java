@@ -1,20 +1,14 @@
 package partita.nave;
 
 import java.util.ArrayList;
-
-import eccezioniPersonalizzate.ErroreTessera;
-import gioco.ComunicazioneConUtente;
 import partita.giocatore.Colori;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.Tessera;
 import tessera.TesseraVuota;
 
-public class NaveLvl1 extends Nave {
+public class NaveLvl1 extends Nave{
 	
-	private final int numeroRighe        = 5;
-    private final int numeroColonne      = 7;
-    private final Coordinate coordinateCentro;
     /**
      * Plancia nave
      * Legenda:
@@ -40,33 +34,25 @@ public class NaveLvl1 extends Nave {
             {0, 1, 1, 0, 1, 1, 0}   // riga 4
     };
 
+	private final int numeroRighe        = 5;
+    private final int numeroColonne      = 7;
+    private Coordinate coordinateCentro;
+
     public NaveLvl1(Colori coloreNave){
         super(coloreNave);
-        inizializzaNave();
-        this.coordinateCentro = new Coordinate(3, 2);
-        ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
-        // inizializzazione della nave con elementi TessereVuote
-        for(int i = 0; i < numeroRighe; i++){
+        for(int i = 0; i < this.numeroRighe; i += 1){
             ArrayList<Tessera> riga = new ArrayList<>();
-            for(int j = 0; j < numeroColonne; j++){
-                if(j == coordinateCentro.getX() && i == coordinateCentro.getY()){
-                    try{
-                    	Tessera centro=new Centro(coloreNave);
-                        riga.add(centro);
-                        this.centro = getCoordinateCentro();
-                    }
-                    catch(ErroreTessera eT){
-                        com.printError(eT.getMessage());
-                    }
+            for(int j = 0; j < this.numeroColonne; j += 1){
+                if(NAVE_DEF[i][j] == 2){
+                    // creo il centro
+                    this.coordinateCentro = new Coordinate(i, j);
+                    riga.add(new Centro(coloreNave, coordinateCentro));
+                }else if(NAVE_DEF[i][j] == 0){
+                    // tessera vuota
+                    riga.add(new TesseraVuota(i, j));
                 }
-                else{
-                	Tessera vuota= new TesseraVuota(j, i);
-
-                    riga.add(vuota);
-                }
-                
             }
-            nave.add(riga);
+            this.nave.add(riga);
         }
     }
 
@@ -102,8 +88,5 @@ public class NaveLvl1 extends Nave {
 	@Override
 	public int getConfineNaveY() {
 		return 10;
-	}
-
-    
-   
+	}   
 }

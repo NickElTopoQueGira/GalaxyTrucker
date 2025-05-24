@@ -1,40 +1,33 @@
 package tessera;
 
-import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
 
-public class Centro extends Tessera {
-	private final int massimo = 4;
-	private int contatore = 0;
-
+public class Centro extends Tessera{
 	private int passeggeriCorrenti = 2;
 	private final Colori colore;
+	private final Coordinate coordinate;
 	
-
-	public Centro(Colori colore) throws ErroreTessera {
+	public Centro(Colori colore, Coordinate coordinate){
 		super(TipoTessera.CENTRO);
-		this.getLatiTessera().setUp (TipoConnettoriTessera.TRIPLO);
-		this.getLatiTessera().setDown (TipoConnettoriTessera.TRIPLO);
+		this.colore = colore;
+		this.coordinate = coordinate;
+		this.getLatiTessera().setUp    (TipoConnettoriTessera.TRIPLO);
+		this.getLatiTessera().setDown  (TipoConnettoriTessera.TRIPLO);
 		this.getLatiTessera().setRight (TipoConnettoriTessera.TRIPLO);
-		this.getLatiTessera().setLeft (TipoConnettoriTessera.TRIPLO);
-	
-		contatore++;
-		if (contatore <= massimo) {
-			this.colore = colore;
-		} else {
-			throw new ErroreTessera("Numero Elementi Cannone Max"); // Eccezione Numero Massimo di elementi
-		}
+		this.getLatiTessera().setLeft  (TipoConnettoriTessera.TRIPLO);
 	}
 
-	public Colori getColore() {
+	public Colori getColore(){
 		return colore;
 	}
 
-	public int getPasseggeriCorrenti() {
+	public int getPasseggeriCorrenti(){
 		return passeggeriCorrenti;
 	}
-
 	
+	@Override
+	public Coordinate getCoordinate(){ return this.coordinate; }
+
 	/**
 	 * rimuove i passeggeri di un edit intero, se edit>passeggeriCorrenti
 	 * imposta passeggeriCorrenti a 0
@@ -46,7 +39,6 @@ public class Centro extends Tessera {
 		} else {
 			this.passeggeriCorrenti = 0;
 		}
-
 	}
 	
 	/**
@@ -54,10 +46,8 @@ public class Centro extends Tessera {
 	 * @return "centro"
 	 */
 	@Override
-	public String toLegenda() {
-		
-		String temp="centro cosmonauti: "+this.getPasseggeriCorrenti()+"/"+this.massimo;
-		return temp;
+	public String toLegenda(){
+		return "centro cosmonauti: "+this.getPasseggeriCorrenti()+"/2";
 	}
 	
 
