@@ -49,7 +49,7 @@ public class NaveLvl3 extends Nave{
                     // creo il centro
                     this.coordinateCentro = new Coordinate(i, j);
                     riga.add(new Centro(coloreNave, coordinateCentro));
-                }else if(NAVE_DEF[i][j] == 0){
+                }else{
                     // tessera vuota
                     riga.add(new TesseraVuota(i, j));
                 }

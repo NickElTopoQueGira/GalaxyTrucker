@@ -97,7 +97,7 @@ public class Partita{
 			if(this.modalitaPartita == ModalitaPartita.MULTIPLA &&
 				this.livelloPartita == Livelli.TERZO){
 					partitaInCorso = false;
-				}
+			}
 		}
 	}
 
@@ -518,8 +518,7 @@ public class Partita{
 		this.com.println(this.com.visualizzaElenco(elenco));
 		
 		int rispota = 0;
-		do{
-			
+		do{			
 			try{
 				rispota = Integer.parseInt(this.com.consoleRead());
 			}catch(NumberFormatException nfe){
