@@ -179,7 +179,7 @@ public class Partita{
 					// modifica la nave
 					turno(g, elencoTessere);
 				}
-				
+
 				/**
 				 * Guardare condizione a riga 168
 				 * "=^.^="
@@ -452,6 +452,7 @@ public class Partita{
 	private void prenotaTessera(Giocatore giocatore, Tessera tessera){
 		try{
 			giocatore.getNave().prenotaTessera(tessera);
+			this.com.println("Hai prenotato la tessera!!");
 		}catch(ErroreTessera et){
 			this.com.printError(et.getMessage());
 		}
