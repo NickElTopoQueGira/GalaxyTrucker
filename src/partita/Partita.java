@@ -15,7 +15,6 @@ import tabellone.Tabellone;
 import tessera.Coordinate;
 import tessera.FactoryTessera;
 import tessera.Tessera;
-import tessera.TesseraVuota;
 import tessera.TipoTessera;
 
 public class Partita{
@@ -177,80 +176,10 @@ public class Partita{
 				this.com.println("Turno del giocatore: " + g.getNome());
 				this.com.println("Vuoi modificare la nave?");
 				if(this.com.conferma()){
-					
-					// azioneCarta verifica gia' a monte se si puo' fare 
-					// una determinata azione
-					int azioneCarta = azioneCarta(g, elencoTessere);
-										
-					switch(azioneCarta){
-						case 1 ->{
-							visualizzaElencoTessere(elencoTessere);
-							Tessera tesseraSelezionata = selezionaTesseraDalMazzo(elencoTessere);
-							
-							if(tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA) {
-								
-								this.com.println("Vuoi prenotare la tessera?");
-								if(this.com.conferma()){
-									prenotaTessera(g, tesseraSelezionata);
-								}else{
-									if(inserisciTessera(g, tesseraSelezionata)){
-										elencoTessere.remove(tesseraSelezionata);
-										continue;
-									}
-								}
-							}else {
-								i--;
-								continue;
-							}
-						}
-						case 2 ->{		
-							Tessera tessera = nuovaTesseraRandom();
-							this.com.println("Tessera estratta: ");
-							this.com.print(tessera.toString());
-							this.com.println("{inizio debug}");
-							this.com.println(tessera.toLegenda());
-							this.com.println("{fine debug}");
-							this.com.println("Inserire numero dell'azione desiderata");
-							ArrayList<String> temp = new ArrayList();
-							temp.add("prenotare la tessera");
-							temp.add("inserisci tessera");
-							Boolean check;
-							do {
-								check = true;
-								this.com.println(this.com.visualizzaElenco(temp));
-								int scelta = Integer.parseInt(this.com.consoleRead());
-								
-								switch (scelta) {
-								case 1: {
-									prenotaTessera(g, tessera);
-									break;
-								}
-								case 2: {
-									if(!inserisciTessera(g, tessera)){
-										elencoTessere.add(tessera);
-									}
-									break;
-								}
-								default:
-									check=false;
-								}
-							}while(check==false);
-							
-							
-							/**if(this.com.conferma()){
-								prenotaTessera(g, tessera);
-							}else if(!inserisciTessera(g, tessera)){
-								elencoTessere.add(tessera);
-							}
-							continue;**/
-						}
-						case 3 -> {
-							inserisciTessera(g, usaTesseraPrenotata(g));
-							continue;
-						}
-					}	
+					// modifica la nave
+					turno(g, elencoTessere);
 				}
-
+				
 				/**
 				 * Guardare condizione a riga 168
 				 * "=^.^="
@@ -310,6 +239,56 @@ public class Partita{
 		}
 	}
 
+	private void turno(Giocatore g, ArrayList<Tessera> elencoTessere){
+		// azioneCarta verifica gia' a monte se si puo' fare 
+		// una determinata azione
+		int azioneCarta = azioneCarta(g, elencoTessere);
+							
+		switch(azioneCarta){
+			case 1 ->{
+				// per utilizzare una tessera gia' estratta e salvata nel mazzo degli scarti
+				visualizzaElencoTessere(elencoTessere);
+				Tessera tesseraSelezionata = selezionaTesseraDalMazzo(elencoTessere);
+				if(null == tesseraSelezionata){
+					turno(g, elencoTessere);
+				}
+				
+				if(tesseraSelezionata != null && tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA){
+					this.com.println("Vuoi prenotare la tessera?");
+					if(this.com.conferma()){
+						prenotaTessera(g, tesseraSelezionata);
+					}else{
+						if(inserisciTessera(g, tesseraSelezionata)){
+							elencoTessere.remove(tesseraSelezionata);
+						}
+					}
+				}
+			}
+			case 2 ->{	
+				// per generare una nuova tessera	
+				Tessera tessera = nuovaTesseraRandom();
+				this.com.println("Tessera estratta: ");
+				this.com.print(tessera.toString());
+				int scelta = menuScelte();
+				switch(scelta){
+				case 1 ->{
+					prenotaTessera(g, tessera);
+				}
+				case 2 ->{
+					if(!inserisciTessera(g, tessera)){
+						elencoTessere.add(tessera);
+					}
+				}
+				}
+			}
+			case 3 ->{
+				// per utilizzare una tessera prenotata
+				inserisciTessera(g, usaTesseraPrenotata(g));
+			}
+		}	
+	}
+
+
 	/**
 	 * Metodo per chiedere conferma se la nave e' finita
 	 */
@@ -331,34 +310,31 @@ public class Partita{
 	private Tessera selezionaTesseraDalMazzo(ArrayList<Tessera> elencoTessere){
 		int selezione;
 		Tessera t = null;
-		
-		try{
-			this.com.println("Inserisci il numero della tessera che si vuole inserire (inserire 0 per tornare al menu): ");
-			selezione = Integer.parseInt(this.com.consoleRead())-1;
-			
-			if(selezione == -1) {
-				return t = new TesseraVuota(0,0);
+		boolean pass = false;
+		do{ 
+			try{
+				this.com.println("Inserisci il numero della tessera che si vuole inserire (inserire 0 per tornare al menu): ");
+				selezione = Integer.parseInt(this.com.consoleRead());
+				
+				// ritorno al menu
+				if(0 == selezione) return null;
+
+				if(elencoTessere.contains(elencoTessere.get(selezione))){
+					this.com.print("Tessera selezionata: ");
+					t = elencoTessere.get(selezione);
+					this.com.println(t.toString());
+					pass = true;
+				}
+			}catch(NumberFormatException nfe){
+				this.com.erroreImmissioneValore();
+			}catch(IndexOutOfBoundsException ioobe){
+				this.com.printError("Tessera selezionata non presente");
 			}
-			
-		}catch(NumberFormatException nfe){
-			this.com.erroreImmissioneValore();
-			return selezionaTesseraDalMazzo(elencoTessere);
-		}
-		try{
-			if(elencoTessere.contains(elencoTessere.get(selezione))){
-				this.com.print("Tessera selezionata: ");
-				t = elencoTessere.get(selezione);
-				this.com.println(t.toString());
-			}
-		}catch(IndexOutOfBoundsException ioobe){
-			this.com.printError("Tessera selezionata non presente");
-			return selezionaTesseraDalMazzo(elencoTessere);
-		}
+		}while(false == pass);
 
 		if(t == null){
 			return selezionaTesseraDalMazzo(elencoTessere);
-		}
-		
+		}		
 		return t;
 	}
 
@@ -453,6 +429,11 @@ public class Partita{
 		}
 	}
 
+	/**
+	 * Metodo per aggiungere la tessera alla nave
+	 * @return true -> ok
+	 * 			false -> no
+	 */
 	private boolean aggiungiTesseraNellanave(Giocatore giocatore, Tessera tessera, Coordinate coordinate){
 		try {
 			giocatore.getNave().inserisciTessera(coordinate, tessera);
@@ -467,7 +448,6 @@ public class Partita{
 
 	/**
 	 * Metodo per prenotare la tessera
-	 * @return
 	 */
 	private void prenotaTessera(Giocatore giocatore, Tessera tessera){
 		try{
@@ -486,12 +466,20 @@ public class Partita{
 		
 		this.com.println("Inserisci il numero della tessera che vuoi utilizzare: ");
 		int numero = -1;
-		try{
-			numero = Integer.parseInt(this.com.consoleRead());
-		}catch(NumberFormatException nfe){
-			this.com.erroreImmissioneValore();
-			return usaTesseraPrenotata(giocatore);
-		}
+		boolean pass = false;
+		do{ 
+			try{
+				numero = Integer.parseInt(this.com.consoleRead());
+			}catch(NumberFormatException nfe){
+				this.com.erroreImmissioneValore();
+			}
+			if(numero == -1){
+				this.com.erroreImmissioneValore();
+			}else{
+				pass = true;
+			}
+		}while(false == pass);
+		
 
 		Tessera t;
 		try{
@@ -552,15 +540,52 @@ public class Partita{
 	 */
 	private Tessera nuovaTesseraRandom(){
 		FactoryTessera ft = new FactoryTessera();
-		Tessera t;
-		try{
-			t = ft.estraiTipo();
-		}catch(ErroreTessera et){
-			this.com.printError(et.getMessage());
-			return nuovaTesseraRandom();
-		}
+		Tessera t = null;
+		boolean pass = false;
+		do{
+			try{
+				t = ft.estraiTipo();
+			}catch(ErroreTessera et){
+				this.com.printError(et.getMessage());
+			}
 
+			if(null != t){
+				pass = true;
+			}
+		}while(false == pass);
 		return t;
+	}
+
+	/**
+	 * Metodo di menu' delle scelte
+	 * Utilizzato quando si genera una nuova tessera random
+	 * 
+	 * @return scelta fatta
+	 */
+	private int menuScelte(){
+		ArrayList<String> azioni = new ArrayList<>();
+		this.com.println("Inserire il numero dell'azione desiderata: ");
+		azioni.add("Prenotare la tessera");
+		azioni.add("Inserire la tessera");
+
+		int scelta = 0;
+		boolean pass = false;
+		do{
+			this.com.println(this.com.visualizzaElenco(azioni));
+			try{
+				scelta = Integer.parseInt(this.com.consoleRead());
+				if(scelta == 1 || scelta == 2){
+					pass = true;
+				}else{
+					this.com.erroreImmissioneValore();
+					pass = false;
+				}
+			}catch(NumberFormatException nfe){
+				this.com.erroreImmissioneValore();
+			}
+		}while(false == pass);
+
+		return scelta;
 	}
 
 	public void setLivelloPartita(Livelli livelloPartita) { this.livelloPartita = livelloPartita;}
