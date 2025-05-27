@@ -35,7 +35,7 @@ import tessera.motore.TipoMotore;
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
     private ArrayList<Tessera> componentiPrenotati;
-    private int[][] NAVE_DEF;
+    //private int[][] NAVE_DEF;
     protected Coordinate centro;
     private Colori coloreNave;
     private int energiaResidua;
@@ -46,6 +46,8 @@ public abstract class Nave {
     private int fineNaveO;
     private int inizioNaveV;
     private int fineNaveV;
+	private int centroNaveX;
+	private int centroNaveY;
     
     /**
      * Metodi astratti, implementati nelle sotto classi
@@ -55,10 +57,14 @@ public abstract class Nave {
     public abstract int getRighe();
     public abstract int getColonne();
 
+    public abstract int getCentroNaveX();
     public abstract int getCentroNaveY();
+    public abstract int getInizioNaveX();
+    public abstract int getInizioNaveY();
+    public abstract int getConfineNaveX();
     public abstract int getConfineNaveY();
-	public abstract int getCentroNaveX();
-	public abstract int getConfineNaveX();
+	
+	
 
     /**
      * Costruttore della Nave
@@ -71,22 +77,25 @@ public abstract class Nave {
         this.nave = new ArrayList<>();
         this.centro = null;
         this.coloreNave = coloreNave;
-        this.fineNaveO = 0; 
-        this.inizioNaveO = 0;
-        this.fineNaveV = 0;
-        this.inizioNaveV = 0;
+        this.fineNaveO = getConfineNaveX();
+        this.fineNaveV = getConfineNaveY();
+        this.inizioNaveO = getInizioNaveX();
+        this.inizioNaveV = getInizioNaveY();
         this.energiaResidua = 0;
-        this.numeroConnettoriScoperti = 0; 
+        this.numeroConnettoriScoperti = 0;
+		this.inizializzaNave();
     }
 
     // Metodo per inizializzare la nave da chiamare dopo il costruttore
     protected void inizializzaNave() {
-        this.NAVE_DEF = getMATRIX();
-        this.centro = getCoordinateCentro();
-        this.fineNaveO = getConfineNaveX();
-        this.inizioNaveO = getCentroNaveX();
-        this.fineNaveV = getConfineNaveY();
-        this.inizioNaveV = getCentroNaveY();
+        //this.NAVE_DEF = getMATRIX();
+        this.centro = getCoordinateCentro(); 
+        this.centroNaveX = getCentroNaveX();
+        this.centroNaveY = getCentroNaveY();
+        
+        
+        
+        
     }
     
     // ---------------------------- TESSERE PRENOTATE ---------------------------- 
@@ -178,7 +187,8 @@ public abstract class Nave {
             }
  
             // verifica se il pezzo lo si vuole mettere in una posizione non valida
-            if(0 == NAVE_DEF[coordinata.getX()][coordinata.getY()]){
+            // RICORDA: coodinate lavorano al contrario nelle matrici
+            if(0 == this.getMATRIX()[coordinata.getY()][coordinata.getX()]){
             	stampa.println("{debug} tessera inserita piazzata fuori dalla nave (Nave r.178)");
                 throw new ErroreTessera("Non puoi posizionare il pezzo in questa posizione");
             }
@@ -1017,7 +1027,6 @@ public abstract class Nave {
     @Override
     public String toString(){
     	String temp = "";
-    	temp += "Nave del giocatore: " + this.coloreNave.getname() + "\n";
         for(int i = 0; i < this.nave.size(); i += 1){
         	for(int k =0; k<5; k++) {
         		

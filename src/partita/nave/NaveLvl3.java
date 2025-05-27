@@ -47,11 +47,11 @@ public class NaveLvl3 extends Nave{
             for(int j = 0; j < this.numeroColonne; j += 1){
                 if(NAVE_DEF[i][j] == 2){
                     // creo il centro
-                    this.coordinateCentro = new Coordinate(i, j);
+                    this.coordinateCentro = new Coordinate(j, i);
                     riga.add(new Centro(coloreNave, coordinateCentro));
                 }else{
                     // tessera vuota
-                    riga.add(new TesseraVuota(i, j));
+                    riga.add(new TesseraVuota(j, i));
                 }
             }
             this.nave.add(riga);
@@ -72,24 +72,37 @@ public class NaveLvl3 extends Nave{
         return coordinateCentro;
     }
     
-    @Override
-    public int getCentroNaveX() {
-		return 3;
-	}
-
+	
 	@Override
-	public int getConfineNaveX() {
-		return 12;
+	public int getCentroNaveX() {
+		return 4;
 	}
 	
 	@Override
 	public int getCentroNaveY() {
-		return 4;
+		return 3;
 	}
+
+	
+	//indici per stampa coordinate nave
+	@Override
+	public int getConfineNaveX() {
+		return 12;
+	}
+
 
 	@Override
 	public int getConfineNaveY() {
 		return 10;
 	}
-    
+
+	@Override
+	public int getInizioNaveX() {
+		return 3;
+	}
+
+	@Override
+	public int getInizioNaveY() {
+		return 4;
+	} 
 }

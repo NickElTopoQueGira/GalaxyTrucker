@@ -383,11 +383,11 @@ public class Partita{
 			try{
 				this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
 				this.com.println("Inserisci la coordinata x: ");
-				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveX();
+				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
 				this.com.println("Inserisci la coordinata y: ");
-				y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveY();
+				y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
 				
-				if(x+giocatore.getNave().getCentroNaveX() == 0 && y+giocatore.getNave().getCentroNaveX() == 0) {
+				if(x+giocatore.getNave().getInizioNaveX() == 0 && y+giocatore.getNave().getInizioNaveY() == 0) {
 					return;
 				}
 			}catch(NumberFormatException nfe){
@@ -410,11 +410,13 @@ public class Partita{
 				}
 			}
 		
+			
+			//TODO il codice è duplicato... una parte va cancellata
 		try{
 			this.com.println("Inserisci la coordinata x: ");
-			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveX();
+			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
 			this.com.println("Inserisci la coordinata y: ");
-			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getCentroNaveY();
+			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
 			
 		}catch(NumberFormatException nfe){
 			this.com.erroreImmissioneValore();
