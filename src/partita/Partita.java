@@ -314,13 +314,13 @@ public class Partita{
 		do{ 
 			try{
 				this.com.println("Inserisci il numero della tessera che si vuole inserire (inserire 0 per tornare al menu): ");
-				selezione = Integer.parseInt(this.com.consoleRead());
+				selezione = Integer.parseInt(this.com.consoleRead())-1;
 				
 				// ritorno al menu
-				if(0 == selezione) return null;
+				if(-1 == selezione) return null;
 
 				if(elencoTessere.contains(elencoTessere.get(selezione))){
-					this.com.print("Tessera selezionata: ");
+					this.com.print("Tessera selezionata: \n");
 					t = elencoTessere.get(selezione);
 					this.com.println(t.toString());
 					pass = true;
@@ -345,7 +345,7 @@ public class Partita{
 	 */
 	private void visualizzaElencoTessere(ArrayList<Tessera> tessere){
 		for(int i = 0; i < tessere.size(); i+= 1){
-			this.com.println("Tessera " + i);
+			this.com.println("Tessera " + (i+1));
 			this.com.println(tessere.get(i).toString());
 		}
 	}
@@ -470,7 +470,7 @@ public class Partita{
 		boolean pass = false;
 		do{ 
 			try{
-				numero = Integer.parseInt(this.com.consoleRead());
+				numero = Integer.parseInt(this.com.consoleRead())-1;
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 			}
