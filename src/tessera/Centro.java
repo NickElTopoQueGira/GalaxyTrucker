@@ -43,7 +43,7 @@ public class Centro extends Tessera{
 	
 	/**
 	 * metodo che ritorna stringa descrittiva della tessera
-	 * @return "centro"
+	 * @return "centro cosmonauti" + il numero di cosmonauti presenti
 	 */
 	@Override
 	public String toLegenda(){
