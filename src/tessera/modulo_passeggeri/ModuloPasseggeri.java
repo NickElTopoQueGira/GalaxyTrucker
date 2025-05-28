@@ -53,7 +53,7 @@ public class ModuloPasseggeri extends Tessera {
 	/**
 	 * set equipaggio in base al tipomodulopasseggeri
 	 */
-	public void setEquipaggio() {
+	private void setEquipaggio() {
 		switch (this.tipoModuloPasseggeri) {
 		case MODULO_ALIENO_MARRONE:
 			this.setNumeroAlieniViola(1);
