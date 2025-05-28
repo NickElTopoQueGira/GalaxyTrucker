@@ -17,6 +17,7 @@ import partita.giocatore.Colori;
 import tessera.Centro;
 import tessera.Coordinate;
 import tessera.LatiTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TesseraVuota;
 import tessera.TipoConnettoriTessera;
@@ -309,7 +310,7 @@ public abstract class Nave {
      * @throws ErroreGiocatore 
      */
     public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera, ErroreGiocatore{
-    	Tessera vuota=new TesseraVuota(coordinate.getX(), coordinate.getY());
+    	Tessera vuota=new TesseraVuota(coordinate.getX(), coordinate.getY(),Posizione.INTERNA);
     	
     	// Verifica delle coordinate
         if(!controllaCoordinate(coordinate)){
@@ -450,7 +451,7 @@ public abstract class Nave {
 				}
 				if(check) {
 					
-					tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY());
+					tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
 					
 				}
 			}
@@ -462,7 +463,7 @@ public abstract class Nave {
     			for(Tessera tessera : colonne) {
     				for(Coordinate coordinateTessera : visitate) {
     					if(coordinateTessera==tessera.getCoordinate()) {
-    						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY());
+    						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
     					}
     				}
     				

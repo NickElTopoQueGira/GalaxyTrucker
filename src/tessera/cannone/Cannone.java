@@ -4,6 +4,7 @@ import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoLato;
@@ -29,7 +30,7 @@ public class Cannone extends Tessera {
 	 * @throws ErroreTessera
 	 */
 	public Cannone() throws ErroreTessera {
-		super(TipoTessera.CANNONE);
+		super(TipoTessera.CANNONE, Posizione.INTERNA);
 		contatore++;
 		if (contatore <= massimo) {
 			this.tipoCannone = randomTipo();

@@ -13,6 +13,7 @@ public abstract class Tessera {
 	protected LatiTessera latiTessera = new LatiTessera();
 	private Coordinate coordinate=new Coordinate();
 	private static int currentSize = 0;
+	private final Posizione posizione;
 	private static LinkedHashSet<Tessera> lista = new LinkedHashSet<Tessera>();
 	protected String[][] tessera_Disposizione = {
 			//Righe V  0    1    2    3    4    <- colonne
@@ -29,7 +30,7 @@ public abstract class Tessera {
 	 * @param tipoTessera
 	 * @throws ErroreTessera 
 	 */
-	public Tessera(TipoTessera tipoTessera){
+	public Tessera(TipoTessera tipoTessera,Posizione posizione){
 
 		this.tipoTessera = tipoTessera;
 
@@ -38,8 +39,11 @@ public abstract class Tessera {
 				aggiungiTessera();
 			
 		}
+		this.posizione = posizione;
 
 	}
+
+	
 
 	public LatiTessera getLatiTessera() {
 		return latiTessera;
@@ -196,6 +200,9 @@ public abstract class Tessera {
 	@Override
 	public String toString() {
 		String temp="";
+		if(this.posizione==Posizione.ESTRENA) {
+			temp+="\033[1;90m"+"\u001B[47m";
+		}
 		generaTessera_Disposizione();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -203,6 +210,7 @@ public abstract class Tessera {
 			}
 			temp+="\n";
 		}
+		temp+="\u001B[0m";
 		
 		return temp;
 
@@ -218,10 +226,14 @@ public abstract class Tessera {
 	public String getriga(int j) {
 		generaTessera_Disposizione();
 		String temp="";
+		if(this.posizione==Posizione.ESTRENA) {
+			temp+="\033[1;90m"+"\u001B[47m";
+		}
+		
 		temp=temp+this.tessera_Disposizione[j][0]+this.tessera_Disposizione[j][1]
 				+this.tessera_Disposizione[j][2]+this.tessera_Disposizione[j][3]
-				+this.tessera_Disposizione[j][4];;
-				
+				+this.tessera_Disposizione[j][4];
+		temp+="\u001B[0m";		
 		return temp;
 	}
 	

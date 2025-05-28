@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import partita.giocatore.Colori;
 import tessera.Centro;
 import tessera.Coordinate;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TesseraVuota;
 
@@ -49,7 +50,11 @@ public class NaveLvl1 extends Nave{
                     riga.add(new Centro(coloreNave, coordinateCentro));
                 }else{
                     // tessera vuota
-                    riga.add(new TesseraVuota(j, i));
+                	if(NAVE_DEF[i][j] == 0) {
+                		riga.add(new TesseraVuota(j, i, Posizione.ESTRENA ));    
+                	}else if(NAVE_DEF[i][j] == 1){
+                		riga.add(new TesseraVuota(j, i, Posizione.INTERNA ));                       	
+                	}
                 }
             }
             this.nave.add(riga);

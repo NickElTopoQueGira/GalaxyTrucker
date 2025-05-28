@@ -4,6 +4,7 @@ import java.util.Random;
 
 
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TipoTessera;
 
@@ -20,7 +21,7 @@ public class ModuloAttraccoAlieni extends Tessera{
 	 * @throws ErroreTessera
 	 */
 	public ModuloAttraccoAlieni() throws ErroreTessera {
-		super(TipoTessera.MODULO_ATTRACCO_ALIENI);
+		super(TipoTessera.MODULO_ATTRACCO_ALIENI, Posizione.INTERNA);
 		contatore++;
 		if (contatore <= massimo) {
 			this.colore = randomTipo();

@@ -2,8 +2,8 @@ package tessera;
 
 public class TesseraVuota extends Tessera{
 
-	public TesseraVuota(int x, int y){
-		super(TipoTessera.VUOTA);
+	public TesseraVuota(int x, int y, Posizione posizione){
+		super(TipoTessera.VUOTA, posizione);
 		this.latiTessera.setVuota();
 		super.getCoordinate().setX(x);
 		super.getCoordinate().setY(y);
