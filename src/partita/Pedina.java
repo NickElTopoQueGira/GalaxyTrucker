@@ -156,11 +156,11 @@ public class Pedina{
         			
         		}while(sceltaStiva<=0 || sceltaStiva>caso);
         		
-        		numeroMerci = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().size();
+        		numeroMerci = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().size();
         		
         		for(int i=0; i<numeroMerci; i++) {
         			cns.println(""+(i+1)+") "
-        		+((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().get(i).getTipoMerce());    		
+        		+((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().get(i).getTipoMerce());    		
         			
         			
         		}
@@ -179,7 +179,7 @@ public class Pedina{
         		
     		}while(sceltaMerci <= 0 || sceltaMerci > numeroMerci);
     		
-			Merce merce = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().get(sceltaMerci-1);
+			Merce merce = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().get(sceltaMerci-1);
     		
 			try {
 				this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce);
@@ -251,7 +251,7 @@ public class Pedina{
             			
             		}while(sceltaStiva<=0 || sceltaStiva>crd.size());
             		
-            		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().size() < 1){
+            		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().size() < 1){
             			
             			cns.println("La stiva selezionata è piena! se confermi dovrai selezionare una merce da eliminare per liberare spazio");
             			cns.println("(in caso non si conferma si può scegliere un altra stiva)");
@@ -268,7 +268,7 @@ public class Pedina{
         			
         			int sceltaEliminare = 0;
         			
-        			ArrayList<Merce> merce = ((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva();
+        			ArrayList<Merce> merce = ((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva();
         			
         			cns.println("Selezionare la mercve che si vuole eliminare per far spazio alla nuova merce:");
         			this.specificaMerci(merce);
