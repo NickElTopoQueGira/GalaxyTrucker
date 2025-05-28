@@ -206,6 +206,7 @@ public abstract class Tessera {
 		if(this.posizione==Posizione.ESTRENA) {
 			temp+="\033[1;90m"+"\u001B[48m";
 		}
+		
 		generaTessera_Disposizione();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -236,7 +237,8 @@ public abstract class Tessera {
 		temp=temp+this.tessera_Disposizione[j][0]+this.tessera_Disposizione[j][1]
 				+this.tessera_Disposizione[j][2]+this.tessera_Disposizione[j][3]
 				+this.tessera_Disposizione[j][4];
-		temp+="\u001B[0m";		
+		temp+="\u001B[0m";	
+			
 		return temp;
 	}
 	
