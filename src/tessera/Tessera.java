@@ -204,7 +204,7 @@ public abstract class Tessera {
 	public String toString() {
 		String temp="";
 		if(this.posizione==Posizione.ESTRENA) {
-			temp+="\033[1;90m"+"\u001B[47m";
+			temp+="\033[1;90m"+"\u001B[48m";
 		}
 		generaTessera_Disposizione();
 		for (int i = 0; i < 5; i++) {
@@ -230,7 +230,7 @@ public abstract class Tessera {
 		generaTessera_Disposizione();
 		String temp="";
 		if(this.posizione==Posizione.ESTRENA) {
-			temp+="\033[1;90m"+"\u001B[47m";
+			temp+="\033[1;90m"+"\u001B[48m";
 		}
 		
 		temp=temp+this.tessera_Disposizione[j][0]+this.tessera_Disposizione[j][1]
