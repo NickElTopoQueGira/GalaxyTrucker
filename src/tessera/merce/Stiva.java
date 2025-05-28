@@ -5,6 +5,7 @@ import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TipoTessera;
 
@@ -18,6 +19,28 @@ public class Stiva extends Tessera {
 	private int valore;
 	private int numeroMerciAttuale;
 	private ArrayList<Merce>stiva;
+	
+	
+	/**
+	 * costruttore
+	 * se viene ecceduto il numero massimo di elementi genera eccezione
+	 * @throws ErroreTessera
+	 */
+	public Stiva() throws ErroreTessera {
+		super(TipoTessera.PORTA_MERCI, Posizione.INTERNA);
+		contatore++;
+		if (contatore <= massimo) {
+			this.tipoMerciGenerale = randomTipo(); // specifica il tipo se normale o speciale
+
+			this.MaxCapienza = new Random().nextInt(2) + 1; //random per la capienza
+			this.valore = 0;
+			this.numeroMerciAttuale = 0;
+		} else {
+			throw new ErroreTessera("Numero Elementi Merci Max"); // Eccezione Numero Massimo di elementi
+		}
+
+	}
+	
 	
 	
 	public int getMaxCapienza() {
@@ -43,25 +66,7 @@ public class Stiva extends Tessera {
 ;
 
 	
-	/**
-	 * costruttore
-	 * se viene ecceduto il numero massimo di elementi genera eccezione
-	 * @throws ErroreTessera
-	 */
-	public Stiva() throws ErroreTessera {
-		super(TipoTessera.PORTA_MERCI);
-		contatore++;
-		if (contatore <= massimo) {
-			this.tipoMerciGenerale = randomTipo(); // specifica il tipo se normale o speciale
 
-			this.MaxCapienza = new Random().nextInt(2) + 1; //random per la capienza
-			this.valore = 0;
-			this.numeroMerciAttuale = 0;
-		} else {
-			throw new ErroreTessera("Numero Elementi Merci Max"); // Eccezione Numero Massimo di elementi
-		}
-
-	}
 
 	/**
 	 * inseirisce oggetto merce nella tessera stiva in base a tipostiva e tipomerce.

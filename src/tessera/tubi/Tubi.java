@@ -1,6 +1,7 @@
 package tessera.tubi;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
@@ -17,7 +18,7 @@ public class Tubi extends Tessera {
 	 * @throws ErroreTessera
 	 */
 	public Tubi() throws ErroreTessera {
-		super(TipoTessera.TUBI);
+		super(TipoTessera.TUBI, Posizione.INTERNA);
 		contatore++;
 		if (contatore > massimo) {
 			throw new ErroreTessera("Numero Elementi Tubi Max"); // Eccezione Numero Massimo di elementi

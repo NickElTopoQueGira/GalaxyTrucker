@@ -3,6 +3,7 @@ package tessera.modulo_passeggeri;
 import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TipoTessera;
 
@@ -24,7 +25,7 @@ public class ModuloPasseggeri extends Tessera {
 	 * @throws ErroreTessera
 	 */
 	public ModuloPasseggeri() throws ErroreTessera {
-		super(TipoTessera.MODULO_PASSEGGERI);
+		super(TipoTessera.MODULO_PASSEGGERI, Posizione.INTERNA);
 		contatore++;
 		if (contatore <= massimo) {
 			this.tipoModuloPasseggeri = randomTipo();

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
@@ -25,7 +26,7 @@ public class Motore extends Tessera {
 	 * @throws ErroreTessera
 	 */
 	public Motore() throws ErroreTessera {
-		super(TipoTessera.MOTORE);
+		super(TipoTessera.MOTORE, Posizione.INTERNA);
 		contatore++;
 		if (contatore <= massimo) {
 			this.tipoMotore = randomTipo();

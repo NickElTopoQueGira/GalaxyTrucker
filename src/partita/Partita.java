@@ -409,8 +409,6 @@ public class Partita{
 				}finally{
 					//this.com.print("Pezzo inserito correttamente"); // TODO ta togliere o spostare 
 				}
-			}
-		
 			*/
 			//TODO il codice è duplicato... una parte va cancellata
 		try{

@@ -3,6 +3,7 @@ package tessera.batteria;
 import java.util.Random;
 
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TipoTessera;
 
@@ -16,10 +17,11 @@ public class Batteria extends Tessera {
 	/**
 	 * costruttore
 	 * se viene ecceduto il numero massimo di elementi genera eccezione
+	 * @param  
 	 * @throws ErroreTessera
 	 */
 	public Batteria() throws ErroreTessera {
-		super(TipoTessera.BATTERIA);
+		super(TipoTessera.BATTERIA, Posizione.INTERNA);
 		contatore++;
 		if (contatore <= massimo) {
 			this.capacity = RandomTipo();

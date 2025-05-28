@@ -8,7 +8,7 @@ public class Centro extends Tessera{
 	private final Coordinate coordinate;
 	
 	public Centro(Colori colore, Coordinate coordinate){
-		super(TipoTessera.CENTRO);
+		super(TipoTessera.CENTRO, Posizione.INTERNA);
 		this.colore = colore;
 		this.coordinate = coordinate;
 		this.getLatiTessera().setUp    (TipoConnettoriTessera.TRIPLO);

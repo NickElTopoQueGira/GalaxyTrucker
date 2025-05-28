@@ -4,6 +4,7 @@ import eccezioniPersonalizzate.ErroreRotazione;
 
 
 import eccezioniPersonalizzate.ErroreTessera;
+import tessera.Posizione;
 import tessera.Tessera;
 import tessera.TipoLato;
 import tessera.TipoTessera;
@@ -31,7 +32,7 @@ public class Scudi extends Tessera {
 	 * @throws ErroreTessera
 	 */
 	public Scudi() throws ErroreTessera {
-		super(TipoTessera.SCUDI);
+		super(TipoTessera.SCUDI, Posizione.INTERNA);
 		contatore++;
 		if (contatore > massimo) {
 			throw new ErroreTessera("Numero Elementi Scudi Max"); // Eccezione Numero Massimo di elementi
