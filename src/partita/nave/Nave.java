@@ -1073,8 +1073,11 @@ public abstract class Nave {
     	for(ArrayList<Tessera> colonne : this.nave) {
     		int contatore=0;
 			for(Tessera tessera : colonne) {
-				String temp = "posizione("+(tessera.getCoordinate().getX()+this.inizioNaveO)+";"+(tessera.getCoordinate().getY()+inizioNaveV)+") "+tessera.toLegenda();
-				Legenda.add(temp);
+				if(tessera.getPosizione()==Posizione.INTERNA) {
+					String temp = "posizione("+(tessera.getCoordinate().getX()+this.inizioNaveO)+";"+(tessera.getCoordinate().getY()+inizioNaveV)+") "+tessera.toLegenda();
+					Legenda.add(temp);
+				}
+				
 	    		
 			}
     	}

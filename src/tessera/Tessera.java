@@ -43,7 +43,10 @@ public abstract class Tessera {
 
 	}
 
-	
+	public Posizione getPosizione() {
+		return this.posizione;
+		
+	}
 
 	public LatiTessera getLatiTessera() {
 		return latiTessera;
