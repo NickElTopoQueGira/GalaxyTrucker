@@ -393,7 +393,8 @@ public class Partita{
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 				inserisciTesseraNellaNave(giocatore, tessera);
-			}finally{
+			}
+			/*finally{
 				Coordinate c = new Coordinate(x, y);
 				try{
 					this.com.println("XY:("+x+"; "+y+") {debug}");
@@ -410,7 +411,7 @@ public class Partita{
 				}
 			}
 		
-			
+			*/
 			//TODO il codice è duplicato... una parte va cancellata
 		try{
 			this.com.println("Inserisci la coordinata x: ");
