@@ -17,7 +17,9 @@ public class ModuloPasseggeri extends Tessera {
 	private int equipaggio;
 	private int equipaggioMax;
 
-	private final TipoModuloPasseggeri tipoModuloPasseggeri;
+	private TipoModuloPasseggeri tipoModuloPasseggeri;
+
+	
 
 	/**
 	 * costruttore
@@ -28,7 +30,7 @@ public class ModuloPasseggeri extends Tessera {
 		super(TipoTessera.MODULO_PASSEGGERI, Posizione.INTERNA);
 		contatore++;
 		if (contatore <= massimo) {
-			this.tipoModuloPasseggeri = randomTipo();
+			this.tipoModuloPasseggeri = TipoModuloPasseggeri.MODULO_EQUIPAGGIO;
 
 			this.numeroCosmonauti 		= 0;
 			this.numeroAlieniMarroni 	= 0;
@@ -40,19 +42,18 @@ public class ModuloPasseggeri extends Tessera {
 		}
 	}
 
-	/**
-	 * random di enum TipomoduloPasseggeri
-	 * @return enum TipomoduloPasseggeri
-	 */
-	private TipoModuloPasseggeri randomTipo() {
-		TipoModuloPasseggeri[] tipiModuli = TipoModuloPasseggeri.values();
-		return tipiModuli[new Random().nextInt(tipiModuli.length)];
+	
+	public void setTipoModuloPasseggeri(TipoModuloPasseggeri tipoModuloPasseggeri) {
+		this.tipoModuloPasseggeri = tipoModuloPasseggeri;
+		setEquipaggio();
 	}
+
+
 
 	/**
 	 * set equipaggio in base al tipomodulopasseggeri
 	 */
-	private void setEquipaggio() {
+	public void setEquipaggio() {
 		switch (this.tipoModuloPasseggeri) {
 		case MODULO_ALIENO_MARRONE:
 			this.setNumeroAlieniViola(1);
