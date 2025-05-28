@@ -2,6 +2,7 @@ package partita;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreRisorse;
+import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import java.util.ArrayList;
@@ -267,19 +268,32 @@ public class Partita{
 			case 2 ->{	
 				// per generare una nuova tessera	
 				Tessera tessera = nuovaTesseraRandom();
-				this.com.println("Tessera estratta: ");
-				this.com.print(tessera.toString());
-				int scelta = menuScelte();
-				switch(scelta){
-				case 1 ->{
-					prenotaTessera(g, tessera);
-				}
-				case 2 ->{
-					if(!inserisciTessera(g, tessera)){
-						elencoTessere.add(tessera);
+				boolean ciclo = true;
+				do {
+					this.com.println("Tessera estratta: ");
+					this.com.print(tessera.toString());
+					int scelta = menuScelte();
+					switch(scelta){
+					case 1 ->{
+						prenotaTessera(g, tessera);
+						ciclo = false;
 					}
-				}
-				}
+					case 2 ->{
+						if(!inserisciTessera(g, tessera)){
+							elencoTessere.add(tessera);
+						}
+						ciclo = false;
+					}
+					case 3 ->{
+						try {
+							tessera.ruota();
+						} catch (ErroreRotazione e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					}
+				}while(ciclo);
 			}
 			case 3 ->{
 				// per utilizzare una tessera prenotata
@@ -570,6 +584,7 @@ public class Partita{
 		this.com.println("Inserire il numero dell'azione desiderata: ");
 		azioni.add("Prenotare la tessera");
 		azioni.add("Inserire la tessera");
+		azioni.add("Ruota la tessera");
 
 		int scelta = 0;
 		boolean pass = false;
@@ -577,7 +592,7 @@ public class Partita{
 			this.com.println(this.com.visualizzaElenco(azioni));
 			try{
 				scelta = Integer.parseInt(this.com.consoleRead());
-				if(scelta == 1 || scelta == 2){
+				if(scelta == 1 || scelta == 2 || scelta == 3){
 					pass = true;
 				}else{
 					this.com.erroreImmissioneValore();
