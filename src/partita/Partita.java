@@ -380,35 +380,35 @@ public class Partita{
 		this.com.println(giocatore.getNave().toString());
 		
 		int x = 0, y = 0;
-			try{
-				this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
-				this.com.println("Inserisci la coordinata x: ");
-				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
-				this.com.println("Inserisci la coordinata y: ");
-				y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
-				
-				if(x+giocatore.getNave().getInizioNaveX() == 0 && y+giocatore.getNave().getInizioNaveY() == 0) {
-					return;
-				}
-			}catch(NumberFormatException nfe){
-				this.com.erroreImmissioneValore();
-				inserisciTesseraNellaNave(giocatore, tessera);
-			}finally{
-				Coordinate c = new Coordinate(x, y);
-				try{
-					this.com.println("XY:("+x+"; "+y+") {debug}");
-					giocatore.getNave().inserisciTessera(c, tessera);
-					
-				}catch(ErroreTessera et){
-					this.com.printError(et.getMessage());
-					
-				}catch(ErroreCoordinate ec){
-					this.com.printError(ec.getMessage());
-					
-				}finally{
-					//this.com.print("Pezzo inserito correttamente"); // TODO ta togliere o spostare 
-				}
+		try{
+			this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
+			this.com.println("Inserisci la coordinata x: ");
+			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
+			this.com.println("Inserisci la coordinata y: ");
+			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
+			
+			if(x+giocatore.getNave().getInizioNaveX() == 0 && y+giocatore.getNave().getInizioNaveY() == 0) {
+				return;
 			}
+		}catch(NumberFormatException nfe){
+			this.com.erroreImmissioneValore();
+			inserisciTesseraNellaNave(giocatore, tessera);
+		}finally{
+			Coordinate c = new Coordinate(x, y);
+			try{
+				
+				giocatore.getNave().inserisciTessera(c, tessera);
+				
+			}catch(ErroreTessera et){
+				this.com.printError(et.getMessage());
+				
+			}catch(ErroreCoordinate ec){
+				this.com.printError(ec.getMessage());
+				
+			}finally{
+				//this.com.print("Pezzo inserito correttamente"); // TODO ta togliere o spostare 
+			}
+		}
 		
 			
 			//TODO il codice è duplicato... una parte va cancellata
