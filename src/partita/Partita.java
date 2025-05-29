@@ -148,7 +148,6 @@ public class Partita{
 	    Map<Giocatore, Integer> turniResidui = new HashMap<>();
 	    final int TURNI_EXTRA = 1;
 	    boolean countdownAttivo = false;
-	    ArrayList<Tessera> elencoTessere = Tessera.getListaTessere();
 	    int contatoreFinale = 1;
 
 	    // inizializza turniResidui a 0 per tutti
@@ -177,7 +176,7 @@ public class Partita{
 
 	            this.com.println("Vuoi modificare la nave?");
 	            if (this.com.conferma()) {
-	                turno(g, elencoTessere);
+	                turno(g);
 	                almenoUnoHaAgito = true;
 	            }
 
@@ -230,28 +229,28 @@ public class Partita{
 	/**
 	 * motodo per la gestione delle opzioni svolte dal giocatore sulle tessere in fase di conf della nave
 	 */
-	private void turno(Giocatore g, ArrayList<Tessera> elencoTessere){
+	private void turno(Giocatore g){
 		// azioneCarta verifica gia' a monte se si puo' fare 
 		// una determinata azione
-		int azioneCarta = azioneCarta(g, elencoTessere);
+		int azioneCarta = azioneCarta(g);
 							
 		switch(azioneCarta){
 			case 1 ->{
 				// per utilizzare una tessera gia' estratta e salvata nel mazzo degli scarti
-				visualizzaElencoTessere(elencoTessere);
-				Tessera tesseraSelezionata = selezionaTesseraDalMazzo(elencoTessere);
+				visualizzaElencoTessere(Tessera.getListaTessere());
+				Tessera tesseraSelezionata = selezionaTesseraDalMazzo();
 				if(null == tesseraSelezionata){
-					turno(g, elencoTessere);
+					turno(g);
 				}
 				
 				if(tesseraSelezionata != null && tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA){
 					this.com.println("Vuoi prenotare la tessera (altrimenti la tessera verrà inserita in nave)?");
 					if(this.com.conferma()){
 						prenotaTessera(g, tesseraSelezionata);
-						elencoTessere.remove(tesseraSelezionata);
+						Tessera.removeDaListaTessere(tesseraSelezionata);
 					}else{
 						inserisciTesseraNellaNave(g, tesseraSelezionata);
-						elencoTessere.remove(tesseraSelezionata);
+						Tessera.removeDaListaTessere(tesseraSelezionata);
 						
 					}
 				}
@@ -285,7 +284,7 @@ public class Partita{
 						break;
 					}					
 					case 4 ->{
-						elencoTessere.add(tessera);
+						Tessera.addAllaListaTessere(tessera);
 						ciclo = false;
 						break;
 					}
@@ -323,7 +322,7 @@ public class Partita{
 	 * 
 	 * @return  tessera
 	 */
-	private Tessera selezionaTesseraDalMazzo(ArrayList<Tessera> elencoTessere){
+	private Tessera selezionaTesseraDalMazzo(){
 		int selezione;
 		Tessera t = null;
 		boolean pass = false;
@@ -335,9 +334,9 @@ public class Partita{
 				// ritorno al menu
 				if(-1 == selezione) return null;
 
-				if(elencoTessere.contains(elencoTessere.get(selezione))){
+				if(Tessera.getListaTessere().contains(Tessera.getListaTessere().get(selezione))){
 					this.com.print("Tessera selezionata: \n");
-					t = elencoTessere.get(selezione);
+					t = Tessera.getListaTessere().get(selezione);
 					this.com.println(t.toString());
 					pass = true;
 				}
@@ -349,7 +348,7 @@ public class Partita{
 		}while(false == pass);
 
 		if(t == null){
-			return selezionaTesseraDalMazzo(elencoTessere);
+			return selezionaTesseraDalMazzo();
 		}		
 		return t;
 	}
@@ -489,7 +488,7 @@ public class Partita{
 	 * 
 	 * @return scelta
 	 */
-	private int azioneCarta(Giocatore g, ArrayList<Tessera> elencoTessereEstratte){
+	private int azioneCarta(Giocatore g){
 		ArrayList<String> elenco = new ArrayList<>();
 		elenco.add("Per utilizzare una tessera dal mazzo");
 		elenco.add("Per generare una nuova tessera");
@@ -510,15 +509,15 @@ public class Partita{
         // controllo se la selezione fatta e' possibile 
 		switch(rispota) {
 			case 1 ->{
-				if(elencoTessereEstratte.isEmpty()){
+				if(Tessera.getListaTessere().isEmpty()){
 					this.com.printError("Non ci sono tessere estratte");
-					return azioneCarta(g, elencoTessereEstratte);
+					return azioneCarta(g);
 				}
 			}
 			case 3 ->{
 				if(g.getNave().isComponentiPrenotatiEmpty()){
 					this.com.printError("Non hai tessere prenotate da usare");
-					return azioneCarta(g, elencoTessereEstratte);
+					return azioneCarta(g);
 				}
 			}
 		}

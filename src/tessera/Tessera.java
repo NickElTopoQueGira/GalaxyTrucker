@@ -72,6 +72,27 @@ public abstract class Tessera {
 		ArrayList<Tessera> array= new ArrayList<Tessera>(lista);
 		return array;
 	}
+	
+	/**
+	 * rimuove dalla lista la tessera t
+	 * @param tessera
+	 */
+	public static void removeDaListaTessere(Tessera t) {
+		lista.remove(t);
+		setCurrentSize(-1);
+
+	}
+	
+	/**
+	 * aggiunge alla lista la tessera t
+	 * @param tessera
+	 */
+	public static void addAllaListaTessere(Tessera t) {
+		lista.add(t);
+		setCurrentSize(+1);
+
+	}
+	
 
 	public static int getCurrentSize() {
 		return currentSize;
@@ -83,10 +104,11 @@ public abstract class Tessera {
 
 	
 	/**
-	 * aggiunge al set di tessere la tessera ed incrementa la size di 1
+	 * aggiunge al set di tessere la tessera ed incrementa la size di 1, svolge anche controllo duplicazione
+	 * ed in caso genera eccezione
 	 * @throws ErroreTessera 
 	 */
-	public void aggiungiTessera() throws ErroreTessera{
+	private void aggiungiTessera() throws ErroreTessera{
 		if(isTesseraDuplicata()) {
 			throw new ErroreTessera("");
 		}else {
