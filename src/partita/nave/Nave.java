@@ -589,7 +589,7 @@ public abstract class Nave {
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY()).get(coordinate.getX() - 1).getLatiTessera();
 
         // controllo se i lati sono uguali
-        if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft()){
+        if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft() && latiTesseraNave.getRight()!=TipoConnettoriTessera.NULLO ){
             return 1;
         }
 
@@ -626,11 +626,11 @@ public abstract class Nave {
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY()).get(coordinate.getX() + 1).getLatiTessera();
 
         // controllo se i lati sono uguali
-        if(latiTesseraNave.getLeft() == tessera.getLatiTessera().getRight()){
+        if(latiTesseraNave.getLeft() == tessera.getLatiTessera().getRight() && latiTesseraNave.getLeft()!=TipoConnettoriTessera.NULLO ){
             return 1;
         }
 
-        // controllo sei il ati sono compatibil
+        // controllo sei i lati sono compatibil
         if((latiTesseraNave.getLeft() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO)){
                 return 1;
@@ -661,7 +661,7 @@ public abstract class Nave {
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY() - 1).get(coordinate.getX()).getLatiTessera();
 
         // controllo se i lati sono uguali
-        if(latiTesseraNave.getDown() == tessera.getLatiTessera().getUp()){
+        if(latiTesseraNave.getDown() == tessera.getLatiTessera().getUp()&& latiTesseraNave.getDown()!=TipoConnettoriTessera.NULLO ){
             return 1;
         }
 
@@ -696,7 +696,7 @@ public abstract class Nave {
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY() + 1).get(coordinate.getX()).getLatiTessera();
 
         // controllo se i lati sono uguali
-        if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown()){
+        if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown() && latiTesseraNave.getUp()!=TipoConnettoriTessera.NULLO ){
             return 1;
         }
         // controllo sei il lati sono compatibil
