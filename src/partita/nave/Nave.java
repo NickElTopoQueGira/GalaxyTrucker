@@ -1,9 +1,12 @@
 package partita.nave;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
@@ -1070,7 +1073,100 @@ public abstract class Nave {
      * Stampa della nave
      * @return 
      */
+    
     @Override
+    public String toString() {
+        ArrayList<String> righeOutput = new ArrayList<>();
+        ArrayList<String> descrizioni = getDescrizioniAllineate();
+
+        for (int i = 0; i < this.nave.size(); i++) {
+            for (int k = 0; k < 5; k++) {
+                StringBuilder riga = new StringBuilder();
+                for (int j = 0; j < this.nave.get(i).size(); j++) {
+                    riga.append(this.nave.get(i).get(j).getriga(k)).append(" ");
+                }
+                if (k == 2) {
+                    riga.append((i + this.inizioNaveV)); // numero riga nave
+                } else {
+                    riga.append("│");
+                }
+
+                // aggiunta descrizione se presente
+                if (descrizioni.size() > i * 5 + k) {
+                    riga.append(" ").append(descrizioni.get(i * 5 + k));
+                }
+                righeOutput.add(riga.toString());
+            }
+
+            // riga vuota di separazione tra righe nave
+            StringBuilder separatore = new StringBuilder();
+            for (int j = this.inizioNaveO; j < this.fineNaveO; j++) {
+                separatore.append("      ");
+            }
+            separatore.append("│ ").append(descrizioni.get(i * 5 + 6));;
+            righeOutput.add(separatore.toString());
+        }
+
+        // Riga numeri orizzontali
+        StringBuilder orizzontali = new StringBuilder();
+        for (int i = inizioNaveO; i < fineNaveO; i++) {
+            if (i >= 10) {
+                orizzontali.append("──").append(i).append("──");
+            } else {
+                orizzontali.append("──").append(i).append("───");
+            }
+        }
+        orizzontali.append("┘");
+        righeOutput.add(orizzontali.toString());
+
+        // Aggiunta legenda
+        righeOutput.addAll(getDescrizioniExtra(descrizioni.size(), righeOutput.size()));
+
+        // Unione finale
+        return String.join("\n", righeOutput);
+    }
+    private ArrayList<String> getDescrizioniAllineate() {
+        ArrayList<String> righe = new ArrayList<>();
+        ArrayList<String> lista = new ArrayList<>();
+
+        for (ArrayList<Tessera> colonne : this.nave) {
+            for (Tessera tessera : colonne) {
+                if (tessera.getPosizione() == Posizione.INTERNA) {
+                    String temp = "\t | posizione(" + (tessera.getCoordinate().getX() + this.inizioNaveO)
+                            + ";" + (tessera.getCoordinate().getY() + inizioNaveV) + ") " + tessera.toLegenda();
+                    lista.add(temp);
+                }
+            }
+        }
+
+        // Una descrizione per riga
+        for (String s : lista) {
+            righe.add(s);
+        }
+
+        return righe;
+    }
+    private ArrayList<String> getDescrizioniExtra(int startIndex, int totalRows) {
+        ArrayList<String> extra = new ArrayList<>();
+        ArrayList<String> lista = new ArrayList<>();
+
+        for (ArrayList<Tessera> colonne : this.nave) {
+            for (Tessera tessera : colonne) {
+                if (tessera.getPosizione() == Posizione.INTERNA) {
+                    String temp = "posizione(" + (tessera.getCoordinate().getX() + this.inizioNaveO)
+                            + ";" + (tessera.getCoordinate().getY() + inizioNaveV) + ") " + tessera.toLegenda();
+                    lista.add(temp);
+                }
+            }
+        }
+
+        for (int i = startIndex; i < lista.size(); i++) {
+            extra.add(lista.get(i));
+        }
+
+        return extra;
+    }
+    /*
     public String toString(){
     	String temp = "";
         for(int i = 0; i < this.nave.size(); i += 1){
@@ -1118,6 +1214,7 @@ public abstract class Nave {
      * Metodo che genera stringa di descrizioni delle tessere interne alla nave
      * @return elenco di descrizione
      */
+    /*
     public String descrizioneCarte() {
     	ArrayList<String> Legenda = new ArrayList<String>();
     	
@@ -1134,7 +1231,7 @@ public abstract class Nave {
     	}
     	return stampa.visualizzaElenco(Legenda);
     }
-    
+    */
     private String legenda() {
 		String temp1=legendaConnettori();
 		String temp2=legendaConnettori();
