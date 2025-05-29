@@ -44,19 +44,19 @@ public class Tabellone{
 			for(int j=0; j<elencoPedine.size(); j++) {
 				
 				//2) controllo equipaggio
-				if(!elencoPedine.get(i).getGiocatore().getNave().controlloSonoPresentiCosmonauti()) {
+				if(!elencoPedine.get(j).getGiocatore().getNave().controlloSonoPresentiCosmonauti()) {
 					
-					this.elencoNaviAbbandonate.add(elencoPedine.get(i));
-					elencoPedine.remove(i);
-					i--;
+					this.elencoNaviAbbandonate.add(elencoPedine.get(j));
+					elencoPedine.remove(j);
+					j--;
 				}
 				
 				//4) Richiesta abbandono nave
-				if(cns.richiestaAbbandonaVolo(elencoPedine.get(i).getGiocatore())) {
+				if(cns.richiestaAbbandonaVolo(elencoPedine.get(j).getGiocatore())) {
 					
-					this.elencoNaviAbbandonate.add(elencoPedine.get(i));
-					elencoPedine.remove(i);
-					i--;
+					this.elencoNaviAbbandonate.add(elencoPedine.get(j));
+					elencoPedine.remove(j);
+					j--;
 				}
 			}
 			i++;

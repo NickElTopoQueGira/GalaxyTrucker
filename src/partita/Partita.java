@@ -143,108 +143,88 @@ public class Partita{
 	/**
 	 * Meto per assemblare la nave a turno
 	 */
-	private void assemblaNavi(){
-		ArrayList<Giocatore> giocatori = new ArrayList<>(this.giocatori);
-		Map<Giocatore, Integer> turniResidui = new HashMap<>();
-		final int TURNI_EXTRA = 10;
-		boolean assemblaggioInCorso = true;
-		ArrayList<Tessera> elencoTessere = new ArrayList<>();
+	private void assemblaNavi() {
+	    ArrayList<Giocatore> giocatori = new ArrayList<>(this.giocatori);
+	    Map<Giocatore, Integer> turniResidui = new HashMap<>();
+	    final int TURNI_EXTRA = 1;
+	    boolean countdownAttivo = false;
+	    ArrayList<Tessera> elencoTessere = new ArrayList<>();
+	    int contatoreFinale = 1;
 
-		// per controllare se qualche giocatore ha finito per primo la nave
-		boolean finito = false; 
-		int contatoreFinale = 1;
+	    // inizializza turniResidui a 0 per tutti
+	    for (Giocatore g : giocatori) {
+	        turniResidui.put(g, 0);
+	    }
 
-		while(assemblaggioInCorso){
-			for(int i = 0; i < this.numeroGiocatori; i += 1){
-				
-				Giocatore g = giocatori.get(i);
-				if(!g.isNaveFinita()) {
-					
-					this.com.println("");
-					this.com.println("");
-					/**
-					 * Verifica nel caso in cui il giocatore non abbia finito 
-					 * pre primo l'assemblaggio della nave, quanti turni 
-					 * gli rimangono per finire. 
-					 * Se il giocatore ha 0 turni residui, allora si continua a quello dopo 
-					 */
-					if(finito){
-						if(g.isNaveFinita() || turniResidui.get(g) <= 0){
-							continue;
-						}
-						this.com.print("Numero mosse ancora disponibili: ");
-						this.com.printNumber(turniResidui.get(g));
-						this.com.println("");
-					}
-					
-					this.com.println("Turno del giocatore: " + g.getNome());
-					this.com.println(g.getNave().toString());
-					this.com.println("Vuoi modificare la nave?");
-					if(this.com.conferma()){
-						// modifica la nave
-						turno(g, elencoTessere);
-					}
+	    while (true) {
+	        boolean almenoUnoHaAgito = false;
 
-					/**
-					 * Guardare condizione a riga 168
-					 * "=^.^="
-					 */
+	        for (Giocatore g : giocatori) {
+	            if (g.isNaveFinita()) continue;
 
-					// controllo se la nave e' finita
-					if(g.isNaveFinita()){
-						// il giocatore ha finito la nave
-						this.com.println("Il giocatore " + g.getNome() + " ha finito la nave");
+	            // Se countdown è attivo e il giocatore ha esaurito i turni, salta
+	            if (countdownAttivo && turniResidui.getOrDefault(g, 0) <= 0) {
+	                continue;
+	            }
 
-						// posizione sul tabellone
-						g.getPedina().setPosizioneSulTabellone(contatoreFinale);
-						contatoreFinale += 1;
-						
-						if(!finito) {
-							this.com.println("Inizio conto alla rovescia di " + TURNI_EXTRA);
-							// inizializzazione conto alla rovescia
-							for(Giocatore gg : giocatori){
-								if(gg.equals(g) == false && gg.isNaveFinita() == false){
-									turniResidui.put(gg, TURNI_EXTRA);
-								}
-							}
-						}
-						
-						finito = true;
-						
-					}else{
-						// chiedo se ha finito la nave
-						if(naveFinita(g)){
-							g.naveFinita();
-							this.com.println("Il giocatore " + g.getNome() + " ha finito la nave");
-							finito = true;
-						}
-					}
-				}
-				
-				// decremento se il conto alla rovescia e' attivo
-				if(finito == false && g.isNaveFinita() == false){
-					turniResidui.put(g, turniResidui.getOrDefault(g, TURNI_EXTRA) - 1);
-				}
-			}
-			
-			
-			
-			// verifico se tutti i giocatori hanno finito
-			boolean tuttiHannoFinito = false;
-			
-			for(Giocatore gg : giocatori){
-				if(gg.isNaveFinita() == true){
-					if(turniResidui.getOrDefault(gg, 1) == 0){
-						tuttiHannoFinito = true;
-						break;
-					}
-				}
-			}
-			if(tuttiHannoFinito){
-				assemblaggioInCorso = false;
-				this.com.println("Tutti i giocatori hanno finto di assemblare la nave");
-			}
-		}
+	            this.com.println("\n\nTurno del giocatore: " + g.getNome());
+	            this.com.println(g.getNave().toString());
+
+	            if (countdownAttivo) {
+	                int residui = turniResidui.getOrDefault(g, 0);
+	                this.com.println("Numero mosse ancora disponibili: " + residui);
+	            }
+
+	            this.com.println("Vuoi modificare la nave?");
+	            if (this.com.conferma()) {
+	                turno(g, elencoTessere);
+	                almenoUnoHaAgito = true;
+	            }
+
+	            // Ricontrolla se ha completato la nave
+	            if (g.isNaveFinita() || naveFinita(g)) {
+	                g.naveFinita();
+	                g.getPedina().setPosizioneSulTabellone(contatoreFinale++);
+	                tabellone.aggiungiPedina(g.getPedina());
+	                this.com.println("Il giocatore " + g.getNome() + " ha finito la nave.");
+
+	                // Se è il primo a finirla, attiva countdown per gli altri
+	                if (!countdownAttivo) {
+	                    this.com.println("Inizio conto alla rovescia di " + TURNI_EXTRA + " turni per gli altri giocatori.");
+	                    for (Giocatore altro : giocatori) {
+	                        if (!altro.equals(g) && !altro.isNaveFinita()) {
+	                            turniResidui.put(altro, TURNI_EXTRA);
+	                        }
+	                    }
+	                    countdownAttivo = true;
+	                }
+	            } else if (countdownAttivo) {
+	                // Se il countdown è attivo, decrementa
+	                int residui = turniResidui.getOrDefault(g, 0);
+	                turniResidui.put(g, residui - 1);
+	            }
+	        }
+
+	        // Se nessuno ha potuto agire, termina
+	        if (!almenoUnoHaAgito) {
+	            this.com.println("Nessun altro giocatore può più modificare la nave.");
+	            break;
+	        }
+
+	        // Controlla se tutti hanno finito o hanno esaurito i turni
+	        boolean tuttiHannoFinito = true;
+	        for (Giocatore g : giocatori) {
+	            if (!g.isNaveFinita() && turniResidui.getOrDefault(g, 0) > 0) {
+	                tuttiHannoFinito = false;
+	                break;
+	            }
+	        }
+
+	        if (tuttiHannoFinito) {
+	            this.com.println("Tutti i giocatori hanno finito di assemblare la nave.");
+	            break;
+	        }
+	    }
 	}
 
 	/**
