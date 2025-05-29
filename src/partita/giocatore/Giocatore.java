@@ -1,5 +1,7 @@
 package partita.giocatore;
 
+import java.util.Objects;
+
 import eccezioniPersonalizzate.ErroreRisorse;
 import partita.Livelli;
 import partita.Pedina;
@@ -76,4 +78,23 @@ public class Giocatore {
 	public boolean isNaveFinita(){ return this.isNaveFinita; }
 
 	public Colori getColorePedina(){ return this.colorePedina; }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nome);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Giocatore other = (Giocatore) obj;
+		return Objects.equals(nome, other.nome);
+	}
+
+	
 }

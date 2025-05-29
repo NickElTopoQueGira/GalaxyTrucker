@@ -37,7 +37,7 @@ public class Gioco{
 	}
 
 	
-	//TODO utilizza metodo specifico in comUtente che stampa elenco tramite lista di stringhe; visualizzaElenco()
+	//TODO nik, utilizza metodo specifico in comUtente che stampa elenco tramite lista di stringhe; visualizzaElenco()
 	private void riepilogoGiocatori(){
 		com.clear();
 		com.print("--- Riepilogo Giocatori ---\n");
@@ -57,7 +57,7 @@ public class Gioco{
 	 */
 	private Giocatore creaGiocatore(){
 		ConfiguraGiocatore conf = new ConfiguraGiocatore();
-		Giocatore giocatore = conf.craGiocatore();
+		Giocatore giocatore = conf.creaGiocatore();
 		try{
 			isGiocatoreDuplicato(giocatore);
 		}catch(ErroreGiocatore eg){

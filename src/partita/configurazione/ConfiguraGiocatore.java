@@ -13,9 +13,10 @@ public class ConfiguraGiocatore{
         com = ComunicazioneConUtente.getIstanza();
     }
 
-    public Giocatore craGiocatore(){
+    public Giocatore creaGiocatore(){
         configuraGiocatore();
-        return new Giocatore(this.nome, this.colorePedina);
+        Giocatore g=new Giocatore(this.nome, this.colorePedina);
+        return g;
     }
 
     private void configuraGiocatore(){
