@@ -243,6 +243,9 @@ public class Partita{
 		}
 	}
 
+	/**
+	 * motodo per la gestione delle opzioni svolte dal giocatore sulle tessere in fase di conf della nave
+	 */
 	private void turno(Giocatore g, ArrayList<Tessera> elencoTessere){
 		// azioneCarta verifica gia' a monte se si puo' fare 
 		// una determinata azione
@@ -258,13 +261,13 @@ public class Partita{
 				}
 				
 				if(tesseraSelezionata != null && tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA){
-					this.com.println("Vuoi prenotare la tessera?");
+					this.com.println("Vuoi prenotare la tessera (altrimenti la tessera verrà inserita in nave)?");
 					if(this.com.conferma()){
 						prenotaTessera(g, tesseraSelezionata);
 					}else{
-						if(inserisciTessera(g, tesseraSelezionata)){
-							elencoTessere.remove(tesseraSelezionata);
-						}
+						inserisciTesseraNellaNave(g, tesseraSelezionata);
+						elencoTessere.remove(tesseraSelezionata);
+						
 					}
 				}
 			}
@@ -283,9 +286,7 @@ public class Partita{
 						ciclo = false;
 					}
 					case 2 ->{
-						if(!inserisciTessera(g, tessera)){
-							elencoTessere.add(tessera);
-						}
+						inserisciTesseraNellaNave(g, usaTesseraPrenotata(g));
 						ciclo = false;
 					}
 					case 3 ->{
@@ -296,17 +297,23 @@ public class Partita{
 						}
 					}					
 					case 4 ->{
-						
+						elencoTessere.add(tessera);
+						ciclo = false;
 					}
 					}
 				}while(ciclo);
 			}
 			case 3 ->{
 				// per utilizzare una tessera prenotata
-				inserisciTessera(g, usaTesseraPrenotata(g));
+				//inserisciTessera(g, usaTesseraPrenotata(g));
+				inserisciTesseraNellaNave(g, usaTesseraPrenotata(g));
+				
 			}
 		}	
 	}
+	
+	
+	
 
 
 	/**
@@ -370,25 +377,6 @@ public class Partita{
 		}
 	}
 
-	/**
-	 * Metodo per insrire la tessera
-	 * 
-	 * @param giocatore
-	 * @param tessera
-	 * @return inserimento si, no
-	 */
-	private boolean inserisciTessera(Giocatore giocatore, Tessera tessera){
-		this.com.println("Vuoi aggiungere questa tessera alla tua nave?");
-		boolean conferma = this.com.conferma();
-		if(conferma){
-			inserisciTesseraNellaNave(giocatore, tessera);
-			return true;
-		}
-		else{
-			this.com.println("Nessuna azione compiuta, al prossimo turno");
-			return false;
-		}
-	}
 
 	/**
 	 * Metodo per inserire la tessera nella nave
@@ -398,7 +386,8 @@ public class Partita{
 	 */
 	private void inserisciTesseraNellaNave(Giocatore giocatore, Tessera tessera){
 		this.com.println(giocatore.getNave().toString());
-		
+		this.com.println("Tessera da inserire");
+		this.com.println(tessera.toString());
 		int x = 0, y = 0;
 			try{
 				this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
