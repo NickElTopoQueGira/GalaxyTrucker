@@ -9,15 +9,16 @@ import tessera.*;
 import tessera.merce.*;
 
 public class Pedina{
-    private Colori colorePedina;
-    private Giocatore giocatore;
+    private final ComunicazioneConUtente cns;
+    private final Colori colorePedina;
+    private final Giocatore giocatore;
     private Tabellone tabellone;
     private int posizioneSulTabellone;
-    private ComunicazioneConUtente cns;
     private int numeroGiro;
 	private boolean inGioco;
     
 	public Pedina(Giocatore giocatore){
+		this.cns = ComunicazioneConUtente.getIstanza();
 		this.tabellone = null;
 		this.giocatore = giocatore;
 		this.colorePedina = this.giocatore.getColorePedina();
@@ -25,34 +26,16 @@ public class Pedina{
 		this.numeroGiro = 1;
 		this.inGioco = true;
 	}
-
-    public Pedina(Tabellone tabellone, Giocatore giocatore){
-    	this.tabellone = tabellone;
-        this.giocatore = giocatore;
-		this.colorePedina = this.giocatore.getColorePedina();
-        this.posizioneSulTabellone = 0;
-        this.numeroGiro = 1;
-		this.inGioco = true;
-    }
     
-    public Pedina(Tabellone tabellone, Giocatore giocatore, int posizione){
-    	this.tabellone = tabellone;
-        this.giocatore = giocatore;
-		this.colorePedina = this.giocatore.getColorePedina();
-        this.posizioneSulTabellone = posizione;
-        this.numeroGiro = 1;
-		this.inGioco = true;
-    }
-    
-    public Tabellone getTabellone() {
+    public Tabellone getTabellone(){
 		return this.tabellone;
 	}
 
-	public void setTabellone(Tabellone tabellone) {
+	public void setTabellone(Tabellone tabellone){
 		this.tabellone = tabellone;
 	}
 	
-    public Colori getColorePedina() { 
+    public Colori getColorePedina(){ 
         return this.colorePedina; 
     }
 

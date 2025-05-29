@@ -1,8 +1,7 @@
 package partita.giocatore;
 
-import java.util.Objects;
-
 import eccezioniPersonalizzate.ErroreRisorse;
+import java.util.Objects;
 import partita.Livelli;
 import partita.Pedina;
 import partita.configurazione.ConfiguraNave;

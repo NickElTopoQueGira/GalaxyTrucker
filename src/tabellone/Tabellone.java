@@ -1,36 +1,36 @@
 package tabellone;
 
-import java.util.ArrayList;
-
 import carte.Carta;
 import gioco.ComunicazioneConUtente;
+import java.util.ArrayList;
 import partita.Livelli;
 import partita.Pedina;
 
 public class Tabellone{
-	private ArrayList<Pedina> elencoPedine;
+	private final ComunicazioneConUtente cns;
+	private final ArrayList<Pedina> elencoPedine;
 	private ArrayList<Pedina> elencoNaviDistrutte; //PROVVISORIO
 	private ArrayList<Pedina> elencoNaviAbbandonate; 
 	private ArrayList<Carta> mazzoCarte;
 	private ArrayList<Posizione> posizioni;
 	private int numeroPosizioni;
 	private Livelli livello;
-	private ComunicazioneConUtente cns;
 	
 	public Tabellone(Livelli livello){
-		this.elencoPedine = new ArrayList<Pedina>();
-		this.mazzoCarte = new ArrayList<Carta>();
-		this.posizioni = new ArrayList<Posizione>();
+		this.cns = ComunicazioneConUtente.getIstanza();
+		this.elencoPedine = new ArrayList<>();
+		this.mazzoCarte = new ArrayList<>();
+		this.posizioni = new ArrayList<>();
 		this.livello = livello;
 		this.numeroPosizioni = numeroPosizioniLivello();
 
 		inizializzaPosizioni();
+		inizializzaPedine();
 	}
-	
-	public void gioca() {
-		
+
+	public void gioca(){		
 		int i=0;
-		do {
+		do{
 			//----estrazione carta--------
 			
 			mazzoCarte.get(i).eseguiCarta(elencoPedine);
@@ -60,7 +60,7 @@ public class Tabellone{
 				}
 			}
 			i++;
-		}while(mazzoCarte.get(i)!= null && elencoPedine.size() == 0);
+		}while(mazzoCarte.get(i) != null && elencoPedine.isEmpty());
 	}
 	
 	/**
@@ -96,6 +96,16 @@ public class Tabellone{
 	private void inizializzaPosizioni(){
 		for(int i = 0; i < this.numeroPosizioni; i += 1){
 			this.posizioni.add(new Posizione(i));
+		}
+	}
+
+	/**
+	 * Metodo per inizializzare le pedine in gioco
+	 */
+	private void inizializzaPedine(){
+		for(int i = 0; i < this.elencoPedine.size(); i += 1){
+			this.elencoPedine.get(i).setPedinaInGioco();
+			this.elencoPedine.get(i).setTabellone(this);
 		}
 	}
 
@@ -162,17 +172,13 @@ public class Tabellone{
 		}		
 	}
 	
-	public void controlloDoppiaggio() { //TODO da usare mentre si completa la carta   !problems
-		
-		
+	public void controlloDoppiaggio() { //TODO da usare mentre si completa la carta   !problems		
 		int i=0;
 		
 		do{
-			
-			for(int j=i+1; j<elencoPedine.size(); j++) {
-				
-				if(elencoPedine.get(i).getNumeroGiro() > elencoPedine.get(j).getNumeroGiro()) {
-					if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(j).getPosizioneSulTabellone()) {
+			for(int j=i+1; j<elencoPedine.size(); j++){
+				if(elencoPedine.get(i).getNumeroGiro() > elencoPedine.get(j).getNumeroGiro()){
+					if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(j).getPosizioneSulTabellone()){
 						
 						//TODO elencoPedine.get(j) è stato doppiato
 						this.elencoNaviDistrutte.add(elencoPedine.get(j));
@@ -185,11 +191,11 @@ public class Tabellone{
 		}while(i<elencoPedine.size()-1);
 	}
 
-	public ArrayList<Pedina> getElencoPedine() {
+	public ArrayList<Pedina> getElencoPedine(){
 		return elencoPedine;
 	}
 
-	public ArrayList<Pedina> getElencoNaviAbbandonate() {
+	public ArrayList<Pedina> getElencoNaviAbbandonate(){
 		return elencoNaviAbbandonate;
 	}
 }
