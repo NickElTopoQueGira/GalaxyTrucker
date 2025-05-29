@@ -511,6 +511,7 @@ public class Partita{
 		do{			
 			try{
 				rispota = Integer.parseInt(this.com.consoleRead());
+				
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 			}
@@ -532,7 +533,7 @@ public class Partita{
 				}
 			}
 		}
-
+		
 		return rispota;
 	}
 

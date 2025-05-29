@@ -215,6 +215,7 @@ public abstract class Tessera {
 			temp+="\n";
 		}
 		temp+="\u001B[0m";
+		temp+=this.toLegenda()+"\n\n";
 		
 		return temp;
 
