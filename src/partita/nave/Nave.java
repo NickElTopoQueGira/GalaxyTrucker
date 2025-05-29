@@ -1132,20 +1132,19 @@ public abstract class Nave {
 		String temp = "";
 		String[] dati1= temp1.split(",");
 		String[] dati2= temp2.split(",");
-		int dimensioneMax=Integer.max(dati1.length, dati2.length);
+		int dimensioneMax=Integer.max(dati1.length, dati2.length)-2;
 		
 		if(dati1.length>dati2.length) {
-			int differenza=dati1.length - dati2.length;
-			dati2=modificaSize(dati2, differenza);
+			dati2=modificaSize(dati2, dimensioneMax);
 		}
 		else if(dati2.length>dati1.length) {
-			int differenza=dati2.length - dati1.length;
-			dati1=modificaSize(dati1, differenza);
+			
+			dati1=modificaSize(dati1, dimensioneMax);
 			
 		}
 		
 		for(int i=0; i< dimensioneMax; i++) {			
-				temp=dati1[i]+"\t\t\t"+dati2[i];			
+				temp=dati1[i]+"\t\t\t"+dati2[i]+"\n";			
 		}
 		
 	
@@ -1159,21 +1158,26 @@ public abstract class Nave {
      * @param differenza
      * @return array di stringhe dati
      */
-    private String[] modificaSize(String[] dati, int differenza) {
-    	for(int i=0; i<differenza; i++) {
-    		dati[i+dati.length]="\n";
+    private String[] modificaSize(String[] dati, int dimMax) {
+    	for(int i=dati.length; i<dimMax; i++) {
+    		dati[i]="\n";
     		
     	}
 		return dati;
 		
 		
 	}
+    
+    /**
+     * Metodo per la legenda connettori (righe divise da ',')
+     * @return stringa della legenda
+     */
 	public String legendaConnettori() {
 		String temp="";
 		temp+="Legenda connettori:,";
 		temp+="-) # connettore universale,";
 		temp+="-) | connettore singolo,";
-		temp+="-) > connettore doppio,";
+		temp+="-) > connettore doppio";
 		return temp;
     }
    
