@@ -175,6 +175,7 @@ public class Partita{
 				}
 				
 				this.com.println("Turno del giocatore: " + g.getNome());
+				this.com.println(g.getNave().toString());
 				this.com.println("Vuoi modificare la nave?");
 				if(this.com.conferma()){
 					// modifica la nave
@@ -272,6 +273,7 @@ public class Partita{
 				Tessera tessera = nuovaTesseraRandom();
 				boolean ciclo = true;
 				do {
+					this.com.println(g.getNave().toString());
 					this.com.println("Tessera estratta: ");
 					this.com.print(tessera.toString());
 					int scelta = menuScelte();
@@ -290,9 +292,11 @@ public class Partita{
 						try {
 							tessera.ruota();
 						} catch (ErroreRotazione e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					}					
+					case 4 ->{
+						
 					}
 					}
 				}while(ciclo);
@@ -577,6 +581,7 @@ public class Partita{
 		azioni.add("Prenotare la tessera");
 		azioni.add("Inserire la tessera");
 		azioni.add("Ruota la tessera");
+		azioni.add("Scarta tessera");
 
 		int scelta = 0;
 		boolean pass = false;
@@ -584,7 +589,7 @@ public class Partita{
 			this.com.println(this.com.visualizzaElenco(azioni));
 			try{
 				scelta = Integer.parseInt(this.com.consoleRead());
-				if(scelta == 1 || scelta == 2 || scelta == 3){
+				if(scelta == 1 || scelta == 2 || scelta == 3 || scelta == 4){
 					pass = true;
 				}else{
 					this.com.erroreImmissioneValore();
