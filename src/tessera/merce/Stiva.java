@@ -176,17 +176,16 @@ public class Stiva extends Tessera {
 	 */
 	@Override
 	public String toLegenda() {
-		String temp="modulo stiva "+this.tipoMerciGenerale.toString()+" "+this.numeroMerciAttuale+"/"+this.MaxCapienza+ "e contiene: ";
+		String temp="modulo stiva "+this.tipoMerciGenerale.toString()+" "+this.numeroMerciAttuale+"/"+this.MaxCapienza+ " e contiene: ";
 		
-		if(this.numeroMerciAttuale > 0) {
+		if(this.numeroMerciAttuale > 0 && this.stiva!=null) {
 			
 			for(int i=0; i<stiva.size(); i++) {
         		
 				temp = temp +(i+1)+") "+ stiva.get(i).getTipoMerce() +"  ";
         	}
 		}else {
-			
-			temp = "nulla";
+			temp+="nulla";
 		}
 		return temp;
 	}

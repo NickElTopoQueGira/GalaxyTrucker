@@ -7,6 +7,7 @@ import gioco.ComunicazioneConUtente;
 
 import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
+import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class TestTessere {
 	
@@ -119,6 +120,15 @@ public class TestTessere {
 		System.out.println(test);
 	
 		stampa.print(t5.toLegenda());
+		
+		try {
+			Tessera test1= new ModuloPasseggeri();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 }

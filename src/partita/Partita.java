@@ -286,7 +286,7 @@ public class Partita{
 						ciclo = false;
 					}
 					case 2 ->{
-						inserisciTesseraNellaNave(g, usaTesseraPrenotata(g));
+						inserisciTesseraNellaNave(g, tessera);
 						ciclo = false;
 					}
 					case 3 ->{
@@ -305,11 +305,11 @@ public class Partita{
 			}
 			case 3 ->{
 				// per utilizzare una tessera prenotata
-				//inserisciTessera(g, usaTesseraPrenotata(g));
 				inserisciTesseraNellaNave(g, usaTesseraPrenotata(g));
 				
 			}
-		}	
+		}
+		this.com.clear();
 	}
 	
 	
@@ -511,7 +511,7 @@ public class Partita{
 		do{			
 			try{
 				rispota = Integer.parseInt(this.com.consoleRead());
-				
+				this.com.clear();
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 			}

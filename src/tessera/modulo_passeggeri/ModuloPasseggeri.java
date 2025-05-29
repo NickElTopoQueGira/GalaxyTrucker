@@ -126,7 +126,7 @@ public class ModuloPasseggeri extends Tessera {
 	}
 	
 	public int getEquipaggio() {
-		this.equipaggio+=this.getNumeroAlieniMarroni()+this.numeroAlieniViola+this.numeroCosmonauti;
+		this.equipaggio+=this.numeroAlieniMarroni+this.numeroAlieniViola+this.numeroCosmonauti;
 		
 		return this.equipaggio;
 	}
