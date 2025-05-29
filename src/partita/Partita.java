@@ -248,6 +248,7 @@ public class Partita{
 					this.com.println("Vuoi prenotare la tessera (altrimenti la tessera verrà inserita in nave)?");
 					if(this.com.conferma()){
 						prenotaTessera(g, tesseraSelezionata);
+						elencoTessere.remove(tesseraSelezionata);
 					}else{
 						inserisciTesseraNellaNave(g, tesseraSelezionata);
 						elencoTessere.remove(tesseraSelezionata);
@@ -268,10 +269,12 @@ public class Partita{
 					case 1 ->{
 						prenotaTessera(g, tessera);
 						ciclo = false;
+						break;
 					}
 					case 2 ->{
 						inserisciTesseraNellaNave(g, tessera);
 						ciclo = false;
+						break;
 					}
 					case 3 ->{
 						try {
@@ -279,10 +282,12 @@ public class Partita{
 						} catch (ErroreRotazione e) {
 							e.printStackTrace();
 						}
+						break;
 					}					
 					case 4 ->{
 						elencoTessere.add(tessera);
 						ciclo = false;
+						break;
 					}
 					}
 				}while(ciclo);
