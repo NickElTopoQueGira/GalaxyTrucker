@@ -628,11 +628,11 @@ public abstract class Nave {
     private int controllaCollegamentoDX(Tessera tessera, Coordinate coordinate){
     	int y = coordinate.getY();
     	int x = coordinate.getX();
-
-    	if (y - 1 < 0 || y - 1 >= nave.size()) {
+    	
+    	if (y < 0 || y >= nave.size()) {
     	    return 0;
     	}
-    	if (x < 0 || x >= nave.get(y - 1).size()) {
+    	if (x + 1 >= nave.get(y).size()) {
     	    return 0;
     	}
     	if (TipoTessera.VUOTA == nave.get(y).get(x+1).getTipoTessera()) {
