@@ -482,8 +482,8 @@ public abstract class Nave {
      */
     private boolean controllaCoordinate(Coordinate coordinate){
         if(
-            (coordinate.getX() >= 0 && coordinate.getX() < getRighe()) &&
-            (coordinate.getY() >= 0 && coordinate.getY() < getColonne())
+            (coordinate.getX() >= 0 && coordinate.getX() < getColonne()) &&
+            (coordinate.getY() >= 0 && coordinate.getY() <  getRighe())
         ){
             return true;
         }
@@ -580,9 +580,18 @@ public abstract class Nave {
      * @return si, no
      */
     private int controllaCollegamentoSX(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getX() - 1 < 0 || TipoTessera.VUOTA == this.nave.get(coordinate.getY()).get(coordinate.getX() - 1).getTipoTessera()){
-            return 0;
-        }
+    	int y = coordinate.getY();
+    	int x = coordinate.getX();
+
+    	if (y - 1 < 0 || y - 1 >= nave.size()) {
+    	    return 0;
+    	}
+    	if (x < 0 || x >= nave.get(y - 1).size()) {
+    	    return 0;
+    	}
+    	if (TipoTessera.VUOTA == nave.get(y).get(x-1).getTipoTessera()) {
+    	    return 0;
+    	}
         stampa.println("{inizio debug} la tessere a sinistra è occupata da qualcosa");
         stampa.println(this.nave.get(coordinate.getY()).get(coordinate.getX()-1).toLegenda());
         
@@ -617,9 +626,18 @@ public abstract class Nave {
      * @return si, no
      */
     private int controllaCollegamentoDX(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getX() + 1 >= getRighe() || TipoTessera.VUOTA == this.nave.get(coordinate.getY()).get(coordinate.getX() + 1).getTipoTessera()){
-            return 0;
-        }
+    	int y = coordinate.getY();
+    	int x = coordinate.getX();
+
+    	if (y - 1 < 0 || y - 1 >= nave.size()) {
+    	    return 0;
+    	}
+    	if (x < 0 || x >= nave.get(y - 1).size()) {
+    	    return 0;
+    	}
+    	if (TipoTessera.VUOTA == nave.get(y).get(x+1).getTipoTessera()) {
+    	    return 0;
+    	}
         stampa.println("{inizio debug} la tessere a destra è occupata da qualcosa");
         stampa.println(this.nave.get(coordinate.getY()).get(coordinate.getX()+1).toLegenda());
 
@@ -652,9 +670,18 @@ public abstract class Nave {
      * @return si, no
      */
     private int controllaCollegamentoUP(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getY() - 1 < 0 || TipoTessera.VUOTA == this.nave.get(coordinate.getY() - 1).get(coordinate.getX()).getTipoTessera()){
-            return 0;
-        }
+    	int y = coordinate.getY();
+    	int x = coordinate.getX();
+
+    	if (y - 1 < 0 || y - 1 >= nave.size()) {
+    	    return 0;
+    	}
+    	if (x < 0 || x >= nave.get(y - 1).size()) {
+    	    return 0;
+    	}
+    	if (TipoTessera.VUOTA == nave.get(y - 1).get(x).getTipoTessera()) {
+    	    return 0;
+    	}
         stampa.println("{inizio debug} la tessere a su è occupata da qualcosa");
         stampa.println(this.nave.get(coordinate.getY() - 1).get(coordinate.getX()).toLegenda());
 
@@ -687,9 +714,18 @@ public abstract class Nave {
      * @return si, no
      */
     private int controllaCollegamentoDW(Tessera tessera, Coordinate coordinate){
-        if(coordinate.getY() + 1 >= getColonne() || TipoTessera.VUOTA == this.nave.get(coordinate.getY() + 1).get(coordinate.getX()).getTipoTessera()){
-            return 0;
-        }
+    	int y = coordinate.getY();
+    	int x = coordinate.getX();
+
+    	if (y + 1 >= nave.size()) {
+    	    return 0;
+    	}
+    	if (x < 0 || x >= nave.get(y + 1).size()) {
+    	    return 0;
+    	}
+    	if (TipoTessera.VUOTA == nave.get(y + 1).get(x).getTipoTessera()) {
+    	    return 0;
+    	}
         stampa.println("{inizio debug} la tessere a giu è occupata da qualcosa");
         stampa.println(this.nave.get(coordinate.getY() + 1).get(coordinate.getX()).toLegenda());
 
@@ -719,7 +755,7 @@ public abstract class Nave {
      * Questo metodo va ad aggiornare this.numeroConnettoriScoperti
      * Per accedere al numero di connettori scoperti, utilizzare l'apposito metodo
      */
-    public void connettoriScoperti(){ // TODO utilita?
+    public void connettoriScoperti(){ 
         for(ArrayList<Tessera> colonna : this.nave){
             for(Tessera tessera : colonna){
                 this.numeroConnettoriScoperti += conteggioConettoriEsposti(tessera);        
