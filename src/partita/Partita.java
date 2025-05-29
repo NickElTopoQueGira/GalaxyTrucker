@@ -220,7 +220,9 @@ public class Partita{
 					turniResidui.put(g, turniResidui.getOrDefault(g, TURNI_EXTRA) - 1);
 				}
 			}
-
+			
+			
+			
 			// verifico se tutti i giocatori hanno finito
 			boolean tuttiHannoFinito = false;
 			for(Giocatore gg : giocatori){
@@ -426,16 +428,6 @@ public class Partita{
 				
 			*/
 			//TODO il codice è duplicato... una parte va cancellata
-		try{
-			this.com.println("Inserisci la coordinata x: ");
-			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
-			this.com.println("Inserisci la coordinata y: ");
-			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
-			
-		}catch(NumberFormatException nfe){
-			this.com.erroreImmissioneValore();
-			inserisciTesseraNellaNave(giocatore, tessera);
-		}
 		
 		Coordinate c = new Coordinate(x, y);
 		if(aggiungiTesseraNellanave(giocatore, tessera, c)){
