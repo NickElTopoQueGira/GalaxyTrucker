@@ -1098,12 +1098,18 @@ public abstract class Nave {
         	
         }
         temp+="┘\n";
-        temp+=legenda();
+        temp+=descrizioneCarte();
+        temp+="\n"+legenda();
 		return temp;
     }
     
     
-    public String legenda() {
+    
+	/**
+     * Metodo che genera stringa di descrizioni delle tessere interne alla nave
+     * @return elenco di descrizione
+     */
+    public String descrizioneCarte() {
     	ArrayList<String> Legenda = new ArrayList<String>();
     	
     	for(ArrayList<Tessera> colonne : this.nave) {
@@ -1118,6 +1124,57 @@ public abstract class Nave {
 			}
     	}
     	return stampa.visualizzaElenco(Legenda);
+    }
+    
+    private String legenda() {
+		String temp1=legendaConnettori();
+		String temp2=legendaConnettori();
+		String temp = "";
+		String[] dati1= temp1.split(",");
+		String[] dati2= temp2.split(",");
+		int dimensioneMax=Integer.max(dati1.length, dati2.length);
+		
+		if(dati1.length>dati2.length) {
+			int differenza=dati1.length - dati2.length;
+			dati2=modificaSize(dati2, differenza);
+		}
+		else if(dati2.length>dati1.length) {
+			int differenza=dati2.length - dati1.length;
+			dati1=modificaSize(dati1, differenza);
+			
+		}
+		
+		for(int i=0; i< dimensioneMax; i++) {			
+				temp=dati1[i]+"\t\t\t"+dati2[i];			
+		}
+		
+	
+		return temp;
+	}
+    
+    
+    /**
+     * allunga l'array di stringhe dati mettendoci "\n" per ogni lunghezza di differenza
+     * @param dati
+     * @param differenza
+     * @return array di stringhe dati
+     */
+    private String[] modificaSize(String[] dati, int differenza) {
+    	for(int i=0; i<differenza; i++) {
+    		dati[i+dati.length]="\n";
+    		
+    	}
+		return dati;
+		
+		
+	}
+	public String legendaConnettori() {
+		String temp="";
+		temp+="Legenda connettori:,";
+		temp+="-) # connettore universale,";
+		temp+="-) | connettore singolo,";
+		temp+="-) > connettore doppio,";
+		return temp;
     }
    
     
