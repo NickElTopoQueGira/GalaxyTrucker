@@ -143,7 +143,7 @@ public class Partita{
 	/**
 	 * Meto per assemblare la nave a turno
 	 */
-	private void assemblaNavi() {
+	private void assemblaNavi(){
 	    ArrayList<Giocatore> giocatori = new ArrayList<>(this.giocatori);
 	    Map<Giocatore, Integer> turniResidui = new HashMap<>();
 	    final int TURNI_EXTRA = 1;
@@ -151,53 +151,53 @@ public class Partita{
 	    int contatoreFinale = 1;
 
 	    // inizializza turniResidui a 0 per tutti
-	    for (Giocatore g : giocatori) {
+	    for(Giocatore g : giocatori){
 	        turniResidui.put(g, 0);
 	    }
 
-	    while (true) {
+	    while(true){
 	        boolean almenoUnoHaAgito = false;
 
-	        for (Giocatore g : giocatori) {
+	        for(Giocatore g : giocatori){
 	            if (g.isNaveFinita()) continue;
 
 	            // Se countdown è attivo e il giocatore ha esaurito i turni, salta
-	            if (countdownAttivo && turniResidui.getOrDefault(g, 0) <= 0) {
+	            if(countdownAttivo && turniResidui.getOrDefault(g, 0) <= 0){
 	                continue;
 	            }
 
 	            this.com.println("\n\nTurno del giocatore: " + g.getNome());
 	            this.com.println(g.getNave().toString());
 
-	            if (countdownAttivo) {
+	            if(countdownAttivo){
 	                int residui = turniResidui.getOrDefault(g, 0);
 	                this.com.println("Numero mosse ancora disponibili: " + residui);
 	            }
 
 	            this.com.println("Vuoi modificare la nave?");
-	            if (this.com.conferma()) {
+	            if(this.com.conferma()){
 	                turno(g);
 	                almenoUnoHaAgito = true;
 	            }
 
 	            // Ricontrolla se ha completato la nave
-	            if (g.isNaveFinita() || naveFinita(g)) {
+	            if(g.isNaveFinita() || naveFinita(g)){
 	                g.naveFinita();
 	                g.getPedina().setPosizioneSulTabellone(contatoreFinale++);
 	                tabellone.aggiungiPedina(g.getPedina());
 	                this.com.println("Il giocatore " + g.getNome() + " ha finito la nave.");
 
 	                // Se è il primo a finirla, attiva countdown per gli altri
-	                if (!countdownAttivo) {
+	                if(!countdownAttivo){
 	                    this.com.println("Inizio conto alla rovescia di " + TURNI_EXTRA + " turni per gli altri giocatori.");
-	                    for (Giocatore altro : giocatori) {
-	                        if (!altro.equals(g) && !altro.isNaveFinita()) {
+	                    for(Giocatore altro : giocatori){
+	                        if(!altro.equals(g) && !altro.isNaveFinita()){
 	                            turniResidui.put(altro, TURNI_EXTRA);
 	                        }
 	                    }
 	                    countdownAttivo = true;
 	                }
-	            } else if (countdownAttivo) {
+	            }else if(countdownAttivo){
 	                // Se il countdown è attivo, decrementa
 	                int residui = turniResidui.getOrDefault(g, 0);
 	                turniResidui.put(g, residui - 1);
@@ -205,21 +205,21 @@ public class Partita{
 	        }
 
 	        // Se nessuno ha potuto agire, termina
-	        if (!almenoUnoHaAgito) {
+	        if(!almenoUnoHaAgito){
 	            this.com.println("Nessun altro giocatore può più modificare la nave.");
 	            break;
 	        }
 
 	        // Controlla se tutti hanno finito o hanno esaurito i turni
 	        boolean tuttiHannoFinito = true;
-	        for (Giocatore g : giocatori) {
-	            if (!g.isNaveFinita() && turniResidui.getOrDefault(g, 0) > 0) {
+	        for(Giocatore g : giocatori){
+	            if(!g.isNaveFinita() && turniResidui.getOrDefault(g, 0) > 0){
 	                tuttiHannoFinito = false;
 	                break;
 	            }
 	        }
 
-	        if (tuttiHannoFinito) {
+	        if(tuttiHannoFinito){
 	            this.com.println("Tutti i giocatori hanno finito di assemblare la nave.");
 	            break;
 	        }
@@ -265,45 +265,40 @@ public class Partita{
 					this.com.print(tessera.toString());
 					int scelta = menuScelte();
 					switch(scelta){
-					case 1 ->{
-						prenotaTessera(g, tessera);
-						ciclo = false;
-						break;
-					}
-					case 2 ->{
-						inserisciTesseraNellaNave(g, tessera);
-						ciclo = false;
-						break;
-					}
-					case 3 ->{
-						try {
-							tessera.ruota();
-						} catch (ErroreRotazione e) {
-							e.printStackTrace();
+						case 1 ->{
+							prenotaTessera(g, tessera);
+							ciclo = false;
+							break;
 						}
-						break;
-					}					
-					case 4 ->{
-						Tessera.addAllaListaTessere(tessera);
-						ciclo = false;
-						break;
-					}
+						case 2 ->{
+							inserisciTesseraNellaNave(g, tessera);
+							ciclo = false;
+							break;
+						}
+						case 3 ->{
+							try{
+								tessera.ruota();
+							}catch(ErroreRotazione e){
+								this.com.printError(e.getMessage());
+							}
+							break;
+						}					
+						case 4 ->{
+							Tessera.addAllaListaTessere(tessera);
+							ciclo = false;
+							break;
+						}
 					}
 				}while(ciclo);
 			}
 			case 3 ->{
 				// per utilizzare una tessera prenotata
 				inserisciTesseraNellaNave(g, usaTesseraPrenotata(g));
-				
 			}
 		}
 		this.com.clear();
 	}
 	
-	
-	
-
-
 	/**
 	 * Metodo per chiedere conferma se la nave e' finita
 	 */
@@ -365,7 +360,6 @@ public class Partita{
 		}
 	}
 
-
 	/**
 	 * Metodo per inserire la tessera nella nave
 	 * 
@@ -377,39 +371,21 @@ public class Partita{
 		this.com.println("Tessera da inserire");
 		this.com.println(tessera.toString());
 		int x = 0, y = 0;
-			try{
-				this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
-				this.com.println("Inserisci la coordinata x: ");
-				x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
-				this.com.println("Inserisci la coordinata y: ");
-				y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
-				
-				if(x+giocatore.getNave().getInizioNaveX() == 0 && y+giocatore.getNave().getInizioNaveY() == 0) {
-					return;
-				}
-			}catch(NumberFormatException nfe){
-				this.com.erroreImmissioneValore();
-				inserisciTesseraNellaNave(giocatore, tessera);
+		try{
+			this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
+			this.com.println("Inserisci la coordinata x: ");
+			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
+			this.com.println("Inserisci la coordinata y: ");
+			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
+			
+			if(x+giocatore.getNave().getInizioNaveX() == 0 && y+giocatore.getNave().getInizioNaveY() == 0) {
+				return;
 			}
-			/*finally{
-				Coordinate c = new Coordinate(x, y);
-				try{
-					this.com.println("XY:("+x+"; "+y+") {debug}");
-					giocatore.getNave().inserisciTessera(c, tessera);
-					
-				}catch(ErroreTessera et){
-					this.com.printError(et.getMessage());
-					
-				}catch(ErroreCoordinate ec){
-					this.com.printError(ec.getMessage());
-					
-				}finally{
-					//this.com.print("Pezzo inserito correttamente"); // TODO ta togliere o spostare 
-				}
-				
-			*/
-			//TODO il codice è duplicato... una parte va cancellata
-		
+		}catch(NumberFormatException nfe){
+			this.com.erroreImmissioneValore();
+			inserisciTesseraNellaNave(giocatore, tessera);
+		}
+
 		Coordinate c = new Coordinate(x, y);
 		if(aggiungiTesseraNellanave(giocatore, tessera, c)){
 			this.com.println("Tessera aggiunta alla nave con successo!");
