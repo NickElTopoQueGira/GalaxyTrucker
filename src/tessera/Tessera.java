@@ -1,11 +1,15 @@
 package tessera;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.function.IntFunction;
 
+import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
+import partita.giocatore.Giocatore;
 
 public abstract class Tessera {
 
@@ -30,7 +34,7 @@ public abstract class Tessera {
 	 * @param tipoTessera
 	 * @throws ErroreTessera 
 	 */
-	public Tessera(TipoTessera tipoTessera,Posizione posizione){
+	public Tessera(TipoTessera tipoTessera,Posizione posizione) throws ErroreTessera{
 
 		this.tipoTessera = tipoTessera;
 
@@ -64,8 +68,9 @@ public abstract class Tessera {
 		this.coordinate = coordinate;
 	}
 
-	public LinkedHashSet<Tessera> getListaTessere() {
-		return lista;
+	public static ArrayList<Tessera> getListaTessere() {
+		ArrayList<Tessera> array= new ArrayList<Tessera>(lista);
+		return array;
 	}
 
 	public static int getCurrentSize() {
@@ -81,10 +86,33 @@ public abstract class Tessera {
 	 * aggiunge al set di tessere la tessera ed incrementa la size di 1
 	 * @throws ErroreTessera 
 	 */
-	public void aggiungiTessera(){	
-		lista.add(this);
-		setCurrentSize(+1);
-
+	public void aggiungiTessera() throws ErroreTessera{
+		if(isTesseraDuplicata()) {
+			throw new ErroreTessera("");
+		}else {
+			lista.add(this);
+			setCurrentSize(+1);
+		}
+		
+		
+	}
+	
+	/**
+	 * Verifica se la tessera e' duplicata
+	 * 
+	 * 
+	 * @return true se lo è e false se non lo è
+	 */
+	private boolean isTesseraDuplicata(){
+		if(lista!=null) {
+			for(Tessera t : lista) {
+				if(t.equals(this)){
+					return true;
+				}	
+			}
+		}
+		return false;
+		
 	}
 
 	/**

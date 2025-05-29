@@ -148,7 +148,7 @@ public class Partita{
 	    Map<Giocatore, Integer> turniResidui = new HashMap<>();
 	    final int TURNI_EXTRA = 1;
 	    boolean countdownAttivo = false;
-	    ArrayList<Tessera> elencoTessere = new ArrayList<>();
+	    ArrayList<Tessera> elencoTessere = Tessera.getListaTessere();
 	    int contatoreFinale = 1;
 
 	    // inizializza turniResidui a 0 per tutti
@@ -538,6 +538,9 @@ public class Partita{
 			try{
 				t = ft.estraiTipo();
 			}catch(ErroreTessera et){
+				//eccezione catturata: troppe tessere generate
+				
+				//TODO gestire la logica di gioco nel caso sia stato estratto il numero massimo di tessere generabili
 				this.com.printError(et.getMessage());
 			}
 

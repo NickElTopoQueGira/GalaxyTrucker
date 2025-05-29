@@ -1,5 +1,6 @@
 package tessera;
 
+import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
 
 public class Centro extends Tessera{
@@ -7,7 +8,7 @@ public class Centro extends Tessera{
 	private final Colori colore;
 	private final Coordinate coordinate;
 	
-	public Centro(Colori colore, Coordinate coordinate){
+	public Centro(Colori colore, Coordinate coordinate) throws ErroreTessera{
 		super(TipoTessera.CENTRO, Posizione.INTERNA);
 		this.colore = colore;
 		this.coordinate = coordinate;
