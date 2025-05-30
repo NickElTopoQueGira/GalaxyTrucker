@@ -107,6 +107,8 @@ public class Partita{
 	private void generaTabellone(){
 		if(this.tabellone == null){
 			this.tabellone = new Tabellone(livelloPartita);
+			// aggiunta delle pedine al tabellone
+			aggiungiPedineAlTabellone();
 		}
 		else{
 			// se il tabellone e' gia' creato
@@ -117,7 +119,19 @@ public class Partita{
 				// tabellone del livello successivo
 				this.livelloPartita = livelloPartita.next();
 				this.tabellone = new Tabellone(livelloPartita);
+				
+				// aggiunta delle pedine al tabellone
+				aggiungiPedineAlTabellone();
 			}
+		}
+	}
+
+	/**
+	 * Metodo per aggiungere le pedine al tabellone
+	*/
+	private void aggiungiPedineAlTabellone(){
+		for(Giocatore giocatore : this.giocatori){
+			this.tabellone.aggiungiPedina(giocatore.getPedina());
 		}
 	}
 
