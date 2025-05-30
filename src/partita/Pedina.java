@@ -75,7 +75,7 @@ public class Pedina{
     		
     		if(crd == null) { 
     			
-    			cns.println("Non ci sono merci nella nave");
+    			cns.println("Non ci sono cosmonauti nella nave");
     			break; 
     		}
     		
@@ -122,59 +122,62 @@ public class Pedina{
     		}
     		
     		caso = crd.size();
-    		
-    		int sceltaStiva;
-    		int sceltaMerci;
-    		int numeroMerci;
-			do {
-    			
-        		cns.println("Inserire il numero della stiva da cui togliere una merce");
-    			
-        		do {
-        			sceltaStiva = Integer.parseInt(cns.consoleRead());
-        			
-        			if(sceltaStiva<0 || sceltaStiva>caso) {
-        				cns.erroreImmissioneValore();
-        			}
-        			
-        		}while(sceltaStiva<=0 || sceltaStiva>caso);
-        		
-        		numeroMerci = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().size();
-        		
-        		for(int i=0; i<numeroMerci; i++) {
-        			cns.println(""+(i+1)+") "
-        		+((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().get(i).getTipoMerce());    		
-        			
-        			
-        		}
-        		sceltaMerci = 0;
-        		
-        		cns.println("Inserire la merce che si vuole togliere, selezionare 0 per scegliere un altra stiva");
-    			
-        		do {
-        			sceltaMerci = Integer.parseInt(cns.consoleRead());
-        			
-        			if(sceltaMerci>0 && sceltaMerci<numeroMerci) {
-        				cns.erroreImmissioneValore();
-        			}
-        			
-        		}while(sceltaMerci < 0 || sceltaMerci > numeroMerci);
-        		
-    		}while(sceltaMerci <= 0 || sceltaMerci > numeroMerci);
-    		
-			Merce merce = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().get(sceltaMerci-1);
-    		
-			try {
-				this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce);
-			} catch (ErroreCoordinate e) {
-				e.printStackTrace();
-			} catch (ErroreTessera e) {
-				e.printStackTrace();
-			} catch (ErroreRisorse e) {
-				e.printStackTrace();
-			}
-			
-    		elimMerce--;
+    		if(caso>0) {
+	    		int sceltaStiva;
+	    		int sceltaMerci;
+	    		int numeroMerci;
+				do {
+	    			
+	        		cns.println("Inserire il numero della stiva da cui togliere una merce");
+	    			
+	        		do {
+	        			sceltaStiva = Integer.parseInt(cns.consoleRead());
+	        			
+	        			if(sceltaStiva<0 || sceltaStiva>caso) {
+	        				cns.erroreImmissioneValore();
+	        			}
+	        			
+	        		}while(sceltaStiva<=0 || sceltaStiva>caso);
+	        		
+	        		numeroMerci = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().size();
+	        		
+	        		for(int i=0; i<numeroMerci; i++) {
+	        			cns.println(""+(i+1)+") "
+	        		+((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().get(i).getTipoMerce());    		
+	        			
+	        			
+	        		}
+	        		sceltaMerci = 0;
+	        		
+	        		cns.println("Inserire la merce che si vuole togliere, selezionare 0 per scegliere un altra stiva");
+	    			
+	        		do {
+	        			sceltaMerci = Integer.parseInt(cns.consoleRead());
+	        			
+	        			if(sceltaMerci>0 && sceltaMerci<numeroMerci) {
+	        				cns.erroreImmissioneValore();
+	        			}
+	        			
+	        		}while(sceltaMerci < 0 || sceltaMerci > numeroMerci);
+	        		
+	    		}while(sceltaMerci <= 0 || sceltaMerci > numeroMerci);
+	    		
+				Merce merce = ((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().get(sceltaMerci-1);
+	    		
+				try {
+					this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce);
+				} catch (ErroreCoordinate e) {
+					e.printStackTrace();
+				} catch (ErroreTessera e) {
+					e.printStackTrace();
+				} catch (ErroreRisorse e) {
+					e.printStackTrace();
+				}
+				
+	    		elimMerce--;
+    		}else {
+    			break;
+    		}
     	}while(elimMerce > 0 && this.giocatore.getNave().getEquipaggio() > 0);
     }
     

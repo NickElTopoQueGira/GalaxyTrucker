@@ -301,33 +301,33 @@ public class Pirati extends Nemici {
 		switch(colpo.getDirezione()) {
 			case NORD->{
 				for(int i=0; i<nave.getRighe(); i++) {
-					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
 						
-						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
 					}
 				}
 			}
 			case SUD->{
 				for(int i=nave.getRighe()-1; i>=0; i--) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+					}
+				}
+			}
+			case EST->{
+				for(int i=nave.getColonne()-1; i>=0; i--) {
 					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
 						
 						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
 					}
 				}
 			}
-			case EST->{
-				for(int i=nave.getColonne()-1; i>=0; i--) {
-					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
-						
-						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
-					}
-				}
-			}
 			case OVEST->{
 				for(int i=0; i<nave.getColonne(); i++) {
-					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
 						
-						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
 					}
 				}
 			}

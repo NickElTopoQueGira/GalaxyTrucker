@@ -399,47 +399,47 @@ public class ZonaGuerra extends Carta {
      * @param nave
      * @return tessera colpita
      */
-    private Tessera trovaTesseraColpita(Meteorite colpo, Nave nave) {
-
-        switch (colpo.getDirezione()) {
-            case NORD -> {
-                for (int i = 0; i < nave.getRighe(); i++) {
-                    if (nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
-
-                        return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
-                    }
-                }
-            }
-            case SUD -> {
-                for (int i = nave.getRighe() - 1; i >= 0; i--) {
-                    if (nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
-
-                        return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
-                    }
-                }
-            }
-            case EST -> {
-                for (int i = nave.getColonne() - 1; i >= 0; i--) {
-                    if (nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
-
-                        return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
-                    }
-                }
-            }
-            case OVEST -> {
-                for (int i = 0; i < nave.getColonne(); i++) {
-                    if (nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
-
-                        return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
-                    }
-                }
-            }
-            default -> {
-                return null;
-            }
-
-        }
-
-        return null;
-    }
+	private Tessera trovaTesseraColpita(Meteorite colpo, Nave nave) {
+		
+		switch(colpo.getDirezione()) {
+			case NORD->{
+				for(int i=0; i<nave.getRighe(); i++) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+					}
+				}
+			}
+			case SUD->{
+				for(int i=nave.getRighe()-1; i>=0; i--) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+					}
+				}
+			}
+			case EST->{
+				for(int i=nave.getColonne()-1; i>=0; i--) {
+					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
+					}
+				}
+			}
+			case OVEST->{
+				for(int i=0; i<nave.getColonne(); i++) {
+					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
+					}
+				}
+			}
+			default->{
+				return null;
+			}
+		
+		}
+		
+		return null;
+	}
 }

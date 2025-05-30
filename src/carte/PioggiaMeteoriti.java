@@ -295,10 +295,10 @@ public class PioggiaMeteoriti extends Carta {
 		case NORD->{
 			for(int i=0; i<nave.getRighe(); i++) {
 				
-				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE && 
+				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE && 
 						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.UP) {
 					
-					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
+					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(i).get(colpo.getDado()), colpita, nave, pedina);
 					
 					if(scelta == 2) return scelta;
 				}
@@ -306,10 +306,10 @@ public class PioggiaMeteoriti extends Carta {
 		}
 		case SUD->{
 			for(int i=nave.getRighe()-1; i>=0; i--) {
-				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE && 
+				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE && 
 						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.DOWN) {
 					
-					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
+					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(i).get(colpo.getDado()), colpita, nave, pedina);
 					
 					if(scelta != 0) return scelta;
 				}
@@ -317,7 +317,7 @@ public class PioggiaMeteoriti extends Carta {
 		}
 		case EST->{
 			for(int i=nave.getColonne()-1; i>=0; i--) {
-				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE && 
+				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE && 
 						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.RIGHT) {
 
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
@@ -328,7 +328,7 @@ public class PioggiaMeteoriti extends Carta {
 		}
 		case OVEST->{
 			for(int i=0; i<nave.getColonne(); i++) {
-				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE && 
+				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE && 
 						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.LEFT) {
 
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
@@ -355,38 +355,38 @@ public class PioggiaMeteoriti extends Carta {
 		switch(colpo.getDirezione()) {
 			case NORD->{
 				for(int i=0; i<nave.getRighe(); i++) {
-					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
 						
-						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
 					}
 				}
 			}
 			case SUD->{
 				for(int i=nave.getRighe()-1; i>=0; i--) {
+					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+						
+						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+					}
+				}
+			}
+			case EST->{
+				for(int i=nave.getColonne()-1; i>=0; i--) {
 					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
 						
 						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
 					}
 				}
 			}
-			case EST->{
-				for(int i=nave.getColonne()-1; i>=0; i--) {
-					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
-						
-						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
-					}
-				}
-			}
 			case OVEST->{
 				for(int i=0; i<nave.getColonne(); i++) {
-					if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() != TipoTessera.VUOTA) {
+					if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() != TipoTessera.VUOTA) {
 						
-						return nave.getPlanciaDellaNave().get(i).get(colpo.getDado());
+						return nave.getPlanciaDellaNave().get(colpo.getDado()).get(i);
 					}
 				}
 			}
 			default->{
-				return null; 
+				return null;
 			}
 		
 		}
