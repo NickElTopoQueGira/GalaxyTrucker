@@ -175,11 +175,9 @@ public class NaveAbbandonata extends Carta {
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) { 
 		
 		boolean isCartaCompletata = false;
-		int elenco = -1;
+		int elenco = 0;
 		
 		do {
-			elenco++;
-			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getEquipaggio() >= this.perditaequipaggio) { // CONTROLLA SE HA ABBASTANZA NUMERO DI EQUIPAGGIO
 				
 				if(elencoPedine.get(elenco).sceltaScambioCreditiConGiorni(giornipersi, guadagno, perditaequipaggio)) { // FA SCEGLIERE AL GIOCATORE SE VUOLE COMPLETARE LA CARTYA
@@ -196,6 +194,7 @@ public class NaveAbbandonata extends Carta {
 				
 				stampa.println("LA NAVE NON HA ABBASTANZA EQUIPAGGIO ");
 			}
+			elenco++;
 			
 		}while(!isCartaCompletata && elenco<elencoPedine.size()); //CONTROLLO SE LA CARTA è STATA COMPLETATA O SE NON CI SONO ALTRI GIOCATORI
 		

@@ -105,6 +105,7 @@ public class Partita{
 	 * Memtodo per la generazione del tabellone
 	 */
 	private void generaTabellone(){
+		
 		if(this.tabellone == null){
 			this.tabellone = new Tabellone(livelloPartita);
 			// aggiunta delle pedine al tabellone
@@ -224,17 +225,25 @@ public class Partita{
 	            break;
 	        }
 
-	        // Controlla se tutti hanno finito o hanno esaurito i turni
-	        boolean tuttiHannoFinito = true;
-	        for(Giocatore g : giocatori){
-	            if(!g.isNaveFinita() && turniResidui.getOrDefault(g, 0) > 0){
-	                tuttiHannoFinito = false;
-	                break;
+	     // Condizione di uscita
+	        boolean fine = true;
+
+	        for (Giocatore g : giocatori) {
+	            if (!g.isNaveFinita()) {
+	                if (!countdownAttivo) {
+	                    // Se countdown non è attivo, almeno uno non ha ancora finito: non si esce
+	                    fine = false;
+	                    break;
+	                } else if (turniResidui.getOrDefault(g, 0) > 0) {
+	                    // Se countdown è attivo ma ha ancora turni, non si esce
+	                    fine = false;
+	                    break;
+	                }
 	            }
 	        }
 
-	        if(tuttiHannoFinito){
-	            this.com.println("Tutti i giocatori hanno finito di assemblare la nave.");
+	        if (fine) {
+	            this.com.println("Tutti i giocatori hanno finito di assemblare la nave (o esaurito i turni).");
 	            break;
 	        }
 	    }
@@ -249,7 +258,7 @@ public class Partita{
 		int azioneCarta = azioneCarta(g);
 							
 		switch(azioneCarta){
-			case 1 ->{
+			case 1 ->{ //	TODO DA SISTEMARE!
 				// per utilizzare una tessera gia' estratta e salvata nel mazzo degli scarti
 				visualizzaElencoTessere(Tessera.getListaTessere());
 				Tessera tesseraSelezionata = selezionaTesseraDalMazzo();

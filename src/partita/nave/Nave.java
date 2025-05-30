@@ -251,22 +251,22 @@ public abstract class Nave {
         try {
             switch (cannone.getLatoCannone()) {
                 case UP -> {
-                    if (nave.get(coordinate.getY()).get(coordinate.getX() - 1).getTipoTessera() == TipoTessera.VUOTA) {
-                        return true;
-                    }
-                }
-                case LEFT -> {
                     if (nave.get(coordinate.getY() - 1).get(coordinate.getX()).getTipoTessera() == TipoTessera.VUOTA) {
                         return true;
                     }
                 }
+                case LEFT -> {
+                    if (nave.get(coordinate.getY()).get(coordinate.getX() - 1).getTipoTessera() == TipoTessera.VUOTA) {
+                        return true;
+                    }
+                }
                 case RIGHT -> {
-                    if (nave.get(coordinate.getY() + 1).get(coordinate.getX()).getTipoTessera() == TipoTessera.VUOTA) {
+                    if (nave.get(coordinate.getY()).get(coordinate.getX() + 1).getTipoTessera() == TipoTessera.VUOTA) {
                         return true;
                     }
                 }
                 case DOWN -> {
-                    if (nave.get(coordinate.getY()).get(coordinate.getX() + 1).getTipoTessera() == TipoTessera.VUOTA) {
+                    if (nave.get(coordinate.getY() + 1).get(coordinate.getX()).getTipoTessera() == TipoTessera.VUOTA) {
                         return true;
                     }
                 }
@@ -294,7 +294,7 @@ public abstract class Nave {
     	
         // controllo se il pezzo subito sotto e' libero
         try{
-            if(this.nave.get(coordinate.getY()).get(coordinate.getX()+1).getTipoTessera() == TipoTessera.VUOTA){
+            if(this.nave.get(coordinate.getY() + 1).get(coordinate.getX()).getTipoTessera() == TipoTessera.VUOTA){
                 return true;
             }
         }catch(IndexOutOfBoundsException iobx){
@@ -1028,7 +1028,7 @@ public abstract class Nave {
         throws ErroreCoordinate, ErroreTessera{
 
         if(controllaCoordinate(coordianteModulo)){
-            Tessera tessera = this.nave.get(coordianteModulo.getY()).get(coordianteModulo.getX());
+            Tessera tessera = this.nave.get(coordianteModulo.getX()).get(coordianteModulo.getY());
 
             if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
                 ModuloPasseggeri moduloPasseggeri = (ModuloPasseggeri)tessera;
@@ -1090,7 +1090,11 @@ public abstract class Nave {
                 }
             }
         }
-        
+        /*
+        StringBuilder naveDi = new StringBuilder();
+        naveDi.append("LA NAVE APPARTIENE A"+nome);
+        output.add(naveDi.toString());
+        */
         StringBuilder numeri = new StringBuilder();
         output.add(numeri.toString());
         for (int i = inizioNaveO; i < fineNaveO; i++) {
@@ -1420,7 +1424,6 @@ public abstract class Nave {
     	int caso = n;
     	
     	ArrayList<Coordinate> crd = new ArrayList<Coordinate>();
-    	crd = null;
 		
 		for(int x=0; x<this.nave.size(); x++) {
 			
@@ -1445,7 +1448,7 @@ public abstract class Nave {
 
     private int StiveVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(y).get(x);
+    	Tessera tessera = this.nave.get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1463,7 +1466,7 @@ public abstract class Nave {
     
 	private int StiveNonVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(y).get(x);
+    	Tessera tessera = this.nave.get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
 		
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1481,7 +1484,7 @@ public abstract class Nave {
     
 	private int StiveSpeciali(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(y).get(x);
+    	Tessera tessera = this.nave.get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1499,7 +1502,7 @@ public abstract class Nave {
     
 	private int Modulo(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(y).get(x);
+    	Tessera tessera = this.nave.get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.MODULO_PASSEGGERI) {

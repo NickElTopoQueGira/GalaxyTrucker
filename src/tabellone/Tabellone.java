@@ -1,6 +1,7 @@
 package tabellone;
 
 import carte.Carta;
+import carte.Mazzo;
 import gioco.ComunicazioneConUtente;
 import java.util.ArrayList;
 import partita.Livelli;
@@ -13,12 +14,14 @@ public class Tabellone{
 	private ArrayList<Pedina> elencoNaviAbbandonate; 
 	private ArrayList<Carta> mazzoCarte;
 	private ArrayList<Posizione> posizioni;
+	private Mazzo generatoreMazzo;
 	private int numeroPosizioni;
 	private Livelli livello;
 	
 	public Tabellone(Livelli livello){
 		this.cns = ComunicazioneConUtente.getIstanza();
 		this.elencoPedine = new ArrayList<>();
+		this.generatoreMazzo = new Mazzo(livello.getLivelloNumerico());
 		this.mazzoCarte = new ArrayList<>();
 		this.posizioni = new ArrayList<>();
 		this.livello = livello;
@@ -26,13 +29,14 @@ public class Tabellone{
 
 		inizializzaPosizioni();
 		inizializzaPedine();
+		this.mazzoCarte = this.generatoreMazzo.getLista();
 	}
 
 	public void gioca(){		
 		int i=0;
 		do{
 			//----estrazione carta--------
-			
+			cns.println(mazzoCarte.get(i).toString());
 			mazzoCarte.get(i).eseguiCarta(elencoPedine);
 			
 			//-----controlli e richieste-----

@@ -88,14 +88,14 @@ public class Pedina{
     		do {
     			sceltaModulo = Integer.parseInt(cns.consoleRead());
     			
-    			if(sceltaModulo<=0 && sceltaModulo>caso) {
-    				cns.erroreImmissioneValore();;
+    			if(sceltaModulo<=0 || sceltaModulo>caso) {
+    				cns.erroreImmissioneValore();
     			}
     			
     		}while(sceltaModulo<=0 || sceltaModulo>caso);
     		
     		try {
-				this.giocatore.getNave().rimuoviEquipaggio(crd.get(sceltaModulo-1), sceltaModulo);
+				this.giocatore.getNave().rimuoviEquipaggio(crd.get(sceltaModulo-1), 1);
 			} catch (ErroreCoordinate e) {
 				e.printStackTrace();
 			} catch (ErroreTessera e) {
