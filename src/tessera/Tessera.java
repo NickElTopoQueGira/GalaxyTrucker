@@ -75,7 +75,8 @@ public abstract class Tessera {
 	}
 
 	public static ArrayList<Tessera> getListaTessere() {
-		return listaA;
+		return listaA= new ArrayList<Tessera>(set);
+
 	}
 	
 	/**
