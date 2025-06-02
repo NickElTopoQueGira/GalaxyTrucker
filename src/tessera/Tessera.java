@@ -13,12 +13,15 @@ import partita.giocatore.Giocatore;
 
 public abstract class Tessera {
 
+
 	protected final TipoTessera tipoTessera;
 	protected LatiTessera latiTessera = new LatiTessera();
 	private Coordinate coordinate=new Coordinate();
 	private static int currentSize = 0;
 	private final Posizione posizione;
-	private static LinkedHashSet<Tessera> lista = new LinkedHashSet<Tessera>();
+	private static LinkedHashSet<Tessera> set = new LinkedHashSet<Tessera>();
+	private static ArrayList<Tessera> listaA;
+
 	protected String[][] tessera_Disposizione = {
 			//Righe V  0    1    2    3    4    <- colonne
 			/* 0 */ { "┌", "─", "─", "─", "┐" },
@@ -69,29 +72,21 @@ public abstract class Tessera {
 	}
 
 	public static ArrayList<Tessera> getListaTessere() {
-		ArrayList<Tessera> array= new ArrayList<Tessera>(lista);
-		return array;
+		return listaA;
 	}
 	
 	/**
-	 * rimuove dalla lista la tessera t
+	 * rimuove dal set la tessera t
 	 * @param tessera
 	 */
 	public static void removeDaListaTessere(Tessera t) {
-		lista.remove(t);
+		set.remove(t);
+		listaA= new ArrayList<Tessera>(set);
 		setCurrentSize(-1);
 
 	}
 	
-	/**
-	 * aggiunge alla lista la tessera t
-	 * @param tessera
-	 */
-	public static void addAllaListaTessere(Tessera t) {
-		lista.add(t);
-		setCurrentSize(+1);
-
-	}
+	
 	
 
 	public static int getCurrentSize() {
@@ -112,7 +107,9 @@ public abstract class Tessera {
 		if(isTesseraDuplicata()) {
 			throw new ErroreTessera("");
 		}else {
-			lista.add(this);
+			set.add(this);
+			listaA= new ArrayList<Tessera>(set);
+
 			setCurrentSize(+1);
 		}
 		
@@ -126,8 +123,8 @@ public abstract class Tessera {
 	 * @return true se lo è e false se non lo è
 	 */
 	private boolean isTesseraDuplicata(){
-		if(lista!=null) {
-			for(Tessera t : lista) {
+		if(!set.isEmpty()) {
+			for(Tessera t : set) {
 				if(t.equals(this)){
 					return true;
 				}	
@@ -295,6 +292,8 @@ public abstract class Tessera {
 	
 	public abstract String toLegenda();
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -317,5 +316,7 @@ public abstract class Tessera {
 				&& Arrays.deepEquals(tessera_Disposizione, other.tessera_Disposizione)
 				&& tipoTessera == other.tipoTessera;
 	}
+
+	
 	
 }

@@ -1,7 +1,5 @@
 package tessera.modulo_passeggeri;
 
-import java.util.Random;
-
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
@@ -56,14 +54,20 @@ public class ModuloPasseggeri extends Tessera {
 	private void setEquipaggio() {
 		switch (this.tipoModuloPasseggeri) {
 		case MODULO_ALIENO_MARRONE:
-			this.setNumeroAlieniViola(1);
+			this.setNumeroAlieniMarroni(1);
+			this.setNumeroAlieniViola(0);
+			this.numeroCosmonauti=0;
 			this.equipaggioMax=1;
 			break;
 		case MODULO_ALIENO_VIOLA:
-			this.setNumeroAlieniMarroni(1);
+			this.setNumeroAlieniMarroni(0);
+			this.setNumeroAlieniViola(1);
+			this.numeroCosmonauti=0;
 			this.equipaggioMax=1;
 			break;
 		case MODULO_EQUIPAGGIO:
+			this.setNumeroAlieniMarroni(0);
+			this.setNumeroAlieniViola(0);
 			this.setNumeroCosmonauti(+2);
 			this.equipaggioMax=2;
 		default:
@@ -113,10 +117,10 @@ public class ModuloPasseggeri extends Tessera {
 		
 		switch (this.tipoModuloPasseggeri) {
 		case MODULO_ALIENO_MARRONE:
-			this.setNumeroAlieniViola(-1);
+			this.setNumeroAlieniViola(0);
 			break;
 		case MODULO_ALIENO_VIOLA:
-			this.setNumeroAlieniMarroni(-1);
+			this.setNumeroAlieniMarroni(0);
 			break;
 		case MODULO_EQUIPAGGIO:
 			this.setNumeroCosmonauti(-1);
@@ -126,7 +130,7 @@ public class ModuloPasseggeri extends Tessera {
 	}
 	
 	public int getEquipaggio() {
-		this.equipaggio+=this.numeroAlieniMarroni+this.numeroAlieniViola+this.numeroCosmonauti;
+		this.equipaggio=(this.numeroAlieniMarroni+this.numeroAlieniViola+this.numeroCosmonauti);
 		
 		return this.equipaggio;
 	}

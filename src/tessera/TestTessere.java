@@ -123,7 +123,7 @@ public class TestTessere {
 		
 		System.out.println(test);
 	
-		stampa.print(t5.toLegenda());
+		stampa.print(t5.toLegenda()+"\n\n\n\n\n");
 		
 		try {
 			Tessera test1= new ModuloPasseggeri();
@@ -132,7 +132,17 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
+		for(int i=0; i<Tessera.getListaTessere().size(); i++) {
+			stampa.println(Tessera.getListaTessere().get(i).toString());
+		}
+		stampa.print("-----\n");
+		Tessera t6=t5;
+		Tessera.removeDaListaTessere(t5);
 		
+		for(int i=0; i<Tessera.getListaTessere().size(); i++) {
+			stampa.println(Tessera.getListaTessere().get(i).toString());
+		}
 	}
+	
 	
 }

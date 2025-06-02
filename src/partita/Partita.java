@@ -259,24 +259,26 @@ public class Partita{
 							
 		switch(azioneCarta){
 			case 1 ->{ //	TODO DA SISTEMARE!
-				// per utilizzare una tessera gia' estratta e salvata nel mazzo degli scarti
-				visualizzaElencoTessere(Tessera.getListaTessere());
-				Tessera tesseraSelezionata = selezionaTesseraDalMazzo();
-				if(null == tesseraSelezionata){
+				//se lista=vuota allora richiama turno
+				if(Tessera.getListaTessere().isEmpty()){
 					turno(g);
-				}
-				
-				if(tesseraSelezionata != null && tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA){
-					this.com.println("Vuoi prenotare la tessera (altrimenti la tessera verrà inserita in nave)?");
-					if(this.com.conferma()){
-						prenotaTessera(g, tesseraSelezionata);
-						Tessera.removeDaListaTessere(tesseraSelezionata);
-					}else{
-						inserisciTesseraNellaNave(g, tesseraSelezionata);
-						Tessera.removeDaListaTessere(tesseraSelezionata);
-						
+				}else {
+					// per utilizzare una tessera gia' estratta e salvata nel mazzo degli scarti
+					visualizzaElencoTessere(Tessera.getListaTessere());
+					Tessera tesseraSelezionata = selezionaTesseraDalMazzo();
+					
+					
+					if(tesseraSelezionata != null && tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA){
+						this.com.println("Vuoi prenotare la tessera (altrimenti la tessera verrà inserita in nave)?");
+						if(this.com.conferma()){
+							prenotaTessera(g, tesseraSelezionata);
+						}else{
+							inserisciTesseraNellaNave(g, tesseraSelezionata);
+							
+						}
 					}
 				}
+				
 			}
 			case 2 ->{	
 				// per generare una nuova tessera	
@@ -307,7 +309,7 @@ public class Partita{
 							break;
 						}					
 						case 4 ->{
-							Tessera.addAllaListaTessere(tessera);
+							//non tocco nulla perchè ogni tessera generata è già in listaTessere
 							ciclo = false;
 							break;
 						}
@@ -412,6 +414,7 @@ public class Partita{
 		Coordinate c = new Coordinate(x, y);
 		if(aggiungiTesseraNellanave(giocatore, tessera, c)){
 			this.com.println("Tessera aggiunta alla nave con successo!");
+			Tessera.removeDaListaTessere(tessera);
 		}else{
 			inserisciTesseraNellaNave(giocatore, tessera);
 		}
@@ -441,6 +444,7 @@ public class Partita{
 		try{
 			giocatore.getNave().prenotaTessera(tessera);
 			this.com.println("Hai prenotato la tessera!!");
+			Tessera.removeDaListaTessere(tessera);
 		}catch(ErroreTessera et){
 			this.com.printError(et.getMessage());
 		}
