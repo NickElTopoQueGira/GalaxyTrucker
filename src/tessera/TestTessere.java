@@ -125,19 +125,19 @@ public class TestTessere {
 	
 		stampa.print(t5.toLegenda()+"\n\n\n\n\n");
 		
-		try {
+		/*try {
 			Tessera test1= new ModuloPasseggeri();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		for(int i=0; i<Tessera.getListaTessere().size(); i++) {
 			stampa.println(Tessera.getListaTessere().get(i).toString());
 		}
 		stampa.print("-----\n");
 		Tessera t6=t5;
-		Tessera.removeDaListaTessere(t5);
+		Tessera.removeDaListaTessere(t6);
 		
 		for(int i=0; i<Tessera.getListaTessere().size(); i++) {
 			stampa.println(Tessera.getListaTessere().get(i).toString());

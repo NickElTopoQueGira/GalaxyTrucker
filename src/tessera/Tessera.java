@@ -21,7 +21,9 @@ public abstract class Tessera {
 	private final Posizione posizione;
 	private static LinkedHashSet<Tessera> set = new LinkedHashSet<Tessera>();
 	private static ArrayList<Tessera> listaA;
-
+	private int id=0;
+	private static int contatore=0;
+	
 	protected String[][] tessera_Disposizione = {
 			//Righe V  0    1    2    3    4    <- colonne
 			/* 0 */ { "┌", "─", "─", "─", "┐" },
@@ -30,6 +32,7 @@ public abstract class Tessera {
 			/* 3 */ { "│", " ", " ", " ", "│" },
 			/* 4 */ { "└", "─", "─", "─", "┘" },
 			};
+	
 
 	
 	/**
@@ -40,9 +43,9 @@ public abstract class Tessera {
 	public Tessera(TipoTessera tipoTessera,Posizione posizione) throws ErroreTessera{
 
 		this.tipoTessera = tipoTessera;
-
+		this.id=contatore+1;
 		if (this.tipoTessera != TipoTessera.CENTRO && this.tipoTessera != TipoTessera.VUOTA) {
-		
+				
 				aggiungiTessera();
 			
 		}
@@ -80,9 +83,12 @@ public abstract class Tessera {
 	 * @param tessera
 	 */
 	public static void removeDaListaTessere(Tessera t) {
-		set.remove(t);
-		listaA= new ArrayList<Tessera>(set);
-		setCurrentSize(-1);
+		if(set.contains(t)) {
+			set.remove(t);
+			listaA= new ArrayList<Tessera>(set);
+			setCurrentSize(-1);
+		}
+		
 
 	}
 	
@@ -294,13 +300,10 @@ public abstract class Tessera {
 
 
 
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.deepHashCode(tessera_Disposizione);
-		result = prime * result + Objects.hash(latiTessera, tipoTessera);
-		return result;
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -312,11 +315,11 @@ public abstract class Tessera {
 		if (getClass() != obj.getClass())
 			return false;
 		Tessera other = (Tessera) obj;
-		return Objects.equals(latiTessera, other.latiTessera)
-				&& Arrays.deepEquals(tessera_Disposizione, other.tessera_Disposizione)
-				&& tipoTessera == other.tipoTessera;
+		return id == other.id;
 	}
+	
 
+	
 	
 	
 }
