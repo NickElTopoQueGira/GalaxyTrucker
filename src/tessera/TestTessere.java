@@ -2,12 +2,12 @@ package tessera;
 
 import eccezioniPersonalizzate.ErroreRotazione;
 
+
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
-
+import gioco.Gioco;
 import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
-import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class TestTessere {
 	
@@ -142,7 +142,9 @@ public class TestTessere {
 		for(int i=0; i<Tessera.getListaTessere().size(); i++) {
 			stampa.println(Tessera.getListaTessere().get(i).toString());
 		}
-	}
+		
 	
-	
+		
+		
+	}	
 }

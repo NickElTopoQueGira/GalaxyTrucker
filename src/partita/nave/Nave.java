@@ -39,7 +39,6 @@ import tessera.motore.TipoMotore;
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
     private ArrayList<Tessera> componentiPrenotati;
-    //private int[][] NAVE_DEF;
     protected Coordinate centro;
     private Colori coloreNave;
     private int energiaResidua;
@@ -49,9 +48,7 @@ public abstract class Nave {
     private int inizioNaveO;
     private int fineNaveO;
     private int inizioNaveV;
-    private int fineNaveV;
-	private int centroNaveX;
-	private int centroNaveY;
+    
     
     /**
      * Metodi astratti, implementati nelle sotto classi
@@ -60,13 +57,9 @@ public abstract class Nave {
     protected abstract Coordinate getCoordinateCentro();
     public abstract int getRighe();
     public abstract int getColonne();
-
-    public abstract int getCentroNaveX();
-    public abstract int getCentroNaveY();
     public abstract int getInizioNaveX();
     public abstract int getInizioNaveY();
     public abstract int getConfineNaveX();
-    public abstract int getConfineNaveY();
 	
 	
 
@@ -82,7 +75,6 @@ public abstract class Nave {
         this.centro = null;
         this.coloreNave = coloreNave;
         this.fineNaveO = getConfineNaveX();
-        this.fineNaveV = getConfineNaveY();
         this.inizioNaveO = getInizioNaveX();
         this.inizioNaveV = getInizioNaveY();
         this.energiaResidua = 0;
@@ -92,10 +84,9 @@ public abstract class Nave {
 
     // Metodo per inizializzare la nave da chiamare dopo il costruttore
     protected void inizializzaNave() {
-        //this.NAVE_DEF = getMATRIX();
+        
         this.centro = getCoordinateCentro(); 
-        this.centroNaveX = getCentroNaveX();
-        this.centroNaveY = getCentroNaveY();
+       
         
         
         
@@ -372,10 +363,11 @@ public abstract class Nave {
 				}
 			}
     	}
-
+		
     	Object[] opzioni=troncamentiNave.toArray();
     	
-		return (ArrayList<ArrayList<Tessera>>) opzioni[stampa.scegliTroncamenti(opzioni)];
+		return (ArrayList<ArrayList<Tessera>>) opzioni[this.scegliTroncamenti(opzioni)];
+		
 	}
     
 	/**
@@ -394,7 +386,7 @@ public abstract class Nave {
         visitate.add(centroRamificazione);
 
         while (!daVisitare.isEmpty()) {
-       	    Coordinate corrente = daVisitare.poll(); //prende il primo elemento
+       	    Coordinate corrente = daVisitare.poll(); //prende il primo elemento (testa) FIFO
 			Tessera tesseraCorrente = nave.get(corrente.getX()).get(corrente.getY());
 			
 			for (TipoLato dir : TipoLato.values()) {
@@ -484,6 +476,32 @@ public abstract class Nave {
         }
 		return nave; 
     }
+    
+    
+    
+    
+    
+    /**
+     * metodo per la scelta e visualizzazione dei troncamenti
+     * @param opzioni
+     * @return intero della scelta
+     */
+    private int scegliTroncamenti(Object[] opzioni) {
+		ArrayList<String> temp = new ArrayList<>();
+		int scelta=0;
+		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
+		for(int i=0; i< opzioni.length; i++) {
+			
+			temp.add(opzioni[i].toString());
+		}
+		stampa.println(stampa.visualizzaElenco(temp));
+
+		scelta = Integer.parseInt(stampa.consoleRead());
+		if(scelta<1 || scelta>opzioni.length) {
+			return scegliTroncamenti(opzioni);
+		}
+		return scelta;
+	}
 
 	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide

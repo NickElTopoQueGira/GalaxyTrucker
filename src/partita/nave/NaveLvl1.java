@@ -89,15 +89,7 @@ public class NaveLvl1 extends Nave{
         return coordinateCentro; 
     }
 
-	@Override
-	public int getCentroNaveX() {
-		return 3;
-	}
 	
-	@Override
-	public int getCentroNaveY() {
-		return 2;
-	}
 
 	
 	
@@ -108,10 +100,7 @@ public class NaveLvl1 extends Nave{
 	}
 
 
-	@Override
-	public int getConfineNaveY() {
-		return 10;
-	}
+	
 
 	@Override
 	public int getInizioNaveX() {

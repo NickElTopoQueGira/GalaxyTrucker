@@ -211,23 +211,12 @@ public class ComunicazioneConUtente {
 		return temp;
 	}
 	
-	public int scegliTroncamenti(Object[] opzioni) {
-		ArrayList<String> temp = new ArrayList<>();
-		int scelta=0;
-		this.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
-		for(int i=0; i< opzioni.length; i++) {
-			
-			temp.add(opzioni[i].toString());
-		}
-		this.println(this.visualizzaElenco(temp));
-
-		scelta = Integer.parseInt(this.consoleRead());
-		if(scelta<1 || scelta>opzioni.length) {
-			return scegliTroncamenti(opzioni);
-		}
-		return scelta;
-	}
 	
+	/**
+	 * metodo per la richiesta di abbandono del volo
+	 * @param giocatore
+	 * @return conferma (true o false)
+	 */
 	public boolean richiestaAbbandonaVolo(Giocatore giocatore) {
 		
 		this.println(giocatore.getNome()+" vuoi abbanonare il volo?");
