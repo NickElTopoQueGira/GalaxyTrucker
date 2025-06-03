@@ -1,9 +1,8 @@
 package gioco;
 
+import eccezioniPersonalizzate.ErroreGiocatore;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import eccezioniPersonalizzate.ErroreGiocatore;
 import partita.Partita;
 import partita.configurazione.ConfiguraGiocatore;
 import partita.configurazione.ConfiguraPartita;
@@ -37,7 +36,6 @@ public class Gioco{
 	}
 
 	
-	//TODO nik, utilizza metodo specifico in comUtente che stampa elenco tramite lista di stringhe; visualizzaElenco()
 	private void riepilogoGiocatori(){
 		com.clear();
 		com.print("--- Riepilogo Giocatori ---\n");
