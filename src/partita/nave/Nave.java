@@ -1088,14 +1088,15 @@ public abstract class Nave {
     }
     
     /**
-     * Stampa della nave
+     * ToString della nave
      * @return 
      */
-    
     @Override
     public String toString() {
         ArrayList<String> output = new ArrayList<>();
         ArrayList<String> tutteDescrizioni = new ArrayList<>();
+        
+        stampa.println("\n"+this.legenda());
 
         // Popola descrizioni solo una volta
         for (ArrayList<Tessera> riga : nave) {
@@ -1174,7 +1175,7 @@ public abstract class Nave {
         }
         output.add(numeri.toString());
 
-        // Aggiunta eventuali descrizioni rimaste
+        // aggiunta eventuali descrizioni rimaste
         while (descrIndex < tutteDescrizioni.size()) {
         	StringBuilder riga = new StringBuilder();
             for (int j = 0; j < nave.get(1).size(); j++) {
@@ -1190,64 +1191,75 @@ public abstract class Nave {
         return String.join("\n", output);
     }
 
-    private String legenda() {
-		String temp1=legendaConnettori();
-		String temp2=legendaConnettori();
-		String temp = "";
-		String[] dati1= temp1.split(",");
-		String[] dati2= temp2.split(",");
-		int dimensioneMax=Integer.max(dati1.length, dati2.length)-2;
-		
-		if(dati1.length>dati2.length) {
-			dati2=modificaSize(dati2, dimensioneMax);
-		}
-		else if(dati2.length>dati1.length) {
-			
-			dati1=modificaSize(dati1, dimensioneMax);
-			
-		}
-		
-		for(int i=0; i< dimensioneMax; i++) {			
-				temp=dati1[i]+"\t\t\t"+dati2[i]+"\n";			
-		}
-		
-	
-		return temp;
-	}
-    
     
     /**
-     * allunga l'array di stringhe dati mettendoci "\n" per ogni lunghezza di differenza
-     * @param dati
-     * @param differenza
-     * @return array di stringhe dati
+     * stampa legenda combinata con colonne allineate
+     * @return stringa con la legenda formattata in due colonne
+     */
+    private String legenda() {
+        String temp1 = legendaConnettori();
+        String temp2 = legendaSimboli();
+
+        String[] dati1 = temp1.split(",");
+        String[] dati2 = temp2.split(",");
+
+        int dimensioneMax = Math.max(dati1.length, dati2.length);
+        dati1 = modificaSize(dati1, dimensioneMax);
+        dati2 = modificaSize(dati2, dimensioneMax);
+
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < dimensioneMax; i++) {
+            // "%-40s" = stringa a sinistra larga 40 caratteri
+            result.append(String.format("%-40s %s\n", dati1[i], dati2[i]));
+        }
+
+        return result.toString();
+    }
+
+    
+    /**
+     * allunga l'array con stringhe vuote se necessario
      */
     private String[] modificaSize(String[] dati, int dimMax) {
-    	for(int i=dati.length; i<dimMax; i++) {
-    		dati[i]="\n";
-    		
-    	}
-		return dati;
-		
-		
-	}
+        String[] nuoviDati = new String[dimMax];
+        for (int i = 0; i < dimMax; i++) {
+            nuoviDati[i] = (i < dati.length) ? dati[i] : "";
+        }
+        return nuoviDati;
+    }
+
+    
     
     /**
-     * Metodo per la legenda connettori (righe divise da ',')
-     * @return stringa della legenda
+     * restituisce la legenda dei connettori
      */
-	public String legendaConnettori() {
-		String temp="";
-		temp+="Legenda connettori:,";
-		temp+="-) # connettore universale,";
-		temp+="-) | connettore singolo,";
-		temp+="-) > connettore doppio";
-		return temp;
+    public String legendaConnettori() {
+        String temp=
+        	   "Legenda Connettori:,"+
+               "-) # connettore universale,"+
+               "-) | connettore singolo,"+
+               "-) v connettore doppio";
+        return temp;
     }
-   
+    
+    /**
+     * restituisce la legenda dei connettori
+     */
+    public String legendaSimboli() {
+        String temp= 
+        	   "Legenda Simboli:,"+
+               "-) [] merce," +
+               "-) \033[0;31m!\033[0m  canna del cannone,"+
+               "-) \033[0;31m§\033[0m  lato propulsore del motore,"+
+               "-) @  lato scudo";
+        
+        return temp;
+    }
     
     
-    //per il set dei troncamenti della nave
+    
+    
     @Override
    	public int hashCode() {
    		return Objects.hash(coloreNave, nave);
