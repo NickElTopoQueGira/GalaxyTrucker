@@ -67,7 +67,9 @@ public class Pedina{
 
     public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {
     	int caso;
-    	do {
+    	
+    	while(elimEquipaggio > 0 && this.giocatore.getNave().getEquipaggio() > 0){
+    		
     		caso=0;
     		ArrayList<Coordinate> crd = new ArrayList<Coordinate>();
     		
@@ -103,13 +105,13 @@ public class Pedina{
 			}
     		
     		elimEquipaggio--;
-    	}while(elimEquipaggio > 0 && this.giocatore.getNave().getEquipaggio() > 0);
+    	}
     }
     
     public void selezionaMerceDaEliminare(int elimMerce) {
     	
     	int caso;
-    	do {
+    	while(elimMerce > 0 && this.giocatore.getNave().getEquipaggio() > 0) {
     		caso=0;
     		ArrayList<Coordinate> crd;
     		
@@ -178,7 +180,7 @@ public class Pedina{
     		}else {
     			break;
     		}
-    	}while(elimMerce > 0 && this.giocatore.getNave().getEquipaggio() > 0);
+    	}
     }
     
     public void distribuzioneMerce(ArrayList<Merce> merci) {

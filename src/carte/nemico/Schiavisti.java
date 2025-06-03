@@ -137,7 +137,7 @@ public class Schiavisti extends Nemici {
 	@Override
 	public String toString() {
 		String temp="";
-		temp=temp+"\nLivello carta:"+this.lvl+
+		temp=temp+"\nLivello carta:"+this.lvl+"\n"+"Tipo carta:"+this.tipo+
 				"\nPotenza necessaria:"+this.potenzanecc+
 				"\nPenaltà Equipaggio:"+this.penalitaequipaggio+
 				"\nGiorni Penalità:"+this.penalitagiorni+
