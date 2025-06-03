@@ -48,7 +48,7 @@ public abstract class Nave {
     private int inizioNaveO;
     private int fineNaveO;
     private int inizioNaveV;
-    
+    private int fineNaveV;
     
     /**
      * Metodi astratti, implementati nelle sotto classi
@@ -60,6 +60,7 @@ public abstract class Nave {
     public abstract int getInizioNaveX();
     public abstract int getInizioNaveY();
     public abstract int getConfineNaveX();
+    public abstract int getConfineNaveY();
 	
 	
 
@@ -74,9 +75,6 @@ public abstract class Nave {
         this.nave = new ArrayList<>();
         this.centro = null;
         this.coloreNave = coloreNave;
-        this.fineNaveO = getConfineNaveX();
-        this.inizioNaveO = getInizioNaveX();
-        this.inizioNaveV = getInizioNaveY();
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
 		this.inizializzaNave();
@@ -86,7 +84,10 @@ public abstract class Nave {
     protected void inizializzaNave() {
         
         this.centro = getCoordinateCentro(); 
-       
+        this.fineNaveO = getConfineNaveX();
+        this.fineNaveV= getConfineNaveY();
+        this.inizioNaveO = getInizioNaveX();
+        this.inizioNaveV = getInizioNaveY();
         
         
         

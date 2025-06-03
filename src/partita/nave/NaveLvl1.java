@@ -100,8 +100,6 @@ public class NaveLvl1 extends Nave{
 	}
 
 
-	
-
 	@Override
 	public int getInizioNaveX() {
 		return 4;
@@ -110,5 +108,10 @@ public class NaveLvl1 extends Nave{
 	@Override
 	public int getInizioNaveY() {
 		return 5;
+	}
+
+	@Override
+	public int getConfineNaveY() {
+		return 10;
 	}   
 }
