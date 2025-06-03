@@ -274,11 +274,9 @@ public class Partita{
 							prenotaTessera(g, tesseraSelezionata);
 						}else{
 							inserisciTesseraNellaNave(g, tesseraSelezionata);
-							
 						}
 					}
 				}
-				
 			}
 			case 2 ->{	
 				// per generare una nuova tessera	
@@ -512,12 +510,21 @@ public class Partita{
         // controllo se la selezione fatta e' possibile 
 		switch(rispota) {
 			case 1 ->{
+				// controllo se ci sono tessere tessere gia' estratte nel mazzo
 				if(Tessera.getListaTessere().isEmpty()){
 					this.com.printError("Non ci sono tessere estratte");
 					return azioneCarta(g);
 				}
 			}
+			case 2 ->{
+				// controllo se si e' raggiunto il massimo delle tessere generabili
+				if(FactoryTessera.getNumeroTessere() >= FactoryTessera.getNumeroTessereMax()){
+					this.com.printError("Numero massimo di tessere estratte raggiunto");
+					return azioneCarta(g);
+				}
+			}
 			case 3 ->{
+				// controllo se si hanno tessere prenotate
 				if(g.getNave().isComponentiPrenotatiEmpty()){
 					this.com.printError("Non hai tessere prenotate da usare");
 					return azioneCarta(g);
@@ -540,9 +547,6 @@ public class Partita{
 			try{
 				t = ft.estraiTipo();
 			}catch(ErroreTessera et){
-				//eccezione catturata: troppe tessere generate
-				
-				//TODO gestire la logica di gioco nel caso sia stato estratto il numero massimo di tessere generabili
 				this.com.printError(et.getMessage());
 			}
 
