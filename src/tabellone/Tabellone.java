@@ -208,12 +208,24 @@ public class Tabellone{
 		return elencoNaviAbbandonate;
 	}
 	
+	
+	/**
+	 * metodo toString che ritorna il tabellone di gioco sotto forma di stringa
+	 */
 	@Override
 	public String toString() {
 		String temp="";
-		for(int i=0; i<this.posizioni.size(); i++) {
+		ArrayList<String> stringaTabellone= new ArrayList<String>();
+		temp+="Tabellone di Gioco:\n";
+		for(int j=0; j<this.numeroPosizioni; j++) {
+			if(elencoPedine.get(j).getPosizioneSulTabellone()==j) {
+				stringaTabellone.add(j, " ("+elencoPedine.get(j).getGiocatore().getColorePedina().getSiglaTabellone()+") ");
+			}else {
+				stringaTabellone.add(j, " ( ) ");
+			}
 			
 		}
+		temp+="\n\n";
 		return temp;
 		
 	}

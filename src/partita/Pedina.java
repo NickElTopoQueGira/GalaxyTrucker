@@ -64,7 +64,6 @@ public class Pedina{
      * 
      * @param elimEquipaggio int numero di equipaggio che verrà tolto
      */
-
     public void selezionaEquipaggioDaEliminare(int elimEquipaggio) {
     	int caso;
     	
