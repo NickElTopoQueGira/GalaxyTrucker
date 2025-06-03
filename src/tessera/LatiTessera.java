@@ -1,9 +1,10 @@
 package tessera;
 
-import java.util.Objects;
 import java.util.Random;
 
 public class LatiTessera {
+
+	
 
 	private TipoConnettoriTessera up;
 	private TipoConnettoriTessera left;
@@ -116,23 +117,7 @@ public class LatiTessera {
 	}
 
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(down, left, right, up);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		LatiTessera other = (LatiTessera) obj;
-		return down == other.down && left == other.left && right == other.right && up == other.up;
-	}
+	
 
 	
 

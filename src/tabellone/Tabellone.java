@@ -1,6 +1,7 @@
 package tabellone;
 
 import carte.Carta;
+
 import carte.Mazzo;
 import gioco.ComunicazioneConUtente;
 import java.util.ArrayList;
@@ -206,4 +207,17 @@ public class Tabellone{
 	public ArrayList<Pedina> getElencoNaviAbbandonate(){
 		return elencoNaviAbbandonate;
 	}
+	
+	@Override
+	public String toString() {
+		String temp="";
+		for(int i=0; i<this.posizioni.size(); i++) {
+			
+		}
+		return temp;
+		
+	}
+	
+	
+	
 }

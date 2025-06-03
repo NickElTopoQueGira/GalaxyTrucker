@@ -36,7 +36,7 @@ public class Stiva extends Tessera {
 			this.valore = 0;
 			this.numeroMerciAttuale = 0;
 		} else {
-			throw new ErroreTessera("Numero Elementi Merci Max"); // Eccezione Numero Massimo di elementi
+			throw new ErroreTessera("Numero Elementi Stiva Max"); // Eccezione Numero Massimo di elementi
 		}
 
 	}
