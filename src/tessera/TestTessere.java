@@ -1,5 +1,6 @@
 package tessera;
 
+import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreRotazione;
 
 
@@ -8,6 +9,9 @@ import gioco.ComunicazioneConUtente;
 import gioco.Gioco;
 import partita.giocatore.Colori;
 import tessera.cannone.Cannone;
+import tessera.merce.Merce;
+import tessera.merce.Stiva;
+import tessera.merce.TipoMerce;
 
 public class TestTessere {
 	
@@ -71,28 +75,6 @@ public class TestTessere {
 		stampa.print(t3.toString());
 		
 		
-		Tessera t4 = null;
-		try {
-			t4 = new Cannone();
-		} catch (ErroreTessera e) {
-			e.printStackTrace();
-		}
-		
-		stampa.print(t4.toString());
-		try {
-			t4.ruota();
-		} catch (ErroreRotazione e) {
-			e.printStackTrace();
-		}
-		
-		stampa.print(t4.toString());
-		try {
-			t4.ruota();
-		} catch (ErroreRotazione e) {
-			e.printStackTrace();
-		}
-		
-		stampa.print(t4.toString());
 		
 		
 		System.out.println(Tessera.getCurrentSize());
@@ -143,7 +125,30 @@ public class TestTessere {
 			stampa.println(Tessera.getListaTessere().get(i).toString());
 		}
 		
-	
+		
+		Tessera stiva = null;
+		try {
+			stiva = Factory.estraiTipo();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		stampa.println(stiva.toString());
+		
+		Merce merce1=new Merce(TipoMerce.MERCE_BLU);
+		
+		try {
+			((Stiva)stiva).inserisciMerci(merce1);
+		} catch (ErroreRisorse e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+		
+		stampa.println(stiva.toString());
+		
+		stampa.println(((Stiva)stiva).getStiva().get(0).getTipoMerce().toString());
+		
 		
 		
 	}	

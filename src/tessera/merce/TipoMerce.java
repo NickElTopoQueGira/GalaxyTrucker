@@ -1,22 +1,22 @@
 package tessera.merce;
 
 public enum TipoMerce {
-	MERCE_ROSSA		(4,"\033[1;91m"+"\254"+"\u001B[0m"),	// rosso 
-	MERCE_GIALLA	(2,"\033[1;93m"+"\254"+"\u001B[0m"), // giallo 
-	MERCE_VERDE		(3,"\033[1;92m"+"\254"+"\u001B[0m"), // verde 
-	MERCE_BLU		(1,"\033[1;94m"+"\254"+"\u001B[0m");	// blu
+	MERCE_ROSSA		(4,"\033[1;91m"+"[]"+"\u001B[0m"),	// rosso 
+	MERCE_GIALLA	(2,"\033[1;93m"+"[]"+"\u001B[0m"),  // giallo 
+	MERCE_VERDE		(3,"\033[1;92m"+"[]"+"\u001B[0m"),  // verde 
+	MERCE_BLU		(1,"\033[1;94m"+"[]"+"\u001B[0m");	// blu
 
 	private final int valore;
-	private final String name;
+	private final String nome;
 
 	/**
 	 * costruttore
 	 * @param valore
 	 * @param name
 	 */
-	TipoMerce(int valore, String name) {
+	TipoMerce(int valore, String nome) {
 		this.valore = valore;
-		this.name = name;
+		this.nome = nome;
 	}
 
 	public int getValore() {
@@ -28,6 +28,6 @@ public enum TipoMerce {
 	 */
 	@Override
 	public String toString() {
-		return this.name();
+		return this.nome;
 	}
 }

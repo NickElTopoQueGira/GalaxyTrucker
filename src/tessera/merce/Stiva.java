@@ -18,7 +18,7 @@ public class Stiva extends Tessera {
 	private final int MaxCapienza;
 	private int valore;
 	private int numeroMerciAttuale;
-	private ArrayList<Merce>stiva;
+	private ArrayList<Merce>stiva=new ArrayList<Merce>();
 	
 	
 	/**
