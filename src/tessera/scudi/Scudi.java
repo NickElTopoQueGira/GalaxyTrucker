@@ -6,10 +6,11 @@ import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
+import tessera.TessereNormali;
 import tessera.TipoLato;
 import tessera.TipoTessera;
 
-public class Scudi extends Tessera {
+public class Scudi extends Tessera implements TessereNormali{
 
 	private static final int massimo = 8;
 	private int rprec1=0;
@@ -106,6 +107,15 @@ public class Scudi extends Tessera {
 	public String toLegenda() {
 		String temp="modulo scudo";
 		return temp;
+	}
+	
+	/**
+	 * decrementa contatore di 1
+	 */
+	@Override
+	public void decrementaNumeroCorrente() {
+		contatore=contatore-1;
+		
 	}
 
 }

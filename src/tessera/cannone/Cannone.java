@@ -6,11 +6,12 @@ import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
+import tessera.TessereNormali;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoLato;
 import tessera.TipoTessera;
 
-public class Cannone extends Tessera {
+public class Cannone extends Tessera implements TessereNormali{
 	private static final int massimo = 36;
 	private int rprec = 0;
 	private int cprec = 2;
@@ -151,5 +152,12 @@ public class Cannone extends Tessera {
 		return temp;
 	}
 
-
+	/**
+	 * decrementa contatore di 1
+	 */
+	@Override
+	public void decrementaNumeroCorrente() {
+		contatore=contatore-1;
+		
+	}
 }

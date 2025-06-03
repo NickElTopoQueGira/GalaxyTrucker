@@ -1,6 +1,5 @@
 package tessera;
 
-import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
 
 public class Centro extends Tessera{
@@ -8,7 +7,7 @@ public class Centro extends Tessera{
 	private final Colori colore;
 	private final Coordinate coordinate;
 	
-	public Centro(Colori colore, Coordinate coordinate) throws ErroreTessera{
+	public Centro(Colori colore, Coordinate coordinate){
 		super(TipoTessera.CENTRO, Posizione.INTERNA);
 		this.colore = colore;
 		this.coordinate = coordinate;
@@ -50,6 +49,8 @@ public class Centro extends Tessera{
 	public String toLegenda(){
 		return "centro cosmonauti: "+this.getPasseggeriCorrenti()+"/2";
 	}
+
+	
 	
 
 }

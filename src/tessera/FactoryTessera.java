@@ -1,5 +1,6 @@
 package tessera;
 
+import eccezioniPersonalizzate.ErroreAggiuntaTessera;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import java.util.Random;
@@ -42,31 +43,89 @@ public class FactoryTessera {
         try {
             switch (tipo) {
                 case TipoTessera.PORTA_MERCI -> {
-                    return new Stiva();
+                	Tessera t= new Stiva();
+                	try {
+						t.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+						((Stiva)t).decrementaNumeroCorrente();
+						break;
+					}
+                    return t;
                 }
                 case TipoTessera.SCUDI -> {
-                    return new Scudi();
+                    Tessera t= new Scudi();
+                	try {
+						t.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+						((Scudi)t).decrementaNumeroCorrente();
+						break;
+					}
+                    return t;
                 }
                 case TipoTessera.TUBI -> {
-                    return new Tubi();
+                    Tessera t= new Tubi();
+                	try {
+						t.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+						((Tubi)t).decrementaNumeroCorrente();
+						break;
+					}
+                    return t;
                 }
                 case TipoTessera.MODULO_PASSEGGERI -> {
-                    return new ModuloPasseggeri();
+                    Tessera t= new ModuloPasseggeri();
+                	try {
+						t.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+						((ModuloPasseggeri)t).decrementaNumeroCorrente();
+						break;
+					}
+                    return t;
                 }
                 case TipoTessera.MODULO_ATTRACCO_ALIENI -> {
-                    return new ModuloAttraccoAlieni();
+                    Tessera t= new ModuloAttraccoAlieni();
+                	try {
+						t.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+						((ModuloAttraccoAlieni)t).decrementaNumeroCorrente();
+						break;
+					}
+                    return t;
                 }
                 case TipoTessera.BATTERIA -> {
-                    return new Batteria();
+                    Tessera t= new Batteria();
+                	try {
+						t.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+						((Batteria)t).decrementaNumeroCorrente();
+						break;
+					}
+                    return t;
                 }
                 case TipoTessera.CANNONE -> {
-                    return new Cannone();
+                    Tessera t= new Cannone();
+                	try {
+						t.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+						((Cannone)t).decrementaNumeroCorrente();
+						break;
+					}
+                    return t;
                 }
                 case TipoTessera.MOTORE -> {
-                    return new Motore();
+                    Tessera t= new Motore();
+                	try {
+						t.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+						((Motore)t).decrementaNumeroCorrente();
+						break;
+
+					}
+                    return t;
                 }
                 default -> {
                     return estraiTipo();
+                    
                 }
 
             }
@@ -80,6 +139,7 @@ public class FactoryTessera {
                 throw new ErroreTessera("Numero Elementi Tessera Max"); // Eccezione Numero Massimo di elementi
 			}
         }
+		return estraiTipo();
     }
 
     /**

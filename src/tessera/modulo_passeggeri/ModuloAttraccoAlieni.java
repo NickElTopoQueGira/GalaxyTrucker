@@ -6,9 +6,10 @@ import java.util.Random;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
+import tessera.TessereNormali;
 import tessera.TipoTessera;
 
-public class ModuloAttraccoAlieni extends Tessera{
+public class ModuloAttraccoAlieni extends Tessera implements TessereNormali{
 	
 	private static final int massimo = 12;
 	private static int contatore = 0;
@@ -48,6 +49,15 @@ public class ModuloAttraccoAlieni extends Tessera{
 	public String toLegenda() {
 		String temp="modulo attracco alieno "+this.colore.toString();
 		return temp;
+	}
+	
+	/**
+	 * decrementa contatore di 1
+	 */
+	@Override
+	public void decrementaNumeroCorrente() {
+		contatore=contatore-1;
+		
 	}
 
 }

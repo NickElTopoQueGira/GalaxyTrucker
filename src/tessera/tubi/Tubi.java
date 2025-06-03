@@ -3,10 +3,11 @@ package tessera.tubi;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
+import tessera.TessereNormali;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 
-public class Tubi extends Tessera {
+public class Tubi extends Tessera implements TessereNormali{
 
 	private static final int massimo = 8;
 	private static int contatore = 0;
@@ -48,6 +49,15 @@ public class Tubi extends Tessera {
 	public String toLegenda() {
 		String temp="modulo tubi";
 		return temp;
+	}
+	
+	/**
+	 * decrementa contatore di 1
+	 */
+	@Override
+	public void decrementaNumeroCorrente() {
+		contatore=contatore-1;
+		
 	}
 
 }

@@ -7,9 +7,10 @@ import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
+import tessera.TessereNormali;
 import tessera.TipoTessera;
 
-public class Stiva extends Tessera {
+public class Stiva extends Tessera implements TessereNormali{
 
 	private static final int massimo = 24;
 	private static int contatore = 0;
@@ -188,5 +189,14 @@ public class Stiva extends Tessera {
 			temp+="nulla";
 		}
 		return temp;
+	}
+	
+	/**
+	 * decrementa contatore di 1
+	 */
+	@Override
+	public void decrementaNumeroCorrente() {
+		contatore=contatore-1;
+		
 	}
 }

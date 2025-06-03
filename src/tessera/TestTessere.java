@@ -65,12 +65,8 @@ public class TestTessere {
 		stampa.print(t1.toString());
 		
 		//stampa centro con connettori
-		Tessera t3=null;
-		try {
-			t3 = new Centro(Colori.BLU, null);
-		} catch (ErroreTessera e) {
-			e.printStackTrace();
-		}
+		Tessera t3 = new Centro(Colori.BLU, null);
+		
 		
 		stampa.print(t3.toString());
 		

@@ -6,10 +6,11 @@ import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
+import tessera.TessereNormali;
 import tessera.TipoConnettoriTessera;
 import tessera.TipoTessera;
 
-public class Motore extends Tessera {
+public class Motore extends Tessera implements TessereNormali{
 	private static final int massimo = 30;
 	private static int contatore = 0; 
 
@@ -76,4 +77,12 @@ public class Motore extends Tessera {
 		return temp;
 	}
 
+	/**
+	 * decrementa contatore di 1
+	 */
+	@Override
+	public void decrementaNumeroCorrente() {
+		contatore=contatore-1;
+		
+	}
 }

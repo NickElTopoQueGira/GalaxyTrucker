@@ -49,25 +49,13 @@ public class NaveLvl2 extends Nave{
                 if(NAVE_DEF[i][j] == 2){
                     // creo il centro
                     this.coordinateCentro = new Coordinate(j, i);
-                    try {
-						riga.add(new Centro(coloreNave, coordinateCentro));
-					} catch (ErroreTessera e) {
-						e.printStackTrace();
-					}
+                    riga.add(new Centro(coloreNave, coordinateCentro));
                 }else{
                 	// tessera vuota
                 	if(NAVE_DEF[i][j] == 0) {
-                		try {
-							riga.add(new TesseraVuota(j, i, Posizione.ESTRENA ));
-						} catch (ErroreTessera e) {
-							e.printStackTrace();
-						}    
+                		riga.add(new TesseraVuota(j, i, Posizione.ESTRENA ));    
                 	}else if(NAVE_DEF[i][j] == 1){
-                		try {
-							riga.add(new TesseraVuota(j, i, Posizione.INTERNA ));
-						} catch (ErroreTessera e) {
-							e.printStackTrace();
-						}                       	
+                		riga.add(new TesseraVuota(j, i, Posizione.INTERNA ));                       	
                 	}
                 }
             }

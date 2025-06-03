@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
+import eccezioniPersonalizzate.ErroreAggiuntaTessera;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreRotazione;
 import eccezioniPersonalizzate.ErroreTessera;
@@ -40,15 +41,11 @@ public abstract class Tessera {
 	 * @param tipoTessera
 	 * @throws ErroreTessera 
 	 */
-	public Tessera(TipoTessera tipoTessera,Posizione posizione) throws ErroreTessera{
+	public Tessera(TipoTessera tipoTessera,Posizione posizione){
 
 		this.tipoTessera = tipoTessera;
 		this.id=contatore+1;
-		if (this.tipoTessera != TipoTessera.CENTRO && this.tipoTessera != TipoTessera.VUOTA) {
-				
-				aggiungiTessera();
-			
-		}
+	
 		this.posizione = posizione;
 
 	}
@@ -108,11 +105,12 @@ public abstract class Tessera {
 	/**
 	 * aggiunge al set di tessere la tessera ed incrementa la size di 1, svolge anche controllo duplicazione
 	 * ed in caso genera eccezione
+	 * @throws ErroreAggiuntaTessera 
 	 * @throws ErroreTessera 
 	 */
-	private void aggiungiTessera() throws ErroreTessera{
+	public void aggiungiTessera() throws ErroreAggiuntaTessera{
 		if(isTesseraDuplicata()) {
-			throw new ErroreTessera("");
+			throw new ErroreAggiuntaTessera("");
 		}else {
 			set.add(this);
 

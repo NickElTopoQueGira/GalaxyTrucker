@@ -3,9 +3,10 @@ package tessera.modulo_passeggeri;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
+import tessera.TessereNormali;
 import tessera.TipoTessera;
 
-public class ModuloPasseggeri extends Tessera {
+public class ModuloPasseggeri extends Tessera implements TessereNormali{
 	private static final int massimo = 17;
 	private static int contatore = 0;
 	
@@ -145,7 +146,14 @@ public class ModuloPasseggeri extends Tessera {
 		return temp;
 	}
 
-	
+	/**
+	 * decrementa contatore di 1
+	 */
+	@Override
+	public void decrementaNumeroCorrente() {
+		contatore=contatore-1;
+		
+	}
 
 
 }

@@ -446,13 +446,8 @@ public abstract class Nave {
 					}
 				}
 				if(check) {
+					tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
 					
-					try {
-						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
-					} catch (ErroreTessera e) {
-						
-						e.printStackTrace();
-					}
 					
 				}
 			}
@@ -464,11 +459,9 @@ public abstract class Nave {
     			for(Tessera tessera : colonne) {
     				for(Coordinate coordinateTessera : visitate) {
     					if(coordinateTessera==tessera.getCoordinate()) {
-    						try {
-								tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
-							} catch (ErroreTessera e) {
-								e.printStackTrace();
-							}
+    						
+    						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
+							
     					}
     				}
     				
