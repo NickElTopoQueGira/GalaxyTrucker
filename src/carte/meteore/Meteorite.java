@@ -48,7 +48,11 @@ public class Meteorite {
         };
     }
 
-    public PuntiCardinali getDirezione() {
+	public void setRisultatoDado(int risultatoDado) {
+		this.risultatoDado = risultatoDado;
+	}
+
+	public PuntiCardinali getDirezione() {
         return direzione;
     }
 
@@ -64,8 +68,9 @@ public class Meteorite {
         this.type = type;
     }
 
-    public int getDado() {
-        return risultatoDado;
-    }
+	public int getDado() {
+		return this.risultatoDado;
+	}
+
 
 }

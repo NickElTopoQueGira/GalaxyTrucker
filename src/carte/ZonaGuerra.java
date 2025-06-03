@@ -48,7 +48,7 @@ public class ZonaGuerra extends Carta {
 
         valori[2][1] = penalita[3];
 
-        int x1 = random.nextInt(3) + 1;
+        int x1 = random.nextInt(3) + 1; 
         ///// IMPOSTO LE PRIME CHELLANGE E PENALITA'
 		valori[0][0] = eventi[x1 - 1];
         int x2 = random.nextInt(3) + 1;
@@ -263,42 +263,46 @@ public class ZonaGuerra extends Carta {
             case "CANNONATE" -> {
                 int j = 0;
                 do {
-
-                    boolean sceltaFermareColpo = false;
-
-                    Tessera colpito = trovaTesseraColpita(this.colpi.get(j), pedina.getGiocatore().getNave());
-
-                    if (colpito != null) {
-
-                        if (this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
-
-                            if (pedina.sceltaEpossibilitaUtilizzoScudi()) {
-
-                                stampa.println("METEORITE FERMATO DALLO SCUDO");
-                                sceltaFermareColpo = true;
-                            }
-                        }
-
-                        if (!sceltaFermareColpo) {
-
-                            try {
-                                try {
-                                    pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
-                                } catch (ErroreGiocatore e) {
-
-                                    e.printStackTrace();
-                                }
-
-                            } catch (ErroreTessera e) {
-
-                                e.printStackTrace();
-                            }
-                        }
-
-                    } else {
-
-                        stampa.println("COLPO HA MANCATO LA NAVE");
-                    }
+                	if(controlloColpoIsDentroDallaNave(this.colpi.get(j), pedina.getGiocatore().getNave())) {
+                		this.colpi.get(j).setRisultatoDado(adattaDadiAllArray(this.colpi.get(j)));
+	                    boolean sceltaFermareColpo = false;
+	
+	                    Tessera colpito = trovaTesseraColpita(this.colpi.get(j), pedina.getGiocatore().getNave());
+	
+	                    if (colpito != null) {
+	
+	                        if (this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
+	
+	                            if (pedina.sceltaEpossibilitaUtilizzoScudi()) {
+	
+	                                stampa.println("METEORITE FERMATO DALLO SCUDO");
+	                                sceltaFermareColpo = true;
+	                            }
+	                        }
+	
+	                        if (!sceltaFermareColpo) {
+	
+	                            try {
+	                                try {
+	                                    pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+	                                } catch (ErroreGiocatore e) {
+	
+	                                    e.printStackTrace();
+	                                }
+	
+	                            } catch (ErroreTessera e) {
+	
+	                                e.printStackTrace();
+	                            }
+	                        }
+	
+	                    } else {
+	
+	                        stampa.println("COLPO HA MANCATO LA NAVE");
+	                    }
+                	}else {
+                		stampa.println("COLPO HA MANCATO LA NAVE");
+                	}
                     //TODO controllo integrita nave
                     j++;
                 } while (j < this.colpi.size());
@@ -310,7 +314,42 @@ public class ZonaGuerra extends Carta {
 
         return pedina;
     }
+	private boolean controlloColpoIsDentroDallaNave(Meteorite meteorite, Nave n) {
+		
+		switch(meteorite.getDirezione()) {
+			case SUD , NORD ->{
+				
+				if(meteorite.getDado() < n.getConfineNaveX() && meteorite.getDado() > n.getInizioNaveX()) {
+					
+					return true;
+				}
+			}	
+			case OVEST, EST ->{
+				
+				if(meteorite.getDado() < n.getConfineNaveY() && meteorite.getDado() > n.getInizioNaveY()) {
+					
+					return true;
+				}
+			}
+			default->{}
+		}
+		
+		return false;
+	}
+	private int adattaDadiAllArray(Meteorite meteorite) {
+		
+		switch(meteorite.getDirezione()) {
+		case SUD , NORD ->{
 
+			return meteorite.getDado() - 3;
+		}	
+		case OVEST, EST ->{
+			return meteorite.getDado() - 4;
+		}
+		default->{}
+		}
+		return 0;
+	}
     /**
      * *
      * metodo che trova il giocatore con il minor numero di equipaggio

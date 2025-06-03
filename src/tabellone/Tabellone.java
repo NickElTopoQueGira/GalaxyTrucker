@@ -34,8 +34,11 @@ public class Tabellone{
 
 	public void gioca(){		
 		int i=0;
+		int numeroCarteRimaste = mazzoCarte.size();
 		do{
 			//----estrazione carta--------
+
+			cns.println("\n------------------carte rimaste :"+numeroCarteRimaste+"------------------\n");
 			cns.println(mazzoCarte.get(i).toString());
 			mazzoCarte.get(i).eseguiCarta(elencoPedine);
 			
@@ -64,7 +67,8 @@ public class Tabellone{
 				}
 			}
 			i++;
-		}while(mazzoCarte.get(i) != null && elencoPedine.isEmpty());
+			numeroCarteRimaste--;
+		}while(numeroCarteRimaste > 0 && elencoPedine.isEmpty());
 	}
 	
 	/**

@@ -96,7 +96,7 @@ public class PioggiaMeteoriti extends Carta {
 	@Override
 	public String toString() {
 		String temp="";
-		temp=temp+"Livello carta:"+this.lvl+"\n"+"Tipo carta:"+this.tipo;
+		temp=temp+"Livello carta:"+this.lvl+"\n"+"Tipo carta:"+this.tipo+"\n";
 		for(int i=0; i<this.meteoriti.size(); i++) {
 			temp=temp+"tipo: "+meteoriti.get(i).getType()+"\n"+
 					"   direzione: "+meteoriti.get(i).getDirezione()+"\n"+
@@ -119,84 +119,126 @@ public class PioggiaMeteoriti extends Carta {
 		
 		for(int i=0; i<this.meteoriti.size(); i++) {
 			
-			for(int j=0; j<elencoPedine.size(); j++) {
+			if(controlloColpoIsDentroDallaNave(this.meteoriti.get(i), elencoPedine.get(0).getGiocatore().getNave())) {
 				
-				boolean sceltaFermareMeteorite = false;
+				this.meteoriti.get(i).setRisultatoDado(adattaDadiAllArray(this.meteoriti.get(i)));
 				
-				Tessera colpito = trovaTesseraColpita(this.meteoriti.get(j), elencoPedine.get(j).getGiocatore().getNave());
-				 
-				if(colpito != null) {
+				for(int j=0; j<elencoPedine.size(); j++) {
 					
-					if(this.meteoriti.get(j).getType() == TypeMeteora.METEORITE_PICCOLO) { 
+					boolean sceltaFermareMeteorite = false;
+					
+					Tessera colpito = trovaTesseraColpita(this.meteoriti.get(i), elencoPedine.get(j).getGiocatore().getNave());
+					 
+					if(colpito != null) {
 						
-						if(controlloLatoIsCoperto(colpito, this.meteoriti.get(j).getDirezione())) {
-
-							stampa.println("METEORITE RIMBALZATO SULLA NAVE");
+						if(this.meteoriti.get(i).getType() == TypeMeteora.METEORITE_PICCOLO) { 
 							
-							sceltaFermareMeteorite = true;
-							
-						}else {
-						
-							if(elencoPedine.get(j).sceltaEpossibilitaUtilizzoScudi()) {
+							if(controlloLatoIsCoperto(colpito, this.meteoriti.get(i).getDirezione())) {
+	
+								stampa.println("METEORITE RIMBALZATO SULLA NAVE");
 								
-								stampa.println("METEORITE FERMATO DALLO SCUDO");
+								sceltaFermareMeteorite = true;
+								
+							}else {
+							
+								if(elencoPedine.get(j).sceltaEpossibilitaUtilizzoScudi()) {
+									
+									stampa.println("METEORITE FERMATO DALLO SCUDO");
+									sceltaFermareMeteorite = true;
+								}
+							}
+						}else if(this.meteoriti.get(i).getType() == TypeMeteora.METEORITE_PICCOLO) { 
+							
+							switch(trovaCannone(this.meteoriti.get(i), elencoPedine.get(j).getGiocatore().getNave(), colpito, elencoPedine.get(j))) {
+							case 0->{}
+							case 1->{
+								
+								stampa.println("METEORITE FERMATO DAL CANNONE DOPPIO");
+								
+								try {
+									elencoPedine.get(j).getGiocatore().getNave().utilizzaEnergia();
+								} catch (ErroreRisorse e) {
+									
+									e.printStackTrace();
+								}
+								
 								sceltaFermareMeteorite = true;
 							}
+							case 2->{
+	
+								stampa.println("METEORITE FERMATO DAL CANNONE");
+								
+								sceltaFermareMeteorite = true;
+							}
+							default->{}
+							}
 						}
-					}else if(this.meteoriti.get(j).getType() == TypeMeteora.METEORITE_PICCOLO) { 
 						
-						switch(trovaCannone(this.meteoriti.get(j), elencoPedine.get(j).getGiocatore().getNave(), colpito, elencoPedine.get(j))) {
-						case 0->{}
-						case 1->{
-							
-							stampa.println("METEORITE FERMATO DAL CANNONE DOPPIO");
+						if(!sceltaFermareMeteorite){
 							
 							try {
-								elencoPedine.get(j).getGiocatore().getNave().utilizzaEnergia();
-							} catch (ErroreRisorse e) {
+								try {
+									elencoPedine.get(j).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+								} catch (ErroreGiocatore e) {
+									
+									e.printStackTrace();
+								}
+								 
+							} catch (ErroreTessera e) {
 								
 								e.printStackTrace();
 							}
-							
-							sceltaFermareMeteorite = true;
 						}
-						case 2->{
-
-							stampa.println("METEORITE FERMATO DAL CANNONE");
-							
-							sceltaFermareMeteorite = true;
-						}
-						default->{}
-						}
-					}
-					
-					if(!sceltaFermareMeteorite){
 						
-						try {
-							try {
-								elencoPedine.get(j).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
-							} catch (ErroreGiocatore e) {
-								
-								e.printStackTrace();
-							}
-							 
-						} catch (ErroreTessera e) {
-							
-							e.printStackTrace();
-						}
+					}else {
+						
+						stampa.println("METEORITE HA MANCATO LE NAVI ");
 					}
 					
-				}else {
-					
-					stampa.println("METEORITE HA MANCATO LA NAVE");
 				}
-				
 			}
 		}
 		
 		return elencoPedine;
 	}
 	
+	private boolean controlloColpoIsDentroDallaNave(Meteorite meteorite, Nave n) {
+		
+		switch(meteorite.getDirezione()) {
+			case SUD , NORD ->{
+				
+				if(meteorite.getDado() < n.getConfineNaveX() && meteorite.getDado() > n.getInizioNaveX()) {
+					
+					return true;
+				}
+			}
+			case OVEST, EST ->{
+				
+				if(meteorite.getDado() < n.getConfineNaveY() && meteorite.getDado() > n.getInizioNaveY()) {
+					
+					return true;
+				}
+			}
+			default->{}
+		}
+		
+		return false;
+	}
+	
+	private int adattaDadiAllArray(Meteorite meteorite) {
+		
+		switch(meteorite.getDirezione()) {
+		case SUD , NORD ->{
+
+			return meteorite.getDado() - 3;
+		}	
+		case OVEST, EST ->{
+			return meteorite.getDado() - 4;
+		}
+		default->{}
+		}
+		return 0;
+	}
 	/**
 	 * metodo che in base a dove colpisce la nave ti "dice" se in quel punto
 	 * il c'è un connettore scoperto o no

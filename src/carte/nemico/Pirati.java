@@ -83,7 +83,7 @@ public class Pirati extends Nemici {
 		}		
 		case 2 ->{
 			this.potenzanecc = random.nextInt(3) + 6;  //6-8
-		}		
+		}		 
 		case 3->{
 			this.potenzanecc = random.nextInt(3) + 8;  //8-10
 		}
@@ -241,42 +241,46 @@ public class Pirati extends Nemici {
 				
 				int j = 0;
 				do {
-
-					boolean sceltaFermareColpo = false;
-					
-					Tessera colpito = trovaTesseraColpita(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave());
-					 
-					if(colpito != null) {
+					if(controlloColpoIsDentroDallaNave(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave())) {
+						this.colpi.get(j).setRisultatoDado(adattaDadiAllArray(this.colpi.get(j)));
+						boolean sceltaFermareColpo = false;
 						
-						if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
+						Tessera colpito = trovaTesseraColpita(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave());
+						 
+						if(colpito != null) {
 							
-							if(elencoPedine.get(elenco).sceltaEpossibilitaUtilizzoScudi()) {
+							if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
 								
-								stampa.println("METEORITE FERMATO DALLO SCUDO");
-								sceltaFermareColpo = true;
+								if(elencoPedine.get(elenco).sceltaEpossibilitaUtilizzoScudi()) {
+									
+									stampa.println("METEORITE FERMATO DALLO SCUDO");
+									sceltaFermareColpo = true;
+								}
 							}
-						}
-						
-						if(!sceltaFermareColpo){
 							
-							try {
+							if(!sceltaFermareColpo){
+								
 								try {
-									elencoPedine.get(elenco).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
-								} catch (ErroreGiocatore e) {
+									try {
+										elencoPedine.get(elenco).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
+									} catch (ErroreGiocatore e) {
+										
+										e.printStackTrace();
+									}
+									
+								} catch (ErroreTessera e) {
 									
 									e.printStackTrace();
 								}
-								
-							} catch (ErroreTessera e) {
-								
-								e.printStackTrace();
 							}
+							
+						}else {
+							
+							stampa.println("COLPO HA MANCATO LA NAVE");
 						}
-						
 					}else {
-						
-						stampa.println("COLPO HA MANCATO LA NAVE");
-					}
+	            		stampa.println("COLPO HA MANCATO LA NAVE");
+	            	}
 					//TODO controllo integrita nave
 					j++;
 				}while(j < this.colpi.size()); 
@@ -288,7 +292,43 @@ public class Pirati extends Nemici {
 		
 		return elencoPedine;
 	}
+	private boolean controlloColpoIsDentroDallaNave(Meteorite meteorite, Nave n) {
+		
+		switch(meteorite.getDirezione()) {
+			case SUD , NORD ->{
+				
+				if(meteorite.getDado() < n.getConfineNaveX() && meteorite.getDado() > n.getInizioNaveX()) {
+					
+					return true;
+				}
+			}	
+			case OVEST, EST ->{
+				
+				if(meteorite.getDado() < n.getConfineNaveY() && meteorite.getDado() > n.getInizioNaveY()) {
+					
+					return true;
+				}
+			}
+			default->{}
+		}
+		
+		return false;
+	}
 	
+	private int adattaDadiAllArray(Meteorite meteorite) {
+		
+		switch(meteorite.getDirezione()) {
+		case SUD , NORD ->{
+
+			return meteorite.getDado() - 3;
+		}	
+		case OVEST, EST ->{
+			return meteorite.getDado() - 4;
+		}
+		default->{}
+		}
+		return 0;
+	}
 	/**
 	 * metodo che trova quale tessera viene colpita dal meteorite
 	 * 
