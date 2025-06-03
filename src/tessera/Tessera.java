@@ -20,7 +20,7 @@ public abstract class Tessera {
 	private static int currentSize = 0;
 	private final Posizione posizione;
 	private static LinkedHashSet<Tessera> set = new LinkedHashSet<Tessera>();
-	private static ArrayList<Tessera> listaA;
+	
 	private int id=0;
 	private static int contatore=0;
 	
@@ -75,7 +75,8 @@ public abstract class Tessera {
 	}
 
 	public static ArrayList<Tessera> getListaTessere() {
-		return listaA= new ArrayList<Tessera>(set);
+		ArrayList<Tessera> listaA = new ArrayList<Tessera>(set);
+		return listaA;
 
 	}
 	
@@ -86,7 +87,6 @@ public abstract class Tessera {
 	public static void removeDaListaTessere(Tessera t) {
 		if(set.contains(t)) {
 			set.remove(t);
-			listaA= new ArrayList<Tessera>(set);
 			setCurrentSize(-1);
 		}
 		
@@ -115,7 +115,6 @@ public abstract class Tessera {
 			throw new ErroreTessera("");
 		}else {
 			set.add(this);
-			listaA= new ArrayList<Tessera>(set);
 
 			setCurrentSize(+1);
 		}
