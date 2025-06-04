@@ -44,7 +44,7 @@ public abstract class Nave {
     private int energiaResidua;
     private int numeroConnettoriScoperti;
     private ComunicazioneConUtente stampa;
-    private ArrayList<ArrayList<Tessera>> parteRestante;
+    private ArrayList<ArrayList<Tessera>> parteRestante = new ArrayList<ArrayList<Tessera>>();
     private int inizioNaveO;
     private int fineNaveO;
     private int inizioNaveV;
