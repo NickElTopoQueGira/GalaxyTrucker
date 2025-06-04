@@ -844,6 +844,20 @@ public abstract class Nave {
 		return false;
     }
     /**
+     * metodo che controlla se sono presenti stive non vuote nella nave
+     * 
+     * @return: if (numero stive con merce > 0){ true
+     * 				}else{ false }
+     */
+    public boolean controlloPresenzaStiveNonVuote() {
+    	
+		if(this.trova(0, 2).size() > 0) {
+
+			return true;
+		}
+		return false;
+    }
+    /**
      * metodo che controlla se sono presenti stive nella nave
      * 
      * @return: if (numero stive > 0){ true

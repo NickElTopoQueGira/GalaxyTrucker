@@ -106,11 +106,10 @@ public class Pedina{
     		elimEquipaggio--;
     	}
     }
-    
     public void selezionaMerceDaEliminare(int elimMerce) {
     	
     	int caso;
-    	while(elimMerce > 0 && this.giocatore.getNave().getEquipaggio() > 0) {
+    	while(elimMerce > 0 && this.giocatore.getNave().controlloPresenzaStiveNonVuote()) {
     		caso=0;
     		ArrayList<Coordinate> crd;
     		

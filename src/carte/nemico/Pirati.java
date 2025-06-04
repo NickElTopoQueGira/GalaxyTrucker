@@ -191,7 +191,7 @@ public class Pirati extends Nemici {
 				"\nGuadagno:"+this.guadagno+
 				"\nGiorni Penalità:"+this.penalitagiorni+"\n";
 		for(int j=0; j<this.colpi.size(); j++) {
-			temp=temp+this.colpi.get(j).getType()+" | " + this.colpi.get(j).getDirezione();
+			temp=temp+" -"+this.colpi.get(j).getType()+" | " + this.colpi.get(j).getDirezione()+" \n";
 		}
 		
 		return temp;
@@ -237,10 +237,13 @@ public class Pirati extends Nemici {
 				
 				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
 						+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" VIENE SCONFITTA DALLA NAVE NEMICA "
-								+ "E SPARA VARI COLPI ALLA NAVE");
+								+ "E SPARA VARI COLPI ALLA NAVE\n");
 				
 				int j = 0;
 				do {
+					
+					stampa.println("-il colpo arriva da -"+this.colpi.get(j).getDirezione()+", "+this.colpi.get(j).getDado()+"-");
+					
 					if(controlloColpoIsDentroDallaNave(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave())) {
 						this.colpi.get(j).setRisultatoDado(adattaDadiAllArray(this.colpi.get(j)));
 						boolean sceltaFermareColpo = false;

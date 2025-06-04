@@ -35,11 +35,10 @@ public class Tabellone{
 
 	public void gioca(){		
 		int i=0;
-		int numeroCarteRimaste = mazzoCarte.size();
-		do{
+		while (i < mazzoCarte.size() && !elencoPedine.isEmpty()) {
 			//----estrazione carta--------
 
-			cns.println("\n------------------carte rimaste :"+numeroCarteRimaste+"------------------\n");
+			cns.println("\n------------------carte rimaste :"+(mazzoCarte.size() - i)+"------------------\n");
 			cns.println(mazzoCarte.get(i).toString());
 			mazzoCarte.get(i).eseguiCarta(elencoPedine);
 			
@@ -58,6 +57,7 @@ public class Tabellone{
 					this.elencoNaviAbbandonate.add(elencoPedine.get(j));
 					elencoPedine.remove(j);
 					j--;
+					continue;
 				}
 				
 				//4) Richiesta abbandono nave
@@ -69,8 +69,7 @@ public class Tabellone{
 				}
 			}
 			i++;
-			numeroCarteRimaste--;
-		}while(numeroCarteRimaste > 0 && elencoPedine.isEmpty());
+		}
 	}
 	
 	/**
