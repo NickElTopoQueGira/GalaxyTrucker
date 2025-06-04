@@ -26,6 +26,7 @@ public class StazioneAbbandonata extends Carta {
 
         super(lvl, TipoCarta.STAZIONE_ABBANDONATA);
         merci = new ArrayList<>();
+        stampa = ComunicazioneConUtente.getIstanza();
         GeneraValori();
     }
 

@@ -207,13 +207,13 @@ public class ZonaGuerra extends Carta {
                 switch (valori[i][1]) {
                 
 	                case "PERDITA_EQUIPAGGIO" -> {
-	                	temp = temp + " -"+ this.equipaggiPersi + " componenti dell'equipaggio\n";
+	                	temp = temp + " \t-"+ this.equipaggiPersi + " componenti dell'equipaggio\n";
 	                }
 	                case "PERDITA_GIORNI" -> {
-	                	temp = temp + " -"+ this.giorniPersi + " giorni di viaggio \n";
+	                	temp = temp + " \t-"+ this.giorniPersi + " giorni di viaggio \n";
 	                }
 	                case "PERDITA_MERCE" -> {
-	                	temp = temp + " -"+ this.merciPersi + " merci della nave \n";
+	                	temp = temp + " \t-"+ this.merciPersi + " merci della nave \n";
 	                }
                 }
             }else {

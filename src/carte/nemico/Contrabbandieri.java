@@ -207,10 +207,10 @@ public class Contrabbandieri extends Nemici {
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
 		boolean isCartaCompletata = false;
-		int elenco = -1;
+		int elenco = 0;
 		
-		do {
-			elenco++;
+		while(!isCartaCompletata || elenco<elencoPedine.size()) {
+			
 			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				
@@ -243,9 +243,8 @@ public class Contrabbandieri extends Nemici {
 				
 				elencoPedine.get(elenco).selezionaMerceDaEliminare(this.penalitamerci);
 			}
-			
-			
-		}while(!isCartaCompletata || elenco<elencoPedine.size());
+			elenco++;
+		}
 		
 		return elencoPedine;
 	}
