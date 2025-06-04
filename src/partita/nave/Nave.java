@@ -36,12 +36,12 @@ import tessera.motore.TipoMotore;
 
 public abstract class Nave {
     protected ArrayList<ArrayList<Tessera>> nave;
-    private ArrayList<Tessera> componentiPrenotati;
+    private final ArrayList<Tessera> componentiPrenotati;
     protected Coordinate centro;
-    private Colori coloreNave;
+    private final Colori coloreNave;
     private int energiaResidua;
     private int numeroConnettoriScoperti;
-    private ComunicazioneConUtente stampa;
+    private final ComunicazioneConUtente stampa;
     private ArrayList<ArrayList<Tessera>> parteRestante = new ArrayList<ArrayList<Tessera>>();
     private int inizioNaveO;
     private int fineNaveO;
@@ -60,12 +60,11 @@ public abstract class Nave {
     public abstract int getConfineNaveX();
     public abstract int getConfineNaveY();
 	
-	
 
     /**
      * Costruttore della Nave
-     * (fa tante cose belle) :D
-     * @param coloreNave
+     * (fa tante cose belle):D
+     * @param coloreNave Colori
      */
     public Nave(Colori coloreNave){
         stampa= ComunicazioneConUtente.getIstanza();
@@ -94,11 +93,10 @@ public abstract class Nave {
     /**
      * Metodo per prenotare le tessere da mettere.
      * Si possono prenotare al massimo 2 tessere
-     * 
      * Viene generato un'errore se si vogliono prenotare piu' di 2 tessere
      * 
-     * @param tessera
-     * @throws ErroreTessera
+     * @param t Tessera
+     * @throws ErroreTessera limite massimo di tessere raggiunto
      */
     public void prenotaTessera(Tessera t) throws ErroreTessera{
         if(this.componentiPrenotati.size() >= 2){
@@ -111,22 +109,22 @@ public abstract class Nave {
     /**
      * Metodo per rimuovere una tessera dalle prenotate
      * 
-     * @param indice di posizione della tessera che si vuole usare
+     * @param index di posizione della tessera che si vuole usare
      * @return tessera selezionata
      * @throws ErroreTessera se si immette un valore non esistente
      */
     public Tessera togliTesseraPrenotata(int index) throws ErroreTessera{
-        Tessera tessaraRimossa = null;
+        Tessera tesseraRimossa = null;
         try{
             if(this.componentiPrenotati.contains(this.componentiPrenotati.get(index))){
-                tessaraRimossa = this.componentiPrenotati.get(index);
+                tesseraRimossa = this.componentiPrenotati.get(index);
                 this.componentiPrenotati.remove(index);
             }    
         }catch(IndexOutOfBoundsException ioobe){
             throw new ErroreTessera("Tessera specificata non presente!"); 
         }
 
-        return tessaraRimossa;
+        return tesseraRimossa;
     }
 
     /**
@@ -162,10 +160,10 @@ public abstract class Nave {
     /**
      * Metodo per inserire una tessera nella nave durante la fase di creazione della nave
      * 
-     * @param coordinata
-     * @param tessera
-     * @throws ErroreTessera
-     * @throws ErroreCoordinate
+     * @param coordinata Coordinate
+     * @param tessera Tessera
+     * @throws ErroreTessera  errore di posizione della tessera
+     * @throws ErroreCoordinate coordinate immesse non valide
      */
     public void inserisciTessera(Coordinate coordinata, Tessera tessera) throws ErroreTessera, ErroreCoordinate{
     	
@@ -179,16 +177,16 @@ public abstract class Nave {
             }
  
             // verifica se il pezzo lo si vuole mettere in una posizione non valida
-            // RICORDA: coodinate lavorano al contrario nelle matrici
+            // RICORDA: coordinate lavorano al contrario nelle matrici
             if(0 == this.getMATRIX()[coordinata.getY()][coordinata.getX()]){
             	stampa.println("{debug} tessera inserita piazzata fuori dalla nave (Nave r.178)");
                 throw new ErroreTessera("Non puoi posizionare il pezzo in questa posizione");
             }
 
-            /**
+            /*
              * Controlli speciali sulle tessere del tipo:
              * - Cannone: non puo' avere pezzi subito davanti
-             * - Motore : non puo' avere pezzi subito dietro
+             * - Motore: non puo' avere pezzi subito dietro
              */
             if(tessera.getTipoTessera() == TipoTessera.CANNONE){
                 if(false == verificaInserimentoCannone(coordinata, tessera)){
@@ -222,12 +220,11 @@ public abstract class Nave {
     /**
      * Metodo per controllare se il modulo, nel caso sia un cannone, si possa mettere
      * nella posizione indicata.
-     * 
-     * I cannoni possono esssere messi in una cella se e solo se la cella nella direzione
+     * I cannoni possono essere messi in una cella se e solo se la cella nella direzione
      * in cui punta il cannone e' libera
      * 
-     * @param coordinate
-     * @param tessera
+     * @param coordinate Coordinate
+     * @param tessera Tessera
      * @return vero -> il cannone puo' essere posizionato |
      *         falso -> il cannone non puo' essere posizionato
      */
@@ -260,7 +257,7 @@ public abstract class Nave {
                 }
             }
         } catch (IndexOutOfBoundsException iobx) {
-            // se viene eseguita quesa e' perche' sto facendo un controllo ai margini della nave
+            // se viene eseguita questa e' perche' sto facendo un controllo ai margini della nave
             // quindi di default, posso mettere il pezzo
             return true;
         }
@@ -270,11 +267,10 @@ public abstract class Nave {
     /**
      * Metodo per controllare se il modulo, nel caso sia un motore, si possa mettere
      * nella posizione indicata.
+     * I motori possono essere messi in una cella se e solo se la cella subito sotto e' libera
      * 
-     * I motori possono esssere messi in una cella se e solo se la cella subito sotto e' libera
-     * 
-     * @param coordinate
-     * @param tessera
+     * @param coordinate Coordinate
+     * @param tessera Tessera
      * @return vero -> il motore puo' essere posizionato |
      *         falso -> il motore non puo' essere posizionato
      */
@@ -317,7 +313,7 @@ public abstract class Nave {
         
         this.nave.get(coordinate.getY()).set(coordinate.getX(), vuota);
         
-        //controlla se esiste ancora la nave ed in caso chiama getTroncamento
+        //controlla se esiste ancora la nave e in caso chiama getTroncamento
         if(this.controllaEsistenzaNave()) {
         	this.nave = this.getTroncamentoNave();
         }else {
@@ -327,7 +323,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che crea una lista di tronconiNave e fa scegliere all'utente quale tenere
+     * Metodo che crea una lista di tronconiNave e fa scegliere all'utente quale tenere
      * @return troncone di nave scelta
      */
     private ArrayList<ArrayList<Tessera>> getTroncamentoNave() {
@@ -368,10 +364,10 @@ public abstract class Nave {
 	}
     
 	/**
-     * distruzione nave. distrugge le tessere non collegate al centroRamificazione e le rimpiazza
-     * con oggetti TesseraVuota in nave. se centroRamificazione=centro genera anche ParteRestante 
-	 * @param isCentro 
-	 * @param centroRamificazione
+     * Metodo di distruzione nave. Distrugge le tessere non collegate al centroRamificazione e le rimpiazza
+     * con oggetti TesseraVuota in nave. Se centroRamificazione=centro genera anche ParteRestante
+	 * @param isCentro boolean
+	 * @param centroRamificazione Coordinate
      * @return nave
      */
     public ArrayList<ArrayList<Tessera>> distruggiNave(Coordinate centroRamificazione, boolean isCentro){
@@ -468,16 +464,15 @@ public abstract class Nave {
     }
     
     /**
-     * metodo per la scelta e visualizzazione dei troncamenti
-     * @param opzioni
+     * Metodo per la scelta e visualizzazione dei troncamenti
+     * @param opzioni Object[]
      * @return intero della scelta
      */
     private int scegliTroncamenti(Object[] opzioni) {
 		ArrayList<String> temp = new ArrayList<>();
-		int scelta=0;
+		int scelta;
 		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
-		for(int i=0; i< opzioni.length; i++) {
-			
+		for(int i=0; i< opzioni.length; i++){
 			temp.add(opzioni[i].toString());
 		}
 		stampa.println(stampa.visualizzaElenco(temp));
@@ -492,7 +487,7 @@ public abstract class Nave {
 	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
      * 
-     * @param coordinate
+     * @param coordinate Coordinate
      * @return vero -> le coordinate sono accettabili |
      *         falso -> le coordinate non sono accettabili
      */
@@ -541,11 +536,10 @@ public abstract class Nave {
   
     /**
      * Metodo per il controllo sui collegamenti
-     * 
      *  TODO: da ripensare
      * 
-     * @param tessera
-     * @param coordinate
+     * @param tessera Tessera
+     * @param coordinate Coordinate
      * @return true -> il pezzo lo si puo' collegare senza problemi | 
      *         false -> il pezzo non lo si puo' collegare
      */
@@ -591,8 +585,8 @@ public abstract class Nave {
     /**
      * Metodo per controllare se il pezzo lo si pu' collegare a SX
      * 
-     * @param tessera
-     * @param coordinate
+     * @param tessera Tessera
+     * @param coordinate Coordinate
      * @return si, no
      */
     private int controllaCollegamentoSX(Tessera tessera, Coordinate coordinate){
@@ -618,7 +612,7 @@ public abstract class Nave {
             return 1;
         }
 
-        // controllo sei i lati sono compatibil
+        // controllo sei i lati sono compatibili
         if((latiTesseraNave.getRight() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO)){
                 return 1;
@@ -637,8 +631,8 @@ public abstract class Nave {
     /**
      * Metodo per controllare se il pezzo lo si pu' collegare a DX
      * 
-     * @param tessera
-     * @param coordinate
+     * @param tessera Tessera
+     * @param coordinate Coordinate
      * @return si, no
      */
     private int controllaCollegamentoDX(Tessera tessera, Coordinate coordinate){
@@ -664,7 +658,7 @@ public abstract class Nave {
             return 1;
         }
 
-        // controllo sei i lati sono compatibil
+        // controllo sei i lati sono compatibili
         if((latiTesseraNave.getLeft() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO)){
                 return 1;
@@ -681,8 +675,8 @@ public abstract class Nave {
     /**
      * Metodo per controllare se il pezzo lo si pu' collegare SOPRA
      * 
-     * @param tessera
-     * @param coordinate
+     * @param tessera Tessera
+     * @param coordinate Coordinate
      * @return si, no
      */
     private int controllaCollegamentoUP(Tessera tessera, Coordinate coordinate){
@@ -708,7 +702,7 @@ public abstract class Nave {
             return 1;
         }
 
-        // controllo sei il ati sono compatibil
+        // controllo sei il ati sono compatibili
         if((latiTesseraNave.getDown() == TipoConnettoriTessera.TRIPLO) && 
                 (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO)){
                     return 1;
@@ -725,8 +719,8 @@ public abstract class Nave {
     /**
      * Metodo per controllare se il pezzo lo si pu' collegare a SOTTO
      * 
-     * @param tessera
-     * @param coordinate
+     * @param tessera Tessera
+     * @param coordinate Coordinate
      * @return si, no
      */
     private int controllaCollegamentoDW(Tessera tessera, Coordinate coordinate){
@@ -751,7 +745,7 @@ public abstract class Nave {
         if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown() && latiTesseraNave.getUp()!=TipoConnettoriTessera.NULLO ){
             return 1;
         }
-        // controllo sei il lati sono compatibil
+        // controllo sei il lati sono compatibili
         if((latiTesseraNave.getUp() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO)){
                 return 1;
@@ -774,54 +768,39 @@ public abstract class Nave {
     public void connettoriScoperti(){ 
         for(ArrayList<Tessera> colonna : this.nave){
             for(Tessera tessera : colonna){
-                this.numeroConnettoriScoperti += conteggioConettoriEsposti(tessera);        
+                this.numeroConnettoriScoperti += conteggioConnettoriEsposti(tessera);
             }
         }
     }
     
     /**
-     * metodo che controlla se ci sono ancora presenti cosmonauti
+     * Metodo che controlla se ci sono ancora presenti cosmonauti
      * sulla nave
      * 
-     * @return: if (cosmonauti > 0){ true
+     * @return if (cosmonauti > 0){ true
      * 				}else{ false }
      */
     public boolean controlloSonoPresentiCosmonauti() { // TODO da chiamare ogni volta che viene estratta una carta
-    	
-    	if(this.getCosmonauti() > 0) {
-    		
-    		return true;
-    	}else {
-    		
-    		return false;
-    	}
+        return (this.getCosmonauti() > 0);
     }
     
     /**
-     * metodo che controlla se la potenza motore è  superiore a 0
+     * Metodo che controlla se la potenza motore è  superiore a 0
      * 
-     * @return: if (potenza motore > 0){ true
+     * @return if (potenza motore > 0){ true
      * 				}else{ false }
      */
     public boolean controlloPotenzaMotore() { //TODO da chiamare prima che venga estratta la carta "spazio aperto"
-    	
-    	if(this.getPotenzaMotori() > 0) {
-    		
-    		return true;
-    	}else {
-    		
-    		return false;
-    	}
+    	return (this.getPotenzaMotori() > 0);
     }
     
     /**
-     * metodo che controlla se sono presenti stive nella nave
+     * Metodo che controlla se sono presenti stive nella nave
      * 
-     * @return: if (numero stive > 0){ true
+     * @return if (numero stive > 0){ true
      * 				}else{ false }
      */
-    public boolean controlloPresenzaStive() {
-    	
+    public boolean controlloPresenzaStive(){
 		for(int x=0; x<this.nave.size(); x++) {
 			
 			for(int y=0; y<this.nave.get(x).size(); y++) {
@@ -838,9 +817,9 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che controlla se sono presenti stive non vuote nella nave
+     * Metodo che controlla se sono presenti stive non vuote nella nave
      * 
-     * @return: if (numero stive con merce > 0){ true
+     * @return if (numero stive con merce > 0){ true
      * 				}else{ false }
      */
     public boolean controlloPresenzaStiveNonVuote() {
@@ -853,9 +832,9 @@ public abstract class Nave {
     }
    
     /**
-     * metodo che controlla se sono presenti stive nella nave
+     * Metodo che controlla se sono presenti stive nella nave
      * 
-     * @return: if (numero stive > 0){ true
+     * @return if (numero stive > 0){ true
      * 				}else{ false }
      */
     public boolean controlloPresenzaModuli() {
@@ -880,9 +859,9 @@ public abstract class Nave {
     /**
      * Metodo per controllare i connettori di una tessera
      * 
-     * @param dir
-     * @param tessera
-     * @return
+     * @param dir TipoLato
+     * @param tessera Tessera
+     * @return true, false
      */
     private boolean controlloConnettore(TipoLato dir, Tessera tessera) {
     	
@@ -931,10 +910,10 @@ public abstract class Nave {
      * Verifica se la tessera e' collegata a qualche cosa
      * Vengono conteggiati tutti i lati che non hanno connessione
      * 
-     * @param tessera
-     * @return conteggio lati scopeti per tessera
+     * @param tessera Tessera
+     * @return conteggio lati scoperti per tessera
      */
-    private int conteggioConettoriEsposti(Tessera tessera) {
+    private int conteggioConnettoriEsposti(Tessera tessera) {
     	int conteggio = 0;
     	
     	if(controlloConnettore(TipoLato.UP, tessera)) {
@@ -961,9 +940,7 @@ public abstract class Nave {
      * dalle batterie sulla nave.
      * 
      * (da eseguire solo all'inizio della 
-     * partita, indifferentemente dal livello)
-     * 
-     * @param tessera
+     * partita, indifferentemente dal livello
      * @return totale energia nave
      */
     public int caloclaEnergia(){
@@ -1034,14 +1011,14 @@ public abstract class Nave {
     }
 
     /**
-     * Metodo per per inserire la merce nella stiva della nave
+     * Metodo per inserire la merce nella stiva della nave
      * passando l'oggetto merce<
      * 
-     * @param coordinate
-     * @param merceDaInserire
-     * @throws ErroreCoordinate
-     * @throws ErroreRisorse
-     * @throws ErroreTessera
+     * @param coordinate Coordinate
+     * @param merceDaInserire Merce
+     * @throws ErroreCoordinate coordinate non valide
+     * @throws ErroreRisorse risorse non valide
+     * @throws ErroreTessera tessera non del giusto tipo
      */
     public void inserisciMerce(Coordinate coordinate, Merce merceDaInserire)    
         throws ErroreCoordinate, ErroreRisorse, ErroreTessera{
@@ -1065,7 +1042,6 @@ public abstract class Nave {
      * e l'oggetto merce
      * 
      * @param coordinate
-     * @param tipoMerce
      * @throws ErroreCoordinate
      * @throws ErroreTessera
      * @throws ErroreRisorse
@@ -1168,9 +1144,9 @@ public abstract class Nave {
             }
         }
         /*
-        StringBuilder naveDi = new StringBuilder();
-        naveDi.append("LA NAVE APPARTIENE A"+nome);
-        output.add(naveDi.toString());
+         * StringBuilder naveDi = new StringBuilder();
+         * naveDi.append("LA NAVE APPARTIENE A"+nome);
+         * output.add(naveDi.toString());
         */
         StringBuilder numeri = new StringBuilder();
         output.add(numeri.toString());
@@ -1251,7 +1227,7 @@ public abstract class Nave {
 
     
     /**
-     * stampa legenda combinata con colonne allineate
+     * Metodo per generare la legenda combinata con colonne allineate
      * @return stringa con la legenda formattata in due colonne
      */
     private String legenda() {
@@ -1276,7 +1252,8 @@ public abstract class Nave {
     }
 
     /**
-     * allunga l'array con stringhe vuote se necessario
+     * Metodo per allungare l array con stringhe vuote se necessario
+     * @return stringhe vuote String[]
      */
     private String[] modificaSize(String[] dati, int dimMax) {
         String[] nuoviDati = new String[dimMax];
@@ -1287,29 +1264,26 @@ public abstract class Nave {
     }
 
     /**
-     * restituisce la legenda dei connettori
+     * Metodo che restituisce la legenda dei connettori
+     * @return legenda connettori String
      */
     public String legendaConnettori() {
-        String temp=
-        	   "Legenda Connettori:,"+
+        return("Legenda Connettori:,"+
                "-) # connettore universale,"+
                "-) | connettore singolo,"+
-               "-) v connettore doppio";
-        return temp;
+               "-) v connettore doppio");
     }
     
     /**
-     * restituisce la legenda dei connettori
+     * Metodo per visualizzare la legenda dei connettori
+     * @return legenda connettori String
      */
     public String legendaSimboli() {
-        String temp= 
-        	   "Legenda Simboli:,"+
+        return ("Legenda Simboli:,"+
                "-) [] merce," +
                "-) \033[0;31m!\033[0m  canna del cannone,"+
                "-) \033[0;31m§\033[0m  lato propulsore del motore,"+
-               "-) @  lato scudo";
-        
-        return temp;
+               "-) @  lato scudo");
     }
     
 
@@ -1351,9 +1325,9 @@ public abstract class Nave {
 	}
     
     /**
-     * Metodo che restituisce solo il numero di alini viola
+     * Metodo che restituisce solo il numero di alieni viola
      * 
-     * @return numero di alini viola attualmente presenti sulla nave
+     * @return numero di alieni viola attualmente presenti sulla nave
      */
     public int getAlieniViola() {
     	int alieniViola = 0;
@@ -1368,9 +1342,9 @@ public abstract class Nave {
     }
 
     /**
-     * Metodo che restituisce solo il numero di alini marroni
+     * Metodo che restituisce solo il numero di alieni marroni
      * 
-     * @return numero di alini marroni attualmente presenti sulla nave
+     * @return numero di alieni marroni attualmente presenti sulla nave
      */
     public int getAlieniMarrone() {
     	int alieniMarroni = 0;
@@ -1408,7 +1382,7 @@ public abstract class Nave {
      * Metodo per aggiungere solo i cosmonauti alla nave
      * di default ne vengono messi 2 per ogni modulo 
      * In questo metodo NON si tiene conto dell'esistenza degli alieni
-     * NON e' questo metodo ad occuparsene. CHIARO!
+     * NON e' questo metodo a occuparsene. CHIARO!
      */
     public void setCosmonauti(){
         for(ArrayList<Tessera> riga : this.nave){
@@ -1421,7 +1395,7 @@ public abstract class Nave {
     }
 
     /**
-     * Metodo per aggiungere gli alini marroni alla nave
+     * Metodo per aggiungere gli alieni marroni alla nave
      * @param numero
      */
     public void setAlieniMarroni(int numero){
@@ -1450,7 +1424,7 @@ public abstract class Nave {
     }
 
     /**
-     * Metodo per aggiungere gli alini viola alla nave
+     * Metodo per aggiungere gli alieni viola alla nave
      * @param numero
      */
     public void setAlieniViola(int numero){
@@ -1522,7 +1496,7 @@ public abstract class Nave {
      * 
      * Questo metodo serve nel validare il modulo alieno
      * @param t Tessera
-     * @return abi Abitabile -> classe fantasma ad uso interno per gestire l'abitabilita' delle tessere
+     * @return abi Abitabile -> classe fantasma a uso interno per gestire l'abitabilita' delle tessere
      */
     private Abitabile verificaValiditaModulo(Tessera t){
         Abitabile abi = new Abitabile();
@@ -1536,7 +1510,7 @@ public abstract class Nave {
             if(tesseraAdiacente.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
                 abi.setAbitabile(true);
                 abi.setCoordinateModuloPasseggeri(new Coordinate(c.getX() + 1, c.getY()));
-                abi.setCoorinateTessera(t.getCoordinate());
+                abi.setCoordinateTessera(t.getCoordinate());
                 return abi;
             }
         }
@@ -1547,7 +1521,7 @@ public abstract class Nave {
             if(tesseraAdiacente.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
                 abi.setAbitabile(true);
                 abi.setCoordinateModuloPasseggeri(new Coordinate(c.getX() + 1, c.getY()));
-                abi.setCoorinateTessera(t.getCoordinate());
+                abi.setCoordinateTessera(t.getCoordinate());
                 return abi;
             }
         }
@@ -1558,7 +1532,7 @@ public abstract class Nave {
             if(tesseraAdiacente.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
                 abi.setAbitabile(true);
                 abi.setCoordinateModuloPasseggeri(new Coordinate(c.getX() + 1, c.getY()));
-                abi.setCoorinateTessera(t.getCoordinate());
+                abi.setCoordinateTessera(t.getCoordinate());
                 return abi;
             }
         }
@@ -1569,7 +1543,7 @@ public abstract class Nave {
             if(tesseraAdiacente.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
                 abi.setAbitabile(true);
                 abi.setCoordinateModuloPasseggeri(new Coordinate(c.getX() + 1, c.getY()));
-                abi.setCoorinateTessera(t.getCoordinate());
+                abi.setCoordinateTessera(t.getCoordinate());
                 return abi;
             }
         }
@@ -1578,31 +1552,31 @@ public abstract class Nave {
     }
 
     /**
-     * Ghost class ad uso interno per gestire l'abitabilita' delle tessere
+     * Ghost class a uso interno per gestire l' abitabilita' delle tessere
      */
     protected class Abitabile{
         private boolean abitabile; 
-        private Coordinate coordinateTessea; 
+        private Coordinate coordinateTessera;
         private Coordinate coordinateModuloPasseggeri; 
 
         public Abitabile(){
             this.abitabile = false;
-            this.coordinateTessea = null; 
+            this.coordinateTessera = null;
             this.coordinateModuloPasseggeri = null; 
         }
 
         public void setAbitabile(boolean status){ this.abitabile = status; }
-        public void setCoorinateTessera(Coordinate coordinateTessera){ this.coordinateTessea = coordinateTessera; }
+        public void setCoordinateTessera(Coordinate coordinateTessera){ this.coordinateTessera = coordinateTessera; }
         public void setCoordinateModuloPasseggeri(Coordinate coordinateModuloPasseggeri){ this.coordinateModuloPasseggeri = coordinateModuloPasseggeri;}
 
         public boolean getAbitabile(){ return this.abitabile; }
-        public Coordinate getCoordinateTessera(){ return this.coordinateTessea; }
+        public Coordinate getCoordinateTessera(){ return this.coordinateTessera; }
         public Coordinate getCoordinateModuloPasseggeri(){ return this.coordinateModuloPasseggeri; }
     }
 
     /**
      * Metodo che ritorna la potenza dei motori
-     * Nel conteggio e' gia' presente il bust portato dagli alini
+     * Nel conteggio e' gia' presente il bust portato dagli alieni
      * 
      * @return potenza motori
      */
@@ -1646,7 +1620,7 @@ public abstract class Nave {
 	
     /**
      * Metodo che ritorna la potenza dei motori
-     * Nel conteggio e' gia' presente il bust portato dagli alini
+     * Nel conteggio e' gia' presente il bust portato dagli alieni
      * 
      * @return potenza cannoni
      */
@@ -1799,7 +1773,7 @@ public abstract class Nave {
 
 		    	caso++;
    	
-		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	stampa.println(caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
 		    	
 		    	crd.add(new Coordinate(x, y));
 		    }
