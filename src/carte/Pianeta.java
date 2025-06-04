@@ -249,9 +249,8 @@ public class Pianeta extends Carta {
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
-		int elenco = -1;
-		do {
-			elenco++;
+		int elenco = 0;
+		while(elenco<elencoPedine.size() && this.pianeti != null) {
 			
 			stampa.println(elencoPedine.get(elenco).getGiocatore().getNome()+"sceglierà il pianeta in cui atterrare \n");
 			
@@ -265,8 +264,8 @@ public class Pianeta extends Carta {
 				
 				this.pianeti.remove(scelta-1);
 			}
-			
-		}while(elenco<elencoPedine.size() && this.pianeti != null);
+			elenco++;
+		}
 		
 		return elencoPedine;
 	}
@@ -280,25 +279,25 @@ public class Pianeta extends Carta {
 	private int sceltaPianeta(Pedina pedina) {
 		
 		int sceltaPianeta = 0;
-		
-		for(int i=0; i<this.pianeti.size(); i++) {
-			
-			stampa.print("PIANETA "+(i+1)+") ");
-			
-			for(int j=0; j<this.pianeti.get(i).size(); j++) {
-				
-				stampa.print("{"+this.pianeti.get(i).get(j).getTipoMerce()+"} ");
-			}
-			stampa.println("");
-		}
 		do {
+			for(int i=0; i<this.pianeti.size(); i++) {
+				
+				stampa.print("PIANETA "+(i+1)+") ");
+				
+				for(int j=0; j<this.pianeti.get(i).size(); j++) {
+					
+					stampa.print("{"+this.pianeti.get(i).get(j).getTipoMerce()+"} ");
+				}
+				stampa.println("");
+			}
+			
 			stampa.println("Inserire il numero del pianeta per scegliere di atterrarci");
 			stampa.println("In caso non si volesse scegliere nessuna dei pianeti inserire -> 0");
 			
 			do {
 				sceltaPianeta = Integer.parseInt(stampa.consoleRead());
 				
-				if(sceltaPianeta < 0 || sceltaPianeta < this.pianeti.size()+1) {
+				if(sceltaPianeta < 0 || sceltaPianeta > this.pianeti.size()+1) {
 					stampa.println("VALORE IMMESSO NON VALIDO");
 					
 				} else if (sceltaPianeta == 0){

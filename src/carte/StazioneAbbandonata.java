@@ -184,11 +184,10 @@ public class StazioneAbbandonata extends Carta {
     public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 
         boolean isCartaCompletata = false;
-        int elenco = -1;
+        int elenco = 0;
 
-        do {
-            elenco++;
-
+        while (!isCartaCompletata && elenco < elencoPedine.size()){
+            
             if (elencoPedine.get(elenco).getGiocatore().getNave().getEquipaggio() >= this.giocatorinecessari) {
 
                 if (elencoPedine.get(elenco).sceltaScambioMerciConGiorni(penalitagiorni, merci)) {
@@ -208,8 +207,8 @@ public class StazioneAbbandonata extends Carta {
             }else {
             	stampa.println("La nave di: "+elencoPedine.get(elenco).getGiocatore().getNome()+" non ha abbastanza equipaggio per completare la carta");
             }
-            
-        } while (!isCartaCompletata || elenco < elencoPedine.size());
+            elenco++;
+        }
 
         return elencoPedine;
     }

@@ -1,6 +1,7 @@
 package carte.eventoSpeciale;
 
 import carte.*;
+import carte.meteore.Dado;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
@@ -12,6 +13,7 @@ import tessera.TipoTessera;
 public class Sabotaggio extends EventiSpeciali {
 
     private ComunicazioneConUtente cns;
+    private Dado dado;
 
     /**
      * Costruttore Sabotaggio super -> gli passiamo il lvl della carta e il tipo
@@ -22,21 +24,12 @@ public class Sabotaggio extends EventiSpeciali {
         super(lvl, TipoCarta.SABOTAGGIO);
     }
 
-    private int RisultatiDadi() {
-        Random random = new Random();
-
-        int d1 = random.nextInt(6) + 1;
-        int d2 = random.nextInt(6) + 1;
-
-        return d1 + d2;
-    }
-
     @Override
     public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 
         if (elencoPedine.size() <= 1) {
 
-            cns.println("Il giocatore è da solo, la carta Zona di guerra non viene eseguita");
+            cns.println("Il giocatore è da solo, la carta sabotaggio non viene eseguita");
 
         } else {
 
@@ -63,10 +56,12 @@ public class Sabotaggio extends EventiSpeciali {
             do {
                 contatore++;
 
-                riga = RisultatiDadi();
-                colonna = RisultatiDadi();
+                riga = dado.dadiDoppi();
+                colonna = dado.dadiDoppi();
+                
+                cns.println("viene sabotata la nave di:"+ elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNome() +" in posizione ("+riga+", "+colonna+")");
 
-                if (elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().getPlanciaDellaNave().get(colonna).get(riga).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
+                if (elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().getPlanciaDellaNave().get(riga).get(colonna).getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
 
                     try {
                         try {
@@ -81,7 +76,10 @@ public class Sabotaggio extends EventiSpeciali {
 
                         err.printStackTrace();
                     }
+                }else {
+                	cns.println("non è stata sabotata nessuna tessera, tentativi rimasti: "+(contatore-1));
                 }
+                
             } while (contatore < 3 || !isUnitaAbitativaColpita);
         }
         return elencoPedine;

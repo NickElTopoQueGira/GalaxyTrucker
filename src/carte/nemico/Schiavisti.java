@@ -159,7 +159,7 @@ public class Schiavisti extends Nemici {
 		boolean isCartaCompletata = false;
 		int elenco = 0;
 		
-		while(!isCartaCompletata || elenco<elencoPedine.size()) {
+		while(!isCartaCompletata && elenco<elencoPedine.size()) {
 			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				

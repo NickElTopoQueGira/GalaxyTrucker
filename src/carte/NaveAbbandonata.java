@@ -158,8 +158,8 @@ public class NaveAbbandonata extends Carta {
 		String temp="";
 		temp=temp+"\nLivello carta:"+this.lvl+
 				"\nTipo carta:"+this.tipo+
-				"\nGiorni Penalità:"+this.giornipersi+"\n"+
-				"\nEquipaggio Penalità:"+this.perditaequipaggio+"\n"+
+				"\nGiorni Penalità:"+this.giornipersi+
+				"\nEquipaggio Penalità:"+this.perditaequipaggio+
 				"\nGuadagno:"+this.guadagno+"\n"; //guadagno, giornipersi, perditaequipaggio;
 
 		

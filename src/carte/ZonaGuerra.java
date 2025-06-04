@@ -200,20 +200,20 @@ public class ZonaGuerra extends Carta {
                 + "\nTipo carta:" + this.tipo
                 + "\n - SFIDE -   - PENALITA' - \n" ;
         for (int i = 0; i < 3; i++) {
-            temp = temp + this.valori[i][0] + " - "+ this.valori[i][1];
+            temp = temp + this.valori[i][0] + " \t- "+ this.valori[i][1];
             
             if(i != 2) {
             	
                 switch (valori[i][1]) {
                 
 	                case "PERDITA_EQUIPAGGIO" -> {
-	                	temp = temp + " \t-"+ this.equipaggiPersi + " componenti dell'equipaggio\n";
+	                	temp = temp + " -"+ this.equipaggiPersi + " componenti dell'equipaggio\n";
 	                }
 	                case "PERDITA_GIORNI" -> {
-	                	temp = temp + " \t-"+ this.giorniPersi + " giorni di viaggio \n";
+	                	temp = temp + " -"+ this.giorniPersi + " giorni di viaggio \n";
 	                }
 	                case "PERDITA_MERCE" -> {
-	                	temp = temp + " \t-"+ this.merciPersi + " merci della nave \n";
+	                	temp = temp + " -"+ this.merciPersi + " merci della nave \n";
 	                }
                 }
             }else {
@@ -287,19 +287,19 @@ public class ZonaGuerra extends Carta {
 
         switch (valori[i][1]) {
             case "PERDITA_EQUIPAGGIO" -> {
-            	stampa.print(" e perderà " + equipaggiPersi+ " componenti dell'equipaggio");
+            	stampa.println(" e perderà " + equipaggiPersi+ " componenti dell'equipaggio");
                 pedina.selezionaEquipaggioDaEliminare(equipaggiPersi);
             }
             case "PERDITA_GIORNI" -> {
-            	stampa.print(" e perderà " + giorniPersi+ " giorni di viaggio");
+            	stampa.println(" e perderà " + giorniPersi+ " giorni di viaggio");
                 pedina.setPosizioneSulTabellone(-giorniPersi);
             }
             case "PERDITA_MERCE" -> {
-            	stampa.print(" e perderà " + merciPersi+ " merci dalla nave");
+            	stampa.println(" e perderà " + merciPersi+ " merci dalla nave");
                 pedina.selezionaMerceDaEliminare(merciPersi);
             }
             case "CANNONATE" -> {
-            	stampa.print(" e riceverà " + colpi.size()+ " colpi di cannone");
+            	stampa.println(" e riceverà " + colpi.size()+ " colpi di cannone");
                 int j = 0;
                 do {
                 	if(controlloColpoIsDentroDallaNave(this.colpi.get(j), pedina.getGiocatore().getNave())) {
