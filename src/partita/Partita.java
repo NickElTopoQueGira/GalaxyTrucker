@@ -515,7 +515,7 @@ public class Partita{
 	 * 
 	 * @param giocatore
 	 * @param tessera
-	 * @return 
+	 * @return false se non fatto e true se fatto
 	 */
 	private boolean inserisciTesseraNellaNave(Giocatore giocatore, Tessera tessera){
 		
@@ -569,6 +569,13 @@ public class Partita{
 		return false;
 	}
 	
+	
+	/**
+	 * chiede all'utente se vuole ruotare o inseire tessera nella nave
+	 * @param giocatore
+	 * @param tessera
+	 * @return true se inserimento tessera adnato a buon fine, false se il contrario
+	 */
 	private boolean usaTessera(Giocatore giocatore, Tessera tessera) {
 		
 		boolean condizione=false;
