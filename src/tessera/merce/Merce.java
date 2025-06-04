@@ -1,17 +1,19 @@
 package tessera.merce;
 
-public class Merce{
+public class Merce {
+
     private final TipoMerce tipoMerce;
-    
+
     /**
      * costruttore
+     *
      * @param tipoMerce
      */
-    public Merce(TipoMerce tipoMerce){
+    public Merce(TipoMerce tipoMerce) {
         this.tipoMerce = tipoMerce;
     }
 
-    public TipoMerce getTipoMerce(){
+    public TipoMerce getTipoMerce() {
         return this.tipoMerce;
     }
 }
