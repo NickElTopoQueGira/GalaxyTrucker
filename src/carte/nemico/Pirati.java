@@ -208,10 +208,10 @@ public class Pirati extends Nemici {
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
 		boolean isCartaCompletata = false;
-		int elenco = -1;
+		int elenco = 0;
 		
 		do {
-			elenco++;
+			
 			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				
@@ -286,7 +286,7 @@ public class Pirati extends Nemici {
 				}while(j < this.colpi.size()); 
 			}
 			
-			
+			elenco++;
 		}while(!isCartaCompletata && elenco < elencoPedine.size());
 		
 		

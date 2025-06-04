@@ -821,6 +821,54 @@ public abstract class Nave {
     		return false;
     	}
     }
+    /**
+     * metodo che controlla se sono presenti stive nella nave
+     * 
+     * @return: if (numero stive > 0){ true
+     * 				}else{ false }
+     */
+    public boolean controlloPresenzaStive() {
+    	
+		for(int x=0; x<this.nave.size(); x++) {
+			
+			for(int y=0; y<this.nave.get(x).size(); y++) {
+				
+				Tessera tessera = this.nave.get(x).get(y);
+				TipoTessera tipo = tessera.getTipoTessera();
+				
+				if (tipo == TipoTessera.PORTA_MERCI) {
+				    return true;
+				}
+			}
+		}
+		return false;
+    }
+    /**
+     * metodo che controlla se sono presenti stive nella nave
+     * 
+     * @return: if (numero stive > 0){ true
+     * 				}else{ false }
+     */
+    public boolean controlloPresenzaModuli() {
+    	
+		for(int x=0; x<this.nave.size(); x++) {
+			
+			for(int y=0; y<this.nave.get(x).size(); y++) {
+				
+				Tessera tessera = this.nave.get(x).get(y);
+				TipoTessera tipo = tessera.getTipoTessera();
+				
+				if (tipo == TipoTessera.MODULO_PASSEGGERI) {
+				    return true;
+				}else if(tipo == TipoTessera.CENTRO) {
+					return true;
+				}
+			}
+		}
+		return false;
+    }
+    
+    
     private boolean controlloConnettore(TipoLato dir, Tessera tessera) {
     	
     	//this.nave.get(adiacente.getX()).get(adiacente.getY())
