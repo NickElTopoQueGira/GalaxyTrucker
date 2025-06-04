@@ -13,7 +13,7 @@ public abstract class Tessera {
     protected final TipoTessera tipoTessera;
     protected LatiTessera latiTessera = new LatiTessera();
     private Coordinate coordinate = new Coordinate();
-    private static int currentSize = 0;
+    
     private final Posizione posizione;
     private static Set<Tessera> set = new LinkedHashSet<Tessera>();
 
@@ -22,7 +22,7 @@ public abstract class Tessera {
 
     protected String[][] tessera_Disposizione = {
         //Righe V  0    1    2    3    4    <- colonne
-        /* 0 */{"┌", "─", "─", "─", "┐"},
+        /* 0 */ {"┌", "─", "─", "─", "┐"},
         /* 1 */ {"│", " ", " ", " ", "│"},
         /* 2 */ {"│", " ", " ", " ", "│"},
         /* 3 */ {"│", " ", " ", " ", "│"},
@@ -73,23 +73,15 @@ public abstract class Tessera {
     /**
      * rimuove dal set la tessera t
      *
-     * @param tessera
+     * @param tessera da rimuovere
      */
     public static void removeDaListaTessere(Tessera t) {
-        if (set.contains(t)) {
-            set.remove(t);
-            setCurrentSize(-1);
-        }
-
+        
+    	set.remove(t);
+    
     }
 
-    public static int getCurrentSize() {
-        return currentSize;
-    }
 
-    public static void setCurrentSize(int edit) {
-        currentSize = currentSize + edit;
-    }
 
     /**
      * aggiunge al set di tessere la tessera ed incrementa la size di 1, svolge
@@ -99,33 +91,16 @@ public abstract class Tessera {
      * @throws ErroreTessera
      */
     public void aggiungiTessera() throws ErroreAggiuntaTessera {
-        if (isTesseraDuplicata()) {
-            throw new ErroreAggiuntaTessera("");
-        } else {
-            set.add(this);
-
-            setCurrentSize(+1);
-        }
-
-    }
-
-    /**
-     * Verifica se la tessera e' duplicata
-     *
-     *
-     * @return true se lo è e false se non lo è
-     */
-    private boolean isTesseraDuplicata() {
-        if (!set.isEmpty()) {
-            for (Tessera t : set) {
-                if (t.equals(this)) {
-                    return true;
-                }
+    	if (!set.isEmpty()) {
+    		if (!set.add(this)) {
+                throw new ErroreAggiuntaTessera("");
             }
         }
-        return false;
+    	
 
     }
+
+    
 
     /**
      * ruota i connettori della tessera tramite latitessera
