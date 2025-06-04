@@ -150,6 +150,7 @@ public class Partita{
 
 	/**
 	 * motodo per la gestione delle opzioni svolte dal giocatore sulle tessere in fase di conf della nave
+	 * @param g
 	 */
 	private void turno(Giocatore g){
 		this.com.clear();
@@ -177,7 +178,11 @@ public class Partita{
 		this.com.clear();
 	}
 	
-	
+	/**
+	 * metodo che esegue la scelta utente per usare, prenotare o scartare la tessera
+	 * @param tessera
+	 * @param g
+	 */
 	private void azioneAssemblaggio(Tessera tessera, Giocatore g) {
 		
 		boolean condizione=false;
@@ -366,6 +371,8 @@ public class Partita{
 
 	/**
 	 * Metodo per chiedere conferma se la nave e' finita
+	 * @param giocatore
+	 * @return true se finita e false se il contrario
 	 */
 	private boolean naveFinita(Giocatore giocatore){
 		this.com.clear();
@@ -379,6 +386,7 @@ public class Partita{
 
 	/**
 	 * Metodo per visualizzare la nave del giocatore
+	 * @param g
 	 */
 	private void visualizzaNave(Giocatore g){
 		this.com.println(g.getNave().toString());
@@ -387,7 +395,7 @@ public class Partita{
 	// ----------------- TESSERE -----------------
 	/**
 	 * Metodo per generare una nuova tessera a random
-	 * @return
+	 * @return true se andata buon fine e false se il contrario
 	 */
 	private Tessera nuovaTesseraRandom(){
 		FactoryTessera ft = new FactoryTessera();
@@ -460,7 +468,9 @@ public class Partita{
 	// ----------------- TESSERE PRENOTATE -----------------
 	/**
 	 * Metodo per prenotare la tessera
-	 * @return 
+	 * @param giocatore
+	 * @param tessera
+	 * @return true se adnato a buon fine e false se il contrario
 	 */
 	private boolean prenotaTessera(Giocatore giocatore, Tessera tessera){
 		try{
@@ -476,6 +486,7 @@ public class Partita{
 
 	/**
 	 * Metodo per rimuovere la tessera prenotata
+	 * @param giocatore
 	 * @return tessera
 	 */
 	private Tessera usaTesseraPrenotata(Giocatore giocatore){
