@@ -33,7 +33,9 @@ public class Tabellone{
 		this.mazzoCarte = this.generatoreMazzo.getLista();
 	}
 
-	public void gioca(){		
+	public void gioca(){	
+		impostaTabellone();
+		
 		int i=0;
 		while (i < mazzoCarte.size() && !elencoPedine.isEmpty()) {
 			//----estrazione carta--------
@@ -69,6 +71,13 @@ public class Tabellone{
 				}
 			}
 			i++;
+		}
+	}
+	
+	private void impostaTabellone() {
+		for(int i=0; i<elencoPedine.size(); i++) {
+			
+			elencoPedine.get(i).setTabellone(this);
 		}
 	}
 	

@@ -21,7 +21,7 @@ public class Pianeta extends Carta {
 	public Pianeta (int lvl) {
 		
 		super(lvl, TipoCarta.PIANETA);
-		stampa= ComunicazioneConUtente.getIstanza();
+		stampa = ComunicazioneConUtente.getIstanza();
 		pianeti = new ArrayList<>();
 		GeneraValori();
 	}
