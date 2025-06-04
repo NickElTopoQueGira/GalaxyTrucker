@@ -632,25 +632,32 @@ public class Partita{
 	 */
 	private int azioneCarta(Giocatore g){
 		ArrayList<String> elenco = new ArrayList<>();
-		this.com.println("Selezionare azione:");
 		elenco.add("Per utilizzare una tessera dal mazzo");
 		elenco.add("Per generare una nuova tessera");
 		elenco.add("Per utilizzare una tessera prenotata");
-		this.com.println(this.com.visualizzaElenco(elenco));
 		
-		int rispota = 0;
-		do{			
+		int risposta = 0;
+		boolean pass = false;
+		do{
+			this.com.println("Selezionare azione:");
+			this.com.println(this.com.visualizzaElenco(elenco));
+			this.com.println("Inserisci il numero dell'azione desiderata: ");
 			try{
-				rispota = Integer.parseInt(this.com.consoleRead());
-				this.com.clear();
+				risposta = Integer.parseInt(this.com.consoleRead());
+				if(risposta < 1 || risposta > 3) {
+					pass = false; 
+					this.com.erroreImmissioneValore();
+				}else{
+					pass = true;
+				}
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 			}
-		}while(rispota < 1 || rispota > 3);
-
+		}while(false == pass);
+		
 
         // controllo se la selezione fatta e' possibile 
-		switch(rispota) {
+		switch(risposta) {
 			case 1 ->{
 				// controllo se ci sono tessere tessere gia' estratte nel mazzo
 				if(Tessera.getListaTessere().isEmpty()){
@@ -674,7 +681,7 @@ public class Partita{
 			}
 		}
 		
-		return rispota;
+		return risposta;
 	}
 
 	/**
