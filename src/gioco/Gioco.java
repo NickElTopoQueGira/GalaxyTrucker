@@ -9,9 +9,9 @@ import partita.configurazione.ConfiguraPartita;
 import partita.giocatore.Giocatore;
 
 public class Gioco{
-	private ComunicazioneConUtente com;
+	private final ComunicazioneConUtente com;
 	private Partita partita;
-	private Set<Giocatore> elencoGiocatori;
+	private final Set<Giocatore> elencoGiocatori;
 		
 	public Gioco(){
 		com = ComunicazioneConUtente.getIstanza();
@@ -29,13 +29,19 @@ public class Gioco{
 	}
 
 	// --------------------------- GESTIONE GIOCATORI ---------------------------
+
+	/**
+	 * Metodo per inserire i giocatori
+	 */
 	private void inserimentoGiocatore(){
 		for(int i = 0; i < this.partita.getNumeroGiocatori(); i += 1){
 			this.elencoGiocatori.add(creaGiocatore());
 		}
 	}
 
-	
+	/**
+	 * Metodo per riepilogare i giocatori all'utente
+	 */
 	private void riepilogoGiocatori(){
 		com.clear();
 		com.print("--- Riepilogo Giocatori ---\n");
@@ -51,7 +57,7 @@ public class Gioco{
 	/**
 	 * Creazione del giocatore
 	 * 
-	 * @return nuovo gicatore
+	 * @return nuovo giocatore
 	 */
 	private Giocatore creaGiocatore(){
 		ConfiguraGiocatore conf = new ConfiguraGiocatore();
@@ -69,8 +75,7 @@ public class Gioco{
 	/**
 	 * Verifica se il giocatore e' duplicato
 	 * 
-	 * @param giocatore
-	 * @return
+	 * @param giocatore Giocatore
 	 */
 	private void isGiocatoreDuplicato(Giocatore giocatore)throws ErroreGiocatore{
 		for(Giocatore g : this.elencoGiocatori){
