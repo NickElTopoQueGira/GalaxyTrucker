@@ -8,11 +8,11 @@ import partita.configurazione.ConfiguraNave;
 import partita.nave.Nave;
 
 public class Giocatore {
-	private String nome;
+	private final String nome;
 	private Pedina pedina = null;
 	private int crediti;
 	private Nave nave;
-	private Colori colorePedina;
+	private final Colori colorePedina;
 	private boolean isNaveFinita;
 
 	public Giocatore(String nome, Colori colorePedina){

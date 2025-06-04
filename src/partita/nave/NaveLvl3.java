@@ -1,8 +1,6 @@
 package partita.nave;
 
 import java.util.ArrayList;
-
-import eccezioniPersonalizzate.ErroreTessera;
 import partita.giocatore.Colori;
 import tessera.Centro;
 import tessera.Coordinate;
@@ -79,16 +77,11 @@ public class NaveLvl3 extends Nave{
         return coordinateCentro;
     }
     
-	
-	
-
-	
 	//indici per stampa coordinate nave
 	@Override
 	public int getConfineNaveX() {
 		return 12;
 	}
-
 
 	@Override
 	public int getInizioNaveX() {
