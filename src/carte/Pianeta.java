@@ -222,16 +222,7 @@ public class Pianeta extends Carta {
 		String temp="";
 		temp=temp+"\nLivello carta:"+this.lvl+
 				"\nTipo carta:"+this.tipo+
-				"\nGiorni Penalità:"+this.penalitagiorni+"\n";
-		for(int i=0; i<this.pianeti.size(); i++) {
-			temp=temp+"PAINETA"+i+" - ";
-			
-			for(int j=0; j<this.pianeti.get(i).size(); j++) {
-				temp=temp+this.pianeti.get(i).get(j).getTipoMerce().name()+" ";
-			}
-			temp=temp+"\n";
-		}
-		
+				"\nGiorni Penalità:"+this.penalitagiorni+"\n";		
 		return temp;
 	}
 	
@@ -262,15 +253,17 @@ public class Pianeta extends Carta {
 		do {
 			elenco++;
 			
+			stampa.println(elencoPedine.get(elenco).getGiocatore().getNome()+"sceglierà il pianeta in cui atterrare \n");
+			
 			int scelta = sceltaPianeta(elencoPedine.get(elenco));
 			
 			if( scelta != 0) {
 				
-				elencoPedine.get(elenco).distribuzioneMerce(this.pianeti.get(scelta));
+				elencoPedine.get(elenco).distribuzioneMerce(this.pianeti.get(scelta-1));
 				
 				elencoPedine.get(elenco).getTabellone().muoviPedina(elencoPedine.get(elenco), -penalitagiorni);
 				
-				this.pianeti.remove(scelta);
+				this.pianeti.remove(scelta-1);
 			}
 			
 		}while(elenco<elencoPedine.size() && this.pianeti != null);
@@ -305,13 +298,16 @@ public class Pianeta extends Carta {
 			do {
 				sceltaPianeta = Integer.parseInt(stampa.consoleRead());
 				
-				if(sceltaPianeta >= 0 && sceltaPianeta < this.pianeti.size()+1) {
+				if(sceltaPianeta < 0 || sceltaPianeta < this.pianeti.size()+1) {
 					stampa.println("VALORE IMMESSO NON VALIDO");
+					
+				} else if (sceltaPianeta == 0){
+					stampa.println("- hai scelto di non atterrare ! -");
 				}
 				
 			}while(sceltaPianeta < 0 || sceltaPianeta > this.pianeti.size()+1);
 			
-		}while(sceltaPianeta != 0 && !pedina.sceltaScambioMerciConGiorni(this.penalitagiorni, this.merci));
+		}while(sceltaPianeta != 0 && !pedina.sceltaScambioMerciConGiorni(this.penalitagiorni, this.pianeti.get(sceltaPianeta-1)));
 		
 		return sceltaPianeta;
 	}

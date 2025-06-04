@@ -27,7 +27,7 @@ public class Tabellone{
 		this.posizioni = new ArrayList<>();
 		this.livello = livello;
 		this.numeroPosizioni = numeroPosizioniLivello();
-
+		this.elencoNaviAbbandonate = new ArrayList<>();
 		inizializzaPosizioni();
 		inizializzaPedine();
 		this.mazzoCarte = this.generatoreMazzo.getLista();
@@ -53,7 +53,8 @@ public class Tabellone{
 				
 				//2) controllo equipaggio
 				if(!elencoPedine.get(j).getGiocatore().getNave().controlloSonoPresentiCosmonauti()) {
-					
+
+					cns.println(elencoPedine.get(j).getGiocatore().getNome()+" non ha abbastanza cosmonauti per continuare il volo\n");
 					this.elencoNaviAbbandonate.add(elencoPedine.get(j));
 					elencoPedine.remove(j);
 					j--;

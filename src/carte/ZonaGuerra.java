@@ -14,7 +14,7 @@ public class ZonaGuerra extends Carta {
 
     private static String[] penalita;
     private static String[] eventi;
-    private static String[][] valori;
+    private String[][] valori;
     private ArrayList<Meteorite> colpi;
     private int equipaggiPersi, giorniPersi, merciPersi;
     private final ComunicazioneConUtente stampa;
@@ -187,14 +187,43 @@ public class ZonaGuerra extends Carta {
         ZonaGuerra.eventi = eventi;
     }
 
-    public static String[][] getValori() {
+    public String[][] getValori() {
         return valori;
     }
 
-    public static void setValori(String[][] valori) {
-        ZonaGuerra.valori = valori;
+    public void setValori(String[][] valori) {
+        this.valori = valori;
     }
+    public String toString() {
+        String temp = "";
+        temp = temp + "\nLivello carta:" + this.lvl
+                + "\nTipo carta:" + this.tipo
+                + "\n - SFIDE -   - PENALITA' - \n" ;
+        for (int i = 0; i < 3; i++) {
+            temp = temp + this.valori[i][0] + " - "+ this.valori[i][1];
+            
+            if(i != 2) {
+            	
+                switch (valori[i][1]) {
+                
+	                case "PERDITA_EQUIPAGGIO" -> {
+	                	temp = temp + " -"+ this.equipaggiPersi + " componenti dell'equipaggio";
+	                }
+	                case "PERDITA_GIORNI" -> {
+	                	temp = temp + " -"+ this.giorniPersi + " giorni di viaggio";
+	                }
+	                case "PERDITA_MERCE" -> {
+	                	temp = temp + " -"+ this.merciPersi + " merci della nave";
+	                }
+                }
+            }else {
+            	temp = temp + " " + this.colpi.size() +" colpi \n";
+            }
+        }
+        temp = temp + "\n";
 
+        return temp;
+    }
     /**
      * metodo che trova il giocatore con il parametro della sfida più basso e in
      * seguito esegue la penitenza in base alla fase
@@ -215,6 +244,8 @@ public class ZonaGuerra extends Carta {
                     case "EQUIPAGGI" -> {
 
                         pedinaSubisce = selezionaMinorEquipaggio(elencoPedine);
+                        
+                        stampa.println("Il giocatore con il minor numero di EQUIPAGGIO è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
 
                         penalitaCarta(elencoPedine.get(pedinaSubisce), i);
 
@@ -222,13 +253,17 @@ public class ZonaGuerra extends Carta {
                     case "RAZZI" -> {
 
                         pedinaSubisce = selezionaMinorMotore(elencoPedine);
+                        
+                        stampa.println("Il giocatore con il minor potenza MOTORI è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
 
                         penalitaCarta(elencoPedine.get(pedinaSubisce), i);
                     }
                     case "CANNONI" -> {
 
                         pedinaSubisce = selezionaMinorCannone(elencoPedine);
-
+                        
+                        stampa.println("Il giocatore con il minor potenza CANNONI è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
+                        
                         penalitaCarta(elencoPedine.get(pedinaSubisce), i);
                     }
                     default -> {
