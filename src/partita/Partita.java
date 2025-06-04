@@ -150,8 +150,10 @@ public class Partita{
 
 	/**
 	 * motodo per la gestione delle opzioni svolte dal giocatore sulle tessere in fase di conf della nave
+	 * @param g
 	 */
 	private void turno(Giocatore g){
+		this.com.clear();
 		// visualizzazione della nave
 		visualizzaNave(g);
 		
@@ -175,9 +177,48 @@ public class Partita{
 		}
 		this.com.clear();
 	}
+	
+	/**
+	 * metodo che esegue la scelta utente per usare, prenotare o scartare la tessera
+	 * @param tessera
+	 * @param g
+	 */
+	private void azioneAssemblaggio(Tessera tessera, Giocatore g) {
+		
+		boolean condizione=false;
+		do {
+			//visualizzazione della Naveù
+			this.com.clear();
+			this.com.println(g.getNave().toString());
+			
+			// visualizzazione della tessera
+			this.com.println("Tessera:");
+			this.com.print(tessera.toString());
+			
+			switch(menuScelte()){
+				case 1->{
+					// prenotazione della tessera
+					
+					condizione=prenotaTessera(g, tessera);
+				}
+				case 2->{
+					// inserimento della tessera nella nave
+					condizione=usaTessera(g, tessera);
+					
+				}
+				case 3->{
+					// scarta tessera
+					// non faccio niente
+					condizione=true;
+				}
+				
+			}
+		}while(condizione==false);
+	}
 
 	/**
-	 * Metodo per utilizzare una tessera gia' estratta nella nave
+	 * Metodo per usare una tessera del mazzo
+	 * @param g
 	 */
 	private void azioneAssemblaggio1(Giocatore g){
 		//se lista=vuota allora richiama turno
@@ -189,50 +230,29 @@ public class Partita{
 			Tessera tesseraSelezionata = selezionaTesseraDalMazzo();
 			
 			if(tesseraSelezionata != null && tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA){
-				this.com.println("Vuoi prenotare la tessera (altrimenti la tessera verrà inserita in nave)?");
-				if(this.com.conferma()){
-					prenotaTessera(g, tesseraSelezionata);
-				}else{
-					inserisciTesseraNellaNave(g, tesseraSelezionata);
-				}
+				this.azioneAssemblaggio(tesseraSelezionata, g);
 			}
 		}
 	}
 
 	/**
-	 * Metodo per generare una nuova tessera:
-	 * - aggiungerla alla nave
-	 * - prenotarla
-	 * - scartarla
+	 * Metodo per usare una tessera generata
+	 * @param g
 	 */
 	private void azioneAssemblaggio2(Giocatore g){
 		Tessera tessera = nuovaTesseraRandom();
 
-		// visualizzazione della nuova tessera
-		this.com.println("Tessera estratta:");
-		this.com.print(tessera.toString());
-
-		switch(menuScelte()){
-			case 1->{
-				// prenotazione della tessera
-				prenotaTessera(g, tessera);
-			}
-			case 2->{
-				// inserimento della tessera nella nave
-				inserisciTesseraNellaNave(g, tessera);
-			}
-			case 3->{
-				// scarta tessera
-				// non faccio niente
-			}
-		}
+		this.azioneAssemblaggio(tessera, g);
 	}
 
 	/**
-	 * Metodo per inserire nella nave una tessera prenotata
+	 * Metodo per usare una tessera prenotata
+
+	 * @param g
 	 */
 	private void azioneAssemblaggio3(Giocatore g){
-		inserisciTesseraNellaNave(g, usaTesseraPrenotata(g));
+		this.azioneAssemblaggio(usaTesseraPrenotata(g), g);
+
 	}
 	
 	// ----------------- NAVE -----------------
@@ -351,6 +371,8 @@ public class Partita{
 
 	/**
 	 * Metodo per chiedere conferma se la nave e' finita
+	 * @param giocatore
+	 * @return true se finita e false se il contrario
 	 */
 	private boolean naveFinita(Giocatore giocatore){
 		this.com.clear();
@@ -364,6 +386,7 @@ public class Partita{
 
 	/**
 	 * Metodo per visualizzare la nave del giocatore
+	 * @param g
 	 */
 	private void visualizzaNave(Giocatore g){
 		this.com.println(g.getNave().toString());
@@ -372,7 +395,7 @@ public class Partita{
 	// ----------------- TESSERE -----------------
 	/**
 	 * Metodo per generare una nuova tessera a random
-	 * @return
+	 * @return true se andata buon fine e false se il contrario
 	 */
 	private Tessera nuovaTesseraRandom(){
 		FactoryTessera ft = new FactoryTessera();
@@ -440,39 +463,30 @@ public class Partita{
 		}
 	}
 
-	/**
-	 * Metodo per ruotare la tessera
-	 */
-	private void ruotaTessera(Tessera tessera){
-		boolean pass = false;
-		do{ 
-			this.com.println(tessera.toString());
-			try{
-				tessera.ruota();
-				pass = this.com.conferma();
-			}catch(ErroreRotazione eR){
-				this.com.printError(eR.getMessage());
-				pass = true;
-			}	
-		}while(false == pass);	
-	}
+	
 
 	// ----------------- TESSERE PRENOTATE -----------------
 	/**
 	 * Metodo per prenotare la tessera
+	 * @param giocatore
+	 * @param tessera
+	 * @return true se adnato a buon fine e false se il contrario
 	 */
-	private void prenotaTessera(Giocatore giocatore, Tessera tessera){
+	private boolean prenotaTessera(Giocatore giocatore, Tessera tessera){
 		try{
 			giocatore.getNave().prenotaTessera(tessera);
 			this.com.println("Hai prenotato la tessera!!");
 			Tessera.removeDaListaTessere(tessera);
 		}catch(ErroreTessera et){
 			this.com.printError(et.getMessage());
+			return false;
 		}
+		return true;
 	}
 
 	/**
 	 * Metodo per rimuovere la tessera prenotata
+	 * @param giocatore
 	 * @return tessera
 	 */
 	private Tessera usaTesseraPrenotata(Giocatore giocatore){
@@ -512,16 +526,14 @@ public class Partita{
 	 * 
 	 * @param giocatore
 	 * @param tessera
+	 * @return false se non fatto e true se fatto
 	 */
-	private void inserisciTesseraNellaNave(Giocatore giocatore, Tessera tessera){
+	private boolean inserisciTesseraNellaNave(Giocatore giocatore, Tessera tessera){
+		
+		this.com.clear();
 		visualizzaNave(giocatore);
 		this.com.println("Tessera da inserire");
 		this.com.println(tessera.toString());
-		
-		this.com.print("Vuoi ruotare la tessera?");
-		if(this.com.conferma()){
-			ruotaTessera(tessera);
-		}
 
 		int x = 0, y = 0;
 		try{
@@ -531,8 +543,9 @@ public class Partita{
 			this.com.println("Inserisci la coordinata y: ");
 			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
 			
+			//condizione per far tornare al menu
 			if(x+giocatore.getNave().getInizioNaveX() == 0 && y+giocatore.getNave().getInizioNaveY() == 0) {
-				return;
+				return false;
 			}
 		}catch(NumberFormatException nfe){
 			this.com.erroreImmissioneValore();
@@ -543,9 +556,11 @@ public class Partita{
 		if(aggiungiTesseraNellanave(giocatore, tessera, c)){
 			this.com.println("Tessera aggiunta alla nave con successo!");
 			Tessera.removeDaListaTessere(tessera);
+			return true;
 		}else{
 			inserisciTesseraNellaNave(giocatore, tessera);
 		}
+		return false;
 	}
 
 	/**
@@ -564,6 +579,49 @@ public class Partita{
 		}
 		return false;
 	}
+	
+	
+	/**
+	 * chiede all'utente se vuole ruotare o inseire tessera nella nave
+	 * @param giocatore
+	 * @param tessera
+	 * @return true se inserimento tessera adnato a buon fine, false se il contrario
+	 */
+	private boolean usaTessera(Giocatore giocatore, Tessera tessera) {
+		
+		boolean condizione=false;
+		boolean check=false;
+		do {
+			//stampa nave e tessera
+			this.com.clear();
+			visualizzaNave(giocatore);
+			this.com.println("Tessera da inserire");
+			this.com.println(tessera.toString());
+			
+			condizione=false;
+			ArrayList<String> elenco = new ArrayList<>();
+			this.com.println("Scegli cosa fare:");
+			elenco.add("Ruota a dx di 90 gradi");
+			elenco.add("Inserire la tessera nella Nave");
+			this.com.println(this.com.visualizzaElenco(elenco));
+			int val = Integer.parseInt(this.com.consoleRead());
+			if(val==1 || val==2) {
+				condizione=true;
+				if(val==2) {
+					check=inserisciTesseraNellaNave(giocatore, tessera);
+				}else if(val==1) {
+					condizione=false;
+					check=false;
+					try {
+						tessera.ruota();
+					} catch (ErroreRotazione e) {
+					}
+				}
+			}
+			
+		}while(condizione==false|| check==false);
+		return check;
+	}
 
 	// ----------------- MENU' -----------------
 	/**
@@ -574,6 +632,7 @@ public class Partita{
 	 */
 	private int azioneCarta(Giocatore g){
 		ArrayList<String> elenco = new ArrayList<>();
+		this.com.println("Selezionare azione:");
 		elenco.add("Per utilizzare una tessera dal mazzo");
 		elenco.add("Per generare una nuova tessera");
 		elenco.add("Per utilizzare una tessera prenotata");
