@@ -1,12 +1,9 @@
 package partita.nave;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
@@ -32,6 +29,7 @@ import tessera.cannone.TipoCannone;
 import tessera.merce.Merce;
 import tessera.merce.Stiva;
 import tessera.merce.TipoStiva;
+import tessera.modulo_passeggeri.ModuloAttraccoAlieni;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.motore.Motore;
 import tessera.motore.TipoMotore;
@@ -80,18 +78,15 @@ public abstract class Nave {
 		this.inizializzaNave();
     }
 
-    // Metodo per inizializzare la nave da chiamare dopo il costruttore
-    protected void inizializzaNave() {
-        
+    /**
+     * Metodo per inizializzare la nave da chiamare dopo il costruttore
+     */
+     protected void inizializzaNave(){
         this.centro = getCoordinateCentro(); 
         this.fineNaveO = getConfineNaveX();
         this.fineNaveV= getConfineNaveY();
         this.inizioNaveO = getInizioNaveX();
         this.inizioNaveV = getInizioNaveY();
-        
-        
-        
-        
     }
     
     // ---------------------------- TESSERE PRENOTATE ---------------------------- 
@@ -108,8 +103,7 @@ public abstract class Nave {
     public void prenotaTessera(Tessera t) throws ErroreTessera{
         if(this.componentiPrenotati.size() >= 2){
             throw new ErroreTessera("Limite massimo di tessere prenotato raggiunto!!");
-        }
-        else{
+        }else{
             this.componentiPrenotati.add(t);
         }
     }
@@ -149,14 +143,8 @@ public abstract class Nave {
     // ---------------------------- INSERIMENTO TESSERE NELLA NAVE ----------------------------
     
     /**
-     * Metodo per inserire una tessera nella nave durante la fase di creazione della nave
-     * 
-     * @param coordinata
-     * @param tessera
-     * @throws ErroreTessera
-     * @throws ErroreCoordinate
+     * Metodo per stampare la nave
      */
-    
     private void stampaNavetta() {
         for (int i = 0; i < this.getRighe(); i++) {
             for (int j = 0; j < this.getColonne(); j++) {
@@ -171,6 +159,14 @@ public abstract class Nave {
         stampa.println("{fine debug}");
     }
     
+    /**
+     * Metodo per inserire una tessera nella nave durante la fase di creazione della nave
+     * 
+     * @param coordinata
+     * @param tessera
+     * @throws ErroreTessera
+     * @throws ErroreCoordinate
+     */
     public void inserisciTessera(Coordinate coordinata, Tessera tessera) throws ErroreTessera, ErroreCoordinate{
     	
         stampa.println("{inizio debug} coordinate controllata in: ("+coordinata.getX()+", "+coordinata.getY()+")");
@@ -470,10 +466,6 @@ public abstract class Nave {
         }
 		return nave; 
     }
-    
-    
-    
-    
     
     /**
      * metodo per la scelta e visualizzazione dei troncamenti
@@ -821,6 +813,7 @@ public abstract class Nave {
     		return false;
     	}
     }
+    
     /**
      * metodo che controlla se sono presenti stive nella nave
      * 
@@ -843,6 +836,7 @@ public abstract class Nave {
 		}
 		return false;
     }
+    
     /**
      * metodo che controlla se sono presenti stive non vuote nella nave
      * 
@@ -857,6 +851,7 @@ public abstract class Nave {
 		}
 		return false;
     }
+   
     /**
      * metodo che controlla se sono presenti stive nella nave
      * 
@@ -881,8 +876,14 @@ public abstract class Nave {
 		}
 		return false;
     }
-    
-    
+
+    /**
+     * Metodo per controllare i connettori di una tessera
+     * 
+     * @param dir
+     * @param tessera
+     * @return
+     */
     private boolean controlloConnettore(TipoLato dir, Tessera tessera) {
     	
     	//this.nave.get(adiacente.getX()).get(adiacente.getY())
@@ -924,6 +925,7 @@ public abstract class Nave {
     	
     	return false;
     }
+    
     /**
      * Metodo per il conteggio dei connettori scoperti
      * Verifica se la tessera e' collegata a qualche cosa
@@ -1273,7 +1275,6 @@ public abstract class Nave {
         return result.toString();
     }
 
-    
     /**
      * allunga l'array con stringhe vuote se necessario
      */
@@ -1285,8 +1286,6 @@ public abstract class Nave {
         return nuoviDati;
     }
 
-    
-    
     /**
      * restituisce la legenda dei connettori
      */
@@ -1313,14 +1312,13 @@ public abstract class Nave {
         return temp;
     }
     
-    
-    
-    
+
     @Override
    	public int hashCode() {
    		return Objects.hash(coloreNave, nave);
    	}
-   	@Override
+   	
+    @Override
    	public boolean equals(Object obj) {
    		if (this == obj)
    			return true;
@@ -1405,7 +1403,203 @@ public abstract class Nave {
 		}
 		return cosmonauti;
 	}
+
+    /**
+     * Metodo per aggiungere solo i cosmonauti alla nave
+     * di default ne vengono messi 2 per ogni modulo 
+     * In questo metodo NON si tiene conto dell'esistenza degli alieni
+     * NON e' questo metodo ad occuparsene. CHIARO!
+     */
+    public void setCosmonauti(){
+        for(ArrayList<Tessera> riga : this.nave){
+            for(Tessera tessera : riga){
+                if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+                    ((ModuloPasseggeri)tessera).setNumeroCosmonauti(2);;
+                }
+            }
+        }
+    }
+
+    /**
+     * Metodo per aggiungere gli alini marroni alla nave
+     * @param numero
+     */
+    public void setAlieniMarroni(int numero){
+        int count  = 0;
+        for(ArrayList<Tessera> riga : this.nave){
+            for(Tessera tessera : riga){
+                if(count < numero){
+                    if(tessera.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
+                        if(((ModuloAttraccoAlieni)tessera).isAbitabile()){
+                            // se e' abitabile
+                            ((ModuloPasseggeri) tessera).setNumeroAlieniMarroni(1);
+                            
+                            Coordinate coordinateTesseraPasseggeriAdiacente = verificaValiditaModulo(tessera)
+                                    .getCoordinateModuloPasseggeri();
+                            
+                                    ((ModuloPasseggeri) (this.nave
+                                    .get(coordinateTesseraPasseggeriAdiacente.getX())
+                                    .get(coordinateTesseraPasseggeriAdiacente.getY()))).setNumeroCosmonauti(-2);
+
+                            count += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Metodo per aggiungere gli alini viola alla nave
+     * @param numero
+     */
+    public void setAlieniViola(int numero){
+        int count  = 0;
+        for(ArrayList<Tessera> riga : this.nave){
+            for(Tessera tessera : riga){
+                if(count < numero){
+                    if(tessera.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
+                        if(((ModuloAttraccoAlieni)tessera).isAbitabile()){
+                            // se e' abitabile
+                            ((ModuloPasseggeri) tessera).setNumeroAlieniViola(1);
+                            
+                            Coordinate coordinateTesseraPasseggeriAdiacente = verificaValiditaModulo(tessera)
+                                    .getCoordinateModuloPasseggeri();
+                            
+                                    ((ModuloPasseggeri) (this.nave
+                                    .get(coordinateTesseraPasseggeriAdiacente.getX())
+                                    .get(coordinateTesseraPasseggeriAdiacente.getY()))).setNumeroCosmonauti(-2);
+
+                            count += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Metodo che restituisce il numeo dei moduli equipaggio differenziati per tipo
+     * @return gestioneEqipaggio 
+     */
+    public GestioneEquipaggio getModuliEquipaggio(){
+        GestioneEquipaggio ge = new GestioneEquipaggio();
+
+        int modEquipaggio = 0, modViola = 0, modMarroni = 0;
+        for(ArrayList<Tessera> riga : this.nave){
+            for(Tessera tessera : riga){
+                if(tessera.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI || tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+                    switch(((ModuloPasseggeri)tessera).getTipoModuloPasseggeri()){
+                        case MODULO_ALIENO_MARRONE ->{
+                            if(verificaValiditaModulo(tessera).getAbitabile()){
+                                modMarroni += 1;
+                                ((ModuloAttraccoAlieni)tessera).isAbitabile();
+                            } 
+                        }
+                        case MODULO_ALIENO_VIOLA ->{
+                            if(verificaValiditaModulo(tessera).getAbitabile()){ 
+                                modViola += 1;
+                                ((ModuloAttraccoAlieni)tessera).isAbitabile();
+                            }
+                        }
+                        case MODULO_EQUIPAGGIO ->{
+                            modEquipaggio += 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        ge.setNumeroModuliCosmonauti(modEquipaggio);
+        ge.setNumeroModuliAlieniMarroni(modMarroni);
+        ge.setNumeroModuliAlieniViola(modViola);
+        
+        return ge;
+    }
 	
+    /**
+     * Metodo per verificare se il modulo vicino e' un modulo equipaggio. 
+     * 
+     * Questo metodo serve nel validare il modulo alieno
+     * @param t Tessera
+     * @return abi Abitabile -> classe fantasma ad uso interno per gestire l'abitabilita' delle tessere
+     */
+    private Abitabile verificaValiditaModulo(Tessera t){
+        Abitabile abi = new Abitabile();
+        Coordinate c = t.getCoordinate();
+        
+        Tessera tesseraAdiacente;
+
+        // sopra 
+        if(controllaCoordinate(new Coordinate(c.getX() + 1, c.getY()))){
+            tesseraAdiacente = this.nave.get(c.getX() + 1).get(c.getY()); 
+            if(tesseraAdiacente.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+                abi.setAbitabile(true);
+                abi.setCoordinateModuloPasseggeri(new Coordinate(c.getX() + 1, c.getY()));
+                abi.setCoorinateTessera(t.getCoordinate());
+                return abi;
+            }
+        }
+
+        // sotto
+        if(controllaCoordinate(new Coordinate(c.getX() - 1, c.getY()))){
+            tesseraAdiacente = this.nave.get(c.getX() - 1).get(c.getY()); 
+            if(tesseraAdiacente.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+                abi.setAbitabile(true);
+                abi.setCoordinateModuloPasseggeri(new Coordinate(c.getX() + 1, c.getY()));
+                abi.setCoorinateTessera(t.getCoordinate());
+                return abi;
+            }
+        }
+
+        // destra
+        if(controllaCoordinate(new Coordinate(c.getX(), c.getY() + 1))){
+            tesseraAdiacente = this.nave.get(c.getX()).get(c.getY() + 1); 
+            if(tesseraAdiacente.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+                abi.setAbitabile(true);
+                abi.setCoordinateModuloPasseggeri(new Coordinate(c.getX() + 1, c.getY()));
+                abi.setCoorinateTessera(t.getCoordinate());
+                return abi;
+            }
+        }
+
+        // sinistra
+        if(controllaCoordinate(new Coordinate(c.getX(), c.getY() - 1))){
+            tesseraAdiacente = this.nave.get(c.getX()).get(c.getY() - 1); 
+            if(tesseraAdiacente.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+                abi.setAbitabile(true);
+                abi.setCoordinateModuloPasseggeri(new Coordinate(c.getX() + 1, c.getY()));
+                abi.setCoorinateTessera(t.getCoordinate());
+                return abi;
+            }
+        }
+
+        return abi;
+    }
+
+    /**
+     * Ghost class ad uso interno per gestire l'abitabilita' delle tessere
+     */
+    protected class Abitabile{
+        private boolean abitabile; 
+        private Coordinate coordinateTessea; 
+        private Coordinate coordinateModuloPasseggeri; 
+
+        public Abitabile(){
+            this.abitabile = false;
+            this.coordinateTessea = null; 
+            this.coordinateModuloPasseggeri = null; 
+        }
+
+        public void setAbitabile(boolean status){ this.abitabile = status; }
+        public void setCoorinateTessera(Coordinate coordinateTessera){ this.coordinateTessea = coordinateTessera; }
+        public void setCoordinateModuloPasseggeri(Coordinate coordinateModuloPasseggeri){ this.coordinateModuloPasseggeri = coordinateModuloPasseggeri;}
+
+        public boolean getAbitabile(){ return this.abitabile; }
+        public Coordinate getCoordinateTessera(){ return this.coordinateTessea; }
+        public Coordinate getCoordinateModuloPasseggeri(){ return this.coordinateModuloPasseggeri; }
+    }
+
     /**
      * Metodo che ritorna la potenza dei motori
      * Nel conteggio e' gia' presente il bust portato dagli alini

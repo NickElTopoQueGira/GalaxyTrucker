@@ -12,6 +12,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import partita.giocatore.Giocatore;
+import partita.nave.GestioneEquipaggio;
 import tabellone.Tabellone;
 import tessera.Coordinate;
 import tessera.FactoryTessera;
@@ -76,7 +77,7 @@ public class Partita{
 
 	// ----------------- TABELLONE - LIVELLI - MODALITA' -----------------
 	/**
-	 * Memtodo per la generazione del tabellone
+	 * Metodo per la generazione del tabellone
 	 */
 	private void generaTabellone(){
 		
@@ -276,7 +277,7 @@ public class Partita{
 	}
 
 	/**
-	 * Meto per assemblare la nave a turno
+	 * Metodo per assemblare la nave a turno
 	 */
 	private void assemblaNavi(){
 	    ArrayList<Giocatore> giocatori = new ArrayList<>(this.giocatori);
@@ -718,7 +719,205 @@ public class Partita{
 	}
 
 	// ----------------- NAVE: AGGIUNTA EQUIPAGGIO -----------------
-	private void aggiungiEquipaggio(){}
+	/**
+	 * Metodo per aggiungere l'equipaggio alla nave
+	 */
+	private void aggiungiEquipaggio(){
+		Iterator<Giocatore> giocatoreIterator = this.giocatori.iterator();
+		while(giocatoreIterator.hasNext()){
+			Giocatore g = giocatoreIterator.next();
+
+			this.com.println("Il giocatore: " + g.getNome() + " deve imbarcare l'equipaggio");
+			riepilogoEquipaggio(g);
+
+			// carico tutti i moduli equipaggio umano con 2 cosmonauti
+			g.getNave().setCosmonauti();
+
+			GestioneEquipaggio equipaggio = g.getNave().getModuliEquipaggio();
+			equipaggio.setNumeroCosmonauti(g.getNave().getCosmonauti());			
+
+			if(equipaggio.getNumeroModuliAlini() > 0){
+				this.com.print("Attualmente sulla nave ci sono " + equipaggio.getNumeroCosmonauti() + " cosmonauti");
+				this.com.println(" attualmente disposti su " + String.valueOf(equipaggio.getNumeroModuliCosmonauti() + 1) + " moduli (centro incluso)");
+
+				this.com.println("Sulla nave ci sono " + equipaggio.getNumeroModuliAlini() + " moduli predisposti per ospitare gli alieni, di cui");
+				this.com.println("- " + equipaggio.getNumeroModuliAlieniMarroni() + " moduli per alini marroni");
+				this.com.println("- " + equipaggio.getNumeroModuliAlieniViola() + " moduli per alini viola");
+								
+				this.com.println("Vuoi aggiungere l'equipaggio non terrestre al tuo vascello intergalattico? ");
+				if(this.com.conferma()){
+					imbarcaAlieniSullaNave(g, equipaggio);
+				}else{
+					this.com.println("Il tuo rimorchiatore cargo intergalattico partia' senza equipaggio marziano");
+				}
+			}else{
+				this.com.println("Non ci sono moduli adibiti al trasporto validi all'interno della tua nave");
+			}
+
+			this.com.println("La tua nave partira' con il seguente equipaggio: ");
+			riepilogoEquipaggio(g);
+		}
+	}
+
+	/**
+	* Metodo per imbarcare gli alieni sulla nave
+	*/
+	private void imbarcaAlieniSullaNave(Giocatore g, GestioneEquipaggio equipaggio){
+		// marroni
+		if(equipaggio.getNumeroModuliAlieniMarroni() > 0){
+			int scelta = menuImbarco("Inserimento alieni marroni");
+			imbarca(scelta, g, equipaggio, 1);
+		}
+
+		// viola
+		if(equipaggio.getNumeroModuliAlieniViola() > 0){
+			int scelta = menuImbarco("Inserimento alieni viola");
+			imbarca(scelta, g, equipaggio, 2);
+		}
+	}
+
+	/**
+	 * Menu di scelta per l'imbarco degli alini
+	 * @param messaggio String
+	 * @return risp int
+	 */
+	private int menuImbarco(String messaggio){
+		ArrayList<String> elenco = new ArrayList<>();
+		elenco.add("Per aggiungere tutti gli alieni");
+		elenco.add("Per aggiungere un numero personalizzato di alieni");
+
+		int risp = 0;
+		boolean pass = false; 
+		do{
+			this.com.println(messaggio);
+			try{
+				risp = Integer.parseInt(this.com.consoleRead());
+				if(risp < 1 || risp > 2){
+					pass = false;
+					this.com.erroreImmissioneValore();
+				}else{
+					pass = true;
+				}
+			}catch(NumberFormatException nfe){
+				this.com.erroreImmissioneValore();
+			}
+			pass = true;
+		}while(false == pass);
+
+		return risp;
+	}
+
+	/**
+	 * Metodo per imbarcare gli alini sulla nave
+	 * 
+	 * @param scelta int
+	 * @param g	Giocatore
+	 * @param ge GestioneEquipaggio
+	 * @param id int
+	 */
+	private void imbarca(int scelta, Giocatore g, GestioneEquipaggio ge, int id){
+		switch(scelta){
+			case 1 ->{
+				// tutti gli alini
+				if(id == 1){
+					// alieni marroni
+					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*ge.getNumeroModuliAlieniMarroni()) + " cosmonauti");
+					if(this.com.conferma()){
+						g.getNave().setAlieniMarroni(ge.getNumeroModuliAlieniMarroni());
+					}else{
+						menuImbarco("Inserimento alini marroni");
+					}
+				}else if(id == 2){
+					// alieni viola
+					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*ge.getNumeroModuliAlieniViola()) + " cosmonauti");
+					if(this.com.conferma()){
+						g.getNave().setAlieniViola(ge.getNumeroModuliAlieniViola());
+					}else{
+						menuImbarco("Inserimento alini viola");
+					}
+				}
+			}
+			case 2 ->{
+				if(id == 1){
+					// marroni
+					this.com.println("Inserisci il numeo di alini marroni che vuoi immettere nella tua nave: ");
+					int numeroAlieni = numeroAliniCustom(id, ge);
+					
+					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*numeroAlieni) + " cosmonauti");
+					if(this.com.conferma()){
+						g.getNave().setAlieniMarroni(ge.getNumeroModuliAlieniMarroni());
+					}else{
+						menuImbarco("Inserimento alini marroni");
+					}
+				}else if(id == 2){
+					// viola
+					this.com.println("Inserisci il numeo di alini viola che vuoi immettere nella tua nave: ");
+					int numeroAlieni = numeroAliniCustom(id, ge);
+					
+					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*numeroAlieni) + " cosmonauti");
+					if(this.com.conferma()){
+						g.getNave().setAlieniViola(ge.getNumeroModuliAlieniMarroni());
+					}else{
+						menuImbarco("Inserimento alini viola");
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Metodo per specificare il numero di alini che si voglino imbarcare sulla nave
+	 * 
+	 * @param id
+	 * @param ge
+	 * @return numero di alini
+	 */
+	private int numeroAliniCustom(int id, GestioneEquipaggio ge){
+		int numero = 0;
+		boolean pass = false; 
+		do{
+			try{
+				numero = Integer.parseInt(this.com.consoleRead());
+				if(numero < 0){
+					this.com.erroreImmissioneValore();
+					pass = false;
+				}
+
+				switch(id){
+					case 1 ->{
+						if(numero > ge.getNumeroModuliAlieniMarroni()){
+							this.com.erroreImmissioneValore();
+							pass = false;
+						}else{
+							pass = true;
+						}
+					}
+					case 2 ->{
+						if(numero > ge.getNumeroModuliAlieniViola()){
+							this.com.erroreImmissioneValore();
+							pass = false;
+						}else{
+							pass = true;
+						}
+					}
+				}
+
+			}catch(NumberFormatException nfe){
+				this.com.erroreImmissioneValore();
+			}
+		}while(false == pass);
+		return numero;
+	}
+
+	/**
+	 * Metodo per riepilogare l'equipaggio presente sulla nave
+	*/
+	private void riepilogoEquipaggio(Giocatore g){
+		this.com.println("Equipaggio attualmente presente sulla nave: ");
+		this.com.println("Numero cosmonauti: " + g.getNave().getCosmonauti());
+		this.com.println("Numero alieni marroni: " + g.getNave().getAlieniMarrone());
+		this.com.println("Numero alieni viola: " + g.getNave().getAlieniViola());
+	}
 
 	@Override
 	public String toString(){
