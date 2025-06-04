@@ -198,7 +198,7 @@ public class Partita{
 				}
 				case 2->{
 					// inserimento della tessera nella nave
-					condizione=inserisciTesseraNellaNave(g, tessera);
+					condizione=usaTessera(g, tessera);
 					
 				}
 				case 3->{
@@ -206,14 +206,7 @@ public class Partita{
 					// non faccio niente
 					condizione=true;
 				}
-				case 4->{
-					//ruoto tessera
-					try {
-						tessera.ruota();
-					} catch (ErroreRotazione e) {
-						
-					}
-				}
+				
 			}
 		}while(condizione==false);
 	}
@@ -462,22 +455,7 @@ public class Partita{
 		}
 	}
 
-	/**
-	 * Metodo per ruotare la tessera
-	 */
-	private void ruotaTessera(Tessera tessera){
-		boolean pass = false;
-		do{ 
-			this.com.println(tessera.toString());
-			try{
-				tessera.ruota();
-				pass = this.com.conferma();
-			}catch(ErroreRotazione eR){
-				this.com.printError(eR.getMessage());
-				pass = true;
-			}	
-		}while(false == pass);	
-	}
+	
 
 	// ----------------- TESSERE PRENOTATE -----------------
 	/**
@@ -540,6 +518,8 @@ public class Partita{
 	 * @return 
 	 */
 	private boolean inserisciTesseraNellaNave(Giocatore giocatore, Tessera tessera){
+		
+		this.com.clear();
 		visualizzaNave(giocatore);
 		this.com.println("Tessera da inserire");
 		this.com.println(tessera.toString());
@@ -588,6 +568,42 @@ public class Partita{
 		}
 		return false;
 	}
+	
+	private boolean usaTessera(Giocatore giocatore, Tessera tessera) {
+		
+		boolean condizione=false;
+		boolean check=false;
+		do {
+			//stampa nave e tessera
+			this.com.clear();
+			visualizzaNave(giocatore);
+			this.com.println("Tessera da inserire");
+			this.com.println(tessera.toString());
+			
+			condizione=false;
+			ArrayList<String> elenco = new ArrayList<>();
+			this.com.println("Scegli cosa fare:");
+			elenco.add("Ruota a dx di 90 gradi");
+			elenco.add("Inserire la tessera nella Nave");
+			this.com.println(this.com.visualizzaElenco(elenco));
+			int val = Integer.parseInt(this.com.consoleRead());
+			if(val==1 || val==2) {
+				condizione=true;
+				if(val==2) {
+					check=inserisciTesseraNellaNave(giocatore, tessera);
+				}else if(val==1) {
+					condizione=false;
+					check=false;
+					try {
+						tessera.ruota();
+					} catch (ErroreRotazione e) {
+					}
+				}
+			}
+			
+		}while(condizione==false|| check==false);
+		return check;
+	}
 
 	// ----------------- MENU' -----------------
 	/**
@@ -598,6 +614,7 @@ public class Partita{
 	 */
 	private int azioneCarta(Giocatore g){
 		ArrayList<String> elenco = new ArrayList<>();
+		this.com.println("Selezionare azione:");
 		elenco.add("Per utilizzare una tessera dal mazzo");
 		elenco.add("Per generare una nuova tessera");
 		elenco.add("Per utilizzare una tessera prenotata");
@@ -654,7 +671,6 @@ public class Partita{
 		azioni.add("Prenotare la tessera");
 		azioni.add("Inserire la tessera");
 		azioni.add("Scarta tessera");
-		azioni.add("Ruota tessera");
 
 		int scelta = 0;
 		boolean pass = false;
@@ -662,7 +678,7 @@ public class Partita{
 			this.com.println(this.com.visualizzaElenco(azioni));
 			try{
 				scelta = Integer.parseInt(this.com.consoleRead());
-				if(scelta == 1 || scelta == 2 || scelta == 3 || scelta == 4){
+				if(scelta == 1 || scelta == 2 || scelta == 3){
 					pass = true;
 				}else{
 					this.com.erroreImmissioneValore();
