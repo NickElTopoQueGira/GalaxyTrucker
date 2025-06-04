@@ -245,7 +245,7 @@ public class ZonaGuerra extends Carta {
 
                         pedinaSubisce = selezionaMinorEquipaggio(elencoPedine);
                         
-                        stampa.println("Il giocatore con il minor numero di EQUIPAGGIO è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
+                        stampa.print("Il giocatore con il minor numero di EQUIPAGGIO è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
 
                         penalitaCarta(elencoPedine.get(pedinaSubisce), i);
 
@@ -254,7 +254,7 @@ public class ZonaGuerra extends Carta {
 
                         pedinaSubisce = selezionaMinorMotore(elencoPedine);
                         
-                        stampa.println("Il giocatore con il minor potenza MOTORI è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
+                        stampa.print("Il giocatore con il minor potenza MOTORI è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
 
                         penalitaCarta(elencoPedine.get(pedinaSubisce), i);
                     }
@@ -262,7 +262,7 @@ public class ZonaGuerra extends Carta {
 
                         pedinaSubisce = selezionaMinorCannone(elencoPedine);
                         
-                        stampa.println("Il giocatore con il minor potenza CANNONI è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
+                        stampa.print("Il giocatore con il minor potenza CANNONI è: "+elencoPedine.get(pedinaSubisce).getGiocatore().getNome());
                         
                         penalitaCarta(elencoPedine.get(pedinaSubisce), i);
                     }
@@ -287,15 +287,19 @@ public class ZonaGuerra extends Carta {
 
         switch (valori[i][1]) {
             case "PERDITA_EQUIPAGGIO" -> {
+            	stampa.print(" e perderà " + equipaggiPersi+ " componenti dell'equipaggio");
                 pedina.selezionaEquipaggioDaEliminare(equipaggiPersi);
             }
             case "PERDITA_GIORNI" -> {
+            	stampa.print(" e perderà " + giorniPersi+ " giorni di viaggio");
                 pedina.setPosizioneSulTabellone(-giorniPersi);
             }
             case "PERDITA_MERCE" -> {
+            	stampa.print(" e perderà " + merciPersi+ " merci dalla nave");
                 pedina.selezionaMerceDaEliminare(merciPersi);
             }
             case "CANNONATE" -> {
+            	stampa.print(" e riceverà " + colpi.size()+ " colpi di cannone");
                 int j = 0;
                 do {
                 	if(controlloColpoIsDentroDallaNave(this.colpi.get(j), pedina.getGiocatore().getNave())) {
