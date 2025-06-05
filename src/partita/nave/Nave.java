@@ -479,7 +479,7 @@ public abstract class Nave {
 		}
 		stampa.println(stampa.visualizzaElenco(temp));
 
-		scelta = Integer.parseInt(stampa.consoleRead())-1;
+		scelta = stampa.consoleReadInt()-1;
 		if(scelta<1 || scelta>opzioni.length) {
 			return scegliTroncamenti(opzioni);
 		}
@@ -1041,7 +1041,7 @@ public abstract class Nave {
     	boolean condizione = true;
 		do{
     		stampa.visualizzaElenco(visual);
-    		int indice = Integer.parseInt(stampa.consoleRead())-1;
+    		int indice = stampa.consoleReadInt()-1;
         	
         	if(((Batteria)Tessere.get(indice)).decrese() && 
         			indice>=0 && indice<visual.size()) {

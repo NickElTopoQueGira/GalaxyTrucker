@@ -87,7 +87,7 @@ public class Pedina{
     		cns.println("Inserire il numero del Modulo da cui togliere 1 componente dell'equipaggio");
 			
     		do {
-    			sceltaModulo = Integer.parseInt(cns.consoleRead());
+    			sceltaModulo = cns.consoleReadInt();
     			
     			if(sceltaModulo<=0 || sceltaModulo>caso) {
     				cns.erroreImmissioneValore();
@@ -131,7 +131,7 @@ public class Pedina{
 	        		cns.println("Inserire il numero della stiva da cui togliere una merce");
 	    			
 	        		do {
-	        			sceltaStiva = Integer.parseInt(cns.consoleRead());
+	        			sceltaStiva = cns.consoleReadInt();
 	        			
 	        			if(sceltaStiva<0 || sceltaStiva>caso) {
 	        				cns.erroreImmissioneValore();
@@ -152,7 +152,7 @@ public class Pedina{
 	        		cns.println("Inserire la merce che si vuole togliere, selezionare 0 per scegliere un altra stiva");
 	    			
 	        		do {
-	        			sceltaMerci = Integer.parseInt(cns.consoleRead());
+	        			sceltaMerci = cns.consoleReadInt();
 	        			
 	        			if(sceltaMerci>0 && sceltaMerci<numeroMerci) {
 	        				cns.erroreImmissioneValore();
@@ -229,7 +229,7 @@ public class Pedina{
     				conferma = true;
     				sceltoPieno = false;
             		do {
-            			sceltaStiva = Integer.parseInt(cns.consoleRead());
+            			sceltaStiva = cns.consoleReadInt();
             			
             			if(sceltaStiva<0 || sceltaStiva>crd.size()) {
             				cns.erroreImmissioneValore();
@@ -260,7 +260,7 @@ public class Pedina{
         			this.specificaMerci(merce);
         			
         			do {
-        				sceltaEliminare = Integer.parseInt(cns.consoleRead());
+        				sceltaEliminare = cns.consoleReadInt();
             			
             			if(sceltaEliminare<=0 || sceltaEliminare>merce.size()) {
             				cns.println("VALORE IMMESSO NON VALIDO");

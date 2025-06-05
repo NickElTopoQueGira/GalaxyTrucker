@@ -295,7 +295,7 @@ public class Pianeta extends Carta {
 			stampa.println("In caso non si volesse scegliere nessuna dei pianeti inserire -> 0");
 			
 			do {
-				sceltaPianeta = Integer.parseInt(stampa.consoleRead());
+				sceltaPianeta = stampa.consoleReadInt();
 				
 				if(sceltaPianeta < 0 || sceltaPianeta > this.pianeti.size()+1) {
 					stampa.println("VALORE IMMESSO NON VALIDO");

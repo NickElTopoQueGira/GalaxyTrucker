@@ -436,7 +436,7 @@ public class Partita{
 		do{ 
 			try{
 				this.com.println("Inserisci il numero della tessera che si vuole inserire (inserire 0 per tornare al menu): ");
-				selezione = Integer.parseInt(this.com.consoleRead())-1;
+				selezione = this.com.consoleReadInt()-1;
 				
 				// ritorno al menu
 				if(-1 == selezione) return null;
@@ -506,7 +506,7 @@ public class Partita{
 		boolean pass = false;
 		do{ 
 			try{
-				numero = Integer.parseInt(this.com.consoleRead())-1;
+				numero = this.com.consoleReadInt()-1;
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 			}
@@ -548,9 +548,9 @@ public class Partita{
 		try{
 			this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
 			this.com.println("Inserisci la coordinata x: ");
-			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
+			x = this.com.consoleReadInt()-giocatore.getNave().getInizioNaveX();
 			this.com.println("Inserisci la coordinata y: ");
-			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
+			y = this.com.consoleReadInt()-giocatore.getNave().getInizioNaveY();
 			
 			//condizione per far tornare al menu
 			if(x+giocatore.getNave().getInizioNaveX() == 0 && y+giocatore.getNave().getInizioNaveY() == 0) {
@@ -614,7 +614,7 @@ public class Partita{
 			elenco.add("Ruota a dx di 90 gradi");
 			elenco.add("Inserire la tessera nella Nave");
 			this.com.println(this.com.visualizzaElenco(elenco));
-			int val = Integer.parseInt(this.com.consoleRead());
+			int val = this.com.consoleReadInt();
 			if(val==1 || val==2) {
 				condizione=true;
 				if(val==2) {
@@ -653,7 +653,7 @@ public class Partita{
 			this.com.println(this.com.visualizzaElenco(elenco));
 			this.com.println("Inserisci il numero dell'azione desiderata: ");
 			try{
-				risposta = Integer.parseInt(this.com.consoleRead());
+				risposta = this.com.consoleReadInt();
 				if(risposta < 1 || risposta > 3) {
 					pass = false; 
 					this.com.erroreImmissioneValore();
@@ -712,7 +712,7 @@ public class Partita{
 		do{
 			this.com.println(this.com.visualizzaElenco(azioni));
 			try{
-				scelta = Integer.parseInt(this.com.consoleRead());
+				scelta = this.com.consoleReadInt();
 				if(scelta == 1 || scelta == 2 || scelta == 3){
 					pass = true;
 				}else{
@@ -805,7 +805,7 @@ public class Partita{
 		do{
 			this.com.println(messaggio);
 			try{
-				risp = Integer.parseInt(this.com.consoleRead());
+				risp = this.com.consoleReadInt();
 				if(risp < 1 || risp > 2){
 					pass = false;
 					this.com.erroreImmissioneValore();
@@ -891,7 +891,7 @@ public class Partita{
 		boolean pass = false; 
 		do{
 			try{
-				numero = Integer.parseInt(this.com.consoleRead());
+				numero = this.com.consoleReadInt();
 				if(numero < 0){
 					this.com.erroreImmissioneValore();
 					pass = false;

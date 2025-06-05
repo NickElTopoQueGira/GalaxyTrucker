@@ -60,7 +60,7 @@ public class ConfiguraPartita{
 		do{
 			this.com.print("Inserisci il numero dei giocatori (min 2, max 4): ");
 			try{
-				numeroGiocatori = Integer.parseInt(this.com.consoleRead());
+				numeroGiocatori = this.com.consoleReadInt();
 				if(numeroGiocatori < 2 || numeroGiocatori > 4) {
 					this.com.erroreImmissioneValore();
 					uscita = false;
@@ -89,7 +89,7 @@ public class ConfiguraPartita{
 			this.com.print(this.com.visualizzaElenco(elenco));
 			this.com.print("Inserisci la modalita' partita: ");
 			try{
-				mod = Integer.parseInt(this.com.consoleRead());
+				mod = this.com.consoleReadInt();
 				if(mod == 1 || mod == 2){
 					uscita = true;
 				}else{
@@ -121,7 +121,7 @@ public class ConfiguraPartita{
 			this.com.print(this.com.visualizzaElenco(elenco));
 			this.com.print("Inserisci il livello: ");
 			try{
-				livello = Integer.parseInt(this.com.consoleRead());
+				livello = this.com.consoleReadInt();
 				if(livello == 1 || livello == 2 || livello == 3){
 					uscita = true;
 				}else{
@@ -165,7 +165,7 @@ public class ConfiguraPartita{
 		this.com.print(this.com.visualizzaElenco(elenco));
 		this.com.print("Inserisci la voce: ");
 		try{
-			s = Integer.parseInt(this.com.consoleRead());
+			s = this.com.consoleReadInt();
 		}catch(NumberFormatException nfe){
 			this.com.erroreImmissioneValore();
 		}
