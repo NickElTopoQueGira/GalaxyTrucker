@@ -475,7 +475,7 @@ public abstract class Nave {
 		int scelta;
 		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
 		for(int i=0; i< opzioni.length; i++){
-			temp.add(Troncamento.TroncamentiToString(this.inizioNaveV, this.inizioNaveO, this.fineNaveO, opzioni[i]));
+			temp.add(opzioni[i].TroncamentiToString(this.inizioNaveV, this.inizioNaveO, this.fineNaveO));
 		}
 		stampa.println(stampa.visualizzaElenco(temp));
 
@@ -1169,7 +1169,7 @@ public abstract class Nave {
      */
     @Override
     public String toString() {
-    	return Troncamento.TroncamentiToString(this.inizioNaveV, this.inizioNaveO, this.fineNaveO, this.nave);
+    	return  this.nave.TroncamentiToString(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
     }
 
     

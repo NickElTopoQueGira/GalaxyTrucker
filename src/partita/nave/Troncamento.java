@@ -11,16 +11,16 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	
 
 
-	private final static ComunicazioneConUtente stampa= ComunicazioneConUtente.getIstanza();
-	private ArrayList<ArrayList<Tessera>> troncamento;
+	private ComunicazioneConUtente stampa= ComunicazioneConUtente.getIstanza();
+	
 	
 	
 	/**
 	 * costruttore
 	 * @return elemento ArrayList<ArrayList<Tessera>>
 	 */
-	public ArrayList<ArrayList<Tessera>> Troncamento() {
-		return this.troncamento=new ArrayList<ArrayList<Tessera>>();
+	public Troncamento() {
+		super();
 		
 	}
 
@@ -36,14 +36,14 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	 * @param troncamento 
 	 * @return stringa toString del troncamento
 	 */
-	public static String TroncamentiToString(int inizioNaveV, int inizioNaveO, int fineNaveO, ArrayList<ArrayList<Tessera>> troncamento) {
+	public String TroncamentiToString(int inizioNaveV, int inizioNaveO, int fineNaveO) {
 		ArrayList<String> output = new ArrayList<>();
         ArrayList<String> tutteDescrizioni = new ArrayList<>();
         
-        stampa.println("\n"+Troncamento.legenda());
+        stampa.println("\n"+this.legenda());
 
         // Popola descrizioni solo una volta
-        for (ArrayList<Tessera> riga : troncamento) {
+        for (ArrayList<Tessera> riga : this) {
             for (Tessera tessera : riga) {
                 if (tessera.getPosizione() == Posizione.INTERNA) {
                     tutteDescrizioni.add("posizione(" + 
@@ -64,12 +64,12 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
         output.add(numeri.toString());
         
         int descrIndex = 0;
-        for (int i = 0; i < troncamento.size(); i++) {
+        for (int i = 0; i < this.size(); i++) {
             for (int k = 0; k < 5; k++) {
 
                 StringBuilder riga = new StringBuilder();
-                for (int j = 0; j < troncamento.get(i).size(); j++) {
-                    riga.append(troncamento.get(i).get(j).getriga(k)).append(" ");
+                for (int j = 0; j < this.get(i).size(); j++) {
+                    riga.append(this.get(i).get(j).getriga(k)).append(" ");
                 }
 
                 if (k == 2) {
@@ -86,9 +86,9 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 
                 output.add(riga.toString());
             }
-            if((i+1 <troncamento.size())) {
+            if((i+1 <this.size())) {
 	            StringBuilder riga = new StringBuilder();
-	            for (int j = 0; j < troncamento.get(1).size(); j++) {
+	            for (int j = 0; j < this.get(1).size(); j++) {
 	                riga.append("      ");
 	            }
 	            riga.append("│");
@@ -118,7 +118,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
         // aggiunta eventuali descrizioni rimaste
         while (descrIndex < tutteDescrizioni.size()) {
         	StringBuilder riga = new StringBuilder();
-            for (int j = 0; j < troncamento.get(1).size(); j++) {
+            for (int j = 0; j < this.get(1).size(); j++) {
                 riga.append("      ");
             }
             
@@ -138,7 +138,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
      * Metodo per generare la legenda combinata con colonne allineate
      * @return stringa con la legenda formattata in due colonne
      */
-    private static String legenda() {
+    private String legenda() {
         String temp1 = legendaConnettori();
         String temp2 = legendaSimboli();
 
@@ -163,7 +163,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
      * Metodo per allungare l array con stringhe vuote se necessario
      * @return stringhe vuote String[]
      */
-    private static String[] modificaSize(String[] dati, int dimMax) {
+    private String[] modificaSize(String[] dati, int dimMax) {
         String[] nuoviDati = new String[dimMax];
         for (int i = 0; i < dimMax; i++) {
             nuoviDati[i] = (i < dati.length) ? dati[i] : "";
@@ -175,7 +175,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
      * Metodo che restituisce la legenda dei connettori
      * @return legenda connettori String
      */
-    public static String legendaConnettori() {
+    private String legendaConnettori() {
         return("Legenda Connettori:,"+
                "-) # connettore universale,"+
                "-) | connettore singolo,"+
@@ -186,7 +186,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
      * Metodo per visualizzare la legenda dei connettori
      * @return legenda connettori String
      */
-    public static String legendaSimboli() {
+    private String legendaSimboli() {
         return ("Legenda Simboli:,"+
                "-) [] merce," +
                "-) \033[0;31m!\033[0m  canna del cannone,"+
@@ -194,26 +194,16 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
                "-) @  lato scudo");
     }
     
-    
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(troncamento);
-		return result;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Troncamento)) return false;
+        return super.equals(o); //uso il confronto profondo tra le liste
+    }
 
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (!(obj instanceof Troncamento))
-			return false;
-		Troncamento other = (Troncamento) obj;
-		return Objects.equals(troncamento, other.troncamento);
-	}
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //uso il calcolo hash profondo tra le liste
+    }
+	
 }

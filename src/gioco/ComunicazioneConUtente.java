@@ -112,7 +112,6 @@ public class ComunicazioneConUtente {
      * @return intero letto
      */
     public int consoleReadInt(){
-    	String risp="";
     	//di defualt per possibili errori
     	int valore = 100;
     	try {
