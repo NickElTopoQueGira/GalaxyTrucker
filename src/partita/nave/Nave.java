@@ -11,6 +11,7 @@ import java.util.Set;
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
+import eccezioniPersonalizzate.FinePartita;
 import gioco.ComunicazioneConUtente;
 import eccezioniPersonalizzate.ErroreRisorse;
 import partita.giocatore.Colori;
@@ -70,7 +71,6 @@ public abstract class Nave {
         stampa= ComunicazioneConUtente.getIstanza();
         this.componentiPrenotati = new ArrayList<>();
         this.nave = new ArrayList<>();
-        this.centro = null;
         this.coloreNave = coloreNave;
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
@@ -294,9 +294,10 @@ public abstract class Nave {
      * 
      * @param coordinate
      * @throws ErroreTessera
+     * @throws FinePartita 
      * @throws ErroreGiocatore 
      */
-    public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera, ErroreGiocatore{
+    public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera, FinePartita{
     	Tessera vuota=new TesseraVuota(coordinate.getX(), coordinate.getY(),Posizione.INTERNA);
     	
     	// Verifica delle coordinate
@@ -317,7 +318,7 @@ public abstract class Nave {
         if(this.controllaEsistenzaNave()) {
         	this.nave = this.getTroncamentoNave();
         }else {
-        	throw new ErroreGiocatore("La nave è stata totalmete distrutta");
+        	throw new FinePartita("La nave è stata totalmete distrutta");
             
         }
     }
@@ -473,16 +474,112 @@ public abstract class Nave {
 		int scelta;
 		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
 		for(int i=0; i< opzioni.length; i++){
-			temp.add(opzioni[i].toString());
+			temp.add(TroncamentiToString(((ArrayList<ArrayList<Tessera>>)opzioni[i])));
 		}
 		stampa.println(stampa.visualizzaElenco(temp));
 
-		scelta = Integer.parseInt(stampa.consoleRead());
+		scelta = Integer.parseInt(stampa.consoleRead())-1;
 		if(scelta<1 || scelta>opzioni.length) {
 			return scegliTroncamenti(opzioni);
 		}
 		return scelta;
 	}
+    
+    private String TroncamentiToString(ArrayList<ArrayList<Tessera>> opzione) {
+    	ArrayList<String> output = new ArrayList<>();
+        ArrayList<String> tutteDescrizioni = new ArrayList<>();
+        
+        stampa.println("\n"+this.legenda());
+
+        // Popola descrizioni solo una volta
+        for (ArrayList<Tessera> riga : opzione) {
+            for (Tessera tessera : riga) {
+                if (tessera.getPosizione() == Posizione.INTERNA) {
+                    tutteDescrizioni.add("posizione(" + 
+                        (tessera.getCoordinate().getX() + inizioNaveO) + ";" + 
+                        (tessera.getCoordinate().getY() + inizioNaveV) + ") " + 
+                        tessera.toLegenda());
+                }
+            }
+        }
+
+        StringBuilder numeri = new StringBuilder();
+        output.add(numeri.toString());
+        for (int i = inizioNaveO; i < fineNaveO; i++) {
+            numeri.append(i < 10 ? "──" + i + "───" : "──" + i + "──");
+        }
+
+        numeri.append("┐");
+        output.add(numeri.toString());
+        
+        int descrIndex = 0;
+        for (int i = 0; i < opzione.size(); i++) {
+            for (int k = 0; k < 5; k++) {
+
+                StringBuilder riga = new StringBuilder();
+                for (int j = 0; j < opzione.get(i).size(); j++) {
+                    riga.append(opzione.get(i).get(j).getriga(k)).append(" ");
+                }
+
+                if (k == 2) {
+                    riga.append(i + inizioNaveV); // numero riga
+                } else {
+                    riga.append("│");
+                }
+
+                // Descrizione se disponibile
+                if (descrIndex < tutteDescrizioni.size()) {
+                    riga.append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
+                    descrIndex++;
+                }
+
+                output.add(riga.toString());
+            }
+            if((i+1 <opzione.size())) {
+	            StringBuilder riga = new StringBuilder();
+	            for (int j = 0; j < opzione.get(1).size(); j++) {
+	                riga.append("      ");
+	            }
+	            riga.append("│");
+	            // Descrizione se disponibile
+	            if (descrIndex < tutteDescrizioni.size()) {
+	                riga.append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
+	                descrIndex++;
+	            }
+	            
+	            output.add(riga.toString());
+            }
+        }
+
+        // Riga finale numeri colonna
+        numeri = new StringBuilder();
+        for (int i = inizioNaveO; i < fineNaveO; i++) {
+            numeri.append(i < 10 ? "──" + i + "───" : "──" + i + "──");
+        }
+        if(descrIndex < tutteDescrizioni.size()) {
+        	numeri.append("┘").append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
+        	descrIndex++;
+        }else {
+        	numeri.append("┘");
+        }
+        output.add(numeri.toString());
+
+        // aggiunta eventuali descrizioni rimaste
+        while (descrIndex < tutteDescrizioni.size()) {
+        	StringBuilder riga = new StringBuilder();
+            for (int j = 0; j < opzione.get(1).size(); j++) {
+                riga.append("      ");
+            }
+            
+            riga.append(" ").append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
+            descrIndex++;
+
+            output.add(riga.toString());
+        }
+
+        return String.join("\n", output);
+    	
+    }
 
 	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
@@ -510,7 +607,7 @@ public abstract class Nave {
      *         false -> la nave non ha il centro
      */
     private boolean controllaPresenzaCentro(){
-
+    	this.centro=this.getCoordinateCentro();
         if(TipoTessera.VUOTA == this.nave.get(centro.getY()).get(centro.getX()).getTipoTessera()){
             return false;
         }
@@ -522,7 +619,7 @@ public abstract class Nave {
      * @return false se non c'è più la nave (tutte le tessere = TesseraVuota)
      */
     private boolean controllaEsistenzaNave() {
-    	for(ArrayList<Tessera> colonne : this.parteRestante) {
+    	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera()!=TipoTessera.VUOTA) {
 					return true;
@@ -611,14 +708,15 @@ public abstract class Nave {
         if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft() && latiTesseraNave.getRight()!=TipoConnettoriTessera.NULLO ){
             return 1;
         }
-
-        // controllo sei i lati sono compatibili
+        
+        
+        // controllo sei i lati sono compatibili con il connettore triplo
         if((latiTesseraNave.getRight() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO)){
                 return 1;
                 
-        }else if((latiTesseraNave.getRight() == TipoConnettoriTessera.NULLO) && 
-                (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.TRIPLO)){
+        }else if((latiTesseraNave.getRight() != TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getLeft() == TipoConnettoriTessera.TRIPLO)){
 
             return 1;
             
@@ -658,13 +756,13 @@ public abstract class Nave {
             return 1;
         }
 
-        // controllo sei i lati sono compatibili
+        // controllo sei i lati sono compatibili con il connettore triplo
         if((latiTesseraNave.getLeft() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO)){
                 return 1;
                 
-        }else if((latiTesseraNave.getLeft() == TipoConnettoriTessera.NULLO) && 
-                (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.TRIPLO)){
+        }else if((latiTesseraNave.getLeft() != TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getRight() == TipoConnettoriTessera.TRIPLO)){
             return 1;
             
         }else {
@@ -702,13 +800,13 @@ public abstract class Nave {
             return 1;
         }
 
-        // controllo sei il ati sono compatibili
+        // controllo sei il ati sono compatibili con il connettore triplo
         if((latiTesseraNave.getDown() == TipoConnettoriTessera.TRIPLO) && 
                 (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO)){
                     return 1;
             }
-        else if((latiTesseraNave.getDown() == TipoConnettoriTessera.NULLO) && 
-            (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.TRIPLO)){
+        else if((latiTesseraNave.getDown() != TipoConnettoriTessera.NULLO) && 
+            (tessera.getLatiTessera().getUp() == TipoConnettoriTessera.TRIPLO)){
                 return 1;
             }
         else{
@@ -745,13 +843,13 @@ public abstract class Nave {
         if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown() && latiTesseraNave.getUp()!=TipoConnettoriTessera.NULLO ){
             return 1;
         }
-        // controllo sei il lati sono compatibili
+        // controllo sei il lati sono compatibili con il connettore triplo
         if((latiTesseraNave.getUp() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO)){
                 return 1;
             }
-        else if((latiTesseraNave.getUp() == TipoConnettoriTessera.NULLO) && 
-                (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.TRIPLO)){
+        else if((latiTesseraNave.getUp() != TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getDown() == TipoConnettoriTessera.TRIPLO)){
             return 1;
 	        }
 	    else{
@@ -1122,7 +1220,7 @@ public abstract class Nave {
     }
     
     /**
-     * ToString della nave
+     * toString della nave
      * @return 
      */
     @Override
@@ -1453,7 +1551,7 @@ public abstract class Nave {
     }
 
     /**
-     * Metodo che restituisce il numeo dei moduli equipaggio differenziati per tipo
+     * Metodo che restituisce il numero dei moduli equipaggio differenziati per tipo
      * @return gestioneEqipaggio 
      */
     public GestioneEquipaggio getModuliEquipaggio(){
@@ -1462,7 +1560,7 @@ public abstract class Nave {
         int modEquipaggio = 0, modViola = 0, modMarroni = 0;
         for(ArrayList<Tessera> riga : this.nave){
             for(Tessera tessera : riga){
-                if(tessera.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI || tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
+                if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
                     switch(((ModuloPasseggeri)tessera).getTipoModuloPasseggeri()){
                         case MODULO_ALIENO_MARRONE ->{
                             if(verificaValiditaModulo(tessera).getAbitabile()){

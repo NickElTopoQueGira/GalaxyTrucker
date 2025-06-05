@@ -4,6 +4,7 @@ import carte.*;
 import carte.meteore.Dado;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
+import eccezioniPersonalizzate.FinePartita;
 import gioco.ComunicazioneConUtente;
 import java.util.*;
 import partita.Pedina;
@@ -66,7 +67,7 @@ public class Sabotaggio extends EventiSpeciali {
                     try {
                         try {
                             elencoPedine.get(giocatoreMinorEquipaggio).getGiocatore().getNave().rimuoviTessera(new Coordinate(colonna, riga));
-                        } catch (ErroreGiocatore e) {
+                        } catch (FinePartita e) {
 
                             e.printStackTrace();
                         }

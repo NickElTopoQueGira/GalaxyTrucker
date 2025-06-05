@@ -3,6 +3,7 @@ package carte;
 import carte.meteore.*;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
+import eccezioniPersonalizzate.FinePartita;
 import gioco.ComunicazioneConUtente;
 import java.util.ArrayList;
 import java.util.Random;
@@ -324,8 +325,8 @@ public class ZonaGuerra extends Carta {
 	                            try {
 	                                try {
 	                                    pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
-	                                } catch (ErroreGiocatore e) {
-	
+	                                } catch (FinePartita e) {
+	                                	//TODO fare finire volo
 	                                    e.printStackTrace();
 	                                }
 	

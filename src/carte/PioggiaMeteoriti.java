@@ -4,6 +4,7 @@ import carte.meteore.*;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
+import eccezioniPersonalizzate.FinePartita;
 import gioco.ComunicazioneConUtente;
 import java.util.*;
 import partita.Pedina;
@@ -179,7 +180,7 @@ public class PioggiaMeteoriti extends Carta {
 							try {
 								try {
 									elencoPedine.get(j).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
-								} catch (ErroreGiocatore e) {
+								} catch (FinePartita e) {
 									
 									e.printStackTrace();
 								}

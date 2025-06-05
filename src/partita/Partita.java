@@ -1,5 +1,6 @@
 package partita;
 
+import eccezioniPersonalizzate.ErroreAggiuntaTessera;
 import eccezioniPersonalizzate.ErroreCoordinate;
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreRotazione;
@@ -209,7 +210,12 @@ public class Partita{
 				}
 				case 3->{
 					// scarta tessera
-					// non faccio niente
+
+					try {
+						tessera.aggiungiTessera();
+					} catch (ErroreAggiuntaTessera e) {
+
+					}
 					condizione=true;
 				}
 				
@@ -319,8 +325,10 @@ public class Partita{
 	            // Ricontrolla se ha completato la nave
 	            if(g.isNaveFinita() || naveFinita(g)){
 	                g.naveFinita();
+	                //TODO controlla la posizione di pedina
 	                g.getPedina().setPosizioneSulTabellone(contatoreFinale++);
 	                tabellone.aggiungiPedina(g.getPedina());
+	                this.com.clear();
 	                this.com.println("Il giocatore " + g.getNome() + " ha finito la nave.");
 
 	                // Se è il primo a finirla, attiva countdown per gli altri
@@ -550,18 +558,17 @@ public class Partita{
 			}
 		}catch(NumberFormatException nfe){
 			this.com.erroreImmissioneValore();
-			inserisciTesseraNellaNave(giocatore, tessera);
+			return inserisciTesseraNellaNave(giocatore, tessera);
 		}
 
 		Coordinate c = new Coordinate(x, y);
-		if(aggiungiTesseraNellanave(giocatore, tessera, c)){
+		if(aggiungiTesseraDentroNave(giocatore, tessera, c)){
 			this.com.println("Tessera aggiunta alla nave con successo!");
 			Tessera.removeDaListaTessere(tessera);
 			return true;
 		}else{
-			inserisciTesseraNellaNave(giocatore, tessera);
+			return inserisciTesseraNellaNave(giocatore, tessera);
 		}
-		return false;
 	}
 
 	/**
@@ -569,7 +576,7 @@ public class Partita{
 	 * @return true -> ok
 	 * 			false -> no
 	 */
-	private boolean aggiungiTesseraNellanave(Giocatore giocatore, Tessera tessera, Coordinate coordinate){
+	private boolean aggiungiTesseraDentroNave(Giocatore giocatore, Tessera tessera, Coordinate coordinate){
 		try {
 			giocatore.getNave().inserisciTessera(coordinate, tessera);
 			return true;
@@ -600,6 +607,8 @@ public class Partita{
 			this.com.println(tessera.toString());
 			
 			condizione=false;
+			check=false;
+			
 			ArrayList<String> elenco = new ArrayList<>();
 			this.com.println("Scegli cosa fare:");
 			elenco.add("Ruota a dx di 90 gradi");
@@ -753,9 +762,14 @@ public class Partita{
 			}else{
 				this.com.println("Non ci sono moduli adibiti al trasporto validi all'interno della tua nave");
 			}
-
+			this.com.println("premi invio per continuare...");
+			this.com.consoleRead();
+			this.com.clear();
 			this.com.println("La tua nave partira' con il seguente equipaggio: ");
 			riepilogoEquipaggio(g);
+			this.com.println("premi invio per continuare...");
+			this.com.consoleRead();
+			this.com.clear();
 		}
 	}
 
@@ -917,6 +931,9 @@ public class Partita{
 		this.com.println("Numero cosmonauti: " + g.getNave().getCosmonauti());
 		this.com.println("Numero alieni marroni: " + g.getNave().getAlieniMarrone());
 		this.com.println("Numero alieni viola: " + g.getNave().getAlieniViola());
+		this.com.println("\npremi invio per continuare...");
+		this.com.consoleRead();
+		this.com.clear();
 	}
 
 	@Override

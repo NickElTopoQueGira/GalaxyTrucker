@@ -4,6 +4,7 @@ import carte.*;
 import carte.meteore.*;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
+import eccezioniPersonalizzate.FinePartita;
 import gioco.ComunicazioneConUtente;
 import java.util.*;
 import partita.Pedina;
@@ -264,7 +265,7 @@ public class Pirati extends Nemici {
 								try {
 									try {
 										elencoPedine.get(elenco).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
-									} catch (ErroreGiocatore e) {
+									} catch (FinePartita e) {
 										
 										e.printStackTrace();
 									}

@@ -39,7 +39,10 @@ public class Tabellone{
 		int i=0;
 		while (i < mazzoCarte.size() && !elencoPedine.isEmpty()) {
 			//----estrazione carta--------
-
+			
+			//stampa tabellone
+			cns.println(this.toString());
+			
 			cns.println("\n------------------carte rimaste :"+(mazzoCarte.size() - i)+"------------------\n");
 			cns.println(mazzoCarte.get(i).toString());
 			mazzoCarte.get(i).eseguiCarta(elencoPedine);
@@ -225,15 +228,23 @@ public class Tabellone{
 	public String toString() {
 		String temp="";
 		ArrayList<String> stringaTabellone= new ArrayList<String>();
+		cns.clear();
 		temp+="Tabellone di Gioco:\n";
-		for(int j=0; j<this.numeroPosizioni; j++) {
-			if(elencoPedine.get(j).getPosizioneSulTabellone()==j) {
-				stringaTabellone.add(j, " ("+elencoPedine.get(j).getGiocatore().getColorePedina().getSiglaTabellone()+") ");
-			}else {
-				stringaTabellone.add(j, " ( ) ");
-			}
-			
+		for(int i=0; i<this.numeroPosizioni; i++) {
+			stringaTabellone.add(" ( ) ");
 		}
+		for(int i=0; i<elencoPedine.size(); i++) {
+			for(int j=0; j<this.numeroPosizioni; j++) {
+				if(elencoPedine.get(i).getPosizioneSulTabellone()==j) {
+					stringaTabellone.set(j, " ("+elencoPedine.get(j).getGiocatore().getColorePedina().getSiglaTabellone()+") ");
+				}
+				
+			}
+		}
+		for(int i=0; i<this.numeroPosizioni; i++) {
+			temp+=stringaTabellone.get(i);
+		}
+		
 		temp+="\n\n";
 		return temp;
 		

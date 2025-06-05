@@ -77,27 +77,26 @@ public abstract class Tessera {
      */
     public static void removeDaListaTessere(Tessera t) {
         
-    	set.remove(t);
+    	if (!set.isEmpty()) {
+    		set.remove(t);
+        }
+    	
     
     }
 
 
 
     /**
-     * aggiunge al set di tessere la tessera ed incrementa la size di 1, svolge
+     * aggiunge al set di tessere la tessera, svolge
      * anche controllo duplicazione ed in caso genera eccezione
      *
      * @throws ErroreAggiuntaTessera
      * @throws ErroreTessera
      */
     public void aggiungiTessera() throws ErroreAggiuntaTessera {
-    	if (!set.isEmpty()) {
     		if (!set.add(this)) {
                 throw new ErroreAggiuntaTessera("");
             }
-        }
-    	
-
     }
 
     

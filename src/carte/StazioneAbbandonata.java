@@ -13,7 +13,7 @@ public class StazioneAbbandonata extends Carta {
     private int penalitagiorni;
     private final ArrayList<Merce> merci;
 
-	private ComunicazioneConUtente stampa;
+	private ComunicazioneConUtente stampa= ComunicazioneConUtente.getIstanza();;
 
     /**
      * Costruttore StazioneAbbandonata super -> gli passiamo il lvl della carta
@@ -26,7 +26,7 @@ public class StazioneAbbandonata extends Carta {
 
         super(lvl, TipoCarta.STAZIONE_ABBANDONATA);
         merci = new ArrayList<>();
-        stampa = ComunicazioneConUtente.getIstanza();
+        
         GeneraValori();
     }
 
@@ -167,7 +167,7 @@ public class StazioneAbbandonata extends Carta {
                 + "\nGiorni Penalità:" + this.penalitagiorni
                 + "\nEquipaggio Necessario:" + this.giocatorinecessari + "\n le seguenti merci: ";
         for (int i = 0; i < this.merci.size(); i++) {
-            temp = temp + this.merci.get(i).getTipoMerce().name() + " - ";
+            temp = temp + this.merci.get(i).getTipoMerce().toString() + " - ";
         }
         temp = temp + "\n";
 
