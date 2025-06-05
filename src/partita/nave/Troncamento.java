@@ -1,7 +1,6 @@
 package partita.nave;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import gioco.ComunicazioneConUtente;
 import tessera.Posizione;
@@ -16,8 +15,8 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	
 	
 	/**
-	 * costruttore
-	 * @return elemento ArrayList<ArrayList<Tessera>>
+	 * costruttore che chiama costruttore di ArrayList<ArrayList<Tessera>>
+	 * 
 	 */
 	public Troncamento() {
 		super();
