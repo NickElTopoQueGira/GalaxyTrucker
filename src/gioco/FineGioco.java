@@ -9,12 +9,14 @@ public class FineGioco {
 	private ComunicazioneConUtente console;
 	private ArrayList<Pedina> pedineVoloCompletato;
 	private ArrayList<Pedina> pedineVoloAbbandonato;
+	private int livello;
 	
-	public FineGioco(ArrayList<Pedina> pvc, ArrayList<Pedina> pva) {
+	public FineGioco(ArrayList<Pedina> pvc, ArrayList<Pedina> pva, int lvl) {
 		
 		this.console = ComunicazioneConUtente.getIstanza();
 		this.pedineVoloCompletato = pvc;
 		this.pedineVoloAbbandonato = pva;
+		this.livello = lvl;
 	}
 	
 	public void granFinale() {
@@ -24,6 +26,10 @@ public class FineGioco {
 		int premio = 4;
 		for(int i=0; i<pedineVoloCompletato.size(); i++) {
 			console.println(pedineVoloCompletato.get(i).getGiocatore().getNome());
+			
+			pedineVoloCompletato.get(i).getGiocatore().aggiornaCrediti(premio*this.livello);
+			
+			premio--;
 		}
 		
 		//faccio vedere chi ha abbandonato la corsa

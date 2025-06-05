@@ -201,7 +201,8 @@ public class Tabellone{
 					if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(j).getPosizioneSulTabellone()){
 						
 						//TODO elencoPedine.get(j) è stato doppiato
-						this.elencoNaviDistrutte.add(elencoPedine.get(j));
+						
+						this.elencoNaviAbbandonate.add(elencoPedine.get(j));//TODO
 						elencoPedine.remove(j);
 					}
 				}
