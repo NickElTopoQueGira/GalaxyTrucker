@@ -1,6 +1,7 @@
 package partita.nave;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import gioco.ComunicazioneConUtente;
 import tessera.Posizione;
@@ -8,7 +9,10 @@ import tessera.Tessera;
 
 public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	
+
+
 	private final static ComunicazioneConUtente stampa= ComunicazioneConUtente.getIstanza();
+	private ArrayList<ArrayList<Tessera>> troncamento;
 	
 	
 	/**
@@ -16,7 +20,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	 * @return elemento ArrayList<ArrayList<Tessera>>
 	 */
 	public ArrayList<ArrayList<Tessera>> Troncamento() {
-		return new ArrayList<ArrayList<Tessera>>();
+		return this.troncamento=new ArrayList<ArrayList<Tessera>>();
 		
 	}
 
@@ -190,4 +194,26 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
                "-) @  lato scudo");
     }
     
+    
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(troncamento);
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof Troncamento))
+			return false;
+		Troncamento other = (Troncamento) obj;
+		return Objects.equals(troncamento, other.troncamento);
+	}
 }
