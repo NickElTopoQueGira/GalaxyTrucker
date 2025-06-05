@@ -9,9 +9,8 @@ import partita.Livelli;
 import partita.Pedina;
 
 public class Tabellone{
-	private final ComunicazioneConUtente cns;
+	private ComunicazioneConUtente cns;
 	private final ArrayList<Pedina> elencoPedine;
-	private ArrayList<Pedina> elencoNaviDistrutte; //PROVVISORIO
 	private ArrayList<Pedina> elencoNaviAbbandonate; 
 	private ArrayList<Carta> mazzoCarte;
 	private ArrayList<Posizione> posizioni;

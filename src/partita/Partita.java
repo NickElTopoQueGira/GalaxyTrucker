@@ -21,7 +21,7 @@ import tessera.Tessera;
 import tessera.TipoTessera;
 
 public class Partita{
-	private final ComunicazioneConUtente com;
+	private ComunicazioneConUtente com;
 	private final int numeroGiocatori;
 	private final ModalitaPartita modalitaPartita;
 	private final Set<Giocatore> giocatori;
@@ -288,7 +288,7 @@ public class Partita{
 	private void assemblaNavi(){
 	    ArrayList<Giocatore> giocatori = new ArrayList<>(this.giocatori);
 	    Map<Giocatore, Integer> turniResidui = new HashMap<>();
-	    final int TURNI_EXTRA = 1;
+	    final int TURNI_EXTRA = 10;
 	    boolean countdownAttivo = false;
 	    int contatoreFinale = 1;
 
