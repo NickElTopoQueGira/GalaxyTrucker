@@ -21,7 +21,7 @@ import tessera.Tessera;
 import tessera.TipoTessera;
 
 public class Partita{
-	private ComunicazioneConUtente com;
+	private final ComunicazioneConUtente com;
 	private final int numeroGiocatori;
 	private final ModalitaPartita modalitaPartita;
 	private final Set<Giocatore> giocatori;

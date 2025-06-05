@@ -331,8 +331,6 @@ public abstract class Nave {
     private Troncamento getTroncamentoNave() {
     	Set<Troncamento> troncamentiNave =new LinkedHashSet<Troncamento>();
     	
-    	
-    	
     	//controlla esista ancora il centro
     	if(this.controllaPresenzaCentro()) {
         	troncamentiNave.add(this.distruggiNave(centro, true));
