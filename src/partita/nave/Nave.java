@@ -705,10 +705,19 @@ public abstract class Nave {
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY()).get(coordinate.getX() - 1).getLatiTessera();
 
         // controllo se i lati sono uguali
-        if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft() && latiTesseraNave.getRight()!=TipoConnettoriTessera.NULLO ){
-            return 1;
-        }
-        
+        if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft() ){
+            return 0;
+            
+        } else 
+        	
+        // controlla se uno dei due lati è nullo e l'altro no
+        if((latiTesseraNave.getRight() == TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO)) {
+        	return -1;
+        } else if((latiTesseraNave.getRight() != TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getLeft() == TipoConnettoriTessera.NULLO)) {
+        	return -1;
+        }else
         
         // controllo sei i lati sono compatibili con il connettore triplo
         if((latiTesseraNave.getRight() == TipoConnettoriTessera.TRIPLO) && 
@@ -720,7 +729,7 @@ public abstract class Nave {
 
             return 1;
             
-        } else{
+        } else {
         	
             return -1;
         }
@@ -754,7 +763,16 @@ public abstract class Nave {
         // controllo se i lati sono uguali
         if(latiTesseraNave.getLeft() == tessera.getLatiTessera().getRight() && latiTesseraNave.getLeft()!=TipoConnettoriTessera.NULLO ){
             return 1;
-        }
+        } else 
+        	
+        // controlla se uno dei due lati è nullo e l'altro no
+        if((latiTesseraNave.getLeft() == TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO)) {
+        	return -1;
+        } else if((latiTesseraNave.getLeft() != TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getRight() == TipoConnettoriTessera.NULLO)) {
+        	return -1;
+        }else
 
         // controllo sei i lati sono compatibili con il connettore triplo
         if((latiTesseraNave.getLeft() == TipoConnettoriTessera.TRIPLO) && 
@@ -798,7 +816,16 @@ public abstract class Nave {
         // controllo se i lati sono uguali
         if(latiTesseraNave.getDown() == tessera.getLatiTessera().getUp()&& latiTesseraNave.getDown()!=TipoConnettoriTessera.NULLO ){
             return 1;
-        }
+        } else 
+        	
+        // controlla se uno dei due lati è nullo e l'altro no
+        if((latiTesseraNave.getDown() == TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO)) {
+        	return -1;
+        } else if((latiTesseraNave.getDown() != TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getUp() == TipoConnettoriTessera.NULLO)) {
+        	return -1;
+        }else
 
         // controllo sei il ati sono compatibili con il connettore triplo
         if((latiTesseraNave.getDown() == TipoConnettoriTessera.TRIPLO) && 
@@ -842,7 +869,17 @@ public abstract class Nave {
         // controllo se i lati sono uguali
         if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown() && latiTesseraNave.getUp()!=TipoConnettoriTessera.NULLO ){
             return 1;
-        }
+        } else 
+        	
+        // controlla se uno dei due lati è nullo e l'altro no
+        if((latiTesseraNave.getUp() == TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO)) {
+        	return -1;
+        } else if((latiTesseraNave.getUp() != TipoConnettoriTessera.NULLO) && 
+                (tessera.getLatiTessera().getDown() == TipoConnettoriTessera.NULLO)) {
+        	return -1;
+        }else
+        
         // controllo sei il lati sono compatibili con il connettore triplo
         if((latiTesseraNave.getUp() == TipoConnettoriTessera.TRIPLO) && 
             (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO)){
