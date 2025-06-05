@@ -11,8 +11,8 @@ import java.util.Set;
 public abstract class Tessera {
 
     protected final TipoTessera tipoTessera;
-    protected LatiTessera latiTessera = new LatiTessera();
-    private Coordinate coordinate = new Coordinate();
+    protected LatiTessera latiTessera;
+    private Coordinate coordinate;
     
     private final Posizione posizione;
     private static Set<Tessera> set = new LinkedHashSet<Tessera>();
@@ -37,8 +37,10 @@ public abstract class Tessera {
     public Tessera(TipoTessera tipoTessera, Posizione posizione) {
 
         this.tipoTessera = tipoTessera;
-        this.id = contatore + 1;
-
+        this.contatore=contatore++;
+        this.id = this.contatore;
+        this.latiTessera = new LatiTessera();
+        this.coordinate = new Coordinate();
         this.posizione = posizione;
 
     }
