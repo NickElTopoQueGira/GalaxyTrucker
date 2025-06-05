@@ -91,12 +91,7 @@ public class ComunicazioneConUtente {
 
     /**
      * Metodo per leggere l'input dell'utente sulla console. 
-     * Questa Metodo ritorna un intero, sta al metodo che la chiama 
-     * fare la conversione sul dato che viene immesso. 
-     * 
-     * Es. (si vuole leggere un numero)
-     * Integer.parseInt(<ComunicazioneConUtente>.consoleRead())
-     *  
+     * Questa Metodo ritorna una stringa.
      * @return input.nextLine() -> stringa letta dalla console
      */
     public String consoleRead(){
@@ -124,7 +119,7 @@ public class ComunicazioneConUtente {
     		try {
     			valore = Integer.parseInt(input.nextLine());
     		} catch (NumberFormatException e) {
-    			println("Inserire valore numerico!!\n");
+    			this.erroreImmissioneValore();
     			
     			return consoleReadInt();
     		}
