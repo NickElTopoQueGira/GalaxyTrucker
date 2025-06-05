@@ -1,5 +1,6 @@
 # Galaxy Trucker Game
-Progetto tema d'esame di programmazione ad oggetti 2024-2025 ing. Informatica UniBg.
+Progetto tema d'esame di programmazione ad oggetti 2024-2025 ing. Informatica UniBg.<br />
+L'unico gioco di strategia dove non conta vincera, ma conta non perdere!
 
 # Gestione del progetto
 
@@ -25,3 +26,67 @@ Aprire il vostro IDE del cuore per Java, e fare:
 Prima di apportare modifiche, controllare sempre di lavorare sull’ultima versione
 
 </aside>
+
+
+# Impostazione del progetto
+
+Il gioco è stato sviluppato interamente in ambiente Java, utilizzando il paradigma di programmazione ad oggetti.
+
+<aside> ⚠️
+
+Il gioco non è fornito di interfaccia grafica, ma solo di quella testuale.
+
+</aside>
+
+## Dettagli tecnici
+
+Il progetto è stato creato utilizzando la versione di Java 21-LTS, per poi aggiornarsi alla 24.
+
+### Strumenti utilizzati:
+
+- Eclipse IDE - for Java developers: Ambiente di programmazione integrato, utilizzato per scrivere il codice e per eseguire il debug dello stesso.
+    
+- Git: Programma utilizzato per tenere la cronologia delle modifiche
+    
+- GitHub: Utilizzato per sincronizzare il progetto con la cronologie delle modifiche ai vari componenti del team.
+    
+
+### Debug:
+
+Il progetto è stato testato a mano, attraverso l’utilizzo di main temporanei.
+
+NON sono state utilizzate unità di test automatiche.
+
+  
+
+## Struttura del Gameplay
+
+Per quanto riguarda il gameplay, si è cercato di mantenere il senso e lo scopo del gioco originale, attuando, dove necessario, piccole variazioni alla struttura del gameplay dovute al formato virtuale.
+
+I giocatori inizialmente possono scegliere alcuni parametri di configurazione della partita, il proprio nome ed il colore della pedina con cui intraprendere il proprio viaggio intergalattico. 
+
+Sono state implementate 2 modalità:
+
+- Modalità trasvolata singola: in cui i giocatori svolgono solo un livello dei tre presenti.
+- Modalità trasvolata multipla: in cui i giocatori intraprendono un’avventura in tutti e tre i livelli in ordine crescente.
+
+Come nel gioco ufficiale, sono state rispecchiate le caratteristiche e le specificità dei tre livelli come: dimensione della nave e composizione dei mazzi delle carte evento.
+
+
+## Principali oggetti
+
+Dal gioco fisico, abbiamo ricreato i seguenti oggetti:
+
+- Giocatore → Utente umano
+    
+- Tabellone → il tabellone dove si svolge la fase secondaria della partita
+    
+- Pedina → Identificatore del giocatore sul tabellone di gioco
+    
+- Carte → carte azione
+    
+- Tessera → Componenti necessari per costruire la nave
+    
+- Nave → Nave di gioco, nella quale vengono posizionate le tessere
+    
+- Merce → carichi che dovrà portare il tuo camionista spaziale
