@@ -1,10 +1,10 @@
 package partita.nave;
 
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
 
@@ -36,14 +36,14 @@ import tessera.motore.Motore;
 import tessera.motore.TipoMotore;
 
 public abstract class Nave {
-    protected ArrayList<ArrayList<Tessera>> nave;
+    protected Troncamento nave;
     private final ArrayList<Tessera> componentiPrenotati;
     protected Coordinate centro;
     private final Colori coloreNave;
     private int energiaResidua;
     private int numeroConnettoriScoperti;
     private final ComunicazioneConUtente stampa;
-    private ArrayList<ArrayList<Tessera>> parteRestante = new ArrayList<ArrayList<Tessera>>();
+    protected Troncamento parteRestante;
     private int inizioNaveO;
     private int fineNaveO;
     private int inizioNaveV;
@@ -70,10 +70,11 @@ public abstract class Nave {
     public Nave(Colori coloreNave){
         stampa= ComunicazioneConUtente.getIstanza();
         this.componentiPrenotati = new ArrayList<>();
-        this.nave = new ArrayList<>();
         this.coloreNave = coloreNave;
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
+        this.nave=new Troncamento();
+        this.parteRestante=new Troncamento();
 		this.inizializzaNave();
     }
 
@@ -327,8 +328,8 @@ public abstract class Nave {
      * Metodo che crea una lista di tronconiNave e fa scegliere all'utente quale tenere
      * @return troncone di nave scelta
      */
-    private ArrayList<ArrayList<Tessera>> getTroncamentoNave() {
-    	Set<ArrayList<ArrayList<Tessera>>> troncamentiNave =new LinkedHashSet<ArrayList<ArrayList<Tessera>>>();
+    private Troncamento getTroncamentoNave() {
+    	Set<Troncamento> troncamentiNave =new LinkedHashSet<Troncamento>();
     	
     	
     	
@@ -358,9 +359,9 @@ public abstract class Nave {
 			}
     	}
 		
-    	Object[] opzioni=troncamentiNave.toArray();
+    	Troncamento[] opzioni=(Troncamento[]) troncamentiNave.toArray();
     	
-		return (ArrayList<ArrayList<Tessera>>) opzioni[this.scegliTroncamenti(opzioni)];
+		return (Troncamento) opzioni[this.scegliTroncamenti(opzioni)];
 		
 	}
     
@@ -371,7 +372,7 @@ public abstract class Nave {
 	 * @param centroRamificazione Coordinate
      * @return nave
      */
-    public ArrayList<ArrayList<Tessera>> distruggiNave(Coordinate centroRamificazione, boolean isCentro){
+    public Troncamento distruggiNave(Coordinate centroRamificazione, boolean isCentro){
     	Set<Coordinate> visitate = new HashSet<>();
     	Queue<Coordinate> daVisitare = new LinkedList<>();
     	
@@ -428,7 +429,7 @@ public abstract class Nave {
          }
         
         
-        this.parteRestante=(ArrayList<ArrayList<Tessera>>) this.nave.clone();
+        this.parteRestante=(Troncamento) this.nave.clone();
         //sovrascrive con tessereVuote in nave le tessere che non sono state visitate
         for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
@@ -469,12 +470,12 @@ public abstract class Nave {
      * @param opzioni Object[]
      * @return intero della scelta
      */
-    private int scegliTroncamenti(Object[] opzioni) {
+    private int scegliTroncamenti(Troncamento[] opzioni) {
 		ArrayList<String> temp = new ArrayList<>();
 		int scelta;
 		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
 		for(int i=0; i< opzioni.length; i++){
-			temp.add(TroncamentiToString(((ArrayList<ArrayList<Tessera>>)opzioni[i])));
+			temp.add(Troncamento.TroncamentiToString(this.inizioNaveV, this.inizioNaveO, this.fineNaveO, opzioni[i]));
 		}
 		stampa.println(stampa.visualizzaElenco(temp));
 
@@ -485,101 +486,7 @@ public abstract class Nave {
 		return scelta;
 	}
     
-    private String TroncamentiToString(ArrayList<ArrayList<Tessera>> opzione) {
-    	ArrayList<String> output = new ArrayList<>();
-        ArrayList<String> tutteDescrizioni = new ArrayList<>();
-        
-        stampa.println("\n"+this.legenda());
-
-        // Popola descrizioni solo una volta
-        for (ArrayList<Tessera> riga : opzione) {
-            for (Tessera tessera : riga) {
-                if (tessera.getPosizione() == Posizione.INTERNA) {
-                    tutteDescrizioni.add("posizione(" + 
-                        (tessera.getCoordinate().getX() + inizioNaveO) + ";" + 
-                        (tessera.getCoordinate().getY() + inizioNaveV) + ") " + 
-                        tessera.toLegenda());
-                }
-            }
-        }
-
-        StringBuilder numeri = new StringBuilder();
-        output.add(numeri.toString());
-        for (int i = inizioNaveO; i < fineNaveO; i++) {
-            numeri.append(i < 10 ? "──" + i + "───" : "──" + i + "──");
-        }
-
-        numeri.append("┐");
-        output.add(numeri.toString());
-        
-        int descrIndex = 0;
-        for (int i = 0; i < opzione.size(); i++) {
-            for (int k = 0; k < 5; k++) {
-
-                StringBuilder riga = new StringBuilder();
-                for (int j = 0; j < opzione.get(i).size(); j++) {
-                    riga.append(opzione.get(i).get(j).getriga(k)).append(" ");
-                }
-
-                if (k == 2) {
-                    riga.append(i + inizioNaveV); // numero riga
-                } else {
-                    riga.append("│");
-                }
-
-                // Descrizione se disponibile
-                if (descrIndex < tutteDescrizioni.size()) {
-                    riga.append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
-                    descrIndex++;
-                }
-
-                output.add(riga.toString());
-            }
-            if((i+1 <opzione.size())) {
-	            StringBuilder riga = new StringBuilder();
-	            for (int j = 0; j < opzione.get(1).size(); j++) {
-	                riga.append("      ");
-	            }
-	            riga.append("│");
-	            // Descrizione se disponibile
-	            if (descrIndex < tutteDescrizioni.size()) {
-	                riga.append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
-	                descrIndex++;
-	            }
-	            
-	            output.add(riga.toString());
-            }
-        }
-
-        // Riga finale numeri colonna
-        numeri = new StringBuilder();
-        for (int i = inizioNaveO; i < fineNaveO; i++) {
-            numeri.append(i < 10 ? "──" + i + "───" : "──" + i + "──");
-        }
-        if(descrIndex < tutteDescrizioni.size()) {
-        	numeri.append("┘").append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
-        	descrIndex++;
-        }else {
-        	numeri.append("┘");
-        }
-        output.add(numeri.toString());
-
-        // aggiunta eventuali descrizioni rimaste
-        while (descrIndex < tutteDescrizioni.size()) {
-        	StringBuilder riga = new StringBuilder();
-            for (int j = 0; j < opzione.get(1).size(); j++) {
-                riga.append("      ");
-            }
-            
-            riga.append(" ").append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
-            descrIndex++;
-
-            output.add(riga.toString());
-        }
-
-        return String.join("\n", output);
-    	
-    }
+    
 
 	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
@@ -1225,182 +1132,13 @@ public abstract class Nave {
      */
     @Override
     public String toString() {
-        ArrayList<String> output = new ArrayList<>();
-        ArrayList<String> tutteDescrizioni = new ArrayList<>();
-        
-        stampa.println("\n"+this.legenda());
-
-        // Popola descrizioni solo una volta
-        for (ArrayList<Tessera> riga : nave) {
-            for (Tessera tessera : riga) {
-                if (tessera.getPosizione() == Posizione.INTERNA) {
-                    tutteDescrizioni.add("posizione(" + 
-                        (tessera.getCoordinate().getX() + inizioNaveO) + ";" + 
-                        (tessera.getCoordinate().getY() + inizioNaveV) + ") " + 
-                        tessera.toLegenda());
-                }
-            }
-        }
-        /*
-         * StringBuilder naveDi = new StringBuilder();
-         * naveDi.append("LA NAVE APPARTIENE A"+nome);
-         * output.add(naveDi.toString());
-        */
-        StringBuilder numeri = new StringBuilder();
-        output.add(numeri.toString());
-        for (int i = inizioNaveO; i < fineNaveO; i++) {
-            numeri.append(i < 10 ? "──" + i + "───" : "──" + i + "──");
-        }
-
-        numeri.append("┐");
-        output.add(numeri.toString());
-        
-        int descrIndex = 0;
-        for (int i = 0; i < nave.size(); i++) {
-            for (int k = 0; k < 5; k++) {
-
-                StringBuilder riga = new StringBuilder();
-                for (int j = 0; j < nave.get(i).size(); j++) {
-                    riga.append(nave.get(i).get(j).getriga(k)).append(" ");
-                }
-
-                if (k == 2) {
-                    riga.append(i + inizioNaveV); // numero riga
-                } else {
-                    riga.append("│");
-                }
-
-                // Descrizione se disponibile
-                if (descrIndex < tutteDescrizioni.size()) {
-                    riga.append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
-                    descrIndex++;
-                }
-
-                output.add(riga.toString());
-            }
-            if((i+1 <nave.size())) {
-	            StringBuilder riga = new StringBuilder();
-	            for (int j = 0; j < nave.get(1).size(); j++) {
-	                riga.append("      ");
-	            }
-	            riga.append("│");
-	            // Descrizione se disponibile
-	            if (descrIndex < tutteDescrizioni.size()) {
-	                riga.append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
-	                descrIndex++;
-	            }
-	            
-	            output.add(riga.toString());
-            }
-        }
-
-        // Riga finale numeri colonna
-        numeri = new StringBuilder();
-        for (int i = inizioNaveO; i < fineNaveO; i++) {
-            numeri.append(i < 10 ? "──" + i + "───" : "──" + i + "──");
-        }
-        if(descrIndex < tutteDescrizioni.size()) {
-        	numeri.append("┘").append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
-        	descrIndex++;
-        }else {
-        	numeri.append("┘");
-        }
-        output.add(numeri.toString());
-
-        // aggiunta eventuali descrizioni rimaste
-        while (descrIndex < tutteDescrizioni.size()) {
-        	StringBuilder riga = new StringBuilder();
-            for (int j = 0; j < nave.get(1).size(); j++) {
-                riga.append("      ");
-            }
-            
-            riga.append(" ").append(" \t│ ").append(tutteDescrizioni.get(descrIndex));
-            descrIndex++;
-
-            output.add(riga.toString());
-        }
-
-        return String.join("\n", output);
+    	return Troncamento.TroncamentiToString(this.inizioNaveV, this.inizioNaveO, this.fineNaveO, this.nave);
     }
 
     
-    /**
-     * Metodo per generare la legenda combinata con colonne allineate
-     * @return stringa con la legenda formattata in due colonne
-     */
-    private String legenda() {
-        String temp1 = legendaConnettori();
-        String temp2 = legendaSimboli();
-
-        String[] dati1 = temp1.split(",");
-        String[] dati2 = temp2.split(",");
-
-        int dimensioneMax = Math.max(dati1.length, dati2.length);
-        dati1 = modificaSize(dati1, dimensioneMax);
-        dati2 = modificaSize(dati2, dimensioneMax);
-
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < dimensioneMax; i++) {
-            // "%-40s" = stringa a sinistra larga 40 caratteri
-            result.append(String.format("%-40s %s\n", dati1[i], dati2[i]));
-        }
-
-        return result.toString();
-    }
-
-    /**
-     * Metodo per allungare l array con stringhe vuote se necessario
-     * @return stringhe vuote String[]
-     */
-    private String[] modificaSize(String[] dati, int dimMax) {
-        String[] nuoviDati = new String[dimMax];
-        for (int i = 0; i < dimMax; i++) {
-            nuoviDati[i] = (i < dati.length) ? dati[i] : "";
-        }
-        return nuoviDati;
-    }
-
-    /**
-     * Metodo che restituisce la legenda dei connettori
-     * @return legenda connettori String
-     */
-    public String legendaConnettori() {
-        return("Legenda Connettori:,"+
-               "-) # connettore universale,"+
-               "-) | connettore singolo,"+
-               "-) v connettore doppio");
-    }
-    
-    /**
-     * Metodo per visualizzare la legenda dei connettori
-     * @return legenda connettori String
-     */
-    public String legendaSimboli() {
-        return ("Legenda Simboli:,"+
-               "-) [] merce," +
-               "-) \033[0;31m!\033[0m  canna del cannone,"+
-               "-) \033[0;31m§\033[0m  lato propulsore del motore,"+
-               "-) @  lato scudo");
-    }
     
 
-    @Override
-   	public int hashCode() {
-   		return Objects.hash(coloreNave, nave);
-   	}
-   	
-    @Override
-   	public boolean equals(Object obj) {
-   		if (this == obj)
-   			return true;
-   		if (obj == null)
-   			return false;
-   		if (getClass() != obj.getClass())
-   			return false;
-   		Nave other = (Nave) obj;
-   		return coloreNave == other.coloreNave && Objects.equals(nave, other.nave);
-   	}
+    
    	
 	//-------------------- SETTER - GETTER --------------------
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave(){ return this.nave; }

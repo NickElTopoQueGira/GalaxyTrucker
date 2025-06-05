@@ -41,6 +41,7 @@ public class NaveLvl1 extends Nave{
 
     public NaveLvl1(Colori coloreNave){
         super(coloreNave);
+        
         for(int i = 0; i < this.numeroRighe; i += 1){
             ArrayList<Tessera> riga = new ArrayList<>();
             for(int j = 0; j < this.numeroColonne; j += 1){
@@ -58,6 +59,7 @@ public class NaveLvl1 extends Nave{
                 }
             }
             this.nave.add(riga);
+            
         }
     }
 
