@@ -73,9 +73,10 @@ public abstract class Nave {
         this.coloreNave = coloreNave;
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
-        this.nave=new Troncamento();
-        this.parteRestante=new Troncamento();
-		this.inizializzaNave();
+        this.inizializzaNave();
+        this.nave=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
+        this.parteRestante=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
+		
     }
 
     /**
@@ -475,7 +476,7 @@ public abstract class Nave {
 		int scelta;
 		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
 		for(int i=0; i< opzioni.length; i++){
-			temp.add(opzioni[i].TroncamentiToString(this.inizioNaveV, this.inizioNaveO, this.fineNaveO));
+			temp.add(opzioni[i].toString());
 		}
 		stampa.println(stampa.visualizzaElenco(temp));
 
@@ -1169,7 +1170,7 @@ public abstract class Nave {
      */
     @Override
     public String toString() {
-    	return  this.nave.TroncamentiToString(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
+    	return  this.nave.toString();
     }
 
     

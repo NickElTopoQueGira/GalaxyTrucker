@@ -11,15 +11,22 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 
 
 	private ComunicazioneConUtente stampa= ComunicazioneConUtente.getIstanza();
-	
-	
+	private final int inizioNaveV;
+	private final int inizioNaveO;
+	private final int fineNaveO;
 	
 	/**
 	 * costruttore che chiama costruttore di ArrayList<ArrayList<Tessera>>
 	 * 
 	 */
-	public Troncamento() {
+	public Troncamento(int inizioNaveV, int inizioNaveO, int fineNaveO) {
 		super();
+		this.inizioNaveV = inizioNaveV;
+		this.inizioNaveO = inizioNaveO;
+		this.fineNaveO = fineNaveO;
+		
+		
+		
 		
 	}
 
@@ -32,10 +39,10 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	 * @param inizioNaveV
 	 * @param inizioNaveO
 	 * @param fineNaveO
-	 * @param troncamento 
 	 * @return stringa toString del troncamento
 	 */
-	public String TroncamentiToString(int inizioNaveV, int inizioNaveO, int fineNaveO) {
+	@Override
+	public String toString() {
 		ArrayList<String> output = new ArrayList<>();
         ArrayList<String> tutteDescrizioni = new ArrayList<>();
         
