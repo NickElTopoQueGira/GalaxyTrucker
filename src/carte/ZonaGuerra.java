@@ -381,10 +381,10 @@ public class ZonaGuerra extends Carta {
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
 
-			return meteorite.getDado() - 3;
+			return meteorite.getDado() - 4;
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - 4;
+			return meteorite.getDado() - 3;
 		}
 		default->{}
 		}
