@@ -48,7 +48,7 @@ public abstract class Nave {
     private int fineNaveO;
     private int inizioNaveV;
     private int fineNaveV;
-    private int numeriPezziNaveDaRipagare;
+    private int numeroPezziNaveDaRipagare;
     
     /**
      * Metodi astratti, implementati nelle sotto classi
@@ -74,7 +74,7 @@ public abstract class Nave {
         this.coloreNave = coloreNave;
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
-        this.numeriPezziNaveDaRipagare = 0;
+        this.numeroPezziNaveDaRipagare = 0;
         this.inizializzaNave();
         this.nave=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
         this.parteRestante=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
@@ -484,7 +484,7 @@ public abstract class Nave {
 		if(scelta<1 || scelta>opzioni.length) {
 			return scegliTroncamenti(opzioni);
 		}
-		setNumeriPezziNaveDaRipagare(opzioni[scelta]);
+		setNumeroPezziNaveDaRipagare(opzioni[scelta]);
 		return scelta;
 	}
     
@@ -1182,7 +1182,7 @@ public abstract class Nave {
 	//-------------------- SETTER - GETTER --------------------
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave(){ return this.nave; }
 
-    public int getNumeriPezziNaveDaRipagare(){ return this.numeriPezziNaveDaRipagare; }
+    public int getNumeroPezziNaveDaRipagare(){ return this.numeroPezziNaveDaRipagare; }
     
 	public Colori getColoreNave(){ return this.coloreNave; }
 
@@ -1200,20 +1200,7 @@ public abstract class Nave {
 		return getCosmonauti()+getAlieniMarrone()+getAlieniViola();
 	}
     
-    /**
-     * metodo per contare i pezzi distrutti confrontando il nuovo troncamento rispetto alla nave
-     * @param opzioni 
-     */
-    public void setNumeriPezziNaveDaRipagare(Troncamento opzione){
-    	for(ArrayList<Tessera> colonne : opzione) {
-			for(Tessera tessera : colonne) {
-				if(!this.nave.contains(tessera)) {
-					this.numeriPezziNaveDaRipagare=this.numeriPezziNaveDaRipagare +1;
-				}
-			}
-    	}
-    	
-    }
+  
     
     /**
      * Metodo che restituisce solo il numero di alieni viola
@@ -1269,6 +1256,21 @@ public abstract class Nave {
 		return cosmonauti;
 	}
 
+	  /**
+     * metodo per contare i pezzi distrutti confrontando il nuovo troncamento rispetto alla nave
+     * @param opzioni 
+     */
+    public void setNumeroPezziNaveDaRipagare(Troncamento opzione){
+    	for(ArrayList<Tessera> colonne : opzione) {
+			for(Tessera tessera : colonne) {
+				if(!this.nave.contains(tessera)) {
+					this.numeroPezziNaveDaRipagare=this.numeroPezziNaveDaRipagare +1;
+				}
+			}
+    	}
+    	
+    }
+	
     /**
      * Metodo per aggiungere solo i cosmonauti alla nave
      * di default ne vengono messi 2 per ogni modulo 
