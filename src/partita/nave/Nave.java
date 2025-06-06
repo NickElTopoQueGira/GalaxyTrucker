@@ -484,6 +484,7 @@ public abstract class Nave {
 		if(scelta<1 || scelta>opzioni.length) {
 			return scegliTroncamenti(opzioni);
 		}
+		setNumeriPezziNaveDaRipagare(opzioni[scelta]);
 		return scelta;
 	}
     
@@ -1181,7 +1182,8 @@ public abstract class Nave {
 	//-------------------- SETTER - GETTER --------------------
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave(){ return this.nave; }
 
-   
+    public int getNumeriPezziNaveDaRipagare(){ return this.numeriPezziNaveDaRipagare; }
+    
 	public Colori getColoreNave(){ return this.coloreNave; }
 
     public int getEnergiaResidua(){ return this.energiaResidua; }
@@ -1197,6 +1199,21 @@ public abstract class Nave {
     public int getEquipaggio() {
 		return getCosmonauti()+getAlieniMarrone()+getAlieniViola();
 	}
+    
+    /**
+     * metodo per contare i pezzi distrutti confrontando il nuovo troncamento rispetto alla nave
+     * @param opzioni 
+     */
+    public void setNumeriPezziNaveDaRipagare(Troncamento opzione){
+    	for(ArrayList<Tessera> colonne : opzione) {
+			for(Tessera tessera : colonne) {
+				if(!this.nave.contains(tessera)) {
+					this.numeriPezziNaveDaRipagare=this.numeriPezziNaveDaRipagare +1;
+				}
+			}
+    	}
+    	
+    }
     
     /**
      * Metodo che restituisce solo il numero di alieni viola
