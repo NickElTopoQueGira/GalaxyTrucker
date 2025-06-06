@@ -20,7 +20,7 @@ public class Posizione {
     }
 
     public void occupaPosizione(Pedina pedina){
-        if(this.pedinaGiocatore != null){
+        if(this.pedinaGiocatore == null){
             this.pedinaGiocatore = pedina;
             this.libera = false;
         }
@@ -34,4 +34,6 @@ public class Posizione {
     public boolean isLibera(){ return this.libera; }
 
     public int getId() { return this.id; }
+
+    public Pedina getPedina(){ return  this.pedinaGiocatore; }
 }

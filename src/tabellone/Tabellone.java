@@ -31,7 +31,6 @@ public class Tabellone{
 		this.numeroPosizioni = numeroPosizioniLivello();
 		this.elencoNaviAbbandonate = new ArrayList<>();
 		inizializzaPosizioni();
-		inizializzaPedine();
 		this.mazzoCarte = this.generatoreMazzo.getLista();
 	}
 
@@ -92,6 +91,7 @@ public class Tabellone{
 	 */
 	public void aggiungiPedineAlTabellone(ArrayList<Pedina> elencoPedine){
 		this.elencoPedine.addAll(elencoPedine);
+		inizializzaPedine();
 	}
 	
 	/**
@@ -125,9 +125,15 @@ public class Tabellone{
 	 * Metodo per inizializzare le pedine in gioco
 	 */
 	private void inizializzaPedine(){
-		for(int i = 0; i < this.elencoPedine.size(); i += 1){
-			this.elencoPedine.get(i).setPedinaInGioco();
-			this.elencoPedine.get(i).setTabellone(this);
+		// TODO: da sistemare l'ordine con il quale le pedine vengono aggiunte nel tabellone
+		int pos = 1;
+		for(Pedina pedina : this.elencoPedine){
+			pedina.setPedinaInGioco();
+			pedina.setTabellone(this);
+			pedina.setPosizioneSulTabellone(pos);
+			pedina.setPedinaInGioco();
+			this.posizioni.get(pos).occupaPosizione(pedina);
+			pos += 1;
 		}
 	}
 
@@ -135,20 +141,19 @@ public class Tabellone{
 	 * Metodo per muovere la pedina di x posizioni 
 	 * Se posizioni > 0
 	 * 	il giocatore avanza di x posizioni
-	 * 
 	 * Se posizioni < 0
 	 * 	il giocatore avanza di |-numeroPosizioni + posizioni|
 	 * 
-	 * @param pedina
-	 * @param posizioni
+	 * @param pedina Pedina
+	 * @param mossa int
 	 */
 	public void muoviPedina(Pedina pedina, int mossa){
 		// Recupero la posizione iniziale della pedina
 		int posizionePedinaAttuale = pedina.getPosizioneSulTabellone();
 
-		/**
+		/*
 		 * La pedina va avanti fino a quando non finisco le mosse
-		 * se la pedina incontra quele ostacolo lungo il suo cammino
+		 * se la pedina incontra quale ostacolo lungo il suo cammino
 		 * lo salta e continua il conteggio dalla prima posizione
 		 * libera subito dopo
 		 */
@@ -159,7 +164,7 @@ public class Tabellone{
 				posizionePedinaAttuale = (posizionePedinaAttuale + 1) % this.numeroPosizioni;
 				
 				if(this.posizioni.get(posizionePedinaAttuale).isLibera()){
-					// decremento dei passi da fare se e solo se la la posizone dove 
+					// decremento dei passi da fare se e solo se la posizione dove
 					// si trova attualmente la pedina e' libera
 					mossa += -1;
 				}
@@ -186,7 +191,7 @@ public class Tabellone{
 	/**
 	 * Metodo per liberare la posizione 
 	 * 
-	 * @param posizione
+	 * @param posizione int
 	 */
 	public void liberaPosizione(int posizione){
 		if(this.posizioni.get(posizione).isLibera() == false){
@@ -224,34 +229,23 @@ public class Tabellone{
 	
 	
 	/**
-	 * metodo toString che ritorna il tabellone di gioco sotto forma di stringa
+	 * Metodo toString che ritorna il tabellone di gioco sotto forma di stringa
 	 */
 	@Override
 	public String toString() {
-		String temp="";
-		ArrayList<String> stringaTabellone= new ArrayList<String>();
-		cns.clear();
-		temp+="Tabellone di Gioco:\n";
-		for(int i=0; i<this.numeroPosizioni; i++) {
-			stringaTabellone.add(" ( ) ");
-		}
-		for(int i=0; i<elencoPedine.size(); i++) {
-			for(int j=0; j<this.numeroPosizioni; j++) {
-				if(elencoPedine.get(i).getPosizioneSulTabellone()==j) {
-					stringaTabellone.set(j, " ("+elencoPedine.get(j).getGiocatore().getColorePedina().getSiglaTabellone()+") ");
-				}
-				
+		String temp = "Tabellone di gioco\n";
+
+		// scansione le posizioni
+		for(int i = 0; i < this.numeroPosizioni; i += 1){
+			Posizione pos = this.posizioni.get(i);
+			if(!pos.isLibera()){
+				// se la posizione e' occupata
+				Pedina p = pos.getPedina();	// recupero la pedina che occupa la posizione
+				temp += " (" + p.getGiocatore().getColorePedina().getSiglaTabellone() + ") ";
+			}else{
+				temp += " ( ) ";
 			}
 		}
-		for(int i=0; i<this.numeroPosizioni; i++) {
-			temp+=stringaTabellone.get(i);
-		}
-		
-		temp+="\n\n";
-		return temp;
-		
+		return temp + "\n";
 	}
-	
-	
-	
 }
