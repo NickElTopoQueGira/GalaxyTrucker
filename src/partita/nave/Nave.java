@@ -48,6 +48,7 @@ public abstract class Nave {
     private int fineNaveO;
     private int inizioNaveV;
     private int fineNaveV;
+    private int numeriPezziNaveDaRipagare;
     
     /**
      * Metodi astratti, implementati nelle sotto classi
@@ -73,6 +74,7 @@ public abstract class Nave {
         this.coloreNave = coloreNave;
         this.energiaResidua = 0;
         this.numeroConnettoriScoperti = 0;
+        this.numeriPezziNaveDaRipagare = 0;
         this.inizializzaNave();
         this.nave=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
         this.parteRestante=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
@@ -1574,7 +1576,7 @@ public abstract class Nave {
 
     private int StiveVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(x).get(y);
+    	Tessera tessera = this.nave.get(y).get(x);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1592,7 +1594,7 @@ public abstract class Nave {
     
 	private int StiveNonVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(x).get(y);
+    	Tessera tessera = this.nave.get(y).get(x);
 		TipoTessera tipo = tessera.getTipoTessera();
 		
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1610,7 +1612,7 @@ public abstract class Nave {
     
 	private int StiveSpeciali(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(x).get(y);
+    	Tessera tessera = this.nave.get(y).get(x);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1628,7 +1630,7 @@ public abstract class Nave {
     
 	private int Modulo(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(x).get(y);
+    	Tessera tessera = this.nave.get(y).get(x);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.MODULO_PASSEGGERI) {
