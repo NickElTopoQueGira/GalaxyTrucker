@@ -1261,9 +1261,9 @@ public abstract class Nave {
      * @param opzioni 
      */
     public void setNumeroPezziNaveDaRipagare(Troncamento opzione){
-    	for(ArrayList<Tessera> colonne : opzione) {
+    	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
-				if(!this.nave.contains(tessera)) {
+				if(!opzione.contains(tessera)) {
 					this.numeroPezziNaveDaRipagare=this.numeroPezziNaveDaRipagare +1;
 				}
 			}
