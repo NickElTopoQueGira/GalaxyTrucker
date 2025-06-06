@@ -5,18 +5,21 @@ import carte.Carta;
 import carte.Mazzo;
 import gioco.ComunicazioneConUtente;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import partita.Livelli;
 import partita.Pedina;
 
 public class Tabellone{
-	private ComunicazioneConUtente cns;
+	private final ComunicazioneConUtente cns;
 	private final ArrayList<Pedina> elencoPedine;
 	private ArrayList<Pedina> elencoNaviAbbandonate; 
 	private ArrayList<Carta> mazzoCarte;
-	private ArrayList<Posizione> posizioni;
-	private Mazzo generatoreMazzo;
-	private int numeroPosizioni;
-	private Livelli livello;
+	private final ArrayList<Posizione> posizioni;
+	private final Mazzo generatoreMazzo;
+	private final int numeroPosizioni;
+	private final Livelli livello;
 	
 	public Tabellone(Livelli livello){
 		this.cns = ComunicazioneConUtente.getIstanza();
@@ -77,19 +80,18 @@ public class Tabellone{
 	}
 	
 	private void impostaTabellone() {
-		for(int i=0; i<elencoPedine.size(); i++) {
-			
-			elencoPedine.get(i).setTabellone(this);
+		for(Pedina pedina : this.elencoPedine){
+			pedina.setTabellone(this);
 		}
 	}
 	
 	/**
-	 * Metodo per aggiungere la pedina sul tabellone
+	 * Metodo per aggiungere le pedine al tabellone
 	 * 
-	 * @param nuovaPedina
+	 * @param elencoPedine ArrayList<Pedine>
 	 */
-	public void aggiungiPedina(Pedina nuovaPedina){
-		this.elencoPedine.add(nuovaPedina);
+	public void aggiungiPedineAlTabellone(ArrayList<Pedina> elencoPedine){
+		this.elencoPedine.addAll(elencoPedine);
 	}
 	
 	/**

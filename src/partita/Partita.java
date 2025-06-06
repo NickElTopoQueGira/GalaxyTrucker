@@ -30,7 +30,7 @@ public class Partita{
 	
 	/**
 	 * Partita multipla
-	 * @param numeroGiocatori
+	 * @param numeroGiocatori Int
 	 */
 	public Partita(int numeroGiocatori){
 		
@@ -44,8 +44,8 @@ public class Partita{
 
 	/**
 	 * Partita singola
-	 * @param numeroGiocatori
-	 * @param livelloPartita
+	 * @param numeroGiocatori int
+	 * @param livelloPartita Livelli
 	 */
 	public Partita(int numeroGiocatori, Livelli livelloPartita){
 		this.com = ComunicazioneConUtente.getIstanza();
@@ -59,19 +59,10 @@ public class Partita{
 	// ----------------- GIOCATORI E PEDINE----------------- 
 	/**
 	 * Metodo per aggiungere i giocatori alla partita
-	 * @param elencogiocatori
+	 * @param elencoGiocatori Set<Giocatore>
 	 */
-	public void aggiungiGiocatori(Set<Giocatore> elencogiocatori){
-		this.giocatori.addAll(elencogiocatori);
-	}
-
-	/**
-	 * Metodo per aggiungere le pedine al tabellone
-	*/
-	private void aggiungiPedineAlTabellone(){
-		for(Giocatore giocatore : this.giocatori){
-			this.tabellone.aggiungiPedina(giocatore.getPedina());
-		}
+	public void aggiungiGiocatori(Set<Giocatore> elencoGiocatori){
+		this.giocatori.addAll(elencoGiocatori);
 	}
 
 	public int getNumeroGiocatori(){ return this.numeroGiocatori; }
@@ -79,26 +70,24 @@ public class Partita{
 	// ----------------- TABELLONE - LIVELLI - MODALITA' -----------------
 	/**
 	 * Metodo per la generazione del tabellone
+	 * Le pedine non vengono aggiunte qui al tabellone.
+	 * Vengono aggiunte quando il giocatore avra' finito di
+	 * creare la sua nave
 	 */
 	private void generaTabellone(){
 		
 		if(this.tabellone == null){
 			this.tabellone = new Tabellone(livelloPartita);
-			// aggiunta delle pedine al tabellone
-			aggiungiPedineAlTabellone();
 		}
 		else{
 			// se il tabellone e' gia' creato
 			
 			if(this.livelloPartita != Livelli.TERZO){
-				// se non sono all'utlimo livello 
+				// se non sono all'ultimo livello
 				this.tabellone = null;
 				// tabellone del livello successivo
 				this.livelloPartita = livelloPartita.next();
 				this.tabellone = new Tabellone(livelloPartita);
-				
-				// aggiunta delle pedine al tabellone
-				aggiungiPedineAlTabellone();
 			}
 		}
 	}
@@ -130,16 +119,16 @@ public class Partita{
 			tabellone.gioca();
 
 			// -------------- FINE DELLA PARTITA --------------
-			/**
+			/*
 			 * Se la partita e' singola, si esce nel loop di gioco
-			 * altrimenti se la partita e' multima si rimane nel loop 
+			 * altrimenti se la partita e' multipla si rimane nel loop
 			 */
 			if(this.modalitaPartita == ModalitaPartita.SINGOLA){
 				partitaInCorso = false;
 			}
 
-			/**
-			 * Controllo se la partita e' multila ed e' arrivata al terzo lievello
+			/*
+			 * Controllo se la partita e' multipla ed e' arrivata al terzo livello
 			 * se e' al terzo livello allora la partita termina
 			 * altrimenti rimane nel loop
 			 */
@@ -151,8 +140,8 @@ public class Partita{
 	}
 
 	/**
-	 * motodo per la gestione delle opzioni svolte dal giocatore sulle tessere in fase di conf della nave
-	 * @param g
+	 * Metodo per la gestione delle opzioni svolte dal giocatore sulle tessere in fase di conf della nave
+	 * @param g Giocatore
 	 */
 	private void turno(Giocatore g){
 		this.com.clear();
@@ -181,15 +170,15 @@ public class Partita{
 	}
 	
 	/**
-	 * metodo che esegue la scelta utente per usare, prenotare o scartare la tessera
-	 * @param tessera
-	 * @param g
+	 * Metodo che esegue la scelta utente per usare, prenotare o scartare la tessera
+	 * @param tessera Tessera
+	 * @param g Giocatore
 	 */
 	private void azioneAssemblaggio(Tessera tessera, Giocatore g) {
 		
 		boolean condizione=false;
 		do {
-			//visualizzazione della Naveù
+			//visualizzazione della nave
 			this.com.clear();
 			this.com.println(g.getNave().toString());
 			
@@ -200,7 +189,6 @@ public class Partita{
 			switch(menuScelte()){
 				case 1->{
 					// prenotazione della tessera
-					
 					condizione=prenotaTessera(g, tessera);
 				}
 				case 2->{
@@ -210,11 +198,10 @@ public class Partita{
 				}
 				case 3->{
 					// scarta tessera
-
 					try {
 						tessera.aggiungiTessera();
-					} catch (ErroreAggiuntaTessera e) {
-
+					}catch(ErroreAggiuntaTessera eAt){
+						this.com.printError(eAt.getMessage());
 					}
 					condizione=true;
 				}
@@ -225,7 +212,7 @@ public class Partita{
 
 	/**
 	 * Metodo per usare una tessera del mazzo
-	 * @param g
+	 * @param g Giocatore
 	 */
 	private void azioneAssemblaggio1(Giocatore g){
 		//se lista=vuota allora richiama turno
@@ -244,7 +231,7 @@ public class Partita{
 
 	/**
 	 * Metodo per usare una tessera generata
-	 * @param g
+	 * @param g Giocatore
 	 */
 	private void azioneAssemblaggio2(Giocatore g){
 		Tessera tessera = nuovaTesseraRandom();
@@ -254,12 +241,10 @@ public class Partita{
 
 	/**
 	 * Metodo per usare una tessera prenotata
-
-	 * @param g
+	 * @param g Giocatore
 	 */
 	private void azioneAssemblaggio3(Giocatore g){
 		this.azioneAssemblaggio(usaTesseraPrenotata(g), g);
-
 	}
 	
 	// ----------------- NAVE -----------------
@@ -287,7 +272,8 @@ public class Partita{
 	 */
 	private void assemblaNavi(){
 	    ArrayList<Giocatore> giocatori = new ArrayList<>(this.giocatori);
-	    Map<Giocatore, Integer> turniResidui = new HashMap<>();
+	    ArrayList<Pedina> elencoPedineFinite = new ArrayList<>();
+		Map<Giocatore, Integer> turniResidui = new HashMap<>();
 	    final int TURNI_EXTRA = 10;
 	    boolean countdownAttivo = false;
 	    int contatoreFinale = 1;
@@ -327,7 +313,11 @@ public class Partita{
 	                g.naveFinita();
 	                //TODO controlla la posizione di pedina
 	                g.getPedina().setPosizioneSulTabellone(contatoreFinale++);
-	                tabellone.aggiungiPedina(g.getPedina());
+					// aggiunta della pedina in un elenco temporaneo
+					if(!elencoPedineFinite.contains(g.getPedina())) {
+						// se la pedina non e' gia' nell'elenco, allora viene aggiunta
+						elencoPedineFinite.add(g.getPedina());
+					}
 	                this.com.clear();
 	                this.com.println("Il giocatore " + g.getNome() + " ha finito la nave.");
 
@@ -376,11 +366,13 @@ public class Partita{
 	            break;
 	        }
 	    }
+
+		this.tabellone.aggiungiPedineAlTabellone(elencoPedineFinite);
 	}
 
 	/**
 	 * Metodo per chiedere conferma se la nave e' finita
-	 * @param giocatore
+	 * @param giocatore Giocatore
 	 * @return true se finita e false se il contrario
 	 */
 	private boolean naveFinita(Giocatore giocatore){
@@ -395,7 +387,7 @@ public class Partita{
 
 	/**
 	 * Metodo per visualizzare la nave del giocatore
-	 * @param g
+	 * @param g Giocatore
 	 */
 	private void visualizzaNave(Giocatore g){
 		this.com.println(g.getNave().toString());
@@ -426,7 +418,6 @@ public class Partita{
 
 	/**
 	 * Metodo per selezionare la tessera dal mazzo
-	 * 
 	 * @return  tessera
 	 */
 	private Tessera selezionaTesseraDalMazzo(){
@@ -463,7 +454,7 @@ public class Partita{
 	/**
 	 * Metodo per visualizzare l'elenco delle tessere
 	 * 
-	 * @param tessere
+	 * @param tessere ArrayList<Tessera>
 	 */
 	private void visualizzaElencoTessere(ArrayList<Tessera> tessere){
 		for(int i = 0; i < tessere.size(); i+= 1){
@@ -477,9 +468,9 @@ public class Partita{
 	// ----------------- TESSERE PRENOTATE -----------------
 	/**
 	 * Metodo per prenotare la tessera
-	 * @param giocatore
-	 * @param tessera
-	 * @return true se adnato a buon fine e false se il contrario
+	 * @param giocatore Giocatore
+	 * @param tessera Tessera
+	 * @return true se andato a buon fine e false se il contrario
 	 */
 	private boolean prenotaTessera(Giocatore giocatore, Tessera tessera){
 		try{
@@ -495,8 +486,8 @@ public class Partita{
 
 	/**
 	 * Metodo per rimuovere la tessera prenotata
-	 * @param giocatore
-	 * @return tessera
+	 * @param giocatore Giocatore
+	 * @return tessera Tessera
 	 */
 	private Tessera usaTesseraPrenotata(Giocatore giocatore){
 		this.com.println(giocatore.getNave().tesserePrenotateToString());
@@ -533,8 +524,8 @@ public class Partita{
 	/**
 	 * Metodo per inserire la tessera nella nave
 	 * 
-	 * @param giocatore
-	 * @param tessera
+	 * @param giocatore Giocatore
+	 * @param tessera Tessera
 	 * @return false se non fatto e true se fatto
 	 */
 	private boolean inserisciTesseraNellaNave(Giocatore giocatore, Tessera tessera){
@@ -590,15 +581,15 @@ public class Partita{
 	
 	
 	/**
-	 * chiede all'utente se vuole ruotare o inseire tessera nella nave
-	 * @param giocatore
-	 * @param tessera
-	 * @return true se inserimento tessera adnato a buon fine, false se il contrario
+	 * Chiede all'utente se vuole ruotare o inserire tessera nella nave
+	 * @param giocatore Giocatore
+	 * @param tessera Tessera
+	 * @return true se inserimento tessera andato a buon fine, false se il contrario
 	 */
 	private boolean usaTessera(Giocatore giocatore, Tessera tessera) {
 		
-		boolean condizione=false;
-		boolean check=false;
+		boolean condizione = false;
+		boolean check = false;
 		do {
 			//stampa nave e tessera
 			this.com.clear();
@@ -607,7 +598,7 @@ public class Partita{
 			this.com.println(tessera.toString());
 			
 			condizione=false;
-			check=false;
+			check = false;
 			
 			ArrayList<String> elenco = new ArrayList<>();
 			this.com.println("Scegli cosa fare:");
@@ -637,7 +628,7 @@ public class Partita{
 	/**
 	 * Metodo per selezionare se si vuole 
 	 * pescare dal mazzo o utilizzare la tessera
-	 * 
+	 * @param g Giocatore
 	 * @return scelta
 	 */
 	private int azioneCarta(Giocatore g){
@@ -750,8 +741,8 @@ public class Partita{
 				this.com.println(" attualmente disposti su " + String.valueOf(equipaggio.getNumeroModuliCosmonauti() + 1) + " moduli (centro incluso)");
 
 				this.com.println("Sulla nave ci sono " + equipaggio.getNumeroModuliAlini() + " moduli predisposti per ospitare gli alieni, di cui");
-				this.com.println("- " + equipaggio.getNumeroModuliAlieniMarroni() + " moduli per alini marroni");
-				this.com.println("- " + equipaggio.getNumeroModuliAlieniViola() + " moduli per alini viola");
+				this.com.println("- " + equipaggio.getNumeroModuliAlieniMarroni() + " moduli per alieni marroni");
+				this.com.println("- " + equipaggio.getNumeroModuliAlieniViola() + " moduli per alieni viola");
 								
 				this.com.println("Vuoi aggiungere l'equipaggio non terrestre al tuo vascello intergalattico? ");
 				if(this.com.conferma()){
@@ -791,7 +782,7 @@ public class Partita{
 	}
 
 	/**
-	 * Menu di scelta per l'imbarco degli alini
+	 * Menu di scelta per l'imbarco degli alieni
 	 * @param messaggio String
 	 * @return risp int
 	 */
@@ -822,7 +813,7 @@ public class Partita{
 	}
 
 	/**
-	 * Metodo per imbarcare gli alini sulla nave
+	 * Metodo per imbarcare gli alieni sulla nave
 	 * 
 	 * @param scelta int
 	 * @param g	Giocatore
@@ -832,14 +823,14 @@ public class Partita{
 	private void imbarca(int scelta, Giocatore g, GestioneEquipaggio ge, int id){
 		switch(scelta){
 			case 1 ->{
-				// tutti gli alini
+				// tutti gli alieni
 				if(id == 1){
 					// alieni marroni
 					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*ge.getNumeroModuliAlieniMarroni()) + " cosmonauti");
 					if(this.com.conferma()){
 						g.getNave().setAlieniMarroni(ge.getNumeroModuliAlieniMarroni());
 					}else{
-						menuImbarco("Inserimento alini marroni");
+						menuImbarco("Inserimento alieni marroni");
 					}
 				}else if(id == 2){
 					// alieni viola
@@ -847,32 +838,32 @@ public class Partita{
 					if(this.com.conferma()){
 						g.getNave().setAlieniViola(ge.getNumeroModuliAlieniViola());
 					}else{
-						menuImbarco("Inserimento alini viola");
+						menuImbarco("Inserimento alieni viola");
 					}
 				}
 			}
 			case 2 ->{
 				if(id == 1){
 					// marroni
-					this.com.println("Inserisci il numeo di alini marroni che vuoi immettere nella tua nave: ");
-					int numeroAlieni = numeroAliniCustom(id, ge);
+					this.com.println("Inserisci il numero di alieni marroni che vuoi immettere nella tua nave: ");
+					int numeroAlieni = numeroAlieniCustom(id, ge);
 					
 					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*numeroAlieni) + " cosmonauti");
 					if(this.com.conferma()){
 						g.getNave().setAlieniMarroni(ge.getNumeroModuliAlieniMarroni());
 					}else{
-						menuImbarco("Inserimento alini marroni");
+						menuImbarco("Inserimento alieni marroni");
 					}
 				}else if(id == 2){
 					// viola
-					this.com.println("Inserisci il numeo di alini viola che vuoi immettere nella tua nave: ");
-					int numeroAlieni = numeroAliniCustom(id, ge);
+					this.com.println("Inserisci il numero di alieni viola che vuoi immettere nella tua nave: ");
+					int numeroAlieni = numeroAlieniCustom(id, ge);
 					
 					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*numeroAlieni) + " cosmonauti");
 					if(this.com.conferma()){
 						g.getNave().setAlieniViola(ge.getNumeroModuliAlieniMarroni());
 					}else{
-						menuImbarco("Inserimento alini viola");
+						menuImbarco("Inserimento alieni viola");
 					}
 				}
 			}
@@ -880,13 +871,13 @@ public class Partita{
 	}
 
 	/**
-	 * Metodo per specificare il numero di alini che si voglino imbarcare sulla nave
+	 * Metodo per specificare il numero di alieni che si vogliamo imbarcare sulla nave
 	 * 
-	 * @param id
-	 * @param ge
-	 * @return numero di alini
+	 * @param id int
+	 * @param ge GestioneEquipaggio
+	 * @return numero di alieno
 	 */
-	private int numeroAliniCustom(int id, GestioneEquipaggio ge){
+	private int numeroAlieniCustom(int id, GestioneEquipaggio ge){
 		int numero = 0;
 		boolean pass = false; 
 		do{
@@ -894,14 +885,12 @@ public class Partita{
 				numero = this.com.consoleReadInt();
 				if(numero < 0){
 					this.com.erroreImmissioneValore();
-					pass = false;
 				}
 
 				switch(id){
 					case 1 ->{
 						if(numero > ge.getNumeroModuliAlieniMarroni()){
 							this.com.erroreImmissioneValore();
-							pass = false;
 						}else{
 							pass = true;
 						}
@@ -909,7 +898,6 @@ public class Partita{
 					case 2 ->{
 						if(numero > ge.getNumeroModuliAlieniViola()){
 							this.com.erroreImmissioneValore();
-							pass = false;
 						}else{
 							pass = true;
 						}
