@@ -81,7 +81,7 @@ public class FineGioco {
 			premio--;
 		}
 		
-		//calcolo della nave più bella contaTesserePresentiSullaNave()
+		//calcolo della nave più bella 
 		this.sceltaDellaNavePiuBella();
 		
 		for(int i=0; i<pedineVoloAbbandonato.size(); i++) {//vengono uniti i due array
