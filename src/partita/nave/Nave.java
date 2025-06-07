@@ -615,7 +615,14 @@ public abstract class Nave {
 
         // controllo se i lati sono uguali
         if(latiTesseraNave.getRight() == tessera.getLatiTessera().getLeft() ){
-            return 0;
+            
+        	if(tessera.getLatiTessera().getLeft() == TipoConnettoriTessera.NULLO) {
+        		
+        		return 0;
+        	}else {
+        		
+        		return 1;
+        	}
             
         } else 
         	
@@ -670,8 +677,16 @@ public abstract class Nave {
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY()).get(coordinate.getX() + 1).getLatiTessera();
 
         // controllo se i lati sono uguali
-        if(latiTesseraNave.getLeft() == tessera.getLatiTessera().getRight() && latiTesseraNave.getLeft()!=TipoConnettoriTessera.NULLO ){
-            return 1;
+        if(latiTesseraNave.getLeft() == tessera.getLatiTessera().getRight()){
+            
+        	if(tessera.getLatiTessera().getRight() == TipoConnettoriTessera.NULLO) {
+        		
+        		return 0;
+        	}else {
+        		
+        		return 1;
+        	}
+            
         } else 
         	
         // controlla se uno dei due lati è nullo e l'altro no
@@ -723,8 +738,16 @@ public abstract class Nave {
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY() - 1).get(coordinate.getX()).getLatiTessera();
 
         // controllo se i lati sono uguali
-        if(latiTesseraNave.getDown() == tessera.getLatiTessera().getUp()&& latiTesseraNave.getDown()!=TipoConnettoriTessera.NULLO ){
-            return 1;
+        if(latiTesseraNave.getDown() == tessera.getLatiTessera().getUp()){
+            
+        	if(tessera.getLatiTessera().getUp() == TipoConnettoriTessera.NULLO) {
+        		
+        		return 0;
+        	}else {
+        		
+        		return 1;
+        	}
+            
         } else 
         	
         // controlla se uno dei due lati è nullo e l'altro no
@@ -776,8 +799,16 @@ public abstract class Nave {
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY() + 1).get(coordinate.getX()).getLatiTessera();
 
         // controllo se i lati sono uguali
-        if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown() && latiTesseraNave.getUp()!=TipoConnettoriTessera.NULLO ){
-            return 1;
+        if(latiTesseraNave.getUp() == tessera.getLatiTessera().getDown()){
+            
+        	if(tessera.getLatiTessera().getDown() == TipoConnettoriTessera.NULLO) {
+        		
+        		return 0;
+        	}else {
+        		
+        		return 1;
+        	}
+            
         } else 
         	
         // controlla se uno dei due lati è nullo e l'altro no
