@@ -1566,6 +1566,18 @@ public abstract class Nave {
 		return potenzaCannoni;
 	}
 	
+	/**
+	 * metoto che inm base a quale tipologia di tessere stai cercando:
+	 * 1: tesssera tipologia stiva (che sia vuota)
+	 * 2: tesssera tipologia stiva (che sia non vuota)
+	 * 3: tesssera tipologia stiva (che di tipologia speciale)
+	 * 4: tesssera tipologia modulo (comprendendo anche il centro) (e con un equipaggio
+	 * 								al suo intento>0)
+	 * 
+	 * @param n
+	 * @param scelta
+	 * @return Arraylist delle coordinate di tutte le tessere cercate
+	 */
     public ArrayList<Coordinate> trova(int n, int scelta){
     	
     	int caso = n;
@@ -1592,7 +1604,16 @@ public abstract class Nave {
     	
     	return crd;
     }
-
+    
+    /**
+     * metodo che trova tutte le tessere stive vuote
+     * 
+     * @param caso
+     * @param crd
+     * @param x
+     * @param y
+     * @return arraylist con le stive vuote
+     */
     private int StiveVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
     	Tessera tessera = this.nave.get(y).get(x);
@@ -1611,6 +1632,15 @@ public abstract class Nave {
 		return caso;
     }
     
+    /**
+     * metodo che trova tutte le tessere stive non vuote
+     * 
+     * @param caso
+     * @param crd
+     * @param x
+     * @param y
+     * @return arraylist con le stive non vuote
+     */
 	private int StiveNonVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
     	Tessera tessera = this.nave.get(y).get(x);
@@ -1629,6 +1659,15 @@ public abstract class Nave {
 		return caso;
     }
     
+    /**
+     * metodo che trova tutte le tessere stive speciali
+     * 
+     * @param caso
+     * @param crd
+     * @param x
+     * @param y
+     * @return arraylist con le stive speciali
+     */
 	private int StiveSpeciali(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
     	Tessera tessera = this.nave.get(y).get(x);
@@ -1647,6 +1686,15 @@ public abstract class Nave {
 		return caso;
     }
     
+    /**
+     * metodo che trova tutte le tessere modulo non vuote centro compreso
+     * 
+     * @param caso
+     * @param crd
+     * @param x
+     * @param y
+     * @return arraylist con i moduli
+     */
 	private int Modulo(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
     	Tessera tessera = this.nave.get(y).get(x);
