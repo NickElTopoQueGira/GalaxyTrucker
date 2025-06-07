@@ -28,6 +28,7 @@ public class Batteria extends Tessera implements TessereNormali {
         if (contatore <= MASSIMO) {
             this.capacity = RandomTipo();
             this.energiaAttuale = capacity;
+            
         } else {
             throw new ErroreTessera("Numero Elementi Batteria Max"); // Eccezione Numero Massimo di elementi
         }

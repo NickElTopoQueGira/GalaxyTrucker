@@ -34,6 +34,7 @@ public class Cannone extends Tessera implements TessereNormali {
         super(TipoTessera.CANNONE, Posizione.INTERNA);
         contatore++;
         if (contatore <= MASSIMO) {
+        	
             this.tipoCannone = randomTipo();
             this.latoCannone = TipoLato.UP;
             this.tempStampaCasella = super.tessera_Disposizione[rprec][cprec];

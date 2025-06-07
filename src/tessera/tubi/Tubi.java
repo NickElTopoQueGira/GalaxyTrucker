@@ -25,6 +25,7 @@ public class Tubi extends Tessera implements TessereNormali {
         if (contatore > MASSIMO) {
             throw new ErroreTessera("Numero Elementi Tubi Max"); // Eccezione Numero Massimo di elementi
         }
+        
         boolean condizione = true;
         while (condizione) {
             if (this.latiTessera.getUp() == TipoConnettoriTessera.NULLO
@@ -33,7 +34,7 @@ public class Tubi extends Tessera implements TessereNormali {
                     || this.latiTessera.getLeft() == TipoConnettoriTessera.NULLO) {
 
                 this.latiTessera.GeneraLatiTessera();
-
+                
             } else {
                 condizione = false;
             }

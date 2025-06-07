@@ -16,7 +16,7 @@ import tessera.tubi.Tubi;
 public class FactoryTessera {
 
     private static int numeroTessere = 0;
-    private static final int NUMERO_TESSERE_MAX = 252;
+    private static final int NUMERO_TESSERE_MAX = 152;
     private ComunicazioneConUtente stampa;
 
     public static int getNumeroTessere() {
@@ -48,7 +48,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Stiva) t).decrementaNumeroCorrente();
-                        break;
+                        
                     }
                     return t;
                 }
@@ -58,7 +58,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Scudi) t).decrementaNumeroCorrente();
-                        break;
+                        
                     }
                     return t;
                 }
@@ -68,7 +68,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Tubi) t).decrementaNumeroCorrente();
-                        break;
+                        
                     }
                     return t;
                 }
@@ -78,7 +78,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((ModuloPasseggeri) t).decrementaNumeroCorrente();
-                        break;
+                        
                     }
                     return t;
                 }
@@ -88,7 +88,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((ModuloAttraccoAlieni) t).decrementaNumeroCorrente();
-                        break;
+                        
                     }
                     return t;
                 }
@@ -98,7 +98,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Batteria) t).decrementaNumeroCorrente();
-                        break;
+                        
                     }
                     return t;
                 }
@@ -108,7 +108,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Cannone) t).decrementaNumeroCorrente();
-                        break;
+                        
                     }
                     return t;
                 }
@@ -118,7 +118,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Motore) t).decrementaNumeroCorrente();
-                        break;
+                        
 
                     }
                     return t;
@@ -133,14 +133,15 @@ public class FactoryTessera {
         } catch (ErroreTessera eT) {
             stampa.printError(eT.getMessage());
             numeroTessere = numeroTessere - 1;
-            if (numeroTessere <= NUMERO_TESSERE_MAX) {
+            if (numeroTessere < NUMERO_TESSERE_MAX) {
                 return estraiTipo();
             } else {
                 throw new ErroreTessera("Numero Elementi Tessera Max"); // Eccezione Numero Massimo di elementi
             }
         }
-        return estraiTipo();
     }
+    
+    
 
     /**
      * viene fatta una random della lunghezza -2 per escludere il tipotessera

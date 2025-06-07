@@ -41,6 +41,7 @@ public class Scudi extends Tessera implements TessereNormali {
         this.tempStampaCasella1 = super.tessera_Disposizione[rprec1][cprec1];
         super.tessera_Disposizione[rprec1][cprec1] = "@";
         super.tessera_Disposizione[rprec2][cprec2] = "@";
+        
     }
 
     /**

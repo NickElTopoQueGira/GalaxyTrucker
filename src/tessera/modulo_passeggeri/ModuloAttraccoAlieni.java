@@ -26,6 +26,7 @@ public class ModuloAttraccoAlieni extends Tessera implements TessereNormali {
         contatore++;
         if (contatore <= MASSIMO) {
             this.colore = randomTipo();
+            
 
         } else {
             throw new ErroreTessera("Numero Elementi Modulo Alieni Max"); // Eccezione Numero Massimo di elementi

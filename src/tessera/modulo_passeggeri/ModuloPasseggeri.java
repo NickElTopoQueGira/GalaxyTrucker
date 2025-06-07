@@ -30,7 +30,7 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
         contatore++;
         if (contatore <= MASSIMO) {
             this.tipoModuloPasseggeri = TipoModuloPasseggeri.MODULO_EQUIPAGGIO;
-
+            
             this.numeroCosmonauti = 0;
             this.numeroAlieniMarroni = 0;
             this.numeroAlieniViola = 0;

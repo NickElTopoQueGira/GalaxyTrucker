@@ -10,15 +10,19 @@ import java.util.Set;
 
 public abstract class Tessera {
 
-    protected final TipoTessera tipoTessera;
-    protected LatiTessera latiTessera;
-    private Coordinate coordinate;
+    
+
+	
+
+	protected final TipoTessera tipoTessera;
+    protected LatiTessera latiTessera  = new LatiTessera();;
+    private Coordinate coordinate = new Coordinate();;
     
     private final Posizione posizione;
     private static Set<Tessera> set = new LinkedHashSet<Tessera>();
 
-    private int id = 0;
-    private static int contatore = 0;
+    private int id;
+    private static int NumeroTessereGenerate = 0;
 
     protected String[][] tessera_Disposizione = {
         //Righe V  0    1    2    3    4    <- colonne
@@ -35,14 +39,10 @@ public abstract class Tessera {
      * @throws ErroreTessera
      */
     public Tessera(TipoTessera tipoTessera, Posizione posizione) {
-
         this.tipoTessera = tipoTessera;
-        this.contatore=contatore++;
-        this.id = this.contatore;
-        this.latiTessera = new LatiTessera();
-        this.coordinate = new Coordinate();
+        NumeroTessereGenerate=NumeroTessereGenerate+1;  
+        this.id = NumeroTessereGenerate;
         this.posizione = posizione;
-
     }
 
     public Posizione getPosizione() {
@@ -268,6 +268,11 @@ public abstract class Tessera {
 
         return temp;
     }
+    
+    
+	public int getId() {
+		return id;
+	}
 
     public abstract String toLegenda();
 

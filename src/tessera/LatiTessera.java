@@ -20,16 +20,14 @@ public class LatiTessera {
      * genera i lati tessera tramite delle random
      */
     public void GeneraLatiTessera() {
-        this.up = randomTipo();
-        this.down = randomTipo();
-        this.left = randomTipo();
-        this.right = randomTipo();
-
-        if (!this.verificaTessera()) {
-            GeneraLatiTessera();
-        }
-
+        do {
+            this.up = randomTipo();
+            this.down = randomTipo();
+            this.left = randomTipo();
+            this.right = randomTipo();
+        } while (!this.verificaTessera());
     }
+
 
     /**
      * verifica se tutti i connettori sono nulli, in tal caso restituisce false
