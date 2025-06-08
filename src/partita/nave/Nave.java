@@ -1179,18 +1179,26 @@ public abstract class Nave {
      */
     public String tesserePrenotateToString(){
     	String temp = "";
+    	ArrayList<String> componentiPrenotatiLegenda=new ArrayList<>();
     	temp += "Tessere Prenotate:\n";
     	for(int k=0; k<this.componentiPrenotati.size();k++) {
-			temp=temp+"  "+(k+1)+"  ";
+			temp=temp+"  "+(k+1)+"   ";
+			if(!this.componentiPrenotati.isEmpty()) {
+				componentiPrenotatiLegenda.add(this.componentiPrenotati.get(k).toLegenda());
+			}
+			
 		}
 		temp+="\n";
     	for(int i =0; i<5; i++) {
     		for(int j = 0; j < this.componentiPrenotati.size(); j += 1){
-        		temp=temp + this.componentiPrenotati.get(j).getriga(i)+ " "; 
+        		temp=temp + this.componentiPrenotati.get(j).getriga(i)+ " ";
+        		
             }
     		temp += "\n";
+    		
     	}
-        temp = temp + "\n";
+        temp = temp +this.stampa.visualizzaElenco(componentiPrenotatiLegenda)+ "\n";
+        this.stampa.visualizzaElenco(componentiPrenotatiLegenda);
         
 		return temp;
     }

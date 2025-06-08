@@ -218,7 +218,7 @@ public class ComunicazioneConUtente {
     }
     	
 	/**
-	 * stampa elenco puntato degli elementi tipo stringa della lista
+	 * ritona stringa con elenco puntato degli elementi tipo stringa della lista
 	 * @param lista
 	 */
 	public String visualizzaElenco(ArrayList<String> lista) {
