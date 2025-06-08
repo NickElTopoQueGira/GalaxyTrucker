@@ -292,7 +292,6 @@ public class Partita{
 	    }
 
 	    while(true){
-	        boolean almenoUnoHaAgito = false;
 
 	        for(Giocatore g : giocatori){
 	            if (g.isNaveFinita()) continue;
@@ -308,12 +307,6 @@ public class Partita{
 	            if(countdownAttivo){
 	                int residui = turniResidui.getOrDefault(g, 0);
 	                this.com.println("Numero mosse ancora disponibili: " + residui);
-	            }
-
-	            this.com.println("Vuoi modificare la nave?");
-	            if(this.com.conferma()){
-	                turno(g);
-	                almenoUnoHaAgito = true;
 	            }
 
 	            // Ricontrolla se ha completato la nave
@@ -344,12 +337,6 @@ public class Partita{
 	                int residui = turniResidui.getOrDefault(g, 0);
 	                turniResidui.put(g, residui - 1);
 	            }
-	        }
-
-	        // Se nessuno ha potuto agire, termina
-	        if(!almenoUnoHaAgito){
-	            this.com.println("Nessun altro giocatore può più modificare la nave.");
-	            break;
 	        }
 
 	        // Condizione di uscita
