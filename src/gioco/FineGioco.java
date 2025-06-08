@@ -17,6 +17,14 @@ public class FineGioco {
 	private ArrayList<Pedina> pedineVoloAbbandonato;
 	private int livello;
 	
+	public FineGioco(int lvl) {
+		
+		this.console = ComunicazioneConUtente.getIstanza();
+		this.pedineVoloCompletato = null;
+		this.pedineVoloAbbandonato = null;
+		this.livello = lvl;
+	}
+	
 	public FineGioco(ArrayList<Pedina> pvc, ArrayList<Pedina> pva, int lvl) {
 		
 		this.console = ComunicazioneConUtente.getIstanza();

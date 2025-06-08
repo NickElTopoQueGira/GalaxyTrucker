@@ -4,6 +4,8 @@ import carte.Carta;
 
 import carte.Mazzo;
 import gioco.ComunicazioneConUtente;
+import gioco.FineGioco;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -20,6 +22,7 @@ public class Tabellone{
 	private final Mazzo generatoreMazzo;
 	private final int numeroPosizioni;
 	private final Livelli livello;
+	private FineGioco fineGioco;
 	
 	public Tabellone(Livelli livello){
 		this.cns = ComunicazioneConUtente.getIstanza();
@@ -32,6 +35,7 @@ public class Tabellone{
 		this.elencoNaviAbbandonate = new ArrayList<>();
 		inizializzaPosizioni();
 		this.mazzoCarte = this.generatoreMazzo.getLista();
+		this.fineGioco = new FineGioco(this.livello.getLivelloNumerico());
 	}
 
 	public void gioca(){	
@@ -39,11 +43,18 @@ public class Tabellone{
 		
 		int i=0;
 		while (i < mazzoCarte.size() && !elencoPedine.isEmpty()) {
-			//----estrazione carta--------
 			
+			//visualizza navi giocatori
+			for(int p=0; p<elencoPedine.size(); p++) {
+				
+				cns.println("\nECCO LA NAVE DI " +elencoPedine.get(p).getGiocatore().getNome()+ ":");
+				
+				cns.println(elencoPedine.get(p).getGiocatore().getNave().toString());
+			}
 			//stampa tabellone
-			cns.println(this.toString());
+			cns.println("\n"+this.toString());
 			
+			//----estrazione carta--------
 			cns.println("\n------------------carte rimaste :"+(mazzoCarte.size() - i)+"------------------\n");
 			cns.println(mazzoCarte.get(i).toString());
 			mazzoCarte.get(i).eseguiCarta(elencoPedine);
@@ -76,6 +87,8 @@ public class Tabellone{
 			}
 			i++;
 		}
+		this.fineGioco = new FineGioco(elencoPedine, elencoNaviAbbandonate, this.livello.getLivelloNumerico());
+		this.fineGioco.granFinale();
 	}
 	
 	private void impostaTabellone() {
