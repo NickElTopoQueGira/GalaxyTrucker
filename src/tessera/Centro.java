@@ -8,6 +8,11 @@ public class Centro extends Tessera {
     private final Colori colore;
     private final Coordinate coordinate;
 
+    /**
+     * costruttore
+     * @param colore
+     * @param coordinate
+     */
     public Centro(Colori colore, Coordinate coordinate) {
         super(TipoTessera.CENTRO, Posizione.INTERNA);
         this.colore = colore;
@@ -32,7 +37,7 @@ public class Centro extends Tessera {
     }
 
     /**
-     * rimuove i passeggeri di un edit intero, se edit>passeggeriCorrenti
+     * rimuove i passeggeri di un valore intero, se edit>passeggeriCorrenti
      * imposta passeggeriCorrenti a 0
      *
      * @param edit

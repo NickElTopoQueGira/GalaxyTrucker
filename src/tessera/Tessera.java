@@ -66,6 +66,10 @@ public abstract class Tessera {
         this.coordinate = coordinate;
     }
 
+    /**
+     * metodo che trafsorma il set delle tessere in un arraylist per essere ritornato
+     * @return lista delle tessere generate
+     */
     public static ArrayList<Tessera> getListaTessere() {
         ArrayList<Tessera> listaA = new ArrayList<>(set);
         return listaA;
@@ -73,7 +77,7 @@ public abstract class Tessera {
     }
 
     /**
-     * rimuove dal set la tessera t
+     * rimuove dal set delle tessere generate la tessera t
      *
      * @param tessera da rimuovere
      */
@@ -89,7 +93,7 @@ public abstract class Tessera {
 
 
     /**
-     * aggiunge al set di tessere la tessera, svolge
+     * aggiunge al set di tessere generate la tessera, svolge
      * anche controllo duplicazione ed in caso genera eccezione
      *
      * @throws ErroreAggiuntaTessera
@@ -224,7 +228,7 @@ public abstract class Tessera {
     /**
      * to string della tessera
      *
-     * @return temp
+     * @return stringa da poter essere stampata rappresentate la tessera in char art
      */
     @Override
     public String toString() {
@@ -248,11 +252,11 @@ public abstract class Tessera {
     }
 
     /**
-     * fornita la riga della nave in j, restituisce la stringa temp in cui è
+     * metodo che fornita la riga della nave in j, restituisce la stringa temp in cui è
      * presente la prima riga di caratteri della matrice di Tessera
      *
-     * @param j
-     * @return temp
+     * @param riga
+     * @return stringa da stampare
      */
     public String getriga(int j) {
         generaTessera_Disposizione();
@@ -274,8 +278,14 @@ public abstract class Tessera {
 		return id;
 	}
 
+	/**
+	 * motodo che crea la descrizione della tessera
+	 * @return stringa descrittiva della tessera
+	 */
     public abstract String toLegenda();
 
+    
+    // Hashcode ed equals gestiscono il tutto tramite id tessera
     @Override
     public int hashCode() {
         return Objects.hash(id);

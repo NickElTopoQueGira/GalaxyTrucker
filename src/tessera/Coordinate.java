@@ -31,6 +31,11 @@ public class Coordinate {
         this.y = y;
     }
 
+    /**
+     * metodo che ritorna le coordinate adiacenti nella direzione specificata
+     * @param direzione (enum TipoLato)
+     * @return
+     */
     public Coordinate adiacente(TipoLato dir) {
         Coordinate adiacente = new Coordinate();
         switch (dir) {
@@ -57,24 +62,6 @@ public class Coordinate {
         return adiacente;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Coordinate other = (Coordinate) obj;
-        return x == other.x && y == other.y;
-    }
 
 }

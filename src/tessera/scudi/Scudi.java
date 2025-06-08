@@ -23,7 +23,8 @@ public class Scudi extends Tessera implements TessereNormali {
     private String tempStampaCasella2;
 
     /**
-     * costruttore se viene ecceduto il numero massimo di elementi genera
+     * costruttore
+     * se viene ecceduto il numero massimo di elementi genera
      * eccezione. sovrascrive in matrice di tessera il carattere "@" per
      * indicare gli scudi di deafult poszionati in up e right.
      *

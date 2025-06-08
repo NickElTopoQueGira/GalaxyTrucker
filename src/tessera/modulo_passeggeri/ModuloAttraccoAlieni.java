@@ -16,7 +16,8 @@ public class ModuloAttraccoAlieni extends Tessera implements TessereNormali {
     private boolean abitabile;
 
     /**
-     * costruttore se viene ecceduto il numero massimo di elementi genera
+     * costruttore
+     * se viene ecceduto il numero massimo di elementi genera
      * eccezione
      *
      * @throws ErroreTessera
@@ -40,7 +41,7 @@ public class ModuloAttraccoAlieni extends Tessera implements TessereNormali {
     /**
      * random di enum ColoreAlieni
      *
-     * @return enum ColoreAlieni
+     * @return ColoreAlieni (marrone o viola)
      */
     private ColoreAlieni randomTipo() {
         ColoreAlieni[] colori = ColoreAlieni.values();

@@ -32,7 +32,7 @@ public class LatiTessera {
     /**
      * verifica se tutti i connettori sono nulli, in tal caso restituisce false
      *
-     * @return boolean
+     * @return false se tutti i connettori della tessera sono tipo NULLO
      */
     public boolean verificaTessera() {
 
@@ -75,7 +75,7 @@ public class LatiTessera {
     }
 
     /**
-     * set tutti i lati in connettore Nullo
+     * metodo per impostare tutti i lati della tessera in connettore Nullo
      */
     public void setVuota() {
         this.up = TipoConnettoriTessera.NULLO;
@@ -85,9 +85,9 @@ public class LatiTessera {
     }
 
     /**
-     * random lato con enum TipoConnettoriTessera
+     * random per il lato con enum TipoConnettoriTessera
      *
-     * @return TipoConnettoriTessera
+     * @return connettore
      */
     private TipoConnettoriTessera randomTipo() {
         TipoConnettoriTessera[] t = TipoConnettoriTessera.values();

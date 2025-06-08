@@ -20,7 +20,8 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
     private TipoModuloPasseggeri tipoModuloPasseggeri;
 
     /**
-     * costruttore se viene ecceduto il numero massimo di elementi genera
+     * costruttore
+     * se viene ecceduto il numero massimo di elementi genera
      * eccezione
      *
      * @throws ErroreTessera
@@ -41,6 +42,10 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
         }
     }
 
+    /**
+     * set del tipoModulo Passeggeri con rispettivo settaggio dell'equipaggio
+     * @param nuovo tipoModuloPasseggeri
+     */
     public void setTipoModuloPasseggeri(TipoModuloPasseggeri tipoModuloPasseggeri) {
         this.tipoModuloPasseggeri = tipoModuloPasseggeri;
         setEquipaggio();
@@ -130,6 +135,10 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
         }
     }
 
+    /**
+     * metodo per il calcolo dell'equipaggio totale (alieni + cosmonuati)
+     * @return numero passeggeri totale
+     */
     public int getEquipaggio() {
         this.equipaggio = (this.numeroAlieniMarroni + this.numeroAlieniViola + this.numeroCosmonauti);
 

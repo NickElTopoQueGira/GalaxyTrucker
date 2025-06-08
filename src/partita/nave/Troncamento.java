@@ -16,8 +16,11 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	private final int fineNaveO;
 	
 	/**
-	 * costruttore che chiama costruttore di ArrayList<ArrayList<Tessera>>
-	 * 
+	 * costruttore
+	 * chiama costruttore di ArrayList<ArrayList<Tessera>>
+	 * @param inizioNaveV
+	 * @param inizioNaveO
+	 * @param fineNaveO
 	 */
 	public Troncamento(int inizioNaveV, int inizioNaveO, int fineNaveO) {
 		super();
@@ -35,10 +38,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	/**
 	 * Metodo che serve per la creazione della stringa per stampare il Trocamento con
 	 * annessi tutti i dettagli di legende e descrizioni varie
-	 * @param opzione
-	 * @param inizioNaveV
-	 * @param inizioNaveO
-	 * @param fineNaveO
+	 * 
 	 * @return stringa toString del troncamento
 	 */
 	@Override
@@ -166,7 +166,9 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
     }
 
     /**
-     * Metodo per allungare l array con stringhe vuote se necessario
+     * Metodo per allungare l'array con stringhe vuote se necessario
+     * @param dati
+     * @param dimMax
      * @return stringhe vuote String[]
      */
     private String[] modificaSize(String[] dati, int dimMax) {
@@ -179,7 +181,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 
     /**
      * Metodo che restituisce la legenda dei connettori
-     * @return legenda connettori String
+     * @return legenda connettori in Stringa
      */
     private String legendaConnettori() {
         return("Legenda Connettori:,"+
@@ -190,7 +192,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
     
     /**
      * Metodo per visualizzare la legenda dei connettori
-     * @return legenda connettori String
+     * @return legenda simboli in Stringa
      */
     private String legendaSimboli() {
         return ("Legenda Simboli:,"+

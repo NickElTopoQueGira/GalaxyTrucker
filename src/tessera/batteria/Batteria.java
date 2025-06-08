@@ -16,10 +16,11 @@ public class Batteria extends Tessera implements TessereNormali {
     private int energiaAttuale;
 
     /**
-     * costruttore se viene ecceduto il numero massimo di elementi genera
+     * costruttore
+     * se viene ecceduto il numero massimo di elementi genera
      * eccezione
      *
-     * @param
+     * 
      * @throws ErroreTessera
      */
     public Batteria() throws ErroreTessera {
@@ -36,9 +37,9 @@ public class Batteria extends Tessera implements TessereNormali {
     }
 
     /**
-     * genera random un intero per determinare la capacità
+     * genera random un intero per determinare la capacità della batteria
      *
-     * @return
+     * @return capacità batteria
      */
     private int RandomTipo() {
         return new Random().nextInt(1) + 2;

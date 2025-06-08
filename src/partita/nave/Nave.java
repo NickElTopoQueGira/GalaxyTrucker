@@ -96,7 +96,7 @@ public abstract class Nave {
     
     /**
      * Metodo per prenotare le tessere da mettere.
-     * Si possono prenotare al massimo 2 tessere
+     * Si possono prenotare al massimo 2 tessere.
      * Viene generato un'errore se si vogliono prenotare piu' di 2 tessere
      * 
      * @param t Tessera
@@ -145,7 +145,7 @@ public abstract class Nave {
     // ---------------------------- INSERIMENTO TESSERE NELLA NAVE ----------------------------
     
     /**
-     * Metodo per stampare la nave
+     * Metodo per stampare la navetta di debug
      */
     private void stampaNavetta() {
         for (int i = 0; i < this.getRighe(); i++) {
@@ -299,7 +299,6 @@ public abstract class Nave {
      * @param coordinate
      * @throws ErroreTessera
      * @throws FinePartita 
-     * @throws ErroreGiocatore 
      */
     public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera, FinePartita{
     	Tessera vuota=new TesseraVuota(coordinate.getX(), coordinate.getY(),Posizione.INTERNA);
@@ -328,8 +327,8 @@ public abstract class Nave {
     }
     
     /**
-     * Metodo che crea una lista di tronconiNave e fa scegliere all'utente quale tenere
-     * @return troncone di nave scelta
+     * Metodo che crea una lista di troncamenti Nave e fa scegliere all'utente quale tenere
+     * @return troncamento di nave scelta
      */
     private Troncamento getTroncamentoNave() {
     	Set<Troncamento> troncamentiNave =new LinkedHashSet<Troncamento>();
@@ -373,7 +372,7 @@ public abstract class Nave {
 	 * @param centroRamificazione Coordinate
      * @return nave
      */
-    public Troncamento distruggiNave(Coordinate centroRamificazione, boolean isCentro){
+    private Troncamento distruggiNave(Coordinate centroRamificazione, boolean isCentro){
     	Set<Coordinate> visitate = new HashSet<>();
     	Queue<Coordinate> daVisitare = new LinkedList<>();
     	
@@ -515,7 +514,7 @@ public abstract class Nave {
      * @return true -> la nave ha ancora il centro | 
      *         false -> la nave non ha il centro
      */
-    private boolean controllaPresenzaCentro(){
+    public boolean controllaPresenzaCentro(){
     	this.centro=this.getCoordinateCentro();
         if(TipoTessera.VUOTA == this.nave.get(centro.getY()).get(centro.getX()).getTipoTessera()){
             return false;
@@ -527,7 +526,7 @@ public abstract class Nave {
      * Metodo per il controllo che la nave esista, ovvero abbia almeno una tessera diversa da TesseraVuota
      * @return false se non c'è più la nave (tutte le tessere = TesseraVuota)
      */
-    private boolean controllaEsistenzaNave() {
+    public boolean controllaEsistenzaNave() {
     	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera()!=TipoTessera.VUOTA) {
@@ -940,7 +939,7 @@ public abstract class Nave {
      */
     private boolean controlloConnettore(TipoLato dir, Tessera tessera) {
     	
-    	//this.nave.get(adiacente.getX()).get(adiacente.getY())
+
     	
     	Coordinate adiacente = tessera.getCoordinate().adiacente(dir);
     	
@@ -1288,10 +1287,10 @@ public abstract class Nave {
 	}
 
 	  /**
-     * metodo per contare i pezzi distrutti confrontando il nuovo troncamento rispetto alla nave
+     * Metodo per contare i pezzi distrutti confrontando il nuovo troncamento rispetto alla nave presente precedentemente
      * @param opzioni 
      */
-    public void setNumeroPezziNaveDaRipagare(Troncamento opzione){
+    private void setNumeroPezziNaveDaRipagare(Troncamento opzione){
     	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(!opzione.contains(tessera)) {

@@ -13,8 +13,9 @@ public class Tubi extends Tessera implements TessereNormali {
     private static int contatore = 0;
 
     /**
-     * costruttore se viene ecceduto il numero massimo di elementi genera
-     * eccezione. verifica ricorsiva che non ci siano connettori di tipo Nullo,
+     * costruttore
+     * se viene ecceduto il numero massimo di elementi genera
+     * eccezione. verifica ricorsivamente che non ci siano connettori di tipo Nullo,
      * in caso rigenera connettori.
      *
      * @throws ErroreTessera

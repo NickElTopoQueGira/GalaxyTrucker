@@ -581,7 +581,7 @@ public class Partita{
 	
 	
 	/**
-	 * Chiede all'utente se vuole ruotare o inserire tessera nella nave
+	 * Metodo che chiede all'utente se vuole ruotare o inserire tessera nella nave
 	 * @param giocatore Giocatore
 	 * @param tessera Tessera
 	 * @return true se inserimento tessera andato a buon fine, false se il contrario

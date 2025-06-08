@@ -25,7 +25,7 @@ public enum TipoMerce {
     }
 
     /**
-     * ritorna il valore dell'enum corrispondente al colore della merce
+     * ritorna il valore dell'enum corrispondente al colore della merce rappresentato con simbolo []
      */
     @Override
     public String toString() {

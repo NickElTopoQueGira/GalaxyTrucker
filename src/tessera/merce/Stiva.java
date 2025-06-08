@@ -21,7 +21,8 @@ public class Stiva extends Tessera implements TessereNormali {
     private ArrayList<Merce> stiva = new ArrayList<>();
 
     /**
-     * costruttore se viene ecceduto il numero massimo di elementi genera
+     * costruttore 
+     * se viene ecceduto il numero massimo di elementi genera
      * eccezione
      *
      * @throws ErroreTessera
@@ -108,7 +109,7 @@ public class Stiva extends Tessera implements TessereNormali {
     /**
      * Metodo che rimuove dalla tessera stiva l'oggetto merce
      *
-     * @param merce
+     * @param merce da rimuovere
      * @throws ErroreRisorse
      */
     public void rimuoviMerce(Merce merce) throws ErroreRisorse {

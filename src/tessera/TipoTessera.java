@@ -27,6 +27,7 @@ public enum TipoTessera { //tutte le scritte sono bold high intensity
      * metodo per ritornare enum in stringa
      *
      * @return stringa corrispendente all'enum con il rispettivo colore
+     * e ristepttuva lettera rappresentativa della tesera
      */
     public String getTipo() {
         return tipo;

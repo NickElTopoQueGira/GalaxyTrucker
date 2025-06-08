@@ -22,7 +22,8 @@ public class Cannone extends Tessera implements TessereNormali {
     private final static String CANNA = "\033[0;31m" + "!" + "\033[0m";
 
     /**
-     * costruttore se viene ecceduto il numero massimo di elementi genera
+     * costruttore
+     * se viene ecceduto il numero massimo di elementi genera
      * eccezione. verifica in maniera ricorsiva nel caso il lato cannone (di
      * default up; sovrascirve nella matrice di tessera il carattere "!")
      * settato come Nullo, non corrisponda con l'unico lato connettore presente
@@ -62,7 +63,7 @@ public class Cannone extends Tessera implements TessereNormali {
     /**
      * random di enum TipoCannone
      *
-     * @return enum di TipoCannone
+     * @return enum di TipoCannone (doppio o singolo)
      */
     private TipoCannone randomTipo() {
         TipoCannone[] tipiCannone = TipoCannone.values();
@@ -103,7 +104,7 @@ public class Cannone extends Tessera implements TessereNormali {
     }
 
     /**
-     * ruota canna del cannone di 90 gradi in senso orario e sovrascirve nella
+     * ruota canna del cannone di 90 gradi in senso orario e sovrascrive nella
      * matrice di tessera il carattere "!"
      */
     @Override
