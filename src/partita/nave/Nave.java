@@ -1654,7 +1654,7 @@ public abstract class Nave {
      */
     private int StiveVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(y).get(x);
+    	Tessera tessera = this.nave.get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1681,7 +1681,7 @@ public abstract class Nave {
      */
 	private int StiveNonVuote(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(y).get(x);
+    	Tessera tessera = this.nave.get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
 		
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1708,7 +1708,7 @@ public abstract class Nave {
      */
 	private int StiveSpeciali(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(y).get(x);
+    	Tessera tessera = this.nave.get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.PORTA_MERCI) {
@@ -1735,7 +1735,7 @@ public abstract class Nave {
      */
 	private int Modulo(int caso, ArrayList<Coordinate> crd, int x, int y){
     	
-    	Tessera tessera = this.nave.get(y).get(x);
+    	Tessera tessera = this.nave.get(x).get(y);
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.MODULO_PASSEGGERI) {

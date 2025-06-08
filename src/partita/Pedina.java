@@ -213,6 +213,12 @@ public class Pedina{
         		
         		cns.println("");
         		
+        		if(crd.size()<=0) {
+        			
+        			scelta = false;
+        			cns.println("non sono presenti stive speciali");
+        		}
+        		
     		}else {
     			
     			cns.println("Stive speciali presenti nella nave:");
@@ -231,7 +237,7 @@ public class Pedina{
             		do {
             			sceltaStiva = cns.consoleReadInt();
             			
-            			if(sceltaStiva<0 || sceltaStiva>crd.size()) {
+            			if(sceltaStiva<=0 || sceltaStiva>crd.size()) {
             				cns.erroreImmissioneValore();
             			}
             			
