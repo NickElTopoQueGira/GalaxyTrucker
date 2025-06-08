@@ -221,10 +221,12 @@ public class Partita{
 		}else{
 			// per utilizzare una tessera gia' estratta e salvata nel mazzo degli scarti
 			visualizzaElencoTessere(Tessera.getListaTessere());
-			Tessera tesseraSelezionata = selezionaTesseraDalMazzo();
+			Tessera tesseraSelezionata = selezionaTesseraDalMazzo(g);
 			
 			if(tesseraSelezionata != null && tesseraSelezionata.getTipoTessera() != TipoTessera.VUOTA){
 				this.azioneAssemblaggio(tesseraSelezionata, g);
+			}else {
+				turno(g);
 			}
 		}
 	}
@@ -244,7 +246,13 @@ public class Partita{
 	 * @param g Giocatore
 	 */
 	private void azioneAssemblaggio3(Giocatore g){
-		this.azioneAssemblaggio(usaTesseraPrenotata(g), g);
+		Tessera t=usaTesseraPrenotata(g);
+		if(t!=null) {
+			this.azioneAssemblaggio(t, g);
+		}else {
+			turno(g);
+		}
+		
 	}
 	
 	// ----------------- NAVE -----------------
@@ -418,9 +426,10 @@ public class Partita{
 
 	/**
 	 * Metodo per selezionare la tessera dal mazzo
+	 * @param g 
 	 * @return  tessera
 	 */
-	private Tessera selezionaTesseraDalMazzo(){
+	private Tessera selezionaTesseraDalMazzo(Giocatore g){
 		int selezione;
 		Tessera t = null;
 		boolean pass = false;
@@ -430,7 +439,9 @@ public class Partita{
 				selezione = this.com.consoleReadInt()-1;
 				
 				// ritorno al menu
-				if(-1 == selezione) return null;
+				if(-1 == selezione) {
+					return null;
+				}
 
 				if(Tessera.getListaTessere().contains(Tessera.getListaTessere().get(selezione))){
 					this.com.print("Tessera selezionata: \n");
@@ -446,7 +457,7 @@ public class Partita{
 		}while(false == pass);
 
 		if(t == null){
-			return selezionaTesseraDalMazzo();
+			return selezionaTesseraDalMazzo(g);
 		}		
 		return t;
 	}
@@ -461,6 +472,7 @@ public class Partita{
 			this.com.println("Tessera " + (i+1));
 			this.com.println(tessere.get(i).toString());
 		}
+		
 	}
 
 	
@@ -493,6 +505,7 @@ public class Partita{
 		this.com.println(giocatore.getNave().tesserePrenotateToString());
 		
 		this.com.println("Inserisci il numero della tessera che vuoi utilizzare: ");
+		this.com.println("(premere 0 per tornare indietro)\n");
 		int numero = -1;
 		boolean pass = false;
 		do{ 
@@ -502,6 +515,9 @@ public class Partita{
 				this.com.erroreImmissioneValore();
 			}
 			if(numero == -1){
+				return null;
+			}
+			if(numero < -1){
 				this.com.erroreImmissioneValore();
 			}else{
 				pass = true;
@@ -604,19 +620,25 @@ public class Partita{
 			this.com.println("Scegli cosa fare:");
 			elenco.add("Ruota a dx di 90 gradi");
 			elenco.add("Inserire la tessera nella Nave");
+			elenco.add("Torna indietro");
 			this.com.println(this.com.visualizzaElenco(elenco));
 			int val = this.com.consoleReadInt();
-			if(val==1 || val==2) {
+			if(val==1 || val==2|| val==3) {
 				condizione=true;
 				if(val==2) {
 					check=inserisciTesseraNellaNave(giocatore, tessera);
-				}else if(val==1) {
+				}
+				if(val==1) {
 					condizione=false;
 					check=false;
 					try {
 						tessera.ruota();
 					} catch (ErroreRotazione e) {
 					}
+				}
+				if(val==3) {
+					azioneAssemblaggio(tessera, giocatore);
+					check=true;
 				}
 			}
 			
