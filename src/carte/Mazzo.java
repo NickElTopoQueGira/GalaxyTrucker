@@ -122,7 +122,7 @@ public class Mazzo {
                 x = random.nextInt(10) + 1;
             }
 
-        } while (conteggio[lvl - 1][x - 1] == 0);
+        } while (conteggio[lvl - 1][x - 1] <= 0);
 
         conteggio[lvl - 1][x - 1]--;
 

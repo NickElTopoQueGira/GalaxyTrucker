@@ -239,10 +239,10 @@ public class PioggiaMeteoriti extends Carta {
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
 
-			return meteorite.getDado() - nave.getInizioNaveX()+1;
+			return meteorite.getDado() - nave.getInizioNaveX()-1;
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - nave.getInizioNaveY()+1; 
+			return meteorite.getDado() - nave.getInizioNaveY()-1; 
 		}
 		default->{}
 		}
