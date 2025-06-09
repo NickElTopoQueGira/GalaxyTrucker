@@ -1331,7 +1331,7 @@ public abstract class Nave {
         for(ArrayList<Tessera> riga : this.nave){
             for(Tessera tessera : riga){
                 if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-                    ((ModuloPasseggeri)tessera).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_EQUIPAGGIO);;
+                    ((ModuloPasseggeri)tessera).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_EQUIPAGGIO);
                 }
             }
         }
