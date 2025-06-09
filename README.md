@@ -75,18 +75,13 @@ Come nel gioco ufficiale, sono state rispecchiate le caratteristiche e le specif
 
 ## Principali oggetti
 
-Dal gioco fisico, abbiamo ricreato i seguenti oggetti:
+Dal gioco fisico, abbiamo ricreato i seguenti oggetti, mentre altri li abbiamo ideati noi per il corretto funzionamento del gameplay:
 
-- Giocatore → Utente umano
-    
+- Giocatore -> Utente umano
+- Configurazione -> Classi di configurazione delle navi, giocatori e partita
 - Tabellone → il tabellone dove si svolge la fase secondaria della partita
-    
 - Pedina → Identificatore del giocatore sul tabellone di gioco
-    
 - Carte → carte azione
-    
-- Tessera → Componenti necessari per costruire la nave
-    
-- Nave → Nave di gioco, nella quale vengono posizionate le tessere
-    
-- Merce → carichi che dovrà portare il tuo camionista spaziale
+- Tessera → Componenti necessari per costruire la nave(con relative classe concrete: tessere più specifiche)
+- Nave → Nave di gioco, nella quale vengono posizionate le tessere. Sono presenti poi le relative classi concrete NaveLvl1, NaveLvl2 e NaveLvl3
+- Troncamento → Oggetto della nave che contiene effettivamente le tessere
