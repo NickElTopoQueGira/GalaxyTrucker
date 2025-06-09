@@ -43,6 +43,7 @@ public class Tabellone{
 		
 		int i=0;
 		while (i < mazzoCarte.size() && !elencoPedine.isEmpty()) {
+			this.cns.clear();
 			
 			//visualizza navi giocatori
 			for(int p=0; p<elencoPedine.size(); p++) {

@@ -429,6 +429,7 @@ public class ZonaGuerra extends Carta {
         int minorPotenzaMotore = 0;
 
         for (int i = 1; i < elencoPedine.size(); i++) {
+        	this.stampa.println("turno del giocatore: "+elencoPedine.get(i).getGiocatore().getNome()+"\n");
             if (elencoPedine.get(i).getGiocatore().getNave().getPotenzaMotori() < elencoPedine.get(minorPotenzaMotore).getGiocatore().getNave().getPotenzaMotori()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
 
                 minorPotenzaMotore = i; //IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO

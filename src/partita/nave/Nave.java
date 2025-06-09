@@ -1043,8 +1043,8 @@ public abstract class Nave {
      */
     public void utilizzaEnergia() throws ErroreRisorse{
     	this.energiaResidua=this.calcolaEnergia();
-        if(this.energiaResidua == 0){
-            throw new ErroreRisorse("Energia insufficente");
+        if(this.energiaResidua <= 0){
+            throw new ErroreRisorse("Energia insufficiente");
         }
         else{
         	stampa.println("vuoi utilizzare una gemma di energia?");
@@ -1061,8 +1061,8 @@ public abstract class Nave {
      * selezione e rimozione energia dalla tessera batteria selezionata
      * @return 
      */
-    public void selezionaTesseraEnergia(){
-    	stampa.println("Inserisci il numero corrispondente alla tessera a cui vuoi rimuovere energia:");
+    private void selezionaTesseraEnergia(){
+    	
     	ArrayList<String> visual = new ArrayList<String>();
     	ArrayList<String> visualTessere = new ArrayList<String>();
     	ArrayList<Tessera> Tessere = new ArrayList<Tessera>();
@@ -1080,8 +1080,10 @@ public abstract class Nave {
     	
     	boolean condizione = true;
 		do{
-    		stampa.visualizzaElenco(visualTessere);
-    		stampa.visualizzaElenco(visual);
+			stampa.println("Inserisci il numero corrispondente alla tessera a cui vuoi rimuovere energia:");
+    		stampa.print(stampa.visualizzaElenco(visualTessere));
+    		stampa.print(stampa.visualizzaElenco(visual));
+    		
     		int indice = stampa.consoleReadInt()-1;
     		if(indice>=0 && indice<Tessere.size()) {
     			if(((Batteria)Tessere.get(indice)).decrese()) {
@@ -1093,7 +1095,7 @@ public abstract class Nave {
         	
         	
     	}while(condizione);
-		this.energiaResidua=this.calcolaEnergia();
+		
     }
 
     /**
@@ -1507,7 +1509,9 @@ public abstract class Nave {
 							this.utilizzaEnergia();
 						} catch (ErroreRisorse e) {
 							potenzaMotori -= 2;
-							e.printStackTrace();
+							stampa.printError("Energia non consumata per la tessera speciale in posizione: ("
+									+(tessera.getCoordinate().getX()+this.inizioNaveO)+";"+
+									(tessera.getCoordinate().getY()+this.inizioNaveV)+")\n");
 						}
 						
 					}
@@ -1563,7 +1567,9 @@ public abstract class Nave {
 							this.utilizzaEnergia();
 						} catch (ErroreRisorse e) {
 							potenzaCannoni -= ((Cannone)tessera).calcolaValore();
-							e.printStackTrace();
+							stampa.printError("Energia non consumata per la tessera speciale in posizione: ("
+									+(tessera.getCoordinate().getX()+this.inizioNaveO)+";"+
+									(tessera.getCoordinate().getY()+this.inizioNaveV)+")\n");
 						}
 					}
 				}
