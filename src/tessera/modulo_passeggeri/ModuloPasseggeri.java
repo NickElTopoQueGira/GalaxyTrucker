@@ -58,22 +58,29 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
     private void setEquipaggio() {
         switch (this.tipoModuloPasseggeri) {
             case MODULO_ALIENO_MARRONE:
+            	this.equipaggioMax = 1;
                 this.setNumeroAlieniMarroni(1);
                 this.setNumeroAlieniViola(0);
                 this.numeroCosmonauti = 0;
-                this.equipaggioMax = 1;
+                
                 break;
             case MODULO_ALIENO_VIOLA:
+            	this.equipaggioMax = 1;
                 this.setNumeroAlieniMarroni(0);
                 this.setNumeroAlieniViola(1);
                 this.numeroCosmonauti = 0;
-                this.equipaggioMax = 1;
+                
                 break;
             case MODULO_EQUIPAGGIO:
+            	this.equipaggioMax = 2;
                 this.setNumeroAlieniMarroni(0);
                 this.setNumeroAlieniViola(0);
-                this.setNumeroCosmonauti(+2);
-                this.equipaggioMax = 2;
+				try {
+					this.setNumeroCosmonauti(+2);
+				} catch (ErroreEquipaggio e) {
+					e.printStackTrace();
+				}
+                
             default:
                 break;
         }
@@ -98,7 +105,7 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
         // può cambiare piu volte il numero paseggeri in fase di costruzione nave in base
         // a se
         // utiliazza alieni o meno
-    	if((this.numeroCosmonauti+edit)< this.equipaggioMax && (this.numeroCosmonauti+edit)>= 0 ) {
+    	if((this.numeroCosmonauti+edit)<= this.equipaggioMax && (this.numeroCosmonauti+edit)>= 0 ) {
     		this.numeroCosmonauti = this.numeroCosmonauti + edit;
     	}else {
     		throw new ErroreEquipaggio("Azione non possibile");
@@ -137,7 +144,11 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
                 this.setNumeroAlieniMarroni(0);
                 break;
             case MODULO_EQUIPAGGIO:
-                this.setNumeroCosmonauti(-1);
+			try {
+				this.setNumeroCosmonauti(-1);
+			} catch (ErroreEquipaggio e) {
+				e.printStackTrace();
+			}
             default:
                 break;
         }

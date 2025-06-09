@@ -384,11 +384,11 @@ public abstract class Nave {
 
         while (!daVisitare.isEmpty()) {
        	    Coordinate corrente = daVisitare.poll(); //prende il primo elemento (testa) FIFO
-			Tessera tesseraCorrente = nave.get(corrente.getX()).get(corrente.getY());
+			Tessera tesseraCorrente = nave.get(corrente.getY()).get(corrente.getX());
 			
 			for (TipoLato dir : TipoLato.values()) {
 			    Coordinate adiacente = corrente.adiacente(dir);
-			    Tessera tesseraAdiacente = nave.get(adiacente.getX()).get(adiacente.getY());
+			    Tessera tesseraAdiacente = nave.get(adiacente.getY()).get(adiacente.getX());
 			
 			    if (tesseraAdiacente != null &&tesseraAdiacente.getTipoTessera() != TipoTessera.VUOTA && !visitate.contains(adiacente)) {
 			    	boolean condizione=false;
@@ -1064,13 +1064,15 @@ public abstract class Nave {
     public void selezionaTesseraEnergia(){
     	stampa.println("Inserisci il numero corrispondente alla tessera a cui vuoi rimuovere energia:");
     	ArrayList<String> visual = new ArrayList<String>();
+    	ArrayList<String> visualTessere = new ArrayList<String>();
     	ArrayList<Tessera> Tessere = new ArrayList<Tessera>();
     	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				
 				if(tessera.getTipoTessera()==TipoTessera.BATTERIA) {
 					Tessere.add(tessera);
-					visual.add("posizione("+(this.nave.indexOf(colonne)+1)+";"+(colonne.indexOf(tessera)+1)+") "+tessera.toLegenda());
+					visualTessere.add("\n"+tessera.toString());
+					visual.add("posizione("+(this.nave.indexOf(colonne)+this.inizioNaveV)+";"+(colonne.indexOf(tessera)+this.inizioNaveO)+") "+tessera.toLegenda());
 				}
 
 			}
@@ -1078,15 +1080,18 @@ public abstract class Nave {
     	
     	boolean condizione = true;
 		do{
+    		stampa.visualizzaElenco(visualTessere);
     		stampa.visualizzaElenco(visual);
     		int indice = stampa.consoleReadInt()-1;
+    		if(indice>=0 && indice<Tessere.size()) {
+    			if(((Batteria)Tessere.get(indice)).decrese()) {
+    				condizione=false;
+            	}else {
+            		this.stampa.printError("energia insufficiente in questo modulo");
+            	}
+    		}
         	
-        	if(((Batteria)Tessere.get(indice)).decrese() && 
-        			indice>=0 && indice<visual.size()) {
-        		
-        	}else {
-        		condizione=false;
-        	}
+        	
     	}while(condizione);
 		this.energiaResidua=this.calcolaEnergia();
     }
@@ -1326,11 +1331,13 @@ public abstract class Nave {
         for(ArrayList<Tessera> riga : this.nave){
             for(Tessera tessera : riga){
                 if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-                    ((ModuloPasseggeri)tessera).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_EQUIPAGGIO);
+                    ((ModuloPasseggeri)tessera).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_EQUIPAGGIO);;
                 }
             }
         }
     }
+
+    
 
     
 
