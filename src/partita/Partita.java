@@ -19,8 +19,6 @@ import tessera.Coordinate;
 import tessera.FactoryTessera;
 import tessera.Tessera;
 import tessera.TipoTessera;
-import tessera.modulo_passeggeri.ModuloPasseggeri;
-import tessera.modulo_passeggeri.TipoModuloPasseggeri;
 
 public class Partita{
 	private final ComunicazioneConUtente com;
@@ -469,8 +467,6 @@ public class Partita{
 		
 	}
 
-	
-
 	// ----------------- TESSERE PRENOTATE -----------------
 	/**
 	 * Metodo per prenotare la tessera
@@ -588,8 +584,7 @@ public class Partita{
 		}
 		return false;
 	}
-	
-	
+
 	/**
 	 * Metodo che chiede all'utente se vuole ruotare o inserire tessera nella nave
 	 * @param giocatore Giocatore
@@ -739,135 +734,10 @@ public class Partita{
 	 * Metodo per aggiungere l'equipaggio alla nave
 	 */
 	private void aggiungiEquipaggio(){
-		Iterator<Giocatore> giocatoreIterator = this.giocatori.iterator();
-		while(giocatoreIterator.hasNext()){
-			Giocatore g = giocatoreIterator.next();
-
-			this.com.println("Il giocatore: " + g.getNome() + " deve imbarcare l'equipaggio");
-			riepilogoEquipaggio(g);
-
-			// carico tutti i moduli equipaggio umano con 2 cosmonauti
-			g.getNave().setCosmonauti();
-
-			GestioneEquipaggio equipaggio = g.getNave().getModuliEquipaggio();
-			equipaggio.setNumeroCosmonauti(g.getNave().getCosmonauti());			
-
-			if(equipaggio.getNumeroModuliAlini() > 0){
-				this.com.print("Attualmente sulla nave ci sono " + equipaggio.getNumeroCosmonauti() + " cosmonauti");
-				this.com.println(" attualmente disposti su " + String.valueOf(equipaggio.getNumeroModuliCosmonauti() + 1) + " moduli (centro incluso)");
-
-				this.com.println("Sulla nave ci sono " + equipaggio.getNumeroModuliAlini() + " moduli predisposti per ospitare gli alieni, di cui");
-				this.com.println("- " + equipaggio.getNumeroModuliAlieniMarroni() + " moduli per alieni marroni");
-				this.com.println("- " + equipaggio.getNumeroModuliAlieniViola() + " moduli per alieni viola");
-								
-				this.com.println("Vuoi aggiungere l'equipaggio non terrestre al tuo vascello intergalattico? ");
-				if(this.com.conferma()){
-					imbarcaAlieniSullaNave(g, equipaggio);
-				}else{
-					this.com.println("Il tuo rimorchiatore cargo intergalattico partia' senza equipaggio marziano");
-				}
-			}else{
-				this.com.println("Non ci sono moduli adibiti al trasporto validi all'interno della tua nave");
-			}
-			this.com.println("premi invio per continuare...");
-			this.com.consoleRead();
-			this.com.clear();
-			this.com.println("La tua nave partira' con il seguente equipaggio: ");
-			riepilogoEquipaggio(g);
-			this.com.println("premi invio per continuare...");
-			this.com.consoleRead();
-			this.com.clear();
+		for(Giocatore giocatore : this.giocatori){
+			GestioneEquipaggio ge = new GestioneEquipaggio(giocatore);
+			ge.aggiungiEquipaggio();
 		}
-	}
-
-	/**
-	* Metodo per imbarcare gli alieni sulla nave
-	*/
-	private void imbarcaAlieniSullaNave(Giocatore g, GestioneEquipaggio equipaggio){
-		// marroni
-		if(equipaggio.getNumeroModuliAlieniMarroni() > 0){
-			this.com.println("Inserimento degli alieni marroni: ");
-			imbarca(g, equipaggio, 1);
-		}
-
-		// viola
-		if(equipaggio.getNumeroModuliAlieniViola() > 0){
-			this.com.println("Inserimento degli alieni viola: ");
-			imbarca(g, equipaggio, 2);
-		}
-	}
-
-	/**
-	 * Metodo per imbarcare l'equipaggio
-	 * @param giocatore Giocatore
-	 * @param ge GestioneEquipaggio
-	 * @param id int idAlieno
-	 */
-	private void imbarca(Giocatore giocatore, GestioneEquipaggio ge, int id){
-		Coordinate coordinateModuloScelto = richiestaCoordinateModuloAlieno(giocatore);
-		Tessera tesseraAlieni = giocatore.getNave().getTessera(coordinateModuloScelto);
-
-		switch(id){
-			// alieni marroni
-			case 1->{
-				if(giocatore.getNave().verificaAlbitabilitaModulo(tesseraAlieni)){
-					// inserimento alieno marrone
-					Tessera tesseraUmano = giocatore.getNave().getTessera(giocatore.getNave().getCoordinateModuloAbitativoAlieni(tesseraAlieni));
-					
-					//set in automatico dell'equipaggio
-					((ModuloPasseggeri)tesseraUmano).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_MARRONE);
-				}else{
-					this.com.printError("Il modulo specificato non va bene!!");
-					imbarca(giocatore, ge, 1);
-				}
-			}
-			// alieni viola
-			case 2->{
-				if(giocatore.getNave().verificaAlbitabilitaModulo(tesseraAlieni)){
-					// inserimento alieno viola
-					Tessera tesseraUmano = giocatore.getNave().getTessera(giocatore.getNave().getCoordinateModuloAbitativoAlieni(tesseraAlieni));
-					
-					//set in automatico dell'equipaggio
-					((ModuloPasseggeri)tesseraUmano).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_VIOLA);
-				}else{
-					this.com.printError("Il modulo specificato non va bene!!");
-					imbarca(giocatore, ge, 2);
-				}
-			}
-		}
-	}
-
-	private Coordinate richiestaCoordinateModuloAlieno(Giocatore giocatore){
-		Coordinate coordinate = new Coordinate();
-		boolean pass = false;
-		visualizzaNave(giocatore);
-		do{
-			this.com.println("Inserisci le coordinate del modulo alieno: ");
-			this.com.println("Inserisci coordinata x: ");
-			coordinate.setX(this.com.consoleReadInt());
-			this.com.println("Inserisci coordinata y: ");
-			coordinate.setY(this.com.consoleReadInt());
-			if(false == giocatore.getNave().controllaCoordinate(coordinate)){
-				this.com.erroreImmissioneValore();
-			}else{
-				pass = true;
-			}
-		}while(false == pass);
-
-		return coordinate;
-	}
-
-	/**
-	 * Metodo per riepilogare l'equipaggio presente sulla nave
-	*/
-	private void riepilogoEquipaggio(Giocatore g){
-		this.com.println("Equipaggio attualmente presente sulla nave: ");
-		this.com.println("Numero cosmonauti: " + g.getNave().getCosmonauti());
-		this.com.println("Numero alieni marroni: " + g.getNave().getAlieniMarrone());
-		this.com.println("Numero alieni viola: " + g.getNave().getAlieniViola());
-		this.com.println("\npremi invio per continuare...");
-		this.com.consoleRead();
-		this.com.clear();
 	}
 
 	@Override

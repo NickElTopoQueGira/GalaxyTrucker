@@ -97,16 +97,16 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
     }
 
     /**
-     * modifica numero di cosmonauti tramite edit (positivo o negativo), se non è possibile settare numero cosmonauti genera eccezione
+     * Modifica numero di cosmonauti tramite edit (positivo o negativo), se non è possibile settare numero cosmonauti genera eccezione
      *
      * @param edit
      * @throws ErroreEquipaggio 
      */
     public void setNumeroCosmonauti(int edit) throws ErroreEquipaggio {
         // no interfaccia con centro perchè l'utente
-        // può cambiare piu volte il numero paseggeri in fase di costruzione nave in base
+        // può cambiare piu volte il numero passeggeri in fase di costruzione nave in base
         // a se
-        // utiliazza alieni o meno
+        // utilizza alieni o meno
     	if((this.numeroCosmonauti+edit)<= this.equipaggioMax && (this.numeroCosmonauti+edit)>= 0 ) {
     		this.numeroCosmonauti = this.numeroCosmonauti + edit;
     	}else {
