@@ -329,10 +329,10 @@ public class Pirati extends Nemici {
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
 
-			return meteorite.getDado() - nave.getInizioNaveX()+1;
+			return meteorite.getDado() - nave.getInizioNaveX()-1;
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - nave.getInizioNaveX()+1;
+			return meteorite.getDado() - nave.getInizioNaveX()-1;
 		}
 		default->{}
 		}
