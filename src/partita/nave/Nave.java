@@ -358,10 +358,10 @@ public abstract class Nave {
 				}
 			}
     	}
+		ArrayList<Troncamento> opzioni = new ArrayList<>(troncamentiNave);
 		
-    	Troncamento[] opzioni=(Troncamento[]) troncamentiNave.toArray();
     	
-		return (Troncamento) opzioni[this.scegliTroncamenti(opzioni)];
+		return (Troncamento) opzioni.get(scegliTroncamenti(opzioni));
 		
 	}
     
@@ -470,20 +470,20 @@ public abstract class Nave {
      * @param opzioni Object[]
      * @return intero della scelta
      */
-    private int scegliTroncamenti(Troncamento[] opzioni) {
+    private int scegliTroncamenti(ArrayList<Troncamento> opzioni) {
 		ArrayList<String> temp = new ArrayList<>();
 		int scelta;
 		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
-		for(int i=0; i< opzioni.length; i++){
-			temp.add(opzioni[i].toString());
+		for(int i=0; i< opzioni.size(); i++){
+			temp.add(opzioni.get(i).toString());
 		}
 		stampa.println(stampa.visualizzaElenco(temp));
 
 		scelta = stampa.consoleReadInt()-1;
-		if(scelta<1 || scelta>opzioni.length) {
+		if(scelta<1 || scelta>opzioni.size()) {
 			return scegliTroncamenti(opzioni);
 		}
-		setNumeroPezziNaveDaRipagare(opzioni[scelta]);
+		setNumeroPezziNaveDaRipagare(opzioni.get(scelta));
 		return scelta;
 	}
     
