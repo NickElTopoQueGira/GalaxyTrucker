@@ -32,7 +32,7 @@ public class ZonaGuerra extends Carta {
         stampa = ComunicazioneConUtente.getIstanza();
         colpi = new ArrayList<>();
 
-        eventi = new String[]{"CANNONI", "EQUIPAGGI", "RAZZI"};
+        eventi = new String[]{"CANNONI", "EQUIPAGGI", "RAZZI   "};
         penalita = new String[]{"PERDITA_EQUIPAGGIO", "PERDITA_GIORNI", "PERDITA_MERCE", "CANNONATE"};
 
         valori = new String[3][2]; // PRIMA COLONNA (x 1)= EVENTI / SECONDA COLONNA (x 0)= PENALITA'
@@ -208,13 +208,13 @@ public class ZonaGuerra extends Carta {
                 switch (valori[i][1]) {
                 
 	                case "PERDITA_EQUIPAGGIO" -> {
-	                	temp = temp + " -"+ this.equipaggiPersi + " componenti dell'equipaggio\n";
+	                	temp = temp + " -)"+ this.equipaggiPersi + " componenti dell'equipaggio\n";
 	                }
 	                case "PERDITA_GIORNI" -> {
-	                	temp = temp + " -"+ this.giorniPersi + " giorni di viaggio \n";
+	                	temp = temp + " -)"+ this.giorniPersi + " giorni di viaggio \n";
 	                }
 	                case "PERDITA_MERCE" -> {
-	                	temp = temp + " -"+ this.merciPersi + " merci della nave \n";
+	                	temp = temp + " -)"+ this.merciPersi + " merci della nave \n";
 	                }
                 }
             }else {
