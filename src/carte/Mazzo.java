@@ -36,7 +36,22 @@ public class Mazzo {
         conteggio = new int[][]{
             {1, 1, 3, 4, 1, 1, 1, 2, 2, 4, 0, 0}, // livello 1
             {1, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 0}, // livello 2
-            {0, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 1} // livello 3
+            {0, 0, 3, 3, 0, 1, 1, 2, 2, 4, 1, 1} // livello 3
+            
+            /*
+             * 1 polvere stellare
+             * 2 zona guerra          1->0
+             * 3 PIOGGIA_METEORITI,
+             * 4 SPAZIO_APERTO,
+             * 5 SCHIAVISTI,          1->0
+             * 6 CONTRABBANDIERI,    
+             * 7 PIRATI,
+             * 8 STAZIONE_ABBANDONATA,
+             * 9 NAVE_ABBANDONATA,
+             * 10 PIANETA,
+             * 11 EPIDEMIA,
+             * 12 SABOTAGGIO
+             */
         };
     }
 

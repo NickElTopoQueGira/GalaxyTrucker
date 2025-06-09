@@ -244,12 +244,15 @@ public class Pirati extends Nemici {
 					stampa.println("-il colpo arriva da -"+this.colpi.get(j).getDirezione()+", "+this.colpi.get(j).getDado()+"-");
 					
 					if(controlloColpoIsDentroDallaNave(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave())) {
+						
 						this.colpi.get(j).setRisultatoDado(adattaDadiAllArray(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave()));
 						boolean sceltaFermareColpo = false;
 						
 						Tessera colpito = trovaTesseraColpita(this.colpi.get(j), elencoPedine.get(elenco).getGiocatore().getNave());
 						 
 						if(colpito != null) {
+							
+							stampa.println("LA TESSERA COLPITA E': " +colpito.toLegenda()+ " ("+colpito.getCoordinate().getX()+", "+colpito.getCoordinate().getY()+")");
 							
 							if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
 								
@@ -268,7 +271,7 @@ public class Pirati extends Nemici {
 									} catch (FinePartita e) {
 										if(elencoPedine.get(j).getGiocatore().getNave().controllaEsistenzaNave()) {
 											
-											elencoPedine.get(j).setNaveDistrutta(true);
+											elencoPedine.get(elenco).setNaveDistrutta(true);
 											continue;
 										}
 										e.printStackTrace();
@@ -326,10 +329,10 @@ public class Pirati extends Nemici {
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
 
-			return meteorite.getDado() - nave.getInizioNaveX();
+			return meteorite.getDado() - nave.getInizioNaveX()+1;
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - nave.getInizioNaveX();
+			return meteorite.getDado() - nave.getInizioNaveX()+1;
 		}
 		default->{}
 		}

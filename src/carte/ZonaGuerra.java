@@ -310,6 +310,8 @@ public class ZonaGuerra extends Carta {
 	                    Tessera colpito = trovaTesseraColpita(this.colpi.get(j), pedina.getGiocatore().getNave());
 	
 	                    if (colpito != null) {
+
+							stampa.println("LA TESSERA COLPITA E': " +colpito.toLegenda()+ " ("+colpito.getCoordinate().getX()+", "+colpito.getCoordinate().getY()+")");
 	
 	                        if (this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
 	
@@ -385,10 +387,10 @@ public class ZonaGuerra extends Carta {
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
 			
-			return meteorite.getDado() - nave.getInizioNaveX();
+			return meteorite.getDado() - nave.getInizioNaveX()+1;
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - nave.getInizioNaveY();
+			return meteorite.getDado() - nave.getInizioNaveY()+1;
 		}
 		default->{}
 		}

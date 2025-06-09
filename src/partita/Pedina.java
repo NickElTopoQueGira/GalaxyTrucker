@@ -195,7 +195,7 @@ public class Pedina{
     
     	int grandezza = merci.size();
     	int sceltaStiva;
-    	boolean conferma, sceltoPieno, isSpeciale, scelta;
+    	boolean conferma, sceltoPieno, isSpeciale, scelta, sceltaScambio;
     	
     	for(int i=0; i<grandezza; i++) {
     		
@@ -236,6 +236,12 @@ public class Pedina{
         		crd = this.giocatore.getNave().trova(0, 3);
         		
         		cns.println("");
+        		
+        		if(crd.size()<=0) {
+        			
+        			scelta = false;
+        			cns.println("non sono presenti stive speciali");
+        		}
     		}
     		
     		if(scelta) {
@@ -244,6 +250,7 @@ public class Pedina{
     			do {
     				conferma = true;
     				sceltoPieno = false;
+    				sceltaScambio = true;
             		do {
             			sceltaStiva = cns.consoleReadInt();
             			
@@ -253,7 +260,7 @@ public class Pedina{
             			
             		}while(sceltaStiva<=0 || sceltaStiva>crd.size());
             		
-            		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().size() < 1){
+            		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().size() > 0){
             			
             			cns.println("La stiva selezionata è piena! se confermi dovrai selezionare una merce da eliminare per liberare spazio");
             			cns.println("(in caso non si conferma si può scegliere un altra stiva)");
@@ -261,6 +268,8 @@ public class Pedina{
             			if(cns.conferma()) {
             				conferma = false;
             				sceltoPieno = true;
+            			}else {
+            				sceltaScambio = false;
             			}
             		}
             		
@@ -294,21 +303,21 @@ public class Pedina{
         				e.printStackTrace();
         			}
         		}
-        		
-        		try {
-    				this.giocatore.getNave().inserisciMerce(crd.get(sceltaStiva-1), merci.get(0));
-    				
-    			} catch (ErroreCoordinate e) {
-    				
-    				e.printStackTrace();
-    			} catch (ErroreRisorse e) {
-    				
-    				e.printStackTrace();
-    			} catch (ErroreTessera e) {
-    				
-    				e.printStackTrace();
-    			}
-        		
+        		if(sceltaScambio) {
+        			try {
+        				this.giocatore.getNave().inserisciMerce(crd.get(sceltaStiva-1), merci.get(0));
+        				
+        			} catch (ErroreCoordinate e) {
+        				
+        				e.printStackTrace();
+        			} catch (ErroreRisorse e) {
+        				
+        				e.printStackTrace();
+        			} catch (ErroreTessera e) {
+        				
+        				e.printStackTrace();
+        			}
+        		}
     		}else {
     			
         		cns.println("La merce "+merci.get(i).getTipoMerce()+" è stata distrutta");

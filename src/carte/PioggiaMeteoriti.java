@@ -133,6 +133,8 @@ public class PioggiaMeteoriti extends Carta {
 						Tessera colpito = trovaTesseraColpita(this.meteoriti.get(i), elencoPedine.get(j).getGiocatore().getNave());
 						 
 						if(colpito != null) {
+
+							stampa.println("LA TESSERA COLPITA E': " +colpito.toLegenda()+ " ("+colpito.getCoordinate().getX()+", "+colpito.getCoordinate().getY()+")");
 							
 							if(this.meteoriti.get(i).getType() == TypeMeteora.METEORITE_PICCOLO) { 
 								
@@ -237,10 +239,10 @@ public class PioggiaMeteoriti extends Carta {
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
 
-			return meteorite.getDado() - nave.getInizioNaveX();
+			return meteorite.getDado() - nave.getInizioNaveX()+1;
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - nave.getInizioNaveY();
+			return meteorite.getDado() - nave.getInizioNaveY()+1; 
 		}
 		default->{}
 		}

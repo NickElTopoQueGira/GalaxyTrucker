@@ -144,7 +144,7 @@ public class Partita{
 	 * @param g Giocatore
 	 */
 	private void turno(Giocatore g){
-		this.com.clear();
+		
 		// visualizzazione della nave
 		visualizzaNave(g);
 		
@@ -302,17 +302,13 @@ public class Partita{
 	            }
 
 	            this.com.println("\n\nTurno del giocatore: " + g.getNome());
-	            visualizzaNave(g);
 
 	            if(countdownAttivo){
 	                int residui = turniResidui.getOrDefault(g, 0);
 	                this.com.println("Numero mosse ancora disponibili: " + residui);
 	            }
 
-				this.com.println("Vuoi modificare la nave?");
-				if(this.com.conferma()){
-					turno(g);
-				}
+				turno(g);
 
 	            // Ricontrolla se ha completato la nave
 	            if(g.isNaveFinita() || naveFinita(g)){
