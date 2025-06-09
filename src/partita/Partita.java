@@ -309,6 +309,11 @@ public class Partita{
 	                this.com.println("Numero mosse ancora disponibili: " + residui);
 	            }
 
+				this.com.println("Vuoi modificare la nave?");
+				if(this.com.conferma()){
+					turno(g);
+				}
+
 	            // Ricontrolla se ha completato la nave
 	            if(g.isNaveFinita() || naveFinita(g)){
 	                g.naveFinita();
