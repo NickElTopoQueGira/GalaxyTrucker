@@ -1,6 +1,7 @@
 package carte.eventoSpeciale;
 
 import carte.*;
+import eccezioniPersonalizzate.ErroreEquipaggio;
 import gioco.ComunicazioneConUtente;
 import java.util.*;
 import partita.*;
@@ -46,7 +47,11 @@ public class Epidemia extends EventiSpeciali {
 
                                 if (epidemia.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI) {
 
-                                    ((ModuloPasseggeri) epidemia).setNumeroCosmonauti(-1);
+                                    try {
+										((ModuloPasseggeri) epidemia).setNumeroCosmonauti(-1);
+									} catch (ErroreEquipaggio e) {
+										e.printStackTrace();
+									}
 
                                 } else if (epidemia.getTipoTessera() == TipoTessera.CENTRO) {
 

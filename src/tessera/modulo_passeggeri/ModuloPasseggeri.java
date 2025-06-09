@@ -16,7 +16,7 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
     private int numeroAlieniViola;
     private int numeroAlieniMarroni;
     private int equipaggio;
-    private int equipaggioMax;
+    private int equipaggioMax=2;
 
     private TipoModuloPasseggeri tipoModuloPasseggeri;
 

@@ -39,6 +39,7 @@ public class Centro extends Tessera {
     /**
      * rimuove i passeggeri di un valore intero, se edit>passeggeriCorrenti
      * imposta passeggeriCorrenti a 0
+     * EDIT è da inserire come valore negativo
      *
      * @param edit
      */
