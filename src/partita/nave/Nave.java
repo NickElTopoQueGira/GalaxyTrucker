@@ -310,14 +310,20 @@ public abstract class Nave {
             throw new ErroreTessera("Posizione non valida");
         }
 
+        //copia dellA NAVE prima della rimozione della tessera
+        Troncamento temp=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
+        temp=(Troncamento) this.nave.clone();
+        
         // rimozione tessera
         if(vuota == this.nave.get(coordinate.getY()).get(coordinate.getX())){
             throw new ErroreTessera("Impossibile rimuovere la tessera nella posizoine specificata");
         }
 
         // rimozione della tessera
-        
         this.nave.get(coordinate.getY()).set(coordinate.getX(), vuota);
+        
+        
+        setNumeroPezziNaveDaRipagare(temp);
         
         //controlla se esiste ancora la nave e in caso chiama getTroncamento
         if(this.controllaEsistenzaNave()) {

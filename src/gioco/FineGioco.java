@@ -41,6 +41,9 @@ public class FineGioco {
 		if(pedineVoloCompletato.size()>0) {
 
 			console.println("\nELENCO GIOCATORI CHE SONO RIUSCITI A COMPLETARE LA CORSA:");
+		}else {
+			
+			console.println("\nNESSUN GIOCATORE E' RIUSCITO A COMPLETARE LA CORSA:");
 		}
 		for(int i=0; i<pedineVoloCompletato.size(); i++) {
 			console.println((i+1)+") "+pedineVoloCompletato.get(i).getGiocatore().getNome()+" e guadagna "+premio*this.livello+"\u00A2 (crediti) per la posizione");
@@ -54,16 +57,22 @@ public class FineGioco {
 		if(pedineVoloAbbandonato.size()>0) {
 
 			console.println("\nELENCO GIOCATORI CHE HANNO DOVUTO ABBANDONARE LA CORSA:");
+		}else {
+			
+			console.println("\nNESSUN GIOCATORE HA DOVUTO ABBANDONARE LA CORSA:");
 		}
 		for(int i=0; i<pedineVoloAbbandonato.size(); i++) {
 			console.println((i+1)+") "+pedineVoloAbbandonato.get(i).getGiocatore().getNome());
-			
-			console.println(pedineVoloAbbandonato.get(i).getGiocatore().getNome());
 		}	
 		
 		//si vendono le merci di chi è arrivato
-		console.println("\nORA I GIOCATORI CHE HANNO COMPLETATO LA CORSA VENDERANNO LA LORO MERCE:");
-		
+		if(pedineVoloCompletato.size()>0) {
+
+			console.println("\nORA I GIOCATORI CHE HANNO COMPLETATO LA CORSA VENDERANNO LA LORO MERCE:");
+		}else {
+			
+			console.println("\nNON CI SONO GIOCATORI CHE HANNO COMPLETATO LA CORSA PER VENDERE LA MERCE:");
+		}
 		for(int i=0; i<pedineVoloCompletato.size(); i++) {
 			
 			int valore = this.venditaMerci(pedineVoloCompletato.get(i), true);
@@ -76,7 +85,13 @@ public class FineGioco {
 		}
 		
 		//si vendono le merci di chi ha abbandonato (sempre se la nave non è distrutta)
-		console.println("\nORA I GIOCATORI CHE HANNO ABBANDONATO LA CORSA VENDERANNO LA LORO MERCE (ogni merce varrà la metà):");
+		if(pedineVoloAbbandonato.size()>0) {
+
+			console.println("\nORA I GIOCATORI CHE HANNO ABBANDONATO LA CORSA VENDERANNO LA LORO MERCE (ogni merce varrà la metà):");
+		}else {
+			
+			console.println("\nNON CI SONO GIOCATORI CHE HANNO ABBANDONATO LA CORSA PER VENDERE LA MERCE:");
+		}
 		
 		for(int i=0; i<pedineVoloAbbandonato.size(); i++) {
 
@@ -115,7 +130,7 @@ public class FineGioco {
 		this.ordinaPerCreditiDecrescenti(pedineVoloCompletato); 
 		
 		//podio finale
-		console.println("- CLASSIFICA FINALE -");
+		console.println("\n- CLASSIFICA FINALE -");
 		for (int i = 0; i < pedineVoloCompletato.size(); i++) {
 
 		    console.println((i + 1) + "° posto: " + pedineVoloCompletato.get(i).getGiocatore().getNome() + " con " + pedineVoloCompletato.get(i).getGiocatore().getCrediti() + "\u00A2 (crediti)");
@@ -201,18 +216,24 @@ public class FineGioco {
 				minori.add(i);
 			}
 		}
-		
-		if(minori.size() > 1) {
+		if(pedineVoloCompletato.size() > 0) {
 			
-			console.println("\nI GIOCATORI CON LA NAVE PIU' BELLA SONO:");
-		} else {
-			console.println("\nIL GIOCATORE CON LA NAVE PIU' BELLA E':");
+			if(minori.size() > 1) {
+				
+				console.println("\nI GIOCATORI CON LA NAVE PIU' BELLA SONO:");
+			} else {
+				
+				console.println("\nIL GIOCATORE CON LA NAVE PIU' BELLA E':");
+			}
+			for(int i=0; i<minori.size(); i++) {
+				console.println(pedineVoloCompletato.get(i).getGiocatore().getNome()+" ha vinto il premio di "+2*this.livello+"\u00A2 (crediti)");
+				
+				pedineVoloCompletato.get(i).getGiocatore().aggiornaCrediti(2*this.livello);
+			}
+		}else {
+			
+			console.println("\nNON CI SONO NAVI DA GIUDICARE (nessuno ha completato il volo!)");
 		}
 		
-		for(int i=0; i<minori.size(); i++) {
-			console.println(pedineVoloAbbandonato.get(i).getGiocatore().getNome()+" ha vinto il premio di "+2*this.livello+"\u00A2 (crediti)");
-			
-			pedineVoloCompletato.get(i).getGiocatore().aggiornaCrediti(2*this.livello);
-		}
 	}
 }

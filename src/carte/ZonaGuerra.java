@@ -304,7 +304,7 @@ public class ZonaGuerra extends Carta {
                 int j = 0;
                 do {
                 	if(controlloColpoIsDentroDallaNave(this.colpi.get(j), pedina.getGiocatore().getNave())) {
-                		this.colpi.get(j).setRisultatoDado(adattaDadiAllArray(this.colpi.get(j)));
+                		this.colpi.get(j).setRisultatoDado(adattaDadiAllArray(this.colpi.get(j), pedina.getGiocatore().getNave()));
 	                    boolean sceltaFermareColpo = false;
 	
 	                    Tessera colpito = trovaTesseraColpita(this.colpi.get(j), pedina.getGiocatore().getNave());
@@ -326,7 +326,11 @@ public class ZonaGuerra extends Carta {
 	                                try {
 	                                    pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
 	                                } catch (FinePartita e) {
-	                                	//TODO fare finire volo
+	                                	if(pedina.getGiocatore().getNave().controllaEsistenzaNave()) {
+											
+	                                		pedina.setNaveDistrutta(true);
+											continue;
+										}
 	                                    e.printStackTrace();
 	                                }
 	
@@ -376,15 +380,15 @@ public class ZonaGuerra extends Carta {
 		
 		return false;
 	}
-	private int adattaDadiAllArray(Meteorite meteorite) {
+	private int adattaDadiAllArray(Meteorite meteorite, Nave nave) {
 		
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
-
-			return meteorite.getDado() - 4;
+			
+			return meteorite.getDado() - nave.getInizioNaveX();
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - 3;
+			return meteorite.getDado() - nave.getInizioNaveY();
 		}
 		default->{}
 		}

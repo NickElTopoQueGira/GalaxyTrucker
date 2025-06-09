@@ -16,6 +16,7 @@ public class Pedina{
     private int posizioneSulTabellone;
     private int numeroGiro;
 	private boolean inGioco;
+	private boolean isNaveDistrutta;
     
 	public Pedina(Giocatore giocatore){
 		this.cns = ComunicazioneConUtente.getIstanza();
@@ -25,8 +26,17 @@ public class Pedina{
 		this.posizioneSulTabellone = 0;
 		this.numeroGiro = 1;
 		this.inGioco = true;
+		this.isNaveDistrutta = false;
 	}
-    
+
+	public boolean GetisNaveDistrutta() {
+		return isNaveDistrutta;
+	}
+
+	public void setNaveDistrutta(boolean isNaveDistrutta) {
+		this.isNaveDistrutta = isNaveDistrutta;
+	}
+
     public Tabellone getTabellone(){
 		return this.tabellone;
 	}

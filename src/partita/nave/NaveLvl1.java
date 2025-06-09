@@ -80,7 +80,7 @@ public class NaveLvl1 extends Nave{
 	//indici per stampa coordinate nave
 	@Override
 	public int getConfineNaveX() {
-		return 11;
+		return 10;
 	}
     
 	@Override
@@ -95,6 +95,6 @@ public class NaveLvl1 extends Nave{
 
 	@Override
 	public int getConfineNaveY() {
-		return 10;
+		return 9;
 	}   
 }
