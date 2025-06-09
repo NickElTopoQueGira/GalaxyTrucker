@@ -1,5 +1,6 @@
 package tessera.modulo_passeggeri;
 
+import eccezioniPersonalizzate.ErroreEquipaggio;
 import eccezioniPersonalizzate.ErroreTessera;
 import tessera.Posizione;
 import tessera.Tessera;
@@ -87,16 +88,23 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
     }
 
     /**
-     * modifica numero di cosmonauti tramite edit
+     * modifica numero di cosmonauti tramite edit, se non è possibile settare numero cosmonauti genera eccezione
      *
      * @param edit
+     * @throws ErroreEquipaggio 
      */
-    public void setNumeroCosmonauti(int edit) {
+    public void setNumeroCosmonauti(int edit) throws ErroreEquipaggio {
         // no interfaccia con centro perchè l'utente
         // può cambiare piu volte il numero paseggeri in fase di costruzione nave in base
         // a se
         // utiliazza alieni o meno
-        this.numeroCosmonauti = this.numeroCosmonauti + edit;
+    	if((this.numeroCosmonauti+edit)< this.equipaggioMax && (this.numeroCosmonauti+edit)>= 0 ) {
+    		this.numeroCosmonauti = this.numeroCosmonauti + edit;
+    	}else {
+    		throw new ErroreEquipaggio("Azione non possibile");
+    	       
+    	}
+        
     }
 
     public int getNumeroAlieniMarroni() {

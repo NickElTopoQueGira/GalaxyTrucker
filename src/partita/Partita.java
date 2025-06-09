@@ -19,6 +19,8 @@ import tessera.Coordinate;
 import tessera.FactoryTessera;
 import tessera.Tessera;
 import tessera.TipoTessera;
+import tessera.modulo_passeggeri.ModuloPasseggeri;
+import tessera.modulo_passeggeri.TipoModuloPasseggeri;
 
 public class Partita{
 	private final ComunicazioneConUtente com;
@@ -811,7 +813,9 @@ public class Partita{
 				if(giocatore.getNave().verificaAlbitabilitaModulo(tesseraAlieni)){
 					// inserimento alieno marrone
 					Tessera tesseraUmano = giocatore.getNave().getTessera(giocatore.getNave().getCoordinateModuloAbitativoAlieni(tesseraAlieni));
-					giocatore.getNave().setAlienoMarrone(tesseraUmano);
+					
+					//set in automatico dell'equipaggio
+					((ModuloPasseggeri)tesseraUmano).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_MARRONE);
 				}else{
 					this.com.printError("Il modulo specificato non va bene!!");
 					imbarca(giocatore, ge, 1);
@@ -822,7 +826,9 @@ public class Partita{
 				if(giocatore.getNave().verificaAlbitabilitaModulo(tesseraAlieni)){
 					// inserimento alieno viola
 					Tessera tesseraUmano = giocatore.getNave().getTessera(giocatore.getNave().getCoordinateModuloAbitativoAlieni(tesseraAlieni));
-					giocatore.getNave().setAlienoViola(tesseraUmano);
+					
+					//set in automatico dell'equipaggio
+					((ModuloPasseggeri)tesseraUmano).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_VIOLA);
 				}else{
 					this.com.printError("Il modulo specificato non va bene!!");
 					imbarca(giocatore, ge, 2);

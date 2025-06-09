@@ -9,6 +9,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
+import eccezioniPersonalizzate.ErroreEquipaggio;
 import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import eccezioniPersonalizzate.FinePartita;
@@ -32,6 +33,7 @@ import tessera.merce.Stiva;
 import tessera.merce.TipoStiva;
 import tessera.modulo_passeggeri.ModuloAttraccoAlieni;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
+import tessera.modulo_passeggeri.TipoModuloPasseggeri;
 import tessera.motore.Motore;
 import tessera.motore.TipoMotore;
 
@@ -295,7 +297,7 @@ public abstract class Nave {
 
     /**
      * Metodo per rimuovere una tessera dalla nave durante la fase di volo
-     * 
+     * Se la tessera eliminata è l'ultima della nave, genera eccezione FinePartita
      * @param coordinate
      * @throws ErroreTessera
      * @throws FinePartita 
@@ -480,10 +482,11 @@ public abstract class Nave {
 		stampa.println(stampa.visualizzaElenco(temp));
 
 		scelta = stampa.consoleReadInt()-1;
-		if(scelta<1 || scelta>opzioni.size()) {
+		if(scelta<0 || scelta>=opzioni.size()) {
 			return scegliTroncamenti(opzioni);
 		}
 		setNumeroPezziNaveDaRipagare(opzioni.get(scelta));
+		
 		return scelta;
 	}
     
@@ -1017,13 +1020,13 @@ public abstract class Nave {
      * partita, indifferentemente dal livello
      * @return totale energia nave
      */
-    public int caloclaEnergia(){
+    public int calcolaEnergia(){
         int energia = 0;
 
         for(ArrayList<Tessera> colonne : this.nave){
             for(Tessera tessera : colonne){
                 if(tessera.getTipoTessera() == TipoTessera.BATTERIA){
-                    energia += ((Batteria)tessera).getCapacity();
+                    energia += ((Batteria)tessera).getEnergiaAttuale();
                 }
             }
         }
@@ -1039,15 +1042,18 @@ public abstract class Nave {
      * @throws ErroreRisorse
      */
     public void utilizzaEnergia() throws ErroreRisorse{
-        if(this.energiaResidua - 1 < 0){
+    	this.energiaResidua=this.calcolaEnergia();
+        if(this.energiaResidua == 0){
             throw new ErroreRisorse("Energia insufficente");
         }
         else{
         	stampa.println("vuoi utilizzare una gemma di energia?");
         	if(stampa.conferma()) {
         		selezionaTesseraEnergia();
-                this.caloclaEnergia();
-        	}            
+                
+        	}else {
+        		throw new ErroreRisorse("Energia non consumata");
+        	}
         }
     }
     
@@ -1082,6 +1088,7 @@ public abstract class Nave {
         		condizione=false;
         	}
     	}while(condizione);
+		this.energiaResidua=this.calcolaEnergia();
     }
 
     /**
@@ -1319,29 +1326,13 @@ public abstract class Nave {
         for(ArrayList<Tessera> riga : this.nave){
             for(Tessera tessera : riga){
                 if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-                    ((ModuloPasseggeri)tessera).setNumeroCosmonauti(2);
+                    ((ModuloPasseggeri)tessera).setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_EQUIPAGGIO);
                 }
             }
         }
     }
 
-    /**
-     * Metodo per aggiungere gli alieni marroni alla nave
-     * @param tesseraAbitazione Tessera
-     */
-    public void setAlienoMarrone(Tessera tesseraAbitazione){
-        ((ModuloPasseggeri)tesseraAbitazione).setNumeroCosmonauti(-2);
-        ((ModuloPasseggeri)tesseraAbitazione).setNumeroAlieniMarroni(1);
-    }
-
-    /**
-     * Metodo per aggiungere gli alieni viola alla nave
-     * @param tesseraAbitazione Tessera
-     */
-    public void setAlienoViola(Tessera tesseraAbitazione){
-        ((ModuloPasseggeri)tesseraAbitazione).setNumeroCosmonauti(-2);
-        ((ModuloPasseggeri)tesseraAbitazione).setNumeroAlieniViola(1);
-    }
+    
 
     /**
      * Metodo che restituisce il numero dei moduli equipaggio differenziati per tipo
