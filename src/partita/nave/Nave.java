@@ -9,8 +9,6 @@ import java.util.Queue;
 import java.util.Set;
 
 import eccezioniPersonalizzate.ErroreCoordinate;
-import eccezioniPersonalizzate.ErroreEquipaggio;
-import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreTessera;
 import eccezioniPersonalizzate.FinePartita;
 import gioco.ComunicazioneConUtente;
@@ -31,9 +29,7 @@ import tessera.cannone.TipoCannone;
 import tessera.merce.Merce;
 import tessera.merce.Stiva;
 import tessera.merce.TipoStiva;
-import tessera.modulo_passeggeri.ModuloAttraccoAlieni;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
-import tessera.modulo_passeggeri.TipoModuloPasseggeri;
 import tessera.motore.Motore;
 import tessera.motore.TipoMotore;
 
@@ -89,7 +85,7 @@ public abstract class Nave {
      protected void inizializzaNave(){
         this.centro = getCoordinateCentro(); 
         this.fineNaveO = getConfineNaveX();
-        this.fineNaveV= getConfineNaveY();
+        this.fineNaveV = getConfineNaveY();
         this.inizioNaveO = getInizioNaveX();
         this.inizioNaveV = getInizioNaveY();
     }
@@ -99,7 +95,7 @@ public abstract class Nave {
     /**
      * Metodo per prenotare le tessere da mettere.
      * Si possono prenotare al massimo 2 tessere.
-     * Viene generato un'errore se si vogliono prenotare piu' di 2 tessere
+     * Viene generato un errore se si vogliono prenotare piu' di 2 tessere
      * 
      * @param t Tessera
      * @throws ErroreTessera limite massimo di tessere raggiunto
