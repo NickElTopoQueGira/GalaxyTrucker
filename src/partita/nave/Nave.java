@@ -1248,6 +1248,10 @@ public abstract class Nave {
 
     public int getNumeroConnettoriScoperti(){ return this.numeroConnettoriScoperti; }
 
+    public Tessera getTessera(Coordinate coordinate){
+        return this.nave.get(coordinate.getY()).get(coordinate.getY());
+    }
+
     /**
      * Metodo che restituisce il numero totale dell'equipaggio presente sulla nave
      * (cosmonauti + alieni rossi + alieni marroni)
