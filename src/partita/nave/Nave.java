@@ -367,7 +367,9 @@ public abstract class Nave {
 			}
     	}
 		ArrayList<Troncamento> opzioni = new ArrayList<>(troncamentiNave);
-		
+		if(opzioni.size()==1) {
+			return opzioni.getFirst();
+		}
     	
 		return (Troncamento) opzioni.get(scegliTroncamenti(opzioni));
 		
