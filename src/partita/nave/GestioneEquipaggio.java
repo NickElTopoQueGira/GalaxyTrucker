@@ -6,6 +6,8 @@ import partita.giocatore.Giocatore;
 import tessera.Coordinate;
 import tessera.Tessera;
 import tessera.TipoTessera;
+import tessera.modulo_passeggeri.ColoreAlieni;
+import tessera.modulo_passeggeri.ModuloAttraccoAlieni;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.modulo_passeggeri.TipoModuloPasseggeri;
 
@@ -26,9 +28,6 @@ public class GestioneEquipaggio{
         this.com.println("Il giocatore: " + this.giocatore.getNome() + " deve imbarcare l'equipaggio");
         this.com.println("SU OGNI NAVE CI PUO' STARE MASSIMO UN ALIENO PER TIPO");
         riepilogoEquipaggio();
-
-        // di default carico tutti i moduli equipaggio con 2 cosmonauti
-        impostaEquipaggioUmano();
 
         // conto quanti moduli alieni ci sono
         int moduliAlieniMarroneValidi = numeroModuliAlienoMarroniValidi();
@@ -95,57 +94,17 @@ public class GestioneEquipaggio{
             inserisciAlieno(id);
         }
 
+        ModuloPasseggeri moduloPasseggeri = ((ModuloPasseggeri)tesseraEquipaggioAdiacente);
+        if(null == moduloPasseggeri){
+            this.com.printError("Errore modulo passeggeri, riprovare");
+            inserisciAlieno(id);
+        }
 
         switch(id){
             // alieni marroni
-            case 1 ->{
-                try{
-                    ModuloPasseggeri moduloPasseggeri = ((ModuloPasseggeri)tesseraEquipaggioAdiacente);
-                    if(null != moduloPasseggeri){
-                        moduloPasseggeri.setNumeroCosmonauti(-2);
-                        moduloPasseggeri.setNumeroAlieniMarroni(1);
-                    }else{
-                        this.com.printError("Errore modulo passeggeri, riprovare");
-                        inserisciAlieno(id);
-                    }
-                }catch(ErroreEquipaggio eE){
-                    this.com.printError(eE.getMessage());
-                }
-            }
+            case 1-> moduloPasseggeri.setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_MARRONE);
             // alieni viola
-            case 2->{
-                try{
-                    ModuloPasseggeri moduloPasseggeri = ((ModuloPasseggeri)tesseraEquipaggioAdiacente);
-                    if(null != moduloPasseggeri){
-                        moduloPasseggeri.setNumeroCosmonauti(-2);
-                        moduloPasseggeri.setNumeroAlieniViola(1);
-                    }else{
-                        this.com.printError("Errore modulo passeggeri, riprovare");
-                        inserisciAlieno(id);
-                    }
-                }catch(ErroreEquipaggio eE){
-                    this.com.printError(eE.getMessage());
-                }
-            }
-        }
-    }
-
-    /**
-     * Metodo per aggiungere l'equipaggio di default nella nave
-     */
-    private void impostaEquipaggioUmano(){
-        for(ArrayList<Tessera> riga : this.giocatore.getNave().getPlanciaDellaNave()){
-            for(Tessera tessera : riga){
-                if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-                    try{
-                        if(((ModuloPasseggeri) tessera).getTipoModuloPasseggeri() == TipoModuloPasseggeri.MODULO_EQUIPAGGIO){
-                            ((ModuloPasseggeri) tessera).setNumeroCosmonauti(2);
-                        }
-                    }catch(ErroreEquipaggio er){
-                        this.com.printError(er.getMessage());
-                    }
-                }
-            }
+            case 2-> moduloPasseggeri.setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_VIOLA);
         }
     }
 
@@ -157,8 +116,8 @@ public class GestioneEquipaggio{
         int numero = 0;
         for(ArrayList<Tessera> riga : this.giocatore.getNave().getPlanciaDellaNave()){
             for(Tessera tessera : riga){
-                if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-                    if(((ModuloPasseggeri)tessera).getTipoModuloPasseggeri() == TipoModuloPasseggeri.MODULO_ALIENO_MARRONE){
+                if(tessera.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
+                    if(((ModuloAttraccoAlieni)tessera).getColore() == ColoreAlieni.MARRONE){
                         // verifica della tessera adiacente
                         // ricerco di una tessera x umani
                         if(verificaTesseraAdiacente(tessera))
@@ -179,8 +138,8 @@ public class GestioneEquipaggio{
         int numero = 0;
         for(ArrayList<Tessera> riga : this.giocatore.getNave().getPlanciaDellaNave()){
             for(Tessera tessera : riga){
-                if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-                    if(((ModuloPasseggeri)tessera).getTipoModuloPasseggeri() == TipoModuloPasseggeri.MODULO_ALIENO_VIOLA){
+                if(tessera.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
+                    if(((ModuloAttraccoAlieni)tessera).getColore() == ColoreAlieni.VIOLA){
                         // verifica della tessera adiacente
                         // ricerco di una tessera x umani
                         if(verificaTesseraAdiacente(tessera))
@@ -304,7 +263,7 @@ public class GestioneEquipaggio{
         boolean pass = false;
         visualizzaNave();
         do{
-            this.com.println("Inserisci le coordinate del modulo alieno: ");
+            this.com.println("Inserisci le coordinate del modulo attracco alieno: ");
             this.com.println("Inserisci coordinata x: ");
             coordinate.setX(this.com.consoleReadInt());
             this.com.println("Inserisci coordinata y: ");
