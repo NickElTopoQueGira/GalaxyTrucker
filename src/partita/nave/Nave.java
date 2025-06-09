@@ -1251,7 +1251,7 @@ public abstract class Nave {
     public int getNumeroConnettoriScoperti(){ return this.numeroConnettoriScoperti; }
 
     public Tessera getTessera(Coordinate coordinate){
-        return this.nave.get(coordinate.getY()).get(coordinate.getY());
+        return this.nave.get(coordinate.getY()).get(coordinate.getX());
     }
 
     /**
