@@ -37,7 +37,16 @@ public class Tabellone{
 		this.mazzoCarte = this.generatoreMazzo.getLista();
 		this.fineGioco = new FineGioco(this.livello.getLivelloNumerico());
 	}
-
+	
+	/**
+	 * Metodo per il ciclo della seconda fase in cui:
+	 * 1- vengono stampate le navi dei giocatori per vedere come sono messe e averle sott'occhio
+	 * 2- si vede il tabellone con la posizione delle varie pedine
+	 * 3- prima si stampa le caratteristiche della carta e in seguito la si viene eseguita
+	 * 4- si fanno tutti i controlli per vedere se la pedina deve o vuole abbandonare il volo
+	 * 5- finite le carte oppure tutti i giocatori hanno abbandonato il volo si chiama la classe
+	 * 	   fine gioco che stampera i dettagli di come è finito il volo
+	 */
 	public void gioca(){	
 		impostaTabellone();
 		
@@ -68,7 +77,18 @@ public class Tabellone{
 			//controlli singoli
 			for(int j=0; j<elencoPedine.size(); j++) {
 				
-				//2) controllo equipaggio
+				//2) controllo se è distrutta la nave
+				if(elencoPedine.get(j).GetisNaveDistrutta() || !elencoPedine.get(j).getGiocatore().getNave().controllaEsistenzaNave()) {
+					
+					elencoPedine.get(j).setNaveDistrutta(true);
+					cns.println(elencoPedine.get(j).getGiocatore().getNome()+" ha la nave distrutta ed è obbligato ad abbandonare la nave\n");
+					this.elencoNaviAbbandonate.add(elencoPedine.get(j));
+					elencoPedine.remove(j);
+					j--;
+					continue;
+				} 
+				
+				//3) controllo equipaggio
 				if(!elencoPedine.get(j).getGiocatore().getNave().controlloSonoPresentiCosmonauti()) {
 
 					cns.println(elencoPedine.get(j).getGiocatore().getNome()+" non ha abbastanza cosmonauti per continuare il volo\n");
@@ -91,7 +111,9 @@ public class Tabellone{
 		this.fineGioco = new FineGioco(elencoPedine, elencoNaviAbbandonate, this.livello.getLivelloNumerico());
 		this.fineGioco.granFinale();
 	}
-	
+	/**
+	 * metodo per impostare il tabellone
+	 */
 	private void impostaTabellone() {
 		for(Pedina pedina : this.elencoPedine){
 			pedina.setTabellone(this);
@@ -212,6 +234,7 @@ public class Tabellone{
 			this.posizioni.get(posizione).liberaPosizione();
 		}		
 	}
+	
 	
 	public void controlloDoppiaggio() { //TODO da usare mentre si completa la carta   !problems		
 		int i=0;

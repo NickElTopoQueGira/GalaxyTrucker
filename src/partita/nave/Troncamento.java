@@ -62,7 +62,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
         
         StringBuilder numeri = new StringBuilder();
         output.add(numeri.toString());
-        for (int i = inizioNaveO; i < fineNaveO; i++) {
+        for (int i = inizioNaveO; i < fineNaveO+1; i++) {
             numeri.append(i < 10 ? "──" + i + "───" : "──" + i + "──");
         }
 
@@ -110,7 +110,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 
         // Riga finale numeri colonna
         numeri = new StringBuilder();
-        for (int i = inizioNaveO; i < fineNaveO; i++) {
+        for (int i = inizioNaveO; i < fineNaveO+1; i++) {
             numeri.append(i < 10 ? "──" + i + "───" : "──" + i + "──");
         }
         if(descrIndex < tutteDescrizioni.size()) {
