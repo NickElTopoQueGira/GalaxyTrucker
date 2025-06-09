@@ -37,7 +37,7 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
             this.numeroAlieniMarroni = 0;
             this.numeroAlieniViola = 0;
 
-            setEquipaggio();
+            this.setEquipaggio();
         } else {
             throw new ErroreTessera("Numero Elementi Modulo Paseggeri Max"); // Eccezione Numero Massimo di elementi
         }
