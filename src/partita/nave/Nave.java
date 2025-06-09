@@ -496,7 +496,7 @@ public abstract class Nave {
      * @return vero -> le coordinate sono accettabili |
      *         falso -> le coordinate non sono accettabili
      */
-    private boolean controllaCoordinate(Coordinate coordinate){
+    public boolean controllaCoordinate(Coordinate coordinate){
         if(
             (coordinate.getX() >= 0 && coordinate.getX() < getColonne()) &&
             (coordinate.getY() >= 0 && coordinate.getY() <  getRighe())
@@ -1296,7 +1296,7 @@ public abstract class Nave {
 
 	  /**
      * Metodo per contare i pezzi distrutti confrontando il nuovo troncamento rispetto alla nave presente precedentemente
-     * @param opzioni 
+     * @param opzione Troncamento
      */
     private void setNumeroPezziNaveDaRipagare(Troncamento opzione){
     	for(ArrayList<Tessera> colonne : this.nave) {
@@ -1319,7 +1319,7 @@ public abstract class Nave {
         for(ArrayList<Tessera> riga : this.nave){
             for(Tessera tessera : riga){
                 if(tessera.getTipoTessera() == TipoTessera.MODULO_PASSEGGERI){
-                    ((ModuloPasseggeri)tessera).setNumeroCosmonauti(2);;
+                    ((ModuloPasseggeri)tessera).setNumeroCosmonauti(2);
                 }
             }
         }
@@ -1327,65 +1327,25 @@ public abstract class Nave {
 
     /**
      * Metodo per aggiungere gli alieni marroni alla nave
-     * @param numero
+     * @param tesseraAbitazione Tessera
      */
-    public void setAlieniMarroni(int numero){
-        int count  = 0;
-        for(ArrayList<Tessera> riga : this.nave){
-            for(Tessera tessera : riga){
-                if(count < numero){
-                    if(tessera.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
-                        if(((ModuloAttraccoAlieni)tessera).isAbitabile()){
-                            // se e' abitabile
-                            ((ModuloPasseggeri) tessera).setNumeroAlieniMarroni(1);
-                            
-                            Coordinate coordinateTesseraPasseggeriAdiacente = verificaValiditaModulo(tessera)
-                                    .getCoordinateModuloPasseggeri();
-                            
-                                    ((ModuloPasseggeri) (this.nave
-                                    .get(coordinateTesseraPasseggeriAdiacente.getX())
-                                    .get(coordinateTesseraPasseggeriAdiacente.getY()))).setNumeroCosmonauti(-2);
-
-                            count += 1;
-                        }
-                    }
-                }
-            }
-        }
+    public void setAlienoMarrone(Tessera tesseraAbitazione){
+        ((ModuloPasseggeri)tesseraAbitazione).setNumeroCosmonauti(-2);
+        ((ModuloPasseggeri)tesseraAbitazione).setNumeroAlieniMarroni(1);
     }
 
     /**
      * Metodo per aggiungere gli alieni viola alla nave
-     * @param numero
+     * @param tesseraAbitazione Tessera
      */
-    public void setAlieniViola(int numero){
-        int count  = 0;
-        for(ArrayList<Tessera> riga : this.nave){
-            for(Tessera tessera : riga){
-                if(count < numero){
-                    if(tessera.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
-                        if(((ModuloAttraccoAlieni)tessera).isAbitabile()){
-                            // se e' abitabile
-                            ((ModuloPasseggeri) tessera).setNumeroAlieniViola(1);
-                            
-                            Coordinate coordinateTesseraPasseggeriAdiacente = verificaValiditaModulo(tessera)
-                                    .getCoordinateModuloPasseggeri();
-                            
-                                    ((ModuloPasseggeri) (this.nave
-                                    .get(coordinateTesseraPasseggeriAdiacente.getX())
-                                    .get(coordinateTesseraPasseggeriAdiacente.getY()))).setNumeroCosmonauti(-2);
-
-                            count += 1;
-                        }
-                    }
-                }
-            }
-        }
+    public void setAlienoViola(Tessera tesseraAbitazione){
+        ((ModuloPasseggeri)tesseraAbitazione).setNumeroCosmonauti(-2);
+        ((ModuloPasseggeri)tesseraAbitazione).setNumeroAlieniViola(1);
     }
 
     /**
      * Metodo che restituisce il numero dei moduli equipaggio differenziati per tipo
-     * @return gestioneEqipaggio 
+     * @return gestioneEquipaggio
      */
     public GestioneEquipaggio getModuliEquipaggio(){
         GestioneEquipaggio ge = new GestioneEquipaggio();
@@ -1480,6 +1440,28 @@ public abstract class Nave {
         }
 
         return abi;
+    }
+
+    /**
+     * Metodo per verificare se un modulo e' abitabile o no
+     * @return si o no
+     */
+    public boolean verificaAlbitabilitaModulo(Tessera tessera){
+        Abitabile abi = verificaValiditaModulo(tessera);
+        return abi.getAbitabile();
+    }
+
+    /**
+     * Metodo per prendere una tessera specifica dala nave
+     * @return tessera Tessera
+     */
+    public Tessera getTessera(Coordinate coordinate){
+        return this.nave.get(coordinate.getX()).get(coordinate.getY());
+    }
+
+    public Coordinate getCoordinateModuloAbitativoAlieni(Tessera tessera){
+        Abitabile abi = verificaValiditaModulo(tessera);
+        return abi.getCoordinateModuloPasseggeri();
     }
 
     /**

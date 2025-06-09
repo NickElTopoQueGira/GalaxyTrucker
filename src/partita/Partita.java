@@ -779,145 +779,71 @@ public class Partita{
 	private void imbarcaAlieniSullaNave(Giocatore g, GestioneEquipaggio equipaggio){
 		// marroni
 		if(equipaggio.getNumeroModuliAlieniMarroni() > 0){
-			int scelta = menuImbarco("Inserimento alieni marroni");
-			imbarca(scelta, g, equipaggio, 1);
+			this.com.println("Inserimento degli alieni marroni: ");
+			imbarca(g, equipaggio, 1);
 		}
 
 		// viola
 		if(equipaggio.getNumeroModuliAlieniViola() > 0){
-			int scelta = menuImbarco("Inserimento alieni viola");
-			imbarca(scelta, g, equipaggio, 2);
+			this.com.println("Inserimento degli alieni viola: ");
+			imbarca(g, equipaggio, 2);
 		}
 	}
 
 	/**
-	 * Menu di scelta per l'imbarco degli alieni
-	 * @param messaggio String
-	 * @return risp int
+	 * Metodo per imbarcare l'equipaggio
+	 * @param giocatore Giocatore
+	 * @param ge GestioneEquipaggio
+	 * @param id int idAlieno
 	 */
-	private int menuImbarco(String messaggio){
-		ArrayList<String> elenco = new ArrayList<>();
-		elenco.add("Per aggiungere tutti gli alieni");
-		elenco.add("Per aggiungere un numero personalizzato di alieni");
+	private void imbarca(Giocatore giocatore, GestioneEquipaggio ge, int id){
+		Coordinate coordinateModuloScelto = richiestaCoordinateModuloAlieno(giocatore);
+		Tessera tesseraAlieni = giocatore.getNave().getTessera(coordinateModuloScelto);
 
-		int risp = 0;
-		boolean pass = false; 
-		do{
-			this.com.println(messaggio);
-			try{
-				risp = this.com.consoleReadInt();
-				if(risp < 1 || risp > 2){
-					pass = false;
-					this.com.erroreImmissioneValore();
+		switch(id){
+			// alieni marroni
+			case 1->{
+				if(giocatore.getNave().verificaAlbitabilitaModulo(tesseraAlieni)){
+					// inserimento alieno marrone
+					Tessera tesseraUmano = giocatore.getNave().getTessera(giocatore.getNave().getCoordinateModuloAbitativoAlieni(tesseraAlieni));
+					giocatore.getNave().setAlienoMarrone(tesseraUmano);
 				}else{
-					pass = true;
-				}
-			}catch(NumberFormatException nfe){
-				this.com.erroreImmissioneValore();
-			}
-			pass = true;
-		}while(false == pass);
-
-		return risp;
-	}
-
-	/**
-	 * Metodo per imbarcare gli alieni sulla nave
-	 * 
-	 * @param scelta int
-	 * @param g	Giocatore
-	 * @param ge GestioneEquipaggio
-	 * @param id int
-	 */
-	private void imbarca(int scelta, Giocatore g, GestioneEquipaggio ge, int id){
-		switch(scelta){
-			case 1 ->{
-				// tutti gli alieni
-				if(id == 1){
-					// alieni marroni
-					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*ge.getNumeroModuliAlieniMarroni()) + " cosmonauti");
-					if(this.com.conferma()){
-						g.getNave().setAlieniMarroni(ge.getNumeroModuliAlieniMarroni());
-					}else{
-						menuImbarco("Inserimento alieni marroni");
-					}
-				}else if(id == 2){
-					// alieni viola
-					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*ge.getNumeroModuliAlieniViola()) + " cosmonauti");
-					if(this.com.conferma()){
-						g.getNave().setAlieniViola(ge.getNumeroModuliAlieniViola());
-					}else{
-						menuImbarco("Inserimento alieni viola");
-					}
+					this.com.printError("Il modulo specificato non va bene!!");
+					imbarca(giocatore, ge, 1);
 				}
 			}
-			case 2 ->{
-				if(id == 1){
-					// marroni
-					this.com.println("Inserisci il numero di alieni marroni che vuoi immettere nella tua nave: ");
-					int numeroAlieni = numeroAlieniCustom(id, ge);
-					
-					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*numeroAlieni) + " cosmonauti");
-					if(this.com.conferma()){
-						g.getNave().setAlieniMarroni(ge.getNumeroModuliAlieniMarroni());
-					}else{
-						menuImbarco("Inserimento alieni marroni");
-					}
-				}else if(id == 2){
-					// viola
-					this.com.println("Inserisci il numero di alieni viola che vuoi immettere nella tua nave: ");
-					int numeroAlieni = numeroAlieniCustom(id, ge);
-					
-					this.com.println("Dopo questa operazione ti rimarrebbero " + String.valueOf(ge.getNumeroCosmonauti() - (2)*numeroAlieni) + " cosmonauti");
-					if(this.com.conferma()){
-						g.getNave().setAlieniViola(ge.getNumeroModuliAlieniMarroni());
-					}else{
-						menuImbarco("Inserimento alieni viola");
-					}
+			// alieni viola
+			case 2->{
+				if(giocatore.getNave().verificaAlbitabilitaModulo(tesseraAlieni)){
+					// inserimento alieno viola
+					Tessera tesseraUmano = giocatore.getNave().getTessera(giocatore.getNave().getCoordinateModuloAbitativoAlieni(tesseraAlieni));
+					giocatore.getNave().setAlienoViola(tesseraUmano);
+				}else{
+					this.com.printError("Il modulo specificato non va bene!!");
+					imbarca(giocatore, ge, 2);
 				}
 			}
 		}
 	}
 
-	/**
-	 * Metodo per specificare il numero di alieni che si vogliamo imbarcare sulla nave
-	 * 
-	 * @param id int
-	 * @param ge GestioneEquipaggio
-	 * @return numero di alieno
-	 */
-	private int numeroAlieniCustom(int id, GestioneEquipaggio ge){
-		int numero = 0;
-		boolean pass = false; 
+	private Coordinate richiestaCoordinateModuloAlieno(Giocatore giocatore){
+		Coordinate coordinate = new Coordinate();
+		boolean pass = false;
+		visualizzaNave(giocatore);
 		do{
-			try{
-				numero = this.com.consoleReadInt();
-				if(numero < 0){
-					this.com.erroreImmissioneValore();
-				}
-
-				switch(id){
-					case 1 ->{
-						if(numero > ge.getNumeroModuliAlieniMarroni()){
-							this.com.erroreImmissioneValore();
-						}else{
-							pass = true;
-						}
-					}
-					case 2 ->{
-						if(numero > ge.getNumeroModuliAlieniViola()){
-							this.com.erroreImmissioneValore();
-						}else{
-							pass = true;
-						}
-					}
-				}
-
-			}catch(NumberFormatException nfe){
+			this.com.println("Inserisci le coordinate del modulo alieno: ");
+			this.com.println("Inserisci coordinata x: ");
+			coordinate.setX(this.com.consoleReadInt());
+			this.com.println("Inserisci coordinata y: ");
+			coordinate.setY(this.com.consoleReadInt());
+			if(false == giocatore.getNave().controllaCoordinate(coordinate)){
 				this.com.erroreImmissioneValore();
+			}else{
+				pass = true;
 			}
 		}while(false == pass);
-		return numero;
+
+		return coordinate;
 	}
 
 	/**
