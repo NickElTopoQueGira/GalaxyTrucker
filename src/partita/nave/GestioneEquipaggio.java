@@ -265,9 +265,9 @@ public class GestioneEquipaggio{
         do{
             this.com.println("Inserisci le coordinate del modulo attracco alieno: ");
             this.com.println("Inserisci coordinata x: ");
-            coordinate.setX(this.com.consoleReadInt());
+            coordinate.setX(this.com.consoleReadInt() - this.giocatore.getNave().getInizioNaveX());
             this.com.println("Inserisci coordinata y: ");
-            coordinate.setY(this.com.consoleReadInt());
+            coordinate.setY(this.com.consoleReadInt() - this.giocatore.getNave().getInizioNaveY());
             if(false == this.giocatore.getNave().controllaCoordinate(coordinate)){
                 this.com.erroreImmissioneValore();
             }else{
