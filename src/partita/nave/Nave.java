@@ -1240,7 +1240,10 @@ public abstract class Nave {
     
 	public Colori getColoreNave(){ return this.coloreNave; }
 
-    public int getEnergiaResidua(){ return this.energiaResidua; }
+    public int getEnergiaResidua(){
+    	this.energiaResidua=this.calcolaEnergia();
+    	return this.energiaResidua; 
+    }
 
     public int getNumeroConnettoriScoperti(){ return this.numeroConnettoriScoperti; }
 
