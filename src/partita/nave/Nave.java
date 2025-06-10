@@ -438,10 +438,12 @@ public abstract class Nave {
 							this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
 						
 						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
-						
+				        this.nave.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
+
 					}else {
 						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.ESTRENA);
-						
+				        this.nave.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
+
 					}
 					
 					
@@ -460,10 +462,12 @@ public abstract class Nave {
     								this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
     							
     							tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
-    							
+    					        this.parteRestante.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
+
     						}else {
     							tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.ESTRENA);
-    							
+    					        this.parteRestante.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
+
     						}
     					}
     				}
