@@ -7,7 +7,9 @@ import gioco.ComunicazioneConUtente;
 import gioco.FineGioco;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import partita.Livelli;
@@ -259,24 +261,28 @@ public class Tabellone{
 	/**
 	 * Metodo per il controllo sul doppiaggio della pedina
 	 */
-	public void controlloDoppiaggio() { //TODO da usare mentre si completa la carta   !problems		
-		int i=0;
-		
-		do{
-			for(int j=i+1; j<elencoPedine.size(); j++){
-				if(elencoPedine.get(i).getNumeroGiro() > elencoPedine.get(j).getNumeroGiro()){
-					if(elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(j).getPosizioneSulTabellone()){
-						
-						//TODO elencoPedine.get(j) è stato doppiato
-						
-						this.elencoNaviAbbandonate.add(elencoPedine.get(j));//TODO
-						elencoPedine.remove(j);
-					}
-				}
-			}
-			
-			i++;
-		}while(i<elencoPedine.size()-1);
+	public void controlloDoppiaggio() {
+	    List<Pedina> doppiate = new ArrayList<>();
+
+	    for (int i = 0; i < elencoPedine.size(); i++) {
+	        Pedina p1 = elencoPedine.get(i);
+	        for (int j = 0; j < elencoPedine.size(); j++) {
+	            if (i == j) continue;
+
+	            Pedina p2 = elencoPedine.get(j);
+
+	            boolean p1HaDoppiatoP2 =
+	                p1.getNumeroGiro() > p2.getNumeroGiro() &&
+	                p1.getPosizioneSulTabellone() > p2.getPosizioneSulTabellone();
+
+	            if (p1HaDoppiatoP2 && !doppiate.contains(p2)) {
+	                elencoNaviAbbandonate.add(p2);
+	                doppiate.add(p2);
+	            }
+	        }
+	    }
+
+	    elencoPedine.removeAll(doppiate);
 	}
 
 	/**
@@ -296,23 +302,54 @@ public class Tabellone{
 	}
 
 	/**
-	 * Metodo toString che ritorna il tabellone di gioco sotto forma di stringa
+	 * Metodo toString che ritorna il tabellone di gioco sotto forma di stringa //
+		sb.append("╔══════════════ TABELLONE DI GIOCO ══════════════╗\n\n");
+		
 	 */
 	@Override
 	public String toString() {
-		String temp = "Tabellone di gioco\n";
+	    int a = 20; // semiasse orizzontale (larghezza)
+	    int b = 3;  // semiasse verticale (altezza)
 
-		// scansione le posizioni
-		for(int i = 0; i < this.numeroPosizioni; i += 1){
-			Posizione pos = this.posizioni.get(i);
-			if(!pos.isLibera()){
-				// se la posizione e' occupata
-				Pedina p = pos.getPedina();	// recupero la pedina che occupa la posizione
-				temp += " (" + p.getGiocatore().getColorePedina().getSiglaTabellone() + ") ";
-			}else{
-				temp += " ( ) ";
-			}
-		}
-		return temp + "\n";
+	    int width = 2 * a + 3;
+	    int height = 2 * b + 3;
+
+	    // Cambiato da char[][] a String[][]
+	    String[][] griglia = new String[height][width];
+	    for (int i = 0; i < height; i++) {
+	        Arrays.fill(griglia[i], " ");
+	    }
+
+	    int n = this.numeroPosizioni;
+	    String[] simboli = new String[n];
+	    for (int i = 0; i < n; i++) {
+	        Posizione pos = this.posizioni.get(i);
+	        if (!pos.isLibera()) {
+	            Pedina p = pos.getPedina();
+	            simboli[i] = p.getGiocatore().getColorePedina().getSiglaTabellone();
+	        } else {
+	            simboli[i] = "□";
+	        }
+	    }
+
+	    // Posizionamento con rotazione
+	    for (int i = 0; i < n; i++) {
+	        double theta = 2 * Math.PI * i / n + Math.PI;
+	        int x = (int) Math.round(a * Math.cos(theta)) + a + 1;
+	        int y = (int) Math.round(b * Math.sin(theta)) + b + 1;
+
+	        griglia[y][x] = simboli[i];
+	    }
+
+	    // Costruzione stringa finale
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("╔══════════════ TABELLONE DI GIOCO ══════════════╗\n\n");
+	    for (int i = 0; i < height; i++) {
+	        for (int j = 0; j < width; j++) {
+	            sb.append(griglia[i][j]);
+	        }
+	        sb.append("\n");
+	    }
+	    return sb.toString();
 	}
 }

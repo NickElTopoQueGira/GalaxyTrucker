@@ -1485,7 +1485,7 @@ public abstract class Nave {
 		        
 		    	caso++;
 		    	
-		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	stampa.println(""+caso+") In posizione ("+(x+this.inizioNaveO+1)+";"+(y+this.inizioNaveV+1)+") :"+tessera.toLegenda());
 		    	
 		    	crd.add(new Coordinate(x, y));
 		    }
@@ -1512,7 +1512,7 @@ public abstract class Nave {
 		        
 		    	caso++;
 		    	
-		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	stampa.println(""+caso+") In posizione ("+(x+this.inizioNaveO+1)+";"+(y+this.inizioNaveV+1)+") :"+tessera.toLegenda());
 		    	
 		    	crd.add(new Coordinate(x, y));
 		    }
@@ -1539,7 +1539,7 @@ public abstract class Nave {
 		        
 		    	caso++;
 		    	
-		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	stampa.println(""+caso+") In posizione ("+(x+this.inizioNaveO+1)+";"+(y+this.inizioNaveV+1)+") :"+tessera.toLegenda());
 		    	
 		    	crd.add(new Coordinate(x, y));
 		    }
@@ -1566,7 +1566,7 @@ public abstract class Nave {
 		        
 		    	caso++;
    	
-		    	stampa.println(""+caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	stampa.println(""+caso+") In posizione ("+(x+this.inizioNaveO+1)+";"+(y+this.inizioNaveV+1)+") :"+tessera.toLegenda());
 		    	 
 		    	crd.add(new Coordinate(x, y));
 		    }
@@ -1575,7 +1575,7 @@ public abstract class Nave {
 
 		    	caso++;
    	
-		    	stampa.println(caso+") In posizione ("+x+";"+y+") :"+tessera.toLegenda());
+		    	stampa.println(caso+") In posizione ("+(x+this.inizioNaveO+1)+";"+(y+this.inizioNaveV+1)+") :"+tessera.toLegenda());
 		    	
 		    	crd.add(new Coordinate(x, y));
 		    }
