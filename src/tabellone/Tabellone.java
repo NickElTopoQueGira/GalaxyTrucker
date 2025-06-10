@@ -308,7 +308,7 @@ public class Tabellone{
 	 */
 	@Override
 	public String toString() {
-	    int a = 20; // semiasse orizzontale (larghezza)
+	    int a = 25; // semiasse orizzontale (larghezza)
 	    int b = 3;  // semiasse verticale (altezza)
 
 	    int width = 2 * a + 3;
