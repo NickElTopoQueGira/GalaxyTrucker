@@ -186,11 +186,9 @@ public class PioggiaMeteoriti extends Carta {
 										elencoPedine.get(j).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
 									} catch (FinePartita e) {
 										
-										if(elencoPedine.get(j).getGiocatore().getNave().controllaEsistenzaNave()) {
-											
-											elencoPedine.get(j).setNaveDistrutta(true);
-										}
-										e.printStackTrace();
+										elencoPedine.get(j).setNaveDistrutta(true);
+										
+										stampa.println("La nave è stata totalmete distrutta");
 									}
 									 
 								} catch (ErroreTessera e) {

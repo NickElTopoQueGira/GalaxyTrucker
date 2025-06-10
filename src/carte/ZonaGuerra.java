@@ -328,12 +328,11 @@ public class ZonaGuerra extends Carta {
 	                                try {
 	                                    pedina.getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
 	                                } catch (FinePartita e) {
-	                                	if(pedina.getGiocatore().getNave().controllaEsistenzaNave()) {
+	                                		
+	                                	pedina.setNaveDistrutta(true);
 											
-	                                		pedina.setNaveDistrutta(true);
-											continue;
-										}
-	                                    e.printStackTrace();
+	                                	stampa.println("La nave è stata totalmete distrutta");
+	                                    continue;
 	                                }
 	
 	                            } catch (ErroreTessera e) {

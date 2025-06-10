@@ -269,12 +269,11 @@ public class Pirati extends Nemici {
 									try {
 										elencoPedine.get(elenco).getGiocatore().getNave().rimuoviTessera(colpito.getCoordinate());
 									} catch (FinePartita e) {
-										if(elencoPedine.get(j).getGiocatore().getNave().controllaEsistenzaNave()) {
 											
-											elencoPedine.get(elenco).setNaveDistrutta(true);
-											continue;
-										}
-										e.printStackTrace();
+										elencoPedine.get(elenco).setNaveDistrutta(true);
+										
+										stampa.println("La nave è stata totalmete distrutta");
+										continue;
 									}
 									
 								} catch (ErroreTessera e) {
