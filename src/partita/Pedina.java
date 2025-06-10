@@ -409,6 +409,12 @@ public class Pedina{
     		return false;
     	}
     }
+    
+    
+    /**
+     * Metodo per chiedere all'utente di utilizzare energia per il cannone doppio
+     * @return true se utilizzatta e false se no
+     */
     public Boolean sceltaEpossibilitaUtilizzoCannoneDoppio() {
     	
     	if(this.giocatore.getNave().getEnergiaResidua() > 0) {
