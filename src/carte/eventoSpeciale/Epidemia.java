@@ -22,7 +22,10 @@ public class Epidemia extends EventiSpeciali {
         super(lvl, TipoCarta.EPIDEMIA);
         stampa = ComunicazioneConUtente.getIstanza();
     }
-
+    
+    /**
+     * Metodo che completa la carta la quale trova tutti i moduli attaccati tra di loro e ne toglie uno di equipaggio ciascuno
+     */
     @Override
     public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 
@@ -67,7 +70,17 @@ public class Epidemia extends EventiSpeciali {
         }
         return elencoPedine;
     }
-
+    
+    /**
+     * metodo ricorsivo che permette di trovare i moduli che sono attaccati ad altri moduli e li aggiunge
+     * in un arreylist per poi poter togliere l'equipaggio
+     * 
+     * @param i
+     * @param j
+     * @param nave
+     * @param isVisitato
+     * @param gruppo
+     */
     private void trovaModuloAtaccato(int i, int j, ArrayList<ArrayList<Tessera>> nave, boolean[][] isVisitato, ArrayList<Tessera> gruppo) {
 
         int[] dx = {-1, 0, 1, 0};
@@ -88,7 +101,7 @@ public class Epidemia extends EventiSpeciali {
                         || nave.get(nx).get(ny).getTipoTessera() == TipoTessera.CENTRO)
                         && !isVisitato[nx][ny]) {
 
-                    if (!controlloConnettoreTraTessere(dLato[d], nave.get(i).get(j), nave.get(nx).get(ny))) {
+                    if (controlloConnettoreTraTessere(dLato[d], nave.get(i).get(j), nave.get(nx).get(ny))) {
 
                         trovaModuloAtaccato(nx, ny, nave, isVisitato, gruppo);
                     }
@@ -96,7 +109,15 @@ public class Epidemia extends EventiSpeciali {
             }
         }
     }
-
+    /**
+     * Metodo specifico per i controlli della carta epidemia che controlla se un lato specifico è collegato ad un altra tessera
+     * simile a quello che c'è sulla nave ma ha un compito più specifico
+     * 
+     * @param dLato
+     * @param tesseraP
+     * @param tessera2
+     * @return se la tessere è collegata al lato richiesto
+     */
     private boolean controlloConnettoreTraTessere(TipoLato dLato, Tessera tesseraP, Tessera tessera2) {
 
         switch (dLato) {

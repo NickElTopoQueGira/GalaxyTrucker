@@ -62,17 +62,28 @@ public class Tabellone{
 			//----estrazione carta--------
 			cns.println("\n------------------carte rimaste :"+(mazzoCarte.size() - i)+"------------------\n");
 			cns.println(mazzoCarte.get(i).toString());
+
 			mazzoCarte.get(i).eseguiCarta(elencoPedine);
 			
 			//-----controlli e richieste-----
 			
-			//1) controllo doppiaggio
+			//1) controllo se dopo spazio aperto la nave si è mossa
+			for(int j=0; j<elencoPedine.size(); j++) {
+				
+				if(!elencoPedine.get(j).isPedinaInGioco()) {
+					this.elencoNaviAbbandonate.add(elencoPedine.get(j));
+					elencoPedine.remove(j);
+					j--;
+				}
+			}
+			
+			//2) controllo doppiaggio
 			this.controlloDoppiaggio();
 			
 			//controlli singoli
 			for(int j=0; j<elencoPedine.size(); j++) {
 				
-				//2) controllo se è distrutta la nave
+				//3) controllo se è distrutta la nave
 				if(elencoPedine.get(j).GetisNaveDistrutta() || !elencoPedine.get(j).getGiocatore().getNave().controllaEsistenzaNave()) {
 					
 					elencoPedine.get(j).setNaveDistrutta(true);
@@ -83,7 +94,7 @@ public class Tabellone{
 					continue;
 				} 
 				
-				//3) controllo equipaggio
+				//4) controllo equipaggio
 				if(!elencoPedine.get(j).getGiocatore().getNave().controlloSonoPresentiCosmonauti()) {
 
 					cns.println(elencoPedine.get(j).getGiocatore().getNome()+" non ha abbastanza cosmonauti per continuare il volo\n");
@@ -93,7 +104,7 @@ public class Tabellone{
 					continue;
 				}
 				
-				//4) Richiesta abbandono nave
+				//5) Richiesta abbandono nave
 				if(cns.richiestaAbbandonaVolo(elencoPedine.get(j).getGiocatore())) {
 					
 					this.elencoNaviAbbandonate.add(elencoPedine.get(j));

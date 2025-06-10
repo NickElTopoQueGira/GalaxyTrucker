@@ -847,6 +847,9 @@ public abstract class Nave {
      * Per accedere al numero di connettori scoperti, utilizzare l'apposito metodo
      */
     public void connettoriScoperti(){ 
+    	
+    	this.numeroConnettoriScoperti = 0;
+    	
         for(ArrayList<Tessera> colonna : this.nave){
             for(Tessera tessera : colonna){
                 this.numeroConnettoriScoperti += conteggioConnettoriEsposti(tessera);
@@ -953,28 +956,28 @@ public abstract class Nave {
     	switch (dir) {
 		case UP: {
 			if(tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO && 
-					this.nave.get(adiacente.getX()).get(adiacente.getY()).getTipoTessera() == TipoTessera.VUOTA) {
+					this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
 				return true;
 			}
 			break;
 		}
 		case LEFT: {
 			if(tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO && 
-					this.nave.get(adiacente.getX()).get(adiacente.getY()).getTipoTessera() == TipoTessera.VUOTA) {
+					this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
 				return true;
 			}
 			break;		
 				}
 		case DOWN: {
 			if(tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO && 
-					this.nave.get(adiacente.getX()).get(adiacente.getY()).getTipoTessera() == TipoTessera.VUOTA) {
+					this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
 				return true;
 			}
 			break;
 		}
 		case RIGHT: {
 			if(tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO && 
-					this.nave.get(adiacente.getX()).get(adiacente.getY()).getTipoTessera() == TipoTessera.VUOTA) {
+					this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
 				return true;
 			}
 			break;

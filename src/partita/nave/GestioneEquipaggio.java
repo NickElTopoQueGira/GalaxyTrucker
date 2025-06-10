@@ -88,9 +88,9 @@ public class GestioneEquipaggio{
 
         switch(id){
             // alieni marroni
-            case 1-> moduloPasseggeri.setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_MARRONE);
+            case 1-> {moduloPasseggeri.setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_MARRONE);}
             // alieni viola
-            case 2-> moduloPasseggeri.setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_VIOLA);
+            case 2-> {moduloPasseggeri.setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_VIOLA);}
         }
     }
 
