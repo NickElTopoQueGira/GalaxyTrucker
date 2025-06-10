@@ -653,9 +653,9 @@ public class Partita{
 	 */
 	private int azioneCarta(Giocatore g){
 		ArrayList<String> elenco = new ArrayList<>();
-		elenco.add("Per utilizzare una tessera dalla pila degli scarti");
-		elenco.add("Per pescare una nuova tessera");
-		elenco.add("Per utilizzare una tessera prenotata");
+		elenco.add("Per utilizzare una tessera dalla pila degli scarti del mazzo");
+		elenco.add("Per pescare una nuova tessera dal mazzo");
+		elenco.add("Per utilizzare una tessera dalla pila delle tessere riserva");
 		
 		int risposta = 0;
 		boolean pass = false;
