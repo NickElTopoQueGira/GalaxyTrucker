@@ -252,6 +252,7 @@ public class Pirati extends Nemici {
 						 
 						if(colpito != null) {
 							
+							stampa.println("\nE' STATA COLPITA LA NAVE DI LA NAVE DI: "+elencoPedine.get(elenco).getGiocatore().getNome());
 							stampa.println("LA TESSERA COLPITA E': " +colpito.toLegenda()+ " ("+colpito.getCoordinate().getX()+", "+colpito.getCoordinate().getY()+")");
 							
 							if(this.colpi.get(j).getType() == TypeMeteora.COLPO_PICCOLO) {
