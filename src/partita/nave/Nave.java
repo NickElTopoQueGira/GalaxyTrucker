@@ -203,8 +203,8 @@ public abstract class Nave {
      * I cannoni possono essere messi in una cella se e solo se la cella nella direzione
      * in cui punta il cannone e' libera
      * 
-     * @param coordinate Coordinate
-     * @param tessera Tessera
+     * @param Coordinate della tessera
+     * @param tessera
      * @return vero -> il cannone puo' essere posizionato |
      *         falso -> il cannone non puo' essere posizionato
      */
@@ -249,7 +249,7 @@ public abstract class Nave {
      * nella posizione indicata.
      * I motori possono essere messi in una cella se e solo se la cella subito sotto e' libera
      * 
-     * @param coordinate Coordinate
+     * @param Coordinate della tessera
      * @param tessera Tessera
      * @return vero -> il motore puo' essere posizionato |
      *         falso -> il motore non puo' essere posizionato
@@ -270,12 +270,14 @@ public abstract class Nave {
     }
 
     /**
+     * NELLE ALTRE CLASSI BISOGNA CHIAMARE QUESTO METODO
      * Metodo per rimuovere una tessera dalla nave durante la fase di volo
      * Se la tessera eliminata è l'ultima della nave, genera eccezione FinePartita.
      * Attua anche il conteggio delle tessere distrutte tramite il metodo setNumeroPezziNaveDaRipagare()
-     * @param coordinate
-     * @throws ErroreTessera
-     * @throws FinePartita 
+     * 
+     * @param coordinate della tessera da rimuovere
+     * @throws ErroreTessera se la poszione non è esistente
+     * @throws FinePartita se lanave viene distrutta totalmente
      */
     public void rimuoviTessera(Coordinate coordinate) throws ErroreTessera, FinePartita{
     	Tessera vuota=new TesseraVuota(coordinate.getX(), coordinate.getY(),Posizione.INTERNA);
@@ -312,7 +314,7 @@ public abstract class Nave {
     }
     
     /**
-     * Metodo che crea una lista di troncamenti Nave e fa scegliere all'utente quale tenere
+     * Metodo che crea una lista di troncamenti Nave tramite distruggiNave() e fa scegliere all'utente quale tenere
      * @return troncamento di nave scelta
      */
     private Troncamento getTroncamentoNave() {
@@ -358,10 +360,11 @@ public abstract class Nave {
     
 	/**
      * Metodo di distruzione nave. Distrugge le tessere non collegate al centroRamificazione e le rimpiazza
-     * con oggetti TesseraVuota in nave. Se centroRamificazione=centro genera anche ParteRestante
-	 * @param isCentro boolean
-	 * @param centroRamificazione Coordinate
-     * @return nave
+     * con oggetti TesseraVuota in nave. Se il parametro isCentro==true genera anche
+     * una parte restante sovrascrivendola nell'attributo parteRestante di nave
+	 * @param isCentro condizione che genera anche la parte restante se ==true
+	 * @param coordinate del centroRamificazione
+     * @return nave (tipo: Troncamento) post distruzione
      */
     private Troncamento distruggiNave(Coordinate centroRamificazione, boolean isCentro){
     	Set<Coordinate> visitate = new HashSet<>();
@@ -481,7 +484,7 @@ public abstract class Nave {
     
     /**
      * Metodo per la scelta e visualizzazione dei troncamenti
-     * @param opzioni
+     * @param ArrayList<Troncamento> opzioni , lista di troncamenti da scegliere
      * @return intero corrispondente alla scelta troncamento
      */
     private int scegliTroncamenti(ArrayList<Troncamento> opzioni) {
@@ -1240,6 +1243,10 @@ public abstract class Nave {
     
 	public Colori getColoreNave(){ return this.coloreNave; }
 
+	/**
+	 * chiama calcolaEnergia e restituisce quanta energia c'è sulla nave
+	 * @return energiaResidua
+	 */
     public int getEnergiaResidua(){
     	this.energiaResidua=this.calcolaEnergia();
     	return this.energiaResidua; 
@@ -1247,6 +1254,11 @@ public abstract class Nave {
 
     public int getNumeroConnettoriScoperti(){ return this.numeroConnettoriScoperti; }
 
+    /**
+     * restituisce la tessera fornite le coordinate
+     * @param coordinate
+     * @return
+     */
     public Tessera getTessera(Coordinate coordinate){
         return this.nave.get(coordinate.getY()).get(coordinate.getX());
     }
@@ -1318,8 +1330,9 @@ public abstract class Nave {
 	}
 
 	  /**
-     * Metodo per contare i pezzi distrutti confrontando il nuovo troncamento rispetto alla nave presente precedentemente
-     * @param opzione Troncamento
+     * Metodo per contare i pezzi distrutti confrontando il nuovo troncamento di nave
+     * rispetto alla nave originaria presente precedentemente.
+     * @param Troncamento originale
      */
     private void setNumeroPezziNaveDaRipagare(Troncamento NaveOriginaria){
     	for(ArrayList<Tessera> colonne : NaveOriginaria) {
@@ -1334,7 +1347,7 @@ public abstract class Nave {
     
     /**
      * Metodo che ritorna la potenza dei motori
-     * Nel conteggio e' gia' presente il bust portato dagli alieni
+     * Nel conteggio e' gia' presente il boost portato dagli alieni
      * 
      * @return potenza motori
      */
@@ -1364,7 +1377,7 @@ public abstract class Nave {
 			}
 		}
 
-        // aggiunta del bust degli alieni marroni
+        // aggiunta del boost degli alieni marroni
         if(!(potenzaMotori == 0)){
             /*
              * Da regolamento: 
@@ -1380,7 +1393,7 @@ public abstract class Nave {
 	
     /**
      * Metodo che ritorna la potenza dei motori
-     * Nel conteggio e' gia' presente il bust portato dagli alieni
+     * Nel conteggio e' gia' presente il boost portato dagli alieni
      * 
      * @return potenza cannoni
      */
@@ -1436,7 +1449,7 @@ public abstract class Nave {
 	}
 	
 	/**
-	 * metoto che inm base a quale tipologia di tessere stai cercando:
+	 * metoto che in base a quale tipologia di tessere stai cercando:
 	 * 1: tesssera tipologia stiva (che sia vuota)
 	 * 2: tesssera tipologia stiva (che sia non vuota)
 	 * 3: tesssera tipologia stiva (che di tipologia speciale)
