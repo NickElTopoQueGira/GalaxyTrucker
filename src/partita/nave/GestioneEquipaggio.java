@@ -69,28 +69,16 @@ public class GestioneEquipaggio{
      *           2 -> alieno viola
      */
     private void inserisciAlieno(int id){
-        Coordinate coordinateTesseraAlieno = richiestaCoordinateModuloAlieno();
-        Tessera tesseraAlienoSelezionata = this.giocatore.getNave().getTessera(coordinateTesseraAlieno);
-
         Tessera tesseraEquipaggioAdiacente = null;
-
-        // verifico se la tessera e' di tipo alieno
-        if(tesseraAlienoSelezionata.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
-            // verifico se e' valida
-            if(verificaTesseraAdiacente(tesseraAlienoSelezionata)){
-                tesseraEquipaggioAdiacente = tesseraEquipaggioAdiacente(tesseraAlienoSelezionata);
-                if(null == tesseraEquipaggioAdiacente){
-                    this.com.printError("Impossibile trovare un modulo equipaggio adiacente alla tessera alieno selezionata");
-                    inserisciAlieno(id);
-                }
+        boolean pass = false;
+        do{
+            tesseraEquipaggioAdiacente  =  getTesseraEquipaggioAdiacente();
+            if(null != tesseraEquipaggioAdiacente){
+                pass = true;
             }else{
-                this.com.printError("La tessera selezionata non abilita al trasporto degli alieni");
-                inserisciAlieno(id);
+                this.com.printError("Tessera selezionata non valida");
             }
-        }else{
-            this.com.printError("La tessera selezionata non e' una tessera alieno");
-            inserisciAlieno(id);
-        }
+        }while(false == pass);
 
         ModuloPasseggeri moduloPasseggeri = ((ModuloPasseggeri)tesseraEquipaggioAdiacente);
         if(null == moduloPasseggeri){
@@ -104,6 +92,37 @@ public class GestioneEquipaggio{
             // alieni viola
             case 2-> moduloPasseggeri.setTipoModuloPasseggeri(TipoModuloPasseggeri.MODULO_ALIENO_VIOLA);
         }
+    }
+
+    /**
+     * Metodo per prendere la tessera equipaggio adiacente alla tessera alieno selezionata
+     * dall'utente
+     *
+     * @return Tessera abitativa adiacente a quella aliena
+     * */
+    private Tessera getTesseraEquipaggioAdiacente(){
+        Coordinate coordinateTesseraAlieno = richiestaCoordinateModuloAlieno();
+        Tessera tesseraAlienoSelezionata = this.giocatore.getNave().getTessera(coordinateTesseraAlieno);
+        Tessera tesseraEquipaggioAdiacente;
+
+        // verifico se la tessera e' di tipo alieno
+        if(tesseraAlienoSelezionata.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
+            // verifico se e' valida
+            if(verificaTesseraAdiacente(tesseraAlienoSelezionata)){
+                tesseraEquipaggioAdiacente = tesseraEquipaggioAdiacente(tesseraAlienoSelezionata);
+                if(null == tesseraEquipaggioAdiacente){
+                    this.com.printError("Impossibile trovare un modulo equipaggio adiacente alla tessera alieno selezionata");
+                    return getTesseraEquipaggioAdiacente();
+                }
+            }else{
+                this.com.printError("La tessera selezionata non abilita al trasporto degli alieni");
+                return  getTesseraEquipaggioAdiacente();
+            }
+        }else{
+            this.com.printError("La tessera selezionata non e' una tessera alieno");
+            return getTesseraEquipaggioAdiacente();
+        }
+        return tesseraEquipaggioAdiacente;
     }
 
     /**
