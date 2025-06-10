@@ -29,10 +29,20 @@ public class Pedina{
 		this.isNaveDistrutta = false;
 	}
 
+	/**
+	 * Metodo per sapere se la nave e' distrutta o meno
+	 * @return la nave e' distrutta?
+	 * */
 	public boolean GetisNaveDistrutta() {
 		return isNaveDistrutta;
 	}
 
+	/**
+	 * Metodo per distruggere la nave durante la partita
+	 * @param isNaveDistrutta Boolean
+	 *                        ture -> la nave e' distrutta
+	 *                        false -> la nave non e' distrutta
+	 *  */
 	public void setNaveDistrutta(boolean isNaveDistrutta) {
 		this.isNaveDistrutta = isNaveDistrutta;
 	}
@@ -116,6 +126,11 @@ public class Pedina{
     		elimEquipaggio--;
     	}
     }
+
+	/**
+	 * Metodo per selezionare la merce da togliere dalla nave
+	 * @param elimMerce int
+	 * */
     public void selezionaMerceDaEliminare(int elimMerce) {
     	
     	int caso;
@@ -190,7 +205,11 @@ public class Pedina{
     		}
     	}
     }
-    
+
+	/**
+	 * Metodo per distribuire automaticamente la merce all'interno della nave
+	 * @param merci ArrayList<Merce>
+	 * */
     public void distribuzioneMerce(ArrayList<Merce> merci) {
     
     	int grandezza = merci.size();
@@ -327,6 +346,12 @@ public class Pedina{
     		merci.remove(0);
     	}
     }
+
+	/**
+	 * Metodo per sapere che merci ci sono nella stiva
+	 * @param stiva ArrayLists<Merce>
+	 * @return String merce presente
+	 * */
 	private String specificaMerci(ArrayList<Merce> stiva) {
     	
     	String txt = "";
@@ -342,8 +367,9 @@ public class Pedina{
     	}
     	return txt;
     }
+
     /**
-     * LE prossime due funzioni sono equvalenti una per i scudi e una per il cannone doppio
+     * LE prossime due funzioni sono equivalenti una per i scudi e una per il cannone doppio
      * 
      * @return false se: nave non ha abbastanza energia / giocatore sceglie di non utilizzare la tessera (scudo o cannone doppio)
      * 
@@ -417,6 +443,7 @@ public class Pedina{
     		return false;
     	}
     }
+
     /**
      * LE prossime due funzioni sono equvalenti una per ricevere crediti in cambio di giorni e laltra per le merci
      * 
@@ -451,7 +478,8 @@ public class Pedina{
     	}
     	return false;
     }
-    // isGiorni: 1) si scambiano giorni con crediti
+
+	// isGiorni: 1) si scambiano giorni con crediti
     //           0) si scambiano equipaggio con crediti
     public Boolean sceltaScambioCreditiConGiorni(int giorniPersi, int crediti, int equipaggio) {
     	
