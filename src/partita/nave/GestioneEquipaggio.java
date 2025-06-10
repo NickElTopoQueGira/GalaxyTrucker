@@ -69,7 +69,9 @@ public class GestioneEquipaggio{
      *           2 -> alieno viola
      */
     private void inserisciAlieno(int id){
-        Tessera tesseraEquipaggioAdiacente = null;
+        Tessera tesseraEquipaggioAdiacente;
+        ModuloPasseggeri moduloPasseggeri = null;
+
         boolean pass = false;
         do{
             tesseraEquipaggioAdiacente  =  getTesseraEquipaggioAdiacente();
@@ -78,13 +80,15 @@ public class GestioneEquipaggio{
             }else{
                 this.com.printError("Tessera selezionata non valida");
             }
-        }while(false == pass);
 
-        ModuloPasseggeri moduloPasseggeri = ((ModuloPasseggeri)tesseraEquipaggioAdiacente);
-        if(null == moduloPasseggeri){
-            this.com.printError("Errore modulo passeggeri, riprovare");
-            inserisciAlieno(id);
-        }
+            try{
+                moduloPasseggeri = ((ModuloPasseggeri)tesseraEquipaggioAdiacente);
+                pass = true;
+            }catch(ClassCastException cCe){
+                this.com.printError("Errore interno, si prega di riprovare");
+                pass = false;
+            }
+        }while(!pass);
 
         switch(id){
             // alieni marroni
@@ -103,25 +107,28 @@ public class GestioneEquipaggio{
     private Tessera getTesseraEquipaggioAdiacente(){
         Coordinate coordinateTesseraAlieno = richiestaCoordinateModuloAlieno();
         Tessera tesseraAlienoSelezionata = this.giocatore.getNave().getTessera(coordinateTesseraAlieno);
-        Tessera tesseraEquipaggioAdiacente;
+        Tessera tesseraEquipaggioAdiacente = null;
 
-        // verifico se la tessera e' di tipo alieno
-        if(tesseraAlienoSelezionata.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
-            // verifico se e' valida
-            if(verificaTesseraAdiacente(tesseraAlienoSelezionata)){
-                tesseraEquipaggioAdiacente = tesseraEquipaggioAdiacente(tesseraAlienoSelezionata);
-                if(null == tesseraEquipaggioAdiacente){
-                    this.com.printError("Impossibile trovare un modulo equipaggio adiacente alla tessera alieno selezionata");
-                    return getTesseraEquipaggioAdiacente();
+        boolean pass = false;
+        do{
+            // verifico se la tessera e' di tipo alieno
+            if(tesseraAlienoSelezionata.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
+                // verifico se e' valida
+                if(verificaTesseraAdiacente(tesseraAlienoSelezionata)){
+                    tesseraEquipaggioAdiacente = tesseraEquipaggioAdiacente(tesseraAlienoSelezionata);
+                    if(null == tesseraEquipaggioAdiacente){
+                        this.com.printError("Impossibile trovare un modulo equipaggio adiacente alla tessera alieno selezionata");
+                    }else{
+                        pass = true;
+                    }
+                }else{
+                    this.com.printError("La tessera selezionata non abilita al trasporto degli alieni");
                 }
             }else{
-                this.com.printError("La tessera selezionata non abilita al trasporto degli alieni");
-                return  getTesseraEquipaggioAdiacente();
+                this.com.printError("La tessera selezionata non e' una tessera alieno");
             }
-        }else{
-            this.com.printError("La tessera selezionata non e' una tessera alieno");
-            return getTesseraEquipaggioAdiacente();
-        }
+        }while(!pass);
+
         return tesseraEquipaggioAdiacente;
     }
 
