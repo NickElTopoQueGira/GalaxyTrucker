@@ -34,22 +34,22 @@ public class Mazzo {
     private void generaConteggio() {
 
         conteggio = new int[][]{
-            {1, 1, 3, 4, 1, 1, 1, 2, 2, 4, 0, 0}, // livello 1
-            {1, 1, 3, 3, 1, 1, 1, 2, 2, 4, 1, 0}, // livello 2
-            {0, 0, 3, 3, 0, 1, 1, 2, 2, 4, 1, 1} // livello 3
+            {1, 0, 3, 0, 1, 1, 1, 0, 0, 4, 0, 0}, // livello 1
+            {1, 0, 3, 0, 1, 1, 1, 0, 0, 4, 0, 0}, // livello 2
+            {0, 0, 3, 0, 0, 1, 1, 0, 0, 4, 0, 1} // livello 3
             
             /*
              * 1 polvere stellare
              * 2 zona guerra          1->0
              * 3 PIOGGIA_METEORITI,
-             * 4 SPAZIO_APERTO,
+             * 4 SPAZIO_APERTO,		  3->0 (lvl.1 4->0)
              * 5 SCHIAVISTI,          1->0
              * 6 CONTRABBANDIERI,    
              * 7 PIRATI,
-             * 8 STAZIONE_ABBANDONATA,
-             * 9 NAVE_ABBANDONATA,
+             * 8 STAZIONE_ABBANDONATA,2->0
+             * 9 NAVE_ABBANDONATA,	  2->0
              * 10 PIANETA,
-             * 11 EPIDEMIA,
+             * 11 EPIDEMIA,			  1->0 (lvl.1 0->0)
              * 12 SABOTAGGIO
              */
         };

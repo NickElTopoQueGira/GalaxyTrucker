@@ -209,6 +209,14 @@ public class PioggiaMeteoriti extends Carta {
 		return elencoPedine;
 	}
 	
+	/**
+	 * Metodo che controlla se il meteorite entra nella zona della plancia di volo
+	 * 
+	 * @param meteorite
+	 * @param n
+	 * @return true se il meteorite è in zona plancia
+	 * 			false de il meteorite è fuori la plancia
+	 */
 	private boolean controlloColpoIsDentroDallaNave(Meteorite meteorite, Nave n) {
 		
 		switch(meteorite.getDirezione()) {
@@ -232,6 +240,13 @@ public class PioggiaMeteoriti extends Carta {
 		return false;
 	}
 	
+	/**
+	 * Metodo che adatta il valore del dado alla matrice della nave
+	 * 
+	 * @param meteorite
+	 * @param nave
+	 * @return adattamento
+	 */
 	private int adattaDadiAllArray(Meteorite meteorite, Nave nave) {
 		
 		switch(meteorite.getDirezione()) {
@@ -289,7 +304,7 @@ public class PioggiaMeteoriti extends Carta {
 	}
 	
 	/**
-	 * metodo che in base a quale tipologia di cannone è
+	 * Metodo che in base a quale tipologia di cannone è
 	 * se doppio  fa scegliere all'utente se usarlo o no
 	 * se singolo non chiede 
 	 * 
@@ -323,7 +338,7 @@ public class PioggiaMeteoriti extends Carta {
 	}
 	
 	/**
-	 * metodo che in base alla direzione del meteorite questo metodo 
+	 * Metodo che in base alla direzione del meteorite questo metodo 
 	 * trova uno per uno tutti i cannoni (che guardano in direzzione corretta)
 	 * che si trovano nella linea di tiro del meteorite e se il cannone è doppio 
 	 * lascia che il giocatore decida se utilizzarlo o no
@@ -393,7 +408,7 @@ public class PioggiaMeteoriti extends Carta {
 	}
 	
 	/**
-	 * metodo che trova quale tessera viene colpita dal meteorite
+	 * Metodo che trova quale tessera viene colpita dal meteorite
 	 * 
 	 * @param colpo
 	 * @param nave

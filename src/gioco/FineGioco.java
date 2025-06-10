@@ -34,6 +34,7 @@ public class FineGioco {
 	
 	public void granFinale() {
 		
+		console.clear();
 		//faccio vedere chi è riuscito a completato la corsa
 		int premio = 4;
 		
@@ -134,10 +135,11 @@ public class FineGioco {
 
 		    console.println((i + 1) + "° posto: " + pedineVoloCompletato.get(i).getGiocatore().getNome() + " con " + pedineVoloCompletato.get(i).getGiocatore().getCrediti() + "\u00A2 (crediti)");
 		}
+		console.clear();
 	}
 	
 	/**
-	 * inizialmente trova tutte le tessere di tipo stiva e che abbia della merce al suo interno
+	 * Metodo che inizialmente trova tutte le tessere di tipo stiva e che abbia della merce al suo interno
 	 * 
 	 * in seguito calcola tutte le merci presenti e in caso qualcuno abbia abbandonato la nave
 	 * il valore della merce vale /2 (per eccesso)
@@ -193,6 +195,7 @@ public class FineGioco {
 	}
 	
 	/**
+	 * Metodo per decidere in base chi ha meno connettori esposti chi ha la nave più bella
 	 * 
 	 * @return indice giocatori con la nave più bella
 	 */

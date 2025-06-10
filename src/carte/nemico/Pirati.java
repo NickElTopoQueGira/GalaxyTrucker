@@ -47,7 +47,7 @@ public class Pirati extends Nemici {
 	}
 	
 	/**
-     * Genera casualmente il numero di crediti che si possono guadagnare
+     * Metodo che Genera casualmente il numero di crediti che si possono guadagnare
      * in caso di vittoria, in base al livello della carta.
      */
 	private void GeneraGuadagno() {
@@ -71,7 +71,7 @@ public class Pirati extends Nemici {
 	}
 	
 	/**
-     * Genera la potenza necessaria per sconfiggere il nemico,
+     * Metodo che Genera la potenza necessaria per sconfiggere il nemico,
      * in base al livello della carta.
      */
 	private void GeneraPotenzaNecessaria() {
@@ -96,7 +96,7 @@ public class Pirati extends Nemici {
 	}
 	
 	/**
-	 * metodo che genera i colpi (avviene sempre siccomelultima sfida 
+	 * Metodo che genera i colpi (avviene sempre siccomelultima sfida 
 	 * avviene sempre la pioggia di colpi) anchesso in base al lvl della 
 	 * carta e anche il tipo del colpo
 	 */
@@ -159,7 +159,7 @@ public class Pirati extends Nemici {
 	}
 
 	/**
-	 * Imposta la quantità di membri dell'equipaggio che verranno persi se la nave
+	 * Metodo che Imposta la quantità di membri dell'equipaggio che verranno persi se la nave
 	 * non ha potenza sufficiente a sconfiggere i nemici.
 	 * Il valore dipende dal livello della carta.
 	 */
@@ -300,6 +300,15 @@ public class Pirati extends Nemici {
 		
 		return elencoPedine;
 	}
+	
+	/**
+	 * Metodo che controlla se il meteorite entra nella zona della plancia di volo
+	 * 
+	 * @param meteorite
+	 * @param n
+	 * @return true se il meteorite è in zona plancia
+	 * 			false de il meteorite è fuori la plancia
+	 */
 	private boolean controlloColpoIsDentroDallaNave(Meteorite meteorite, Nave n) {
 		
 		switch(meteorite.getDirezione()) {
@@ -323,15 +332,22 @@ public class Pirati extends Nemici {
 		return false;
 	}
 	
+	/**
+	 * Metodo che adatta il valore del dado alla matrice della nave
+	 * 
+	 * @param meteorite
+	 * @param nave
+	 * @return adattamento
+	 */
 	private int adattaDadiAllArray(Meteorite meteorite, Nave nave) {
 		
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
 
-			return meteorite.getDado() - nave.getInizioNaveX()-1;
+			return meteorite.getDado() - nave.getInizioNaveX()+1;
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - nave.getInizioNaveX()-1;
+			return meteorite.getDado() - nave.getInizioNaveX()+1;
 		}
 		default->{}
 		}
