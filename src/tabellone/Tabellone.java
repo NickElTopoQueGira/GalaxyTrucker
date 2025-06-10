@@ -308,15 +308,15 @@ public class Tabellone{
 	 */
 	@Override
 	public String toString() {
-	    int a = 20; // semiasse orizzontale (larghezza)
-	    int b = 3;  // semiasse verticale (altezza)
+	    int a = 20; //semiasse orizzontale (larghezza)
+	    int b = 3;  //semiasse verticale (altezza)
 
-	    int width = 2 * a + 3;
-	    int height = 2 * b + 3;
+	    int larghezza = 2 * a + 3;
+	    int altezza = 2 * b + 3;
 
-	    // Cambiato da char[][] a String[][]
-	    String[][] griglia = new String[height][width];
-	    for (int i = 0; i < height; i++) {
+	    //cambiato da char[][] a String[][]
+	    String[][] griglia = new String[altezza][larghezza];
+	    for (int i = 0; i < altezza; i++) {
 	        Arrays.fill(griglia[i], " ");
 	    }
 
@@ -332,7 +332,7 @@ public class Tabellone{
 	        }
 	    }
 
-	    // Posizionamento con rotazione
+	    //posizionamento con rotazione (un po' di matematica:-)
 	    for (int i = 0; i < n; i++) {
 	        double theta = 2 * Math.PI * i / n + Math.PI;
 	        int x = (int) Math.round(a * Math.cos(theta)) + a + 1;
@@ -341,11 +341,11 @@ public class Tabellone{
 	        griglia[y][x] = simboli[i];
 	    }
 
-	    // Costruzione stringa finale
+	    //costruzione stringa finale
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("╔══════════════ TABELLONE DI GIOCO ══════════════╗\n\n");
-	    for (int i = 0; i < height; i++) {
-	        for (int j = 0; j < width; j++) {
+	    for (int i = 0; i < altezza; i++) {
+	        for (int j = 0; j < larghezza; j++) {
 	            sb.append(griglia[i][j]);
 	        }
 	        sb.append("\n");
