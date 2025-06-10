@@ -107,6 +107,8 @@ public class Partita{
 		
 		while(partitaInCorso){
 			// -------------- INIZIO DELLA PARTITA --------------
+			// azzero le navi ai giocatori
+			azzera();
 			// generazione del tabellone
 			generaTabellone();
 
@@ -132,12 +134,21 @@ public class Partita{
 			 * se e' al terzo livello allora la partita termina
 			 * altrimenti rimane nel loop
 			 */
-			if(this.modalitaPartita == ModalitaPartita.MULTIPLA &&
-				this.livelloPartita == Livelli.TERZO){
+			if(this.modalitaPartita == ModalitaPartita.MULTIPLA){
+				if(this.livelloPartita == Livelli.TERZO){
 					partitaInCorso = false;
+				}
 			}
 		}
 	}
+
+	private void azzera(){
+		// rimuovo la nave al giocatore
+		for(Giocatore giocatore : this.giocatori){
+			giocatore.azzeraNave();
+		}
+	}
+
 
 	/**
 	 * Metodo per la gestione delle opzioni svolte dal giocatore sulle tessere in fase di conf della nave

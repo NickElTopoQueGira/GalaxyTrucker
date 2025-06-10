@@ -27,16 +27,20 @@ public class Giocatore {
 		}
 	}
 	
+	/**
+	 * Metodo per acquisire il nome del giocatore colorato
+	 * 
+	 * @return nome del giocatore
+	 * */
 	public String getNome(){ return this.colorePedina.getCodiceColore()+this.nome+"\u001B[0m"; }
 
-	public Pedina getPedina(){ return this.pedina; }
-
+	//------------ CREDITI ------------
 	/**
 	 * Metodo per aggiornare i crediti del giocatore
 	 * +x -> per aggiungere
 	 * -x -> per togliere
 	 * 
-	 * @param crediti
+	 * @param crediti int
 	 */
 	public void aggiornaCrediti(int crediti){
 		this.crediti += crediti;
@@ -46,13 +50,22 @@ public class Giocatore {
 
 	public int getCrediti(){ return this.crediti; }
 
-	public void setNave(Nave nave){ this.nave = nave; }
+	//------------ PEDINA ------------
+	/**
+	 * Metodo per acquisire la pedina del giocatore
+	 *
+	 * @return Pedina del giocatore
+	 * */
+	public Pedina getPedina(){ return this.pedina; }
 
+	public Colori getColorePedina(){ return this.colorePedina; }
+
+	//------------ GESTIONE DELLA NAVE ------------
 	/**
 	 * Metodo per la creazione della nave
-	 * 
-	 * @param livello
-	 * @throws ErroreRisorse
+	 *
+	 * @param livello Livelli
+	 * @throws ErroreRisorse nave gia' esistente
 	 */
 	public void creaNave(Livelli livello) throws ErroreRisorse{
 		if(this.nave == null){
@@ -64,19 +77,23 @@ public class Giocatore {
 		}
 	}
 
-	public Nave getNave(){ return this.nave; }
-
 	/**
-	 * Metodo per azzerare la nave.
-	 * Utilizzato quando si termina un livello e si passa a quello successivo
+	 * Metodo per azzerare la nave "=^.^="
 	 */
-	public void eliminaNave(){ this.nave = null; }
+	public void azzeraNave(){
+		this.nave = null;
+		this.isNaveFinita = false;
+	}
+
+	public void setNave(Nave nave){ this.nave = nave; }
+
+	public Nave getNave(){ return this.nave; }
 
 	public void naveFinita(){ this.isNaveFinita = true; }
 
 	public boolean isNaveFinita(){ return this.isNaveFinita; }
 
-	public Colori getColorePedina(){ return this.colorePedina; }
+	//------------ HASHCODE - EQUALS ------------
 
 	@Override
 	public int hashCode() {
@@ -94,6 +111,4 @@ public class Giocatore {
 		Giocatore other = (Giocatore) obj;
 		return Objects.equals(nome, other.nome);
 	}
-
-	
 }

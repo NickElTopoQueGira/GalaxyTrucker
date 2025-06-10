@@ -132,6 +132,8 @@ public class PioggiaMeteoriti extends Carta {
 						Tessera colpito = trovaTesseraColpita(this.meteoriti.get(i), elencoPedine.get(j).getGiocatore().getNave());
 						 
 						if(colpito != null) {
+							
+							stampa.println("\nE' STATA COLPITA LA NAVE DI LA NAVE DI: "+elencoPedine.get(j).getGiocatore().getNome());
 
 							stampa.println("LA TESSERA COLPITA E': " +colpito.toLegenda()+ " ("+colpito.getCoordinate().getX()+", "+colpito.getCoordinate().getY()+")");
 							
@@ -198,12 +200,12 @@ public class PioggiaMeteoriti extends Carta {
 							
 						}else {
 							
-							stampa.println("METEORITE HA MANCATO LA NAVE DI: "+elencoPedine.get(j).getGiocatore().getNome());
+							stampa.println("METEORITE HA MANCATO LA NAVE DI: "+elencoPedine.get(j).getGiocatore().getNome()+"\n");
 						}
 					}
 				}
 			}else {
-				stampa.println("METEORITE HA MANCATO LE PLANCE DEI GIOCATORI");
+				stampa.println("METEORITE HA MANCATO LE PLANCE DEI GIOCATORI\n");
 			}
 		}
 		

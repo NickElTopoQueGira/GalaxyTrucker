@@ -142,23 +142,6 @@ public abstract class Nave {
     // ---------------------------- INSERIMENTO TESSERE NELLA NAVE ----------------------------
     
     /**
-     * Metodo per stampare la navetta di debug
-     */
-    private void stampaNavetta() {
-        for (int i = 0; i < this.getRighe(); i++) {
-            for (int j = 0; j < this.getColonne(); j++) {
-                if (this.nave.get(i).get(j).getTipoTessera() != TipoTessera.VUOTA) {
-                    stampa.print(" 1");
-                } else {
-                    stampa.print(" 0");
-                }
-            }
-            stampa.println("");
-        }
-        stampa.println("{fine debug}");
-    }
-    
-    /**
      * Metodo per inserire una tessera nella nave durante la fase di creazione della nave
      * 
      * @param coordinata Coordinate
@@ -168,19 +151,16 @@ public abstract class Nave {
      */
     public void inserisciTessera(Coordinate coordinata, Tessera tessera) throws ErroreTessera, ErroreCoordinate{
     	
-        stampa.println("{inizio debug} coordinate controllata in: ("+coordinata.getX()+", "+coordinata.getY()+")");
-        stampaNavetta();
+        
         if(controllaCoordinate(coordinata)){
             // Verifica se la tessera viene su una tessera gia esistente
             if(this.nave.get(coordinata.getY()).get(coordinata.getX()).getTipoTessera() != TipoTessera.VUOTA){
-                stampa.println("{debug} tessera inserita piazzata su tessera già esistente (Nave r.172)");
                 throw new ErroreTessera("Posizione non valida!");
             }
  
             // verifica se il pezzo lo si vuole mettere in una posizione non valida
             // RICORDA: coordinate lavorano al contrario nelle matrici
             if(0 == this.getMATRIX()[coordinata.getY()][coordinata.getX()]){
-            	stampa.println("{debug} tessera inserita piazzata fuori dalla nave (Nave r.178)");
                 throw new ErroreTessera("Non puoi posizionare il pezzo in questa posizione");
             }
 
@@ -210,7 +190,6 @@ public abstract class Nave {
 
             // inserimento del pezzo nella nave
             tessera.setCoordinate(coordinata);
-            stampa.println("{debug} coordinate nave piazzata in: ("+coordinata.getY()+", "+coordinata.getX()+")");
             this.nave.get(coordinata.getY()).set(coordinata.getX(), tessera);
         }
         else{
@@ -590,7 +569,6 @@ public abstract class Nave {
          *         ( k + 1 )
          *             DW
          */
-    	stampa.println("{debug} controllo collegamento");
     	int sx, dx, up, dw;
     	
     	sx = controllaCollegamentoSX(tessera, coordinate);
@@ -613,7 +591,7 @@ public abstract class Nave {
 
             return true;
     	}else {
-    		stampa.println("{debug} non si collega da nessuna parte");
+    		stampa.println("non si collega da nessuna parte");
             return false;
     	}
     }
@@ -638,9 +616,6 @@ public abstract class Nave {
     	if (TipoTessera.VUOTA == nave.get(y).get(x-1).getTipoTessera()) {
     	    return 0;
     	}
-        stampa.println("{inizio debug} la tessere a sinistra è occupata da qualcosa");
-        stampa.println(this.nave.get(coordinate.getY()).get(coordinate.getX()-1).toLegenda());
-        
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY()).get(coordinate.getX() - 1).getLatiTessera();
 
         // controllo se i lati sono uguali
@@ -701,9 +676,6 @@ public abstract class Nave {
     	if (TipoTessera.VUOTA == nave.get(y).get(x+1).getTipoTessera()) {
     	    return 0;
     	}
-        stampa.println("{inizio debug} la tessere a destra è occupata da qualcosa");
-        stampa.println(this.nave.get(coordinate.getY()).get(coordinate.getX()+1).toLegenda());
-
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY()).get(coordinate.getX() + 1).getLatiTessera();
 
         // controllo se i lati sono uguali
@@ -762,9 +734,6 @@ public abstract class Nave {
     	if (TipoTessera.VUOTA == nave.get(y - 1).get(x).getTipoTessera()) {
     	    return 0;
     	}
-        stampa.println("{inizio debug} la tessere a su è occupata da qualcosa");
-        stampa.println(this.nave.get(coordinate.getY() - 1).get(coordinate.getX()).toLegenda());
-
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY() - 1).get(coordinate.getX()).getLatiTessera();
 
         // controllo se i lati sono uguali
@@ -823,9 +792,6 @@ public abstract class Nave {
     	if (TipoTessera.VUOTA == nave.get(y + 1).get(x).getTipoTessera()) {
     	    return 0;
     	}
-        stampa.println("{inizio debug} la tessere a giu è occupata da qualcosa");
-        stampa.println(this.nave.get(coordinate.getY() + 1).get(coordinate.getX()).toLegenda());
-
         LatiTessera latiTesseraNave = this.nave.get(coordinate.getY() + 1).get(coordinate.getX()).getLatiTessera();
 
         // controllo se i lati sono uguali

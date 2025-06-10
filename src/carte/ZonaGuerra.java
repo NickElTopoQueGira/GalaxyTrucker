@@ -310,6 +310,8 @@ public class ZonaGuerra extends Carta {
 	                    Tessera colpito = trovaTesseraColpita(this.colpi.get(j), pedina.getGiocatore().getNave());
 	
 	                    if (colpito != null) {
+	                    	
+	                    	stampa.println("\nE' STATA COLPITA LA NAVE DI LA NAVE DI: "+pedina.getGiocatore().getNome());
 
 							stampa.println("LA TESSERA COLPITA E': " +colpito.toLegenda()+ " ("+colpito.getCoordinate().getX()+", "+colpito.getCoordinate().getY()+")");
 	

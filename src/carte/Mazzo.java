@@ -66,11 +66,20 @@ public class Mazzo {
         generaConteggio();
         CreaMazzo(lvl);
     }
-
+    
+    /**
+     * Metodo per eliminare l'array delle carte
+     */
     private void AzzeraMazzo() {
 		lista.clear();
     }
-
+    
+    /**
+     * Metodo che in base al livello genera un numero specifico di carte e pure il numero di livello di 
+     * ogni carta è in base al livello
+     * 
+     * @param lvl
+     */
     public void CreaMazzo(int lvl) {
 
         switch (lvl) {
@@ -105,7 +114,14 @@ public class Mazzo {
 
         this.shiffleMazzo();
     }
-
+    
+    /**
+     * Metodo che in base al livello della carta che viene richiesto crea il tipo di carta in maniera randomica
+     * ma in maniera controllata in modo date la bilanciare il gioco e non esagera con la creazione di un tipo di carta
+     * 
+     * @param lvl
+     * @return nuova carta
+     */
     private Carta CreaCartaRandom(int lvl) {  // va nel mazzo
 
         int x = 0;
