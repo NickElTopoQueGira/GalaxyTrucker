@@ -284,10 +284,10 @@ public class Pirati extends Nemici {
 							
 						}else {
 							
-							stampa.println("COLPO HA MANCATO LA NAVE");
+							stampa.println("METEORITE HA MANCATO LA NAVE DI: "+elencoPedine.get(elenco).getGiocatore().getNome());
 						}
 					}else {
-	            		stampa.println("COLPO HA MANCATO LA NAVE");
+						stampa.println("METEORITE HA MANCATO LA PLANCIA DI: "+elencoPedine.get(elenco).getGiocatore().getNome());
 	            	}
 					//TODO controllo integrita nave
 					j++;

@@ -199,10 +199,12 @@ public class PioggiaMeteoriti extends Carta {
 							
 						}else {
 							
-							stampa.println("METEORITE HA MANCATO LE NAVI ");
+							stampa.println("METEORITE HA MANCATO LA NAVE DI: "+elencoPedine.get(j).getGiocatore().getNome());
 						}
 					}
 				}
+			}else {
+				stampa.println("METEORITE HA MANCATO LE PLANCE DEI GIOCATORI");
 			}
 		}
 		
@@ -252,10 +254,10 @@ public class PioggiaMeteoriti extends Carta {
 		switch(meteorite.getDirezione()) {
 		case SUD , NORD ->{
 
-			return meteorite.getDado() - nave.getInizioNaveX()-1;
+			return meteorite.getDado() - nave.getInizioNaveX();
 		}	
 		case OVEST, EST ->{
-			return meteorite.getDado() - nave.getInizioNaveY()-1; 
+			return meteorite.getDado() - nave.getInizioNaveY(); 
 		}
 		default->{}
 		}

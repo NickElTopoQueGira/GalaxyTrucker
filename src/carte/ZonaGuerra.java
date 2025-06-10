@@ -343,11 +343,11 @@ public class ZonaGuerra extends Carta {
 	
 	                    } else {
 	
-	                        stampa.println("COLPO HA MANCATO LA NAVE");
-	                    }
-                	}else {
-                		stampa.println("COLPO HA MANCATO LA NAVE");
-                	}
+	                    	stampa.println("METEORITE HA MANCATO LA NAVE DI: "+pedina.getGiocatore().getNome());
+						}
+					}else {
+						stampa.println("METEORITE HA MANCATO LA PLANCIA DI: "+pedina.getGiocatore().getNome());
+	            	}
                     //TODO controllo integrita nave
                     j++;
                 } while (j < this.colpi.size());
