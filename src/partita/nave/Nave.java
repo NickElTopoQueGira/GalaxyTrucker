@@ -76,7 +76,6 @@ public abstract class Nave {
         this.inizializzaNave();
         this.nave=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
         this.parteRestante=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
-		
     }
 
     /**
@@ -293,7 +292,8 @@ public abstract class Nave {
 
     /**
      * Metodo per rimuovere una tessera dalla nave durante la fase di volo
-     * Se la tessera eliminata è l'ultima della nave, genera eccezione FinePartita
+     * Se la tessera eliminata è l'ultima della nave, genera eccezione FinePartita.
+     * Attua anche il conteggio delle tessere distrutte tramite il metodo setNumeroPezziNaveDaRipagare()
      * @param coordinate
      * @throws ErroreTessera
      * @throws FinePartita 
@@ -311,20 +311,22 @@ public abstract class Nave {
         temp=(Troncamento) this.nave.clone();
         
         // rimozione tessera
-        if(vuota == this.nave.get(coordinate.getY()).get(coordinate.getX())){
-            throw new ErroreTessera("Impossibile rimuovere la tessera nella posizoine specificata");
+        if(vuota.getTipoTessera() == this.nave.get(coordinate.getY()).get(coordinate.getX()).getTipoTessera()){
+            throw new ErroreTessera("Impossibile rimuovere la tessera nella posizione specificata");
         }
 
         // rimozione della tessera
         this.nave.get(coordinate.getY()).set(coordinate.getX(), vuota);
         
         
-        setNumeroPezziNaveDaRipagare(temp);
+        
         
         //controlla se esiste ancora la nave e in caso chiama getTroncamento
         if(this.controllaEsistenzaNave()) {
         	this.nave = this.getTroncamentoNave();
+        	setNumeroPezziNaveDaRipagare(temp);
         }else {
+        	setNumeroPezziNaveDaRipagare(temp);
         	throw new FinePartita("La nave è stata totalmete distrutta");
             
         }
@@ -357,12 +359,16 @@ public abstract class Nave {
     	//scorre nave e utilizza ogni tessera come centroRamificazione in distruggiNave e poi mette i tronconi nel set
 		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
-				if(this.parteRestante.contains(tessera)) {
+				if(this.parteRestante.contains(tessera)&& tessera.getTipoTessera()!=TipoTessera.VUOTA) {
 					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(),false));
 				}
 			}
     	}
+		
+		//trsforma troncamentiNave in un arrayList
 		ArrayList<Troncamento> opzioni = new ArrayList<>(troncamentiNave);
+		
+		//se c'è solo un troncamento ritorna quello in automatico
 		if(opzioni.size()==1) {
 			return opzioni.getFirst();
 		}
@@ -392,50 +398,53 @@ public abstract class Nave {
 			
 			for (TipoLato dir : TipoLato.values()) {
 			    Coordinate adiacente = corrente.adiacente(dir);
-			    Tessera tesseraAdiacente = nave.get(adiacente.getY()).get(adiacente.getX());
-			
-			    if (tesseraAdiacente != null &&tesseraAdiacente.getTipoTessera() != TipoTessera.VUOTA && !visitate.contains(adiacente)) {
-			    	boolean condizione=false;
-					switch (dir) {
-					case UP: {
-						if(this.controllaCollegamentoUP(tesseraCorrente, corrente) == 1) {
-							condizione=true;
-						}
-						break;
-					}
-					case LEFT: {
-						if(this.controllaCollegamentoSX(tesseraCorrente, corrente) == 1) {
-							condizione=true;
-						}
-						break;		
+			    if(this.controllaCoordinate(adiacente)) {
+			    	Tessera tesseraAdiacente = nave.get(adiacente.getY()).get(adiacente.getX());
+					
+				    if (tesseraAdiacente != null &&tesseraAdiacente.getTipoTessera() != TipoTessera.VUOTA && !visitate.contains(adiacente)) {
+				    	boolean condizione=false;
+						switch (dir) {
+						case UP: {
+							if(this.controllaCollegamentoUP(tesseraCorrente, corrente) == 1) {
+								condizione=true;
 							}
-					case DOWN: {
-						if(this.controllaCollegamentoDW(tesseraCorrente, corrente) == 1) {
-							condizione=true;
+							break;
 						}
-						break;
-						
-					}
-					case RIGHT: {
-						if(this.controllaCollegamentoDX(tesseraCorrente, corrente) == 1) {
-							condizione=true;
+						case LEFT: {
+							if(this.controllaCollegamentoSX(tesseraCorrente, corrente) == 1) {
+								condizione=true;
+							}
+							break;		
+								}
+						case DOWN: {
+							if(this.controllaCollegamentoDW(tesseraCorrente, corrente) == 1) {
+								condizione=true;
+							}
+							break;
+							
 						}
-						break;
-						
-					}
-					default:
-						throw new IllegalArgumentException("direzione " + dir.toString()+" non valida");
-					}
-			    	if(condizione) {
-			    		visitate.add(adiacente);
-			            daVisitare.add(adiacente);
-			    	}
+						case RIGHT: {
+							if(this.controllaCollegamentoDX(tesseraCorrente, corrente) == 1) {
+								condizione=true;
+							}
+							break;
+							
+						}
+						default:
+							throw new IllegalArgumentException("direzione " + dir.toString()+" non valida");
+						}
+				    	if(condizione) {
+				    		visitate.add(adiacente);
+				            daVisitare.add(adiacente);
+				    	}
+				    }
 			    }
+			    
 			}
          }
         
+        this.parteRestante= (Troncamento) this.nave.clone();
         
-        this.parteRestante=(Troncamento) this.nave.clone();
         //sovrascrive con tessereVuote in nave le tessere che non sono state visitate
         for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
@@ -446,7 +455,15 @@ public abstract class Nave {
 					}
 				}
 				if(check) {
-					tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
+					if(this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==1 ||
+							this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
+						
+						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
+						
+					}else {
+						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.ESTRENA);
+						
+					}
 					
 					
 				}
@@ -460,8 +477,15 @@ public abstract class Nave {
     				for(Coordinate coordinateTessera : visitate) {
     					if(coordinateTessera==tessera.getCoordinate()) {
     						
-    						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
-							
+    						if(this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==1 ||
+    								this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
+    							
+    							tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
+    							
+    						}else {
+    							tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.ESTRENA);
+    							
+    						}
     					}
     				}
     				
@@ -473,8 +497,8 @@ public abstract class Nave {
     
     /**
      * Metodo per la scelta e visualizzazione dei troncamenti
-     * @param opzioni Object[]
-     * @return intero della scelta
+     * @param opzioni
+     * @return intero corrispondente alla scelta troncamento
      */
     private int scegliTroncamenti(ArrayList<Troncamento> opzioni) {
 		ArrayList<String> temp = new ArrayList<>();
@@ -489,7 +513,7 @@ public abstract class Nave {
 		if(scelta<0 || scelta>=opzioni.size()) {
 			return scegliTroncamenti(opzioni);
 		}
-		setNumeroPezziNaveDaRipagare(opzioni.get(scelta));
+		
 		
 		return scelta;
 	}
@@ -1323,10 +1347,10 @@ public abstract class Nave {
      * Metodo per contare i pezzi distrutti confrontando il nuovo troncamento rispetto alla nave presente precedentemente
      * @param opzione Troncamento
      */
-    private void setNumeroPezziNaveDaRipagare(Troncamento opzione){
-    	for(ArrayList<Tessera> colonne : this.nave) {
+    private void setNumeroPezziNaveDaRipagare(Troncamento NaveOriginaria){
+    	for(ArrayList<Tessera> colonne : NaveOriginaria) {
 			for(Tessera tessera : colonne) {
-				if(!opzione.contains(tessera)) {
+				if(!this.nave.contains(tessera)) {
 					this.numeroPezziNaveDaRipagare=this.numeroPezziNaveDaRipagare +1;
 				}
 			}

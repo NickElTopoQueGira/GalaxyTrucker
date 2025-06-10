@@ -1,7 +1,6 @@
 package carte;
 
 import carte.meteore.*;
-import eccezioniPersonalizzate.ErroreGiocatore;
 import eccezioniPersonalizzate.ErroreRisorse;
 import eccezioniPersonalizzate.ErroreTessera;
 import eccezioniPersonalizzate.FinePartita;
