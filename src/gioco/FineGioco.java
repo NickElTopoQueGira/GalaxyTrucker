@@ -135,7 +135,7 @@ public class FineGioco {
 
 		    console.println((i + 1) + "° posto: " + pedineVoloCompletato.get(i).getGiocatore().getNome() + " con " + pedineVoloCompletato.get(i).getGiocatore().getCrediti() + "\u00A2 (crediti)");
 		}
-		console.clear();
+		
 	}
 	
 	/**
