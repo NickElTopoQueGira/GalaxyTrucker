@@ -148,7 +148,8 @@ public class Schiavisti extends Nemici {
 	
 	/**
 	 * Esegue l'effetto della carta Schiavisti. Per ogni giocatore ancora in gara:
-	 * - se ha potenza sufficiente, può scegliere se ottenere crediti perdendo giorni
+	 * - se ha potenza sufficiente, può scegliere se ottenere crediti perdendo giorni,
+	 * 	 e risolve la carta anche per gli altri giocatori
 	 * - se ha potenza insufficiente, perde membri dell'equipaggio.
 	 * @param elencoPedine lista delle pedine dei giocatori
 	 * @return la lista aggiornata delle pedine dopo l'esecuzione della carta
@@ -156,42 +157,46 @@ public class Schiavisti extends Nemici {
 	@Override
 	public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 		
-		boolean isCartaCompletata = false;
-		int elenco = 0;
-		
-		while(!isCartaCompletata && elenco<elencoPedine.size()) {
-			
-			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
-				
-				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
-						+this.potenzanecc+" PAREGGIA CON LA NAVE NEMICA");
-				
-			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
-
-				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
-				+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" SCONFIGGE LA NAVE NEMICA");
-				
-				if(elencoPedine.get(elenco).sceltaScambioCreditiConGiorni(penalitagiorni, guadagno, 0)) {
-					
-					stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+"AL COSTO DI "+penalitagiorni+" GIORNO HA RICEVO "+this.guadagno+" \u00A2");
-					
-					elencoPedine.get(elenco).getGiocatore().aggiornaCrediti(this.guadagno);
-					
-					elencoPedine.get(elenco).getTabellone().muoviPedina(elencoPedine.get(elenco), -this.penalitagiorni);
-				}
-				
-				isCartaCompletata = true;
-			}else {
-				
-				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
-						+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" VIENE SCONFITTA DALLA NAVE NEMICA E PORTANO VIA "
-								+this.penalitaequipaggio+" COMPONENTI DELL'EQUIPAGGIO");
-				
-				elencoPedine.get(elenco).selezionaEquipaggioDaEliminare(this.penalitaequipaggio);
+		boolean cartaCompletata = false; 
+		for(Pedina pedina : elencoPedine){
+			// se la carta e' stata risolta si continua
+			if(cartaCompletata){
+				continue;
 			}
-			elenco++;
+
+			float potenzaCannoni = pedina.getGiocatore().getNave().getPotenzaCannoni(); 
+			String nomeGiocatore = pedina.getGiocatore().getNome();
+
+			// se la nave ha la stessa potenza della nave nevica
+			if(potenzaCannoni == this.potenzanecc){
+				stampa.println("LA NAVE DI "+ nomeGiocatore +" CON LA POTENZA DI "
+						+this.potenzanecc+" PAREGGIA CON LA NAVE NEMICA");
+			}
+			// se la nave ha piu' potenza della nave nemica
+			else if(potenzaCannoni > this.potenzanecc){
+				stampa.println("LA NAVE DI "+ nomeGiocatore +" CON LA POTENZA DI "
+						+ potenzaCannoni +" SCONFIGGE LA NAVE NEMICA");
+			
+				if(pedina.sceltaScambioCreditiConGiorni(this.penalitagiorni, this.guadagno, 0)){
+					stampa.println("LA NAVE DI " + nomeGiocatore + " AL COSTO DI " 
+							+ this.penalitagiorni + " GIORNI HA RICEVUTO " + this.guadagno + " \u00A2");
+
+					pedina.getGiocatore().aggiornaCrediti(this.guadagno);
+					pedina.getTabellone().muoviPedina(pedina, -this.penalitagiorni);
+				}
+				cartaCompletata = true;
+			}
+			// se la nave ha meno potenza della nave nemica
+			else{
+				stampa.println("LA NAVE DI "+ nomeGiocatore +" CON LA POTENZA DI "
+						+ potenzaCannoni +" VIENE SCONFITTA DALLA NAVE NEMICA E PORTANO VIA "
+						+ this.penalitaequipaggio +" COMPONENTI DELL'EQUIPAGGIO");
+
+				pedina.selezionaEquipaggioDaEliminare(penalitaequipaggio);
+			}
+
 		}
-		
+
 		return elencoPedine;
 	}
 }
