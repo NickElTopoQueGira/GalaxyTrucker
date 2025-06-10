@@ -377,6 +377,7 @@ public abstract class Nave {
 			
 			for (TipoLato dir : TipoLato.values()) {
 			    Coordinate adiacente = corrente.adiacente(dir);
+			    
 			    if(this.controllaCoordinate(adiacente)) {
 			    	Tessera tesseraAdiacente = nave.get(adiacente.getY()).get(adiacente.getX());
 					

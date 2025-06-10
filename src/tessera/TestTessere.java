@@ -2,6 +2,7 @@ package tessera;
 
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
+import tabellone.Tabellone;
 
 public class TestTessere {
 	
