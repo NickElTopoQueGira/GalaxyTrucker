@@ -32,6 +32,14 @@ public class Giocatore {
 	public Pedina getPedina(){ return this.pedina; }
 
 	/**
+	 * Metodo per azzerare la nave "=^.^="
+	 * */
+	public void azzeraNave(){
+		this.nave = null;
+		this.isNaveFinita = false;
+	}
+
+	/**
 	 * Metodo per aggiornare i crediti del giocatore
 	 * +x -> per aggiungere
 	 * -x -> per togliere
@@ -70,7 +78,10 @@ public class Giocatore {
 	 * Metodo per azzerare la nave.
 	 * Utilizzato quando si termina un livello e si passa a quello successivo
 	 */
-	public void eliminaNave(){ this.nave = null; }
+	public void eliminaNave(){
+		this.nave = null;
+		this.isNaveFinita = false;
+	}
 
 	public void naveFinita(){ this.isNaveFinita = true; }
 
