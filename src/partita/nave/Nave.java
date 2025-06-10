@@ -1064,7 +1064,7 @@ public abstract class Nave {
     
     /**
      * selezione e rimozione energia dalla tessera batteria selezionata
-     * @return 
+     *  
      */
     private void selezionaTesseraEnergia(){
     	
@@ -1077,7 +1077,7 @@ public abstract class Nave {
 				if(tessera.getTipoTessera()==TipoTessera.BATTERIA) {
 					Tessere.add(tessera);
 					visualTessere.add("\n"+tessera.toString());
-					visual.add("posizione("+(this.nave.indexOf(colonne)+this.inizioNaveV)+";"+(colonne.indexOf(tessera)+this.inizioNaveO)+") "+tessera.toLegenda());
+					visual.add("posizione("+(this.nave.indexOf(colonne)+this.inizioNaveO)+";"+(colonne.indexOf(tessera)+this.inizioNaveV)+") "+tessera.toLegenda());
 				}
 
 			}
