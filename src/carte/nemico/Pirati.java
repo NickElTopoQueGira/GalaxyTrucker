@@ -290,7 +290,7 @@ public class Pirati extends Nemici {
 					}else {
 						stampa.println("METEORITE HA MANCATO LA PLANCIA DI: "+elencoPedine.get(elenco).getGiocatore().getNome());
 	            	}
-					//TODO controllo integrita nave
+					
 					j++;
 				}while(j < this.colpi.size()); 
 			}

@@ -355,28 +355,19 @@ public class Pedina{
     		
     		cns.print("Hai abbastanza energia, vuoi utilizzare lo scudo?");
     		
-    		if(cns.confermaSpecifica("Scudo")) {
+    		if(cns.conferma()) {
     			
     			try {
 					this.giocatore.getNave().utilizzaEnergia();
 				} catch (ErroreRisorse e) {
 					
 					e.printStackTrace();
+					return false;
 				}
     			
     			return true;
-    		}else {
-    			
-    			try {
-					this.giocatore.getNave().utilizzaEnergia();
-				} catch (ErroreRisorse e) {
-					
-					e.printStackTrace();
-				}
-    			
-    			return false;
     		}
-    		
+    		return false;
     	}else {
     		
     		cns.println("Non hai abbastanza enegia per utilizzare lo scudo");
@@ -395,27 +386,21 @@ public class Pedina{
     		
     		cns.print("Hai abbastanza energia, vuoi utilizzare il cannone doppio?");
     		
-    		if(cns.confermaSpecifica("Cannone doppio")) {
+    		if(cns.conferma()) {
     			
     			try {
 					this.giocatore.getNave().utilizzaEnergia();
+					
 				} catch (ErroreRisorse e) {
 					
 					e.printStackTrace();
+					return false;
 				}
     			
     			return true;
-    		}else {
-    			
-    			try {
-					this.giocatore.getNave().utilizzaEnergia();
-				} catch (ErroreRisorse e) {
-					
-					e.printStackTrace();
-				}
-    			
-    			return false;
     		}
+    		
+    		return false;
     		
     	}else {
     		

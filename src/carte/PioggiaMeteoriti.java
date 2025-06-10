@@ -133,9 +133,9 @@ public class PioggiaMeteoriti extends Carta {
 						 
 						if(colpito != null) {
 							
-							stampa.println("\nE' STATA COLPITA LA NAVE DI LA NAVE DI: "+elencoPedine.get(j).getGiocatore().getNome());
+							stampa.println("\nE' STATA COLPITA LA NAVE DI: "+elencoPedine.get(j).getGiocatore().getNome());
 
-							stampa.println("LA TESSERA COLPITA E': " +colpito.toLegenda()+ " ("+colpito.getCoordinate().getX()+", "+colpito.getCoordinate().getY()+")");
+							stampa.println("LA TESSERA COLPITA E': " +colpito.toLegenda()+ " ("+(colpito.getCoordinate().getX()+elencoPedine.get(j).getGiocatore().getNave().getInizioNaveX())+", "+(colpito.getCoordinate().getY()+elencoPedine.get(j).getGiocatore().getNave().getInizioNaveY())+")");
 							
 							if(this.meteoriti.get(i).getType() == TypeMeteora.METEORITE_PICCOLO) { 
 								
@@ -151,6 +151,8 @@ public class PioggiaMeteoriti extends Carta {
 										
 										stampa.println("METEORITE FERMATO DALLO SCUDO");
 										sceltaFermareMeteorite = true;
+									}else {
+										sceltaFermareMeteorite = false;
 									}
 								}
 							}else if(this.meteoriti.get(i).getType() == TypeMeteora.METEORITE_PICCOLO) { 
