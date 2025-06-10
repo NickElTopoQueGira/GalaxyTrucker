@@ -45,7 +45,7 @@ public class Tabellone{
 	 * 3- prima si stampa le caratteristiche della carta e in seguito la si viene eseguita
 	 * 4- si fanno tutti i controlli per vedere se la pedina deve o vuole abbandonare il volo
 	 * 5- finite le carte oppure tutti i giocatori hanno abbandonato il volo si chiama la classe
-	 * 	   fine gioco che stampera i dettagli di come è finito il volo
+	 * 	   fine gioco che stampera' i dettagli di come è finito il volo
 	 */
 	public void gioca(){	
 		impostaTabellone();
@@ -111,8 +111,9 @@ public class Tabellone{
 		this.fineGioco = new FineGioco(elencoPedine, elencoNaviAbbandonate, this.livello.getLivelloNumerico());
 		this.fineGioco.granFinale();
 	}
+
 	/**
-	 * metodo per impostare il tabellone
+	 * Metodo per passare alle pedine il tabellone
 	 */
 	private void impostaTabellone() {
 		for(Pedina pedina : this.elencoPedine){
@@ -161,13 +162,17 @@ public class Tabellone{
 	 * Metodo per inizializzare le pedine in gioco
 	 */
 	private void inizializzaPedine(){
-		// TODO: da sistemare l'ordine con il quale le pedine vengono aggiunte nel tabellone
+		// l'elenco delle pedine, nel momento dell'inizializzazione delle stesse, viene girato
+		// facendolo partire dal fondo, questo perche' noi vogliamo che il primo giocatore che
+		// ha finito la navi sia nella posizione + a destra, mentre il secondo + a sinistra e
+		// cosi' via, fino ad arrivare all'ultimo giocatore
+		ArrayList<Pedina> elencoPedineRev = new ArrayList<>(this.elencoPedine.reversed());
+
 		int pos = 1;
-		for(Pedina pedina : this.elencoPedine){
+		for(Pedina pedina : elencoPedineRev){
 			pedina.setPedinaInGioco();
 			pedina.setTabellone(this);
 			pedina.setPosizioneSulTabellone(pos);
-			pedina.setPedinaInGioco();
 			this.posizioni.get(pos).occupaPosizione(pedina);
 			pos += 1;
 		}
@@ -186,6 +191,7 @@ public class Tabellone{
 	public void muoviPedina(Pedina pedina, int mossa){
 		// Recupero la posizione iniziale della pedina
 		int posizionePedinaAttuale = pedina.getPosizioneSulTabellone();
+		int posizionePedinaDiPartenza = posizionePedinaAttuale;
 
 		/*
 		 * La pedina va avanti fino a quando non finisco le mosse
@@ -208,6 +214,8 @@ public class Tabellone{
 			// Occupazione pedina
 			this.posizioni.get(posizionePedinaAttuale).occupaPosizione(pedina); 
 			pedina.setPosizioneSulTabellone(posizionePedinaAttuale);
+			// libero la posizione di partenza
+			liberaPosizione(posizionePedinaDiPartenza);
 		}
 		else{
 			// mossa < 0 (la pedina retrocede)
@@ -221,6 +229,8 @@ public class Tabellone{
 			// Occupazione pedina
 			this.posizioni.get(posizionePedinaAttuale).occupaPosizione(pedina);
 			pedina.setPosizioneSulTabellone(posizionePedinaAttuale);
+			// libero la posizione di partenza
+			liberaPosizione(posizionePedinaDiPartenza);
 		}
 	}
 
@@ -234,8 +244,10 @@ public class Tabellone{
 			this.posizioni.get(posizione).liberaPosizione();
 		}		
 	}
-	
-	
+
+	/**
+	 * Metodo per il controllo sul doppiaggio della pedina
+	 */
 	public void controlloDoppiaggio() { //TODO da usare mentre si completa la carta   !problems		
 		int i=0;
 		
@@ -256,15 +268,22 @@ public class Tabellone{
 		}while(i<elencoPedine.size()-1);
 	}
 
+	/**
+	 * Metodo per prendere l'elenco delle pedine
+	 * @return ArrayList<Pedina>
+	 */
 	public ArrayList<Pedina> getElencoPedine(){
 		return elencoPedine;
 	}
 
+	/**
+	 * Metodo per prendere l'elenco delle navi abbandonante dalle pedine
+	 * @return ArrayList<Pedina> elenco navi abbandonate
+	 */
 	public ArrayList<Pedina> getElencoNaviAbbandonate(){
 		return elencoNaviAbbandonate;
 	}
-	
-	
+
 	/**
 	 * Metodo toString che ritorna il tabellone di gioco sotto forma di stringa
 	 */
