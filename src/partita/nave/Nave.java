@@ -1353,7 +1353,7 @@ public abstract class Nave {
      */
 	public int getPotenzaMotori() {
 		int potenzaMotori = 0;
-
+		this.stampa.println("Calcolo potenza Motori:\n");
 		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera() == TipoTessera.MOTORE) {
@@ -1364,6 +1364,7 @@ public abstract class Nave {
                         // se il motore e' doppio
                     	potenzaMotori += 2;
                     	try {
+                    		this.stampa.println("Utilizzo di un motore doppio:");
 							this.utilizzaEnergia();
 						} catch (ErroreRisorse e) {
 							potenzaMotori -= 2;
@@ -1413,7 +1414,7 @@ public abstract class Nave {
          * - puntano di lato: +1
          * 
          */
-
+		this.stampa.println("Calcolo potenza Motori:\n");
 		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera() == TipoTessera.CANNONE) {
@@ -1422,6 +1423,7 @@ public abstract class Nave {
 					
 					if(((Cannone)tessera).getTipoCannone()==TipoCannone.DOPPIO) {
 						try {
+							this.stampa.println("Utilizzo di un cannone doppio:");
 							this.utilizzaEnergia();
 						} catch (ErroreRisorse e) {
 							potenzaCannoni -= ((Cannone)tessera).calcolaValore();
