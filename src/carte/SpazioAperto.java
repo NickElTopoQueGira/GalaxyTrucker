@@ -30,12 +30,20 @@ public class SpazioAperto extends Carta {
     @Override
     public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
         for (int i = 0; i < elencoPedine.size(); i++) {
+        	stampa.println("TURNO: " + elencoPedine.get(i).getGiocatore().getNome());
 
             int potenzaMotore = elencoPedine.get(i).getGiocatore().getNave().getPotenzaMotori(); //PRENTE LA POTENZA MOTORI
 
             elencoPedine.get(i).getTabellone().muoviPedina(elencoPedine.get(i), potenzaMotore);  // SOMMA LA POSIZIONE ALLA POTENZA MOTORE E LA IMPOSTA COME NUOVA POSIZIONE
 
             stampa.println("LA NAVE DI " + elencoPedine.get(i).getGiocatore().getNome() + " HA " + potenzaMotore + " DI POTENZA MOTORE E VA AVANTI DI " + potenzaMotore);
+            
+            if(potenzaMotore<= 0) {
+            	
+            	stampa.println("LA NAVE DI " + elencoPedine.get(i).getGiocatore().getNome() + " NON SI E' MOSSA è OBBLIGATA AD ABBANDONARE LA CORSA! ");
+            	
+            	elencoPedine.get(i).setPedinaOutGioco();
+            }
         }
         return elencoPedine;
     }

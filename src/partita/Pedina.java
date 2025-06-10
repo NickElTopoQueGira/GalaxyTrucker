@@ -260,6 +260,8 @@ public class Pedina{
             			
             		}while(sceltaStiva<=0 || sceltaStiva>crd.size());
             		
+            		cns.println("X="+ crd.get(sceltaStiva-1).getY()+" Y="+crd.get(sceltaStiva-1).getX());
+            		
             		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().size() > 0){
             			
             			cns.println("La stiva selezionata è piena! se confermi dovrai selezionare una merce da eliminare per liberare spazio");

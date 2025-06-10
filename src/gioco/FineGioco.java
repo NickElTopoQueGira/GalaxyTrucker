@@ -205,7 +205,9 @@ public class FineGioco {
 		for(int i=1; i<pedineVoloCompletato.size(); i++) {
 			
 			Nave n1 = pedineVoloCompletato.get(minorScoperti).getGiocatore().getNave();
+			n1.connettoriScoperti();
 			Nave n2 = pedineVoloCompletato.get(i).getGiocatore().getNave();
+			n2.connettoriScoperti();
 			
 			if(n2.getNumeroConnettoriScoperti() < n1.getNumeroConnettoriScoperti()) {
 				minori.clear();

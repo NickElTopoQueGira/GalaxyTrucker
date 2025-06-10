@@ -29,6 +29,7 @@ public class PolvereStellare extends Carta {
     public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
         for (int i = 0; i < elencoPedine.size(); i++) {
 
+        	elencoPedine.get(i).getGiocatore().getNave().connettoriScoperti();
             int connettoriScoperti = elencoPedine.get(i).getGiocatore().getNave().getNumeroConnettoriScoperti();
 
             elencoPedine.get(i).getTabellone().muoviPedina(elencoPedine.get(i), -connettoriScoperti);
