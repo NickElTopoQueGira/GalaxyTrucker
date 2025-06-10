@@ -1,8 +1,11 @@
 package tessera;
 
+import eccezioniPersonalizzate.ErroreEquipaggio;
 import eccezioniPersonalizzate.ErroreTessera;
 import gioco.ComunicazioneConUtente;
 import tabellone.Tabellone;
+import tessera.batteria.Batteria;
+import tessera.modulo_passeggeri.ModuloPasseggeri;
 
 public class TestTessere {
 	
@@ -10,7 +13,7 @@ public class TestTessere {
 		ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
 		FactoryTessera f= new FactoryTessera();
 		
-		
+		/*
 		for(int i=0; i<f.getNumeroTessereMax();i++) {
 			Tessera tessera=null;
 			try {
@@ -29,9 +32,28 @@ public class TestTessere {
 			
 			com.printNumber(tessera.getListaTessere().size());
 		}
+		*/
+		Tessera t=null;
+		try {
+			t= new Batteria();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
+		com.println(t.toString()+"\n");
 		
+		
+		((Batteria)t).decrese();
+		
+		
+		com.println(t.toString()+"\n");	
+		
+		
+		((Batteria)t).decrese();
+		
+		com.println(t.toString()+"\n");	
 		
 	}
 

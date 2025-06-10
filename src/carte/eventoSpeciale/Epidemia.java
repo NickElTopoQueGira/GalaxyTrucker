@@ -53,7 +53,8 @@ public class Epidemia extends EventiSpeciali {
                                     try {
 										((ModuloPasseggeri) epidemia).setNumeroCosmonauti(-1);
 									} catch (ErroreEquipaggio e) {
-										e.printStackTrace();
+										contatore--;
+										
 									}
 
                                 } else if (epidemia.getTipoTessera() == TipoTessera.CENTRO) {
@@ -73,7 +74,7 @@ public class Epidemia extends EventiSpeciali {
     
     /**
      * metodo ricorsivo che permette di trovare i moduli che sono attaccati ad altri moduli e li aggiunge
-     * in un arreylist per poi poter togliere l'equipaggio
+     * in un arraylist per poi poter togliere l'equipaggio
      * 
      * @param i
      * @param j
