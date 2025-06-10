@@ -322,7 +322,7 @@ public class Pedina{
         		}
     		}else {
     			
-        		cns.println("La merce "+merci.get(i).getTipoMerce()+" è stata distrutta");
+        		cns.println("La merce "+merci.get(0).getTipoMerce()+" è stata distrutta");
     		}
     		merci.remove(0);
     	}
