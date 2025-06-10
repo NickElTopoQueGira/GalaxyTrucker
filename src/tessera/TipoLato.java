@@ -7,7 +7,7 @@ public enum TipoLato {
     LEFT;
 
     /**
-     * metodo per scorrere l'enum di una variabile in maniera ciclica ritornando
+     * Metodo per scorrere l enum di una variabile in maniera ciclica ritornando
      * il successivo
      *
      * @return enum successivo

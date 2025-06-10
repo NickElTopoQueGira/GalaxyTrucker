@@ -1,7 +1,5 @@
 package tessera;
 
-import java.util.Objects;
-
 public class Coordinate {
 
     private int x;
@@ -33,35 +31,35 @@ public class Coordinate {
 
     /**
      * metodo che ritorna le coordinate adiacenti nella direzione specificata
+     *
      * @param direzione (enum TipoLato)
      * @return
      */
     public Coordinate adiacente(TipoLato dir) {
         Coordinate adiacente = new Coordinate();
         switch (dir) {
-            case UP ->  {
+            case UP -> {
                 adiacente.setX(this.getX());
                 adiacente.setY(this.getY() - 1);
             }
-            case LEFT ->  {
+            case LEFT -> {
                 adiacente.setX(this.getX() - 1);
                 adiacente.setY(this.getY());
             }
-            case DOWN ->  {
+            case DOWN -> {
                 adiacente.setX(this.getX());
                 adiacente.setY(this.getY() + 1);
 
             }
-            case RIGHT ->  {
+            case RIGHT -> {
                 adiacente.setX(this.getX() + 1);
                 adiacente.setY(this.getY());
 
             }
-            default -> throw new IllegalArgumentException("Unexpected value: " + dir);
+            default ->
+                throw new IllegalArgumentException("Unexpected value: " + dir);
         }
         return adiacente;
     }
-
-
 
 }

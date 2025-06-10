@@ -13,10 +13,9 @@ public class Tubi extends Tessera implements TessereNormali {
     private static int contatore = 0;
 
     /**
-     * costruttore
-     * se viene ecceduto il numero massimo di elementi genera
-     * eccezione. verifica ricorsivamente che non ci siano connettori di tipo Nullo,
-     * in caso rigenera connettori.
+     * costruttore se viene ecceduto il numero massimo di elementi genera
+     * eccezione. verifica ricorsivamente che non ci siano connettori di tipo
+     * Nullo, in caso rigenera connettori.
      *
      * @throws ErroreTessera
      */
@@ -26,7 +25,7 @@ public class Tubi extends Tessera implements TessereNormali {
         if (contatore > MASSIMO) {
             throw new ErroreTessera("Numero Elementi Tubi Max"); // Eccezione Numero Massimo di elementi
         }
-        
+
         boolean condizione = true;
         while (condizione) {
             if (this.latiTessera.getUp() == TipoConnettoriTessera.NULLO
@@ -35,7 +34,7 @@ public class Tubi extends Tessera implements TessereNormali {
                     || this.latiTessera.getLeft() == TipoConnettoriTessera.NULLO) {
 
                 this.latiTessera.GeneraLatiTessera();
-                
+
             } else {
                 condizione = false;
             }

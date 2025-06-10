@@ -28,7 +28,6 @@ public class LatiTessera {
         } while (!this.verificaTessera());
     }
 
-
     /**
      * verifica se tutti i connettori sono nulli, in tal caso restituisce false
      *

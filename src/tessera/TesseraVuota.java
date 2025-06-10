@@ -4,8 +4,8 @@ public class TesseraVuota extends Tessera {
 
 	/**
 	 * costruttore
-	 * @param x
-	 * @param y
+	 * @param x int
+	 * @param y int
 	 * @param posizione (interna o esterna alla nave)
 	 */
     public TesseraVuota(int x, int y, Posizione posizione) {
@@ -16,7 +16,7 @@ public class TesseraVuota extends Tessera {
     }
 
     /**
-     * metodo che ritorna stringa descrittiva della tessera
+     * Metodo che ritorna stringa descrittiva della tessera
      *
      * @return ""
      */

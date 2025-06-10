@@ -1,8 +1,8 @@
 package tessera.cannone;
 
 public enum TipoCannone {
-    SINGOLO		("\033[1;95m" + "singolo" + "\u001B[0m"), 	//viola
-    DOPPIO		("\033[1;92m" + "doppio" + "\u001B[0m"); 	//verde
+    SINGOLO("\033[1;95m" + "singolo" + "\u001B[0m"), //viola
+    DOPPIO("\033[1;92m" + "doppio" + "\u001B[0m"); 	//verde
 
     private final String nome;
 

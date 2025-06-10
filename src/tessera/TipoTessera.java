@@ -17,17 +17,17 @@ public enum TipoTessera { //tutte le scritte sono bold high intensity
     /**
      * costruttore
      *
-     * @param tipo
+     * @param tipo String
      */
     TipoTessera(String tipo) {
         this.tipo = tipo;
     }
 
     /**
-     * metodo per ritornare enum in stringa
+     * Metodo per ritornare enum in stringa
      *
-     * @return stringa corrispendente all'enum con il rispettivo colore
-     * e ristepttuva lettera rappresentativa della tesera
+     * @return stringa corrispondente al enum con il rispettivo colore
+     * e rispettiva lettera rappresentativa della tessera
      */
     public String getTipo() {
         return tipo;

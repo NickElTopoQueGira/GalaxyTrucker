@@ -1,15 +1,10 @@
 package tabellone;
 
 import carte.Carta;
-
 import carte.Mazzo;
 import gioco.ComunicazioneConUtente;
 import gioco.FineGioco;
-
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import partita.Livelli;
 import partita.Pedina;
 

@@ -6,8 +6,6 @@ import partita.Livelli;
 import partita.Pedina;
 import partita.configurazione.ConfiguraNave;
 import partita.nave.Nave;
-import tessera.Coordinate;
-import tessera.Tessera;
 
 public class Giocatore {
 	private final String nome;

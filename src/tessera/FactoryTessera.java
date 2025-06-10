@@ -48,7 +48,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Stiva) t).decrementaNumeroCorrente();
-                        
+
                     }
                     return t;
                 }
@@ -58,7 +58,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Scudi) t).decrementaNumeroCorrente();
-                        
+
                     }
                     return t;
                 }
@@ -68,7 +68,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Tubi) t).decrementaNumeroCorrente();
-                        
+
                     }
                     return t;
                 }
@@ -78,7 +78,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((ModuloPasseggeri) t).decrementaNumeroCorrente();
-                        
+
                     }
                     return t;
                 }
@@ -88,7 +88,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((ModuloAttraccoAlieni) t).decrementaNumeroCorrente();
-                        
+
                     }
                     return t;
                 }
@@ -98,7 +98,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Batteria) t).decrementaNumeroCorrente();
-                        
+
                     }
                     return t;
                 }
@@ -108,7 +108,7 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Cannone) t).decrementaNumeroCorrente();
-                        
+
                     }
                     return t;
                 }
@@ -118,7 +118,6 @@ public class FactoryTessera {
                         t.aggiungiTessera();
                     } catch (ErroreAggiuntaTessera e) {
                         ((Motore) t).decrementaNumeroCorrente();
-                        
 
                     }
                     return t;
@@ -140,8 +139,6 @@ public class FactoryTessera {
             }
         }
     }
-    
-    
 
     /**
      * viene fatta una random della lunghezza -2 per escludere il tipotessera

@@ -10,13 +10,11 @@ import java.util.Set;
 
 public abstract class Tessera {
 
-    
+    protected final TipoTessera tipoTessera;
+    protected LatiTessera latiTessera = new LatiTessera();
 
-	
+    private Coordinate coordinate = new Coordinate();
 
-	protected final TipoTessera tipoTessera;
-    protected LatiTessera latiTessera  = new LatiTessera();;
-    private Coordinate coordinate = new Coordinate();;
     
     private final Posizione posizione;
     private static Set<Tessera> set = new LinkedHashSet<Tessera>();
@@ -26,7 +24,7 @@ public abstract class Tessera {
 
     protected String[][] tessera_Disposizione = {
         //Righe V  0    1    2    3    4    <- colonne
-        /* 0 */ {"┌", "─", "─", "─", "┐"},
+        /* 0 */{"┌", "─", "─", "─", "┐"},
         /* 1 */ {"│", " ", " ", " ", "│"},
         /* 2 */ {"│", " ", " ", " ", "│"},
         /* 3 */ {"│", " ", " ", " ", "│"},
@@ -35,12 +33,12 @@ public abstract class Tessera {
     /**
      * Costruttore
      *
-     * @param tipoTessera
-     * @throws ErroreTessera
+     * @param tipoTessera TipoTessera
+     * @param posizione Posizione
      */
     public Tessera(TipoTessera tipoTessera, Posizione posizione) {
         this.tipoTessera = tipoTessera;
-        NumeroTessereGenerate=NumeroTessereGenerate+1;  
+        NumeroTessereGenerate = NumeroTessereGenerate + 1;
         this.id = NumeroTessereGenerate;
         this.posizione = posizione;
     }
@@ -67,7 +65,9 @@ public abstract class Tessera {
     }
 
     /**
-     * metodo che trafsorma il set delle tessere in un arraylist per essere ritornato
+     * Metodo che trasforma il set delle tessere in un arraylist per essere
+     * ritornato
+     *
      * @return lista delle tessere generate
      */
     public static ArrayList<Tessera> getListaTessere() {
@@ -79,46 +79,39 @@ public abstract class Tessera {
     /**
      * rimuove dal set delle tessere generate la tessera t
      *
-     * @param tessera da rimuovere
+     * @param t Tessera da rimuovere
      */
     public static void removeDaListaTessere(Tessera t) {
-        
-    	if (!set.isEmpty()) {
-    		set.remove(t);
+
+        if (!set.isEmpty()) {
+            set.remove(t);
         }
-    	
-    
+
     }
 
-
-
     /**
-     * aggiunge al set di tessere generate la tessera, svolge
-     * anche controllo duplicazione ed in caso genera eccezione
+     * Metodo per aggiunge al set di tessere generate la tessera, svolge anche controllo
+     * duplicazione e in caso genera eccezione
      *
-     * @throws ErroreAggiuntaTessera
-     * @throws ErroreTessera
+     * @throws ErroreAggiuntaTessera errore aggiunta tessera
      */
     public void aggiungiTessera() throws ErroreAggiuntaTessera {
-    		if (!set.add(this)) {
-                throw new ErroreAggiuntaTessera("");
-            }
+        if (!set.add(this)) {
+            throw new ErroreAggiuntaTessera("");
+        }
     }
 
-    
-
     /**
-     * ruota i connettori della tessera tramite latitessera
+     * Metodo per ruotare i connettori della tessera tramite 'latitessera'
      *
-     * @throws ErroreRotazione
+     * @throws ErroreRotazione errore di rotazione
      */
     public void ruota() throws ErroreRotazione {
         this.latiTessera.ruotaLati();
-
     }
 
     /**
-     * set dei caratteri di stampa della tessera sul lato up in base ai
+     * Set dei caratteri di stampa della tessera sul lato up in base ai
      * connettori
      *
      * @return Stringa connettore
@@ -142,7 +135,7 @@ public abstract class Tessera {
     }
 
     /**
-     * set dei caratteri di stampa della tessera sul lato down in base ai
+     * Set dei caratteri di stampa della tessera sul lato down in base ai
      * connettori
      *
      * @return Stringa connettore
@@ -166,7 +159,7 @@ public abstract class Tessera {
     }
 
     /**
-     * set dei caratteri di stampa della tessera sul lato left in base ai
+     * Set dei caratteri di stampa della tessera sul lato left in base ai
      * connettori
      *
      * @return Stringa connettore
@@ -190,7 +183,7 @@ public abstract class Tessera {
     }
 
     /**
-     * set dei caratteri di stampa della tessera sul lato right in base ai
+     * Set dei caratteri di stampa della tessera sul lato right in base ai
      * connettori
      *
      * @return Stringa connettore
@@ -214,7 +207,7 @@ public abstract class Tessera {
     }
 
     /**
-     * unisce i vari lati per stampa di tessera ed aggiunge il carattere
+     * Unisce i vari lati per stampa di tessera e aggiunge il carattere
      * centrale identificativo del Tipotessera
      */
     private void generaTessera_Disposizione() {
@@ -226,9 +219,10 @@ public abstract class Tessera {
     }
 
     /**
-     * to string della tessera
+     * Metodo to string della tessera
      *
-     * @return stringa da poter essere stampata rappresentate la tessera in char art
+     * @return stringa da poter essere stampata rappresentate la tessera in char
+     * art
      */
     @Override
     public String toString() {
@@ -252,10 +246,10 @@ public abstract class Tessera {
     }
 
     /**
-     * metodo che fornita la riga della nave in j, restituisce la stringa temp in cui è
-     * presente la prima riga di caratteri della matrice di Tessera
+     * Metodo che fornita la riga della nave in j, restituisce la stringa temp
+     * in cui è presente la prima riga di caratteri della matrice di Tessera
      *
-     * @param riga
+     * @param j int
      * @return stringa da stampare
      */
     public String getriga(int j) {
@@ -272,19 +266,18 @@ public abstract class Tessera {
 
         return temp;
     }
-    
-    
-	public int getId() {
-		return id;
-	}
 
-	/**
-	 * motodo che crea la descrizione della tessera
-	 * @return stringa descrittiva della tessera
-	 */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Metodo che crea la descrizione della tessera
+     *
+     * @return stringa descrittiva della tessera
+     */
     public abstract String toLegenda();
 
-    
     // Hashcode ed equals gestiscono il tutto tramite id tessera
     @Override
     public int hashCode() {

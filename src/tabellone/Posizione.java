@@ -3,7 +3,7 @@ package tabellone;
 import partita.Pedina;
 
 public class Posizione {
-    private int id;
+    private final int id;
     private boolean libera;
     private Pedina pedinaGiocatore;
 

@@ -21,8 +21,7 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
     private TipoModuloPasseggeri tipoModuloPasseggeri;
 
     /**
-     * costruttore
-     * se viene ecceduto il numero massimo di elementi genera
+     * costruttore se viene ecceduto il numero massimo di elementi genera
      * eccezione
      *
      * @throws ErroreTessera
@@ -32,7 +31,7 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
         contatore++;
         if (contatore <= MASSIMO) {
             this.tipoModuloPasseggeri = TipoModuloPasseggeri.MODULO_EQUIPAGGIO;
-            this.equipaggioMax=2;
+            this.equipaggioMax = 2;
             this.numeroCosmonauti = 0;
             this.numeroAlieniMarroni = 0;
             this.numeroAlieniViola = 0;
@@ -45,6 +44,7 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
 
     /**
      * set del tipoModulo Passeggeri con rispettivo settaggio dell'equipaggio
+     *
      * @param nuovo tipoModuloPasseggeri
      */
     public void setTipoModuloPasseggeri(TipoModuloPasseggeri tipoModuloPasseggeri) {
@@ -58,31 +58,30 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
     private void setEquipaggio() {
         switch (this.tipoModuloPasseggeri) {
             case MODULO_ALIENO_MARRONE:
-            	this.equipaggioMax = 1;
+                this.equipaggioMax = 1;
                 this.setNumeroAlieniMarroni(1);
                 this.setNumeroAlieniViola(0);
                 this.numeroCosmonauti = 0;
-                
+
                 break;
             case MODULO_ALIENO_VIOLA:
-            	this.equipaggioMax = 1;
+                this.equipaggioMax = 1;
                 this.setNumeroAlieniMarroni(0);
                 this.setNumeroAlieniViola(1);
                 this.numeroCosmonauti = 0;
-                
+
                 break;
             case MODULO_EQUIPAGGIO:
-            	this.equipaggioMax = 2;
+                this.equipaggioMax = 2;
                 this.setNumeroAlieniMarroni(0);
                 this.setNumeroAlieniViola(0);
-				
-				try {
-					this.setNumeroCosmonauti(2);
-				} catch (ErroreEquipaggio e) {
 
-				}
-				
-                
+                try {
+                    this.setNumeroCosmonauti(2);
+                } catch (ErroreEquipaggio e) {
+
+                }
+
             default:
                 break;
         }
@@ -97,23 +96,24 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
     }
 
     /**
-     * Modifica numero di cosmonauti tramite edit (positivo o negativo), se non è possibile settare numero cosmonauti genera eccezione
+     * Modifica numero di cosmonauti tramite edit (positivo o negativo), se non
+     * è possibile settare numero cosmonauti genera eccezione
      *
      * @param edit
-     * @throws ErroreEquipaggio 
+     * @throws ErroreEquipaggio
      */
     public void setNumeroCosmonauti(int edit) throws ErroreEquipaggio {
         // no interfaccia con centro perchè l'utente
         // può cambiare piu volte il numero passeggeri in fase di costruzione nave in base
         // a se
         // utilizza alieni o meno
-    	if((this.numeroCosmonauti+edit)<= this.equipaggioMax && (this.numeroCosmonauti+edit)>= 0 ) {
-    		this.numeroCosmonauti = this.numeroCosmonauti + edit;
-    	}else {
-    		throw new ErroreEquipaggio("Azione non possibile");
-    	       
-    	}
-        
+        if ((this.numeroCosmonauti + edit) <= this.equipaggioMax && (this.numeroCosmonauti + edit) >= 0) {
+            this.numeroCosmonauti = this.numeroCosmonauti + edit;
+        } else {
+            throw new ErroreEquipaggio("Azione non possibile");
+
+        }
+
     }
 
     public int getNumeroAlieniMarroni() {
@@ -146,11 +146,11 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
                 this.setNumeroAlieniMarroni(0);
                 break;
             case MODULO_EQUIPAGGIO:
-			try {
-				this.setNumeroCosmonauti(-1);
-			} catch (ErroreEquipaggio e) {
-				e.printStackTrace();
-			}
+                try {
+                    this.setNumeroCosmonauti(-1);
+                } catch (ErroreEquipaggio e) {
+                    e.printStackTrace();
+                }
             default:
                 break;
         }
@@ -158,6 +158,7 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
 
     /**
      * metodo per il calcolo dell'equipaggio totale (alieni + cosmonuati)
+     *
      * @return numero passeggeri totale
      */
     public int getEquipaggio() {

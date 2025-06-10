@@ -16,8 +16,7 @@ public class ModuloAttraccoAlieni extends Tessera implements TessereNormali {
     private boolean abitabile;
 
     /**
-     * costruttore
-     * se viene ecceduto il numero massimo di elementi genera
+     * costruttore se viene ecceduto il numero massimo di elementi genera
      * eccezione
      *
      * @throws ErroreTessera
@@ -27,19 +26,24 @@ public class ModuloAttraccoAlieni extends Tessera implements TessereNormali {
         contatore++;
         if (contatore <= MASSIMO) {
             this.colore = randomTipo();
-            
 
         } else {
             throw new ErroreTessera("Numero Elementi Modulo Alieni Max"); // Eccezione Numero Massimo di elementi
         }
         this.abitabile = false;
     }
+
     public ColoreAlieni getColore() {
-    	return this.colore;
+        return this.colore;
     }
-    
-    public void setAbitabile(){ this.abitabile = true; }
-    public boolean isAbitabile() { return this.abitabile; }
+
+    public void setAbitabile() {
+        this.abitabile = true;
+    }
+
+    public boolean isAbitabile() {
+        return this.abitabile;
+    }
 
     /**
      * random di enum ColoreAlieni

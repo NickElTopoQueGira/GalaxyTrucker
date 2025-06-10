@@ -1,7 +1,7 @@
 package partita.nave;
 
-import eccezioniPersonalizzate.ErroreEquipaggio;
 import gioco.ComunicazioneConUtente;
+import java.util.ArrayList;
 import partita.giocatore.Giocatore;
 import tessera.Coordinate;
 import tessera.Tessera;
@@ -10,8 +10,6 @@ import tessera.modulo_passeggeri.ColoreAlieni;
 import tessera.modulo_passeggeri.ModuloAttraccoAlieni;
 import tessera.modulo_passeggeri.ModuloPasseggeri;
 import tessera.modulo_passeggeri.TipoModuloPasseggeri;
-
-import java.util.ArrayList;
 
 public class GestioneEquipaggio{
     private final ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();

@@ -2,7 +2,6 @@ package gioco;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-
 import partita.Pedina;
 import partita.nave.Nave;
 import tessera.Coordinate;
@@ -12,7 +11,7 @@ import tessera.merce.Stiva;
 
 public class FineGioco {
 	
-	private ComunicazioneConUtente console;
+	private final ComunicazioneConUtente console;
 	private ArrayList<Pedina> pedineVoloCompletato;
 	private ArrayList<Pedina> pedineVoloAbbandonato;
 	private int livello;
