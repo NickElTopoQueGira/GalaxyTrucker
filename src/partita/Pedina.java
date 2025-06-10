@@ -456,7 +456,7 @@ public class Pedina{
 		if(equipaggio == 0) {
 			cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio  per "+crediti+"\u00A2 (crediti)?");
 		}else {
-			cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio e "+giorniPersi+" mebri dell'equipaggio per "+crediti+"\u00A2 (crediti)?");
+			cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio e "+equipaggio+" mebri dell'equipaggio per "+crediti+"\u00A2 (crediti)?");
 		}
     	
     	if(cns.conferma()) {

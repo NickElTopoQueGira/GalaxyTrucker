@@ -338,6 +338,8 @@ public class Partita{
 	                int residui = turniResidui.getOrDefault(g, 0);
 	                turniResidui.put(g, residui - 1);
 	            }
+
+	    		this.com.clear();
 	        }
 
 	        // Condizione di uscita
