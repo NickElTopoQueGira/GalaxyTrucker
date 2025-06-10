@@ -76,26 +76,26 @@ public class Mazzo {
         switch (lvl) {
             case 1:
                 for (int i = 0; i < 8; i++) {
-                    lista.add(this.CreaCartaRandom(1));
+                    lista.add(this.CreaCartaRandom(1, lvl));
                 }
                 break;
             case 2:
                 for (int i = 0; i < 4; i++) {
-                    lista.add(this.CreaCartaRandom(1));
+                    lista.add(this.CreaCartaRandom(1, lvl));
                 }
                 for (int i = 0; i < 8; i++) {
-                    lista.add(this.CreaCartaRandom(2));
+                    lista.add(this.CreaCartaRandom(2, lvl));
                 }
                 break;
             case 3:
                 for (int i = 0; i < 4; i++) {
-                    lista.add(this.CreaCartaRandom(1));
+                    lista.add(this.CreaCartaRandom(1, lvl));
                 }
                 for (int i = 0; i < 4; i++) {
-                    lista.add(this.CreaCartaRandom(2));
+                    lista.add(this.CreaCartaRandom(2, lvl));
                 }
                 for (int i = 0; i < 8; i++) {
-                    lista.add(this.CreaCartaRandom(3));
+                    lista.add(this.CreaCartaRandom(3, lvl));
                 }
                 break;
             default:
@@ -106,7 +106,7 @@ public class Mazzo {
         this.shiffleMazzo();
     }
 
-    private Carta CreaCartaRandom(int lvl) {  // va nel mazzo
+    private Carta CreaCartaRandom(int lvl, int lvlG) {  // va nel mazzo
 
         int x = 0;
         Carta crt = null;
@@ -114,17 +114,17 @@ public class Mazzo {
         do {
             Random random = new Random();
 
-            if (lvl == 3) {
+            if (lvlG == 3) {
                 x = random.nextInt(11) + 2;
-            } else if (lvl == 2) {
+            } else if (lvlG == 2) {
                 x = random.nextInt(11) + 1;
             } else {
                 x = random.nextInt(10) + 1;
             }
 
-        } while (conteggio[lvl - 1][x - 1] <= 0);
+        } while (conteggio[lvlG - 1][x - 1] <= 0);
 
-        conteggio[lvl - 1][x - 1]--;
+        conteggio[lvlG - 1][x - 1]--;
 
         switch (x) {
             case 1: // POLVERE_STELLARE,
