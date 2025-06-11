@@ -60,7 +60,7 @@ public class ConfiguraPartita{
 		do{
 			this.com.print("Inserisci il numero dei giocatori (min 2, max 4): ");
 			try{
-				numeroGiocatori = this.com.consoleReadInt();
+				numeroGiocatori = Integer.parseInt(this.com.consoleRead());
 				if(numeroGiocatori < 2 || numeroGiocatori > 4) {
 					this.com.erroreImmissioneValore();
 					uscita = false;
@@ -89,7 +89,7 @@ public class ConfiguraPartita{
 			this.com.print(this.com.visualizzaElenco(elenco));
 			this.com.print("Inserisci la modalita' partita: ");
 			try{
-				mod = this.com.consoleReadInt();
+				mod = Integer.parseInt(this.com.consoleRead());
 				if(mod == 1 || mod == 2){
 					uscita = true;
 				}else{
@@ -121,7 +121,7 @@ public class ConfiguraPartita{
 			this.com.print(this.com.visualizzaElenco(elenco));
 			this.com.print("Inserisci il livello: ");
 			try{
-				livello = this.com.consoleReadInt();
+				livello = Integer.parseInt(this.com.consoleRead());
 				if(livello == 1 || livello == 2 || livello == 3){
 					uscita = true;
 				}else{
@@ -166,28 +166,32 @@ public class ConfiguraPartita{
 		do{
 			this.com.print(this.com.visualizzaElenco(elenco));
 			this.com.print("Inserisci la voce: ");
-			s = this.com.consoleReadInt();
-			switch(s){
-				case 1 ->{
-					this.numeroGiocatori = numeroGiocatori();
-					pass = true;
-				}
-				case 2 ->{
-					this.modalitaPartita = modalitaPartita();
-					pass = true;
-				}
-				case 3 -> {
-					if(this.modalitaPartita == ModalitaPartita.SINGOLA){
-						this.livelloPartita = livelloPartita();
+			try{
+				s = Integer.parseInt(this.com.consoleRead());
+				switch(s){
+					case 1 ->{
+						this.numeroGiocatori = numeroGiocatori();
 						pass = true;
 					}
-					else{
-						this.com.erroreImmissioneValore();
+					case 2 ->{
+						this.modalitaPartita = modalitaPartita();
+						pass = true;
 					}
+					case 3 -> {
+						if(this.modalitaPartita == ModalitaPartita.SINGOLA){
+							this.livelloPartita = livelloPartita();
+							pass = true;
+						}
+						else{
+							this.com.erroreImmissioneValore();
+						}
+					}
+					default -> this.com.erroreImmissioneValore();
 				}
-				default -> this.com.erroreImmissioneValore();
+			}catch(NumberFormatException nfe){
+				this.com.erroreImmissioneValore();
+				pass = false;
 			}
-
 		}while(!pass);
 	}
 }
