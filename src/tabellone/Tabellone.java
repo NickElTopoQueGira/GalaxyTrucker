@@ -225,7 +225,7 @@ public class Tabellone{
 			posAttuale = (posAttuale + direzione + n) % n;
 
 			if (posizioni.get(posAttuale).isLibera()) {
-				mossa -= direzione; // decremento o incremento a seconda della direzione
+				mossa -= direzione; 
 			}
 		}
 
@@ -238,10 +238,7 @@ public class Tabellone{
 			pedina.setNumeroGiro(-1);
 		}
 
-		// Libera la posizione precedente
 		liberaPosizione(partenza);
-
-		// Aggiorna la posizione della pedina
 		pedina.setPosizioneSulTabellone(posAttuale);
 		posizioni.get(posAttuale).occupaPosizione(pedina);
 	}
