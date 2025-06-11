@@ -15,7 +15,10 @@ public class Nemici extends Carta {
     public Nemici(int lvl, TipoCarta c){
         super(lvl, c);
     }
-
+    
+    /**
+     * Metoto esegui carta che le classi figlie poi eseguiranno cpn azioni specifiche
+     */
     @Override
     public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine){
         return elencoPedine;
