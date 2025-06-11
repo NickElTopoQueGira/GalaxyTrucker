@@ -214,7 +214,7 @@ public class Pedina{
     
     	int grandezza = merci.size();
     	int sceltaStiva = 0;
-    	boolean conferma, sceltoPieno, isSpeciale, scelta, sceltaScambio;
+    	boolean sceltoPieno, isSpeciale, scelta, sceltaScambio;
     	
     	for(int i=0; i<grandezza; i++) {
     		
@@ -266,35 +266,32 @@ public class Pedina{
     		if(scelta) {
     			
     			cns.println("Inserire il numero della stiva da cui inserire una merce");
-    			do {
-    				conferma = true;
-    				sceltoPieno = false;
-    				sceltaScambio = true;
-            		do {
-            			sceltaStiva = cns.consoleReadInt();
-            			
-            			if(sceltaStiva<=0 || sceltaStiva>crd.size()) {
-            				cns.erroreImmissioneValore();
-            			}
-            			
-            		}while(sceltaStiva<=0 || sceltaStiva>crd.size());
+    			
+				sceltoPieno = false;
+				sceltaScambio = true;
+        		do {
+        			sceltaStiva = cns.consoleReadInt();
+        			
+        			if(sceltaStiva<=0 || sceltaStiva>crd.size()) {
+        				cns.erroreImmissioneValore();
+        			}
+        			
+        		}while(sceltaStiva<=0 || sceltaStiva>crd.size());
+        		
+        		cns.println("X="+ crd.get(sceltaStiva-1).getY()+" Y="+crd.get(sceltaStiva-1).getX());
+        		Stiva tessera= ((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY()));
+        		
+        		if(tessera.getStiva().size() >= tessera.getMaxCapienza()){
+        			
+        			cns.println("La stiva selezionata è piena! se confermi dovrai selezionare una merce da eliminare per liberare spazio");
+        			cns.println("(in caso non si conferma si può scegliere un altra stiva)");
+        			
+        			if(cns.conferma()) {
+        				sceltoPieno = true;
+        			}
+    				sceltaScambio = false;
+        		}
             		
-            		cns.println("X="+ crd.get(sceltaStiva-1).getY()+" Y="+crd.get(sceltaStiva-1).getX());
-            		
-            		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().size() > 0){
-            			
-            			cns.println("La stiva selezionata è piena! se confermi dovrai selezionare una merce da eliminare per liberare spazio");
-            			cns.println("(in caso non si conferma si può scegliere un altra stiva)");
-            			
-            			if(cns.conferma()) {
-            				conferma = false;
-            				sceltoPieno = true;
-            			}else {
-            				sceltaScambio = false;
-            			}
-            		}
-            		
-    			}while(!conferma);
     			
         		if(sceltoPieno) {
         			

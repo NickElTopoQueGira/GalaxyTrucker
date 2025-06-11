@@ -1147,7 +1147,7 @@ public abstract class Nave {
         if(controllaCoordinate(coordinate)){
             Tessera tessera = this.nave.get(coordinate.getY()).get(coordinate.getX());
             if(tessera.getTipoTessera() == TipoTessera.PORTA_MERCI){
-                ((Stiva)tessera).inserisciMerci(merceDaInserire);;
+                ((Stiva)tessera).inserisciMerci(merceDaInserire);
             }
             else{
                 throw new ErroreTessera("La tessera selezionata non e' del tipo merce");
@@ -1370,7 +1370,7 @@ public abstract class Nave {
 				}
 			}
     	}
-    	
+    	this.numeroPezziNaveDaRipagare += this.componentiPrenotati.size();
     }
     
     /**

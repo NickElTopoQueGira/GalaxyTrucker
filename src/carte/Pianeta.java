@@ -310,6 +310,12 @@ public class Pianeta extends Carta {
 		
 		return sceltaPianeta;
 	}
-
-	
+	/*
+	 * try {
+	        					sceltaEliminare = Integer.parseInt(cns.consoleRead());
+	        				}catch(NumberFormatException nfe) {
+	        					cns.erroreImmissioneValore();
+	        				}
+	        				*/
 }
+

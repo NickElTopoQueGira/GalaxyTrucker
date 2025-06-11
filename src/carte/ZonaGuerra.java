@@ -32,7 +32,7 @@ public class ZonaGuerra extends Carta {
         stampa = ComunicazioneConUtente.getIstanza();
         colpi = new ArrayList<>();
 
-        eventi = new String[]{"CANNONI", "EQUIPAGGI", "RAZZI   "};
+        eventi = new String[]{"CANNONI", "EQUIPAGGI", "RAZZI"};
         penalita = new String[]{"PERDITA_EQUIPAGGIO", "PERDITA_GIORNI", "PERDITA_MERCE", "CANNONATE"};
 
         valori = new String[3][2]; // PRIMA COLONNA (x 1)= EVENTI / SECONDA COLONNA (x 0)= PENALITA'
