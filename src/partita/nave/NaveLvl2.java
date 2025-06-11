@@ -39,6 +39,10 @@ public class NaveLvl2 extends Nave{
     private final int numeroColonne      = 7;
     private Coordinate coordinateCentro;
 
+    /**
+     * Costruttore della nave
+     * La nave viene creata in base al livello della partita
+     * */
     public NaveLvl2(Colori coloreNave){
         super(coloreNave);
         
@@ -62,36 +66,77 @@ public class NaveLvl2 extends Nave{
         }
     }
 
+    /**
+     * Metodo per acquisire la matrice delle posizioni
+     *
+     * @return matrice della nave int[][]
+     * */
     @Override
     protected int[][] getMATRIX(){ return NAVE_DEF; }
 
+    /**
+     * Metodo per acquisire il numero di righe della nave
+     *
+     * @return int numero di righe nella nave
+     * */
     @Override
     public int getRighe(){ return numeroRighe; }
 
+    /**
+     * Metodo per acquisire il numero di colonne della nave
+     *
+     * @return int numero di colonne nella nave
+     **/
     @Override
     public int getColonne(){ return numeroColonne; }
 
+    /**
+     * Metodo per acquisire le coordinare del centro
+     *
+     * @return Coordinare del centro
+     **/
     @Override
     public Coordinate getCoordinateCentro() { 
         return coordinateCentro; 
     }
 
-	//indici per stampa coordinate nave
+    /**
+     * Metodo per acquisire il confine della nave nell'asse x
+     * Utilizzato nella stampa, nei controlli e nei calcoli
+     *
+     * @return int confine x
+     * */
 	@Override
 	public int getConfineNaveX() {
 		return 10;
 	}
 
+    /**
+     * Metodo per acquisire il confine iniziale della nave nell'asse x
+     *
+     * @return int confine x
+     * */
 	@Override
 	public int getInizioNaveX() {
 		return 4;
 	}
 
+    /**
+     * Metodo per acquisire il confine della nave nell'asse y
+     * Utilizzato nella stampa, nei controlli e nei calcoli
+     *
+     * @return int confine y
+     * */
 	@Override
 	public int getInizioNaveY() {
 		return 5;
-	}  
-	
+	}
+
+    /**
+     * Metodo per acquisire il confine iniziale della nave nell'asse y
+     *
+     * @return int confine x
+     * */
 	@Override
 	public int getConfineNaveY() {
 		return 9;

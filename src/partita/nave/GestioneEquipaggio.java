@@ -15,6 +15,11 @@ public class GestioneEquipaggio{
     private final ComunicazioneConUtente com = ComunicazioneConUtente.getIstanza();
     private final Giocatore giocatore;
 
+    /**
+     * Oggetto che ha l'unica funzione di imbarcare l'equipaggio alieno sulla nave
+     *
+     * @param giocatore Giocatore al quale appartiene la nave
+     * */
     public GestioneEquipaggio(Giocatore giocatore){
         this.giocatore = giocatore;
     }
