@@ -1,6 +1,12 @@
 # Galaxy Trucker Game
-Progetto tema d'esame di programmazione ad oggetti 2024-2025 ing. Informatica UniBg.<br />
-L'unico gioco di strategia dove non conta vincera, ma conta non perdere!
+Progetto tema d'esame di programmazione ad oggetti 2024-2025 ing. Informatica UniBg
+
+Il progetto è stato creato dal gruppo 9, formato dai seguenti membri:
+- Matteo Poli
+- Niccolò Sesana
+- Andriy Shvets 
+
+"L'unico gioco di strategia dove non conta vincere, ma conta non perdere!".cit
 
 # Gestione del progetto
 
@@ -45,19 +51,14 @@ Il progetto è stato creato utilizzando la versione di Java 21-LTS, per poi aggi
 ### Strumenti utilizzati:
 
 - Eclipse IDE - for Java developers: Ambiente di programmazione integrato, utilizzato per scrivere il codice e per eseguire il debug dello stesso.
-    
 - Git: Programma utilizzato per tenere la cronologia delle modifiche
-    
 - GitHub: Utilizzato per sincronizzare il progetto con la cronologie delle modifiche ai vari componenti del team.
-    
 
 ### Debug:
 
-Il progetto è stato testato a mano, attraverso l’utilizzo di main temporanei.
+Il progetto è stato testato a mano, attraverso l’utilizzo di main temporanei poi rimossi e anche attraverso il main ufficiale del programma.
 
 NON sono state utilizzate unità di test automatiche.
-
-  
 
 ## Struttura del Gameplay
 
@@ -66,12 +67,9 @@ Per quanto riguarda il gameplay, si è cercato di mantenere il senso e lo scopo 
 I giocatori inizialmente possono scegliere alcuni parametri di configurazione della partita, il proprio nome ed il colore della pedina con cui intraprendere il proprio viaggio intergalattico. 
 
 Sono state implementate 2 modalità:
-
 - Modalità trasvolata singola: in cui i giocatori svolgono solo un livello dei tre presenti.
 - Modalità trasvolata multipla: in cui i giocatori intraprendono un’avventura in tutti e tre i livelli in ordine crescente.
-
 Come nel gioco ufficiale, sono state rispecchiate le caratteristiche e le specificità dei tre livelli come: dimensione della nave e composizione dei mazzi delle carte evento.
-
 
 ## Principali oggetti
 
