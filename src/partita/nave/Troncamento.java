@@ -191,13 +191,19 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
                "-) @  lato scudo");
     }
     
+    /**
+     * equals di troncamento che lavora sulle equals degli arraylist (super)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Troncamento)) return false;
-        return super.equals(o); //uso il confronto profondo tra le liste
+        return super.equals(o); //uso il confronto profondo tra le liste 
     }
 
+    /**
+     * hascode di troncamento che lavora sulle hashcode degli arraylist (super)
+     */
     @Override
     public int hashCode() {
         return super.hashCode(); //uso il calcolo hash profondo tra le liste
