@@ -74,7 +74,7 @@ public class Tabellone{
 			
 			//-----controlli e richieste-----
 			
-			//1) controllo se dopo spazio aperto la nave si è mossa
+			//1) controllo se dopo spazio aperto la nave si è mossa e se è stata doppiata
 			for(int j=0; j<elencoPedine.size(); j++) {
 				
 				if(!elencoPedine.get(j).isPedinaInGioco()) {
@@ -86,7 +86,7 @@ public class Tabellone{
 			
 			//2) controllo doppiaggio
 			this.controlloDoppiaggio();
-			
+
 			//controlli singoli
 			for(int j=0; j<elencoPedine.size(); j++) {
 				
@@ -201,51 +201,51 @@ public class Tabellone{
 	 * @param pedina Pedina
 	 * @param mossa int
 	 */
-	public void muoviPedina(Pedina pedina, int mossa){
-		// Recupero la posizione iniziale della pedina
-		int posizionePedinaAttuale = pedina.getPosizioneSulTabellone();
-		int posizionePedinaDiPartenza = posizionePedinaAttuale;
-
+	public void muoviPedina(Pedina pedina, int mossa) {
+		int posAttuale = pedina.getPosizioneSulTabellone();
+		int partenza = posAttuale;
+		int numeroGiro = pedina.getNumeroGiro();
+		int n = this.numeroPosizioni;
+		
 		/*
 		 * La pedina va avanti fino a quando non finisco le mosse
 		 * se la pedina incontra quale ostacolo lungo il suo cammino
 		 * lo salta e continua il conteggio dalla prima posizione
 		 * libera subito dopo
 		 */
-		if(mossa > 0){
-			while(mossa > 0){
-				// il calcolo del resto mi serve per calcolare la posizione 
-				// della pedina anche quando sono ai bordi
-				posizionePedinaAttuale = (posizionePedinaAttuale + 1) % this.numeroPosizioni;
-				
-				if(this.posizioni.get(posizionePedinaAttuale).isLibera()){
-					// decremento dei passi da fare se e solo se la posizione dove
-					// si trova attualmente la pedina e' libera
-					mossa += -1;
-				}
-			}
-			// Occupazione pedina
-			this.posizioni.get(posizionePedinaAttuale).occupaPosizione(pedina); 
-			pedina.setPosizioneSulTabellone(posizionePedinaAttuale);
-			// libero la posizione di partenza
-			liberaPosizione(posizionePedinaDiPartenza);
-		}
-		else{
-			// mossa < 0 (la pedina retrocede)
-			while(mossa < 0){
-				posizionePedinaAttuale = (posizionePedinaAttuale - 1 + this.numeroPosizioni) % this.numeroPosizioni;
+		
+		// Se la pedina non è in gioco, non deve muoversi
+		if (!pedina.isPedinaInGioco()) return;
 
-				if(this.posizioni.get(posizionePedinaAttuale).isLibera()){
-					mossa += 1;
-				}
+		// Direzione: avanti (1) o indietro (-1)
+		int direzione = mossa > 0 ? 1 : -1;
+
+		// Calcolo movimento
+		while (mossa != 0) {
+			posAttuale = (posAttuale + direzione + n) % n;
+
+			if (posizioni.get(posAttuale).isLibera()) {
+				mossa -= direzione; // decremento o incremento a seconda della direzione
 			}
-			// Occupazione pedina
-			this.posizioni.get(posizionePedinaAttuale).occupaPosizione(pedina);
-			pedina.setPosizioneSulTabellone(posizionePedinaAttuale);
-			// libero la posizione di partenza
-			liberaPosizione(posizionePedinaDiPartenza);
 		}
+
+		// Se si è superata la posizione di partenza in avanti, aumenta il giro
+		if (direzione == 1 && posAttuale <= partenza) {
+			pedina.setNumeroGiro(1);
+		}
+		// Se si è tornati indietro prima della partenza, diminuisci il giro
+		else if (direzione == -1 && posAttuale >= partenza) {
+			pedina.setNumeroGiro(-1);
+		}
+
+		// Libera la posizione precedente
+		liberaPosizione(partenza);
+
+		// Aggiorna la posizione della pedina
+		pedina.setPosizioneSulTabellone(posAttuale);
+		posizioni.get(posAttuale).occupaPosizione(pedina);
 	}
+
 
 	/**
 	 * Metodo per liberare la posizione 
@@ -262,27 +262,32 @@ public class Tabellone{
 	 * Metodo per il controllo sul doppiaggio della pedina
 	 */
 	public void controlloDoppiaggio() {
-	    List<Pedina> doppiate = new ArrayList<>();
+		List<Pedina> doppiate = new ArrayList<>();
 
-	    for (int i = 0; i < elencoPedine.size(); i++) {
-	        Pedina p1 = elencoPedine.get(i);
-	        for (int j = 0; j < elencoPedine.size(); j++) {
-	            if (i == j) continue;
+		for (int i = 0; i < elencoPedine.size(); i++) {
+			Pedina p1 = elencoPedine.get(i);
+			for (int j = 0; j < elencoPedine.size(); j++) {
+				if (i == j) continue;
 
-	            Pedina p2 = elencoPedine.get(j);
+				Pedina p2 = elencoPedine.get(j);
+				boolean p1HaDoppiatoP2;
+				if(p1.getNumeroGiro() > p2.getNumeroGiro() &&
+						p1.getPosizioneSulTabellone() > p2.getPosizioneSulTabellone()) {
 
-	            boolean p1HaDoppiatoP2 =
-	                p1.getNumeroGiro() > p2.getNumeroGiro() &&
-	                p1.getPosizioneSulTabellone() > p2.getPosizioneSulTabellone();
+					p1HaDoppiatoP2 =true ;
+				}else {
+					p1HaDoppiatoP2 =false ;
+				}
 
-	            if (p1HaDoppiatoP2 && !doppiate.contains(p2)) {
-	                elencoNaviAbbandonate.add(p2);
-	                doppiate.add(p2);
-	            }
-	        }
-	    }
+				if (p1HaDoppiatoP2 && !doppiate.contains(p2)) {
+					p2.setPedinaOutGioco();
+					elencoNaviAbbandonate.add(p2);
+					doppiate.add(p2);
+				}
+			}
+		}
 
-	    elencoPedine.removeAll(doppiate);
+		elencoPedine.removeAll(doppiate);
 	}
 
 	/**
