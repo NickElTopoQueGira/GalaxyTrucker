@@ -197,12 +197,19 @@ public class Mazzo {
         }
         return temp;
     }
-
+    
+    /**
+     * Metodo per disordinare l'array
+     */
     public void shiffleMazzo() {
 
         Collections.shuffle(lista);
     }
-
+    
+    /**
+     * Metoto getter della lista di carte
+     * @return ArrayList di carte
+     */
     public ArrayList<Carta> getLista() {
         return lista;
     }

@@ -226,22 +226,6 @@ public class Pianeta extends Carta {
 		return temp;
 	}
 	
-	public int getPenalitagiorni() {
-		return penalitagiorni;
-	}
-
-	public void setPenalitagiorni(int penalitagiorni) {
-		this.penalitagiorni = penalitagiorni;
-	}
-
-	public ArrayList<ArrayList<Merce>> getPianeti() {
-		return pianeti;
-	}
-
-	public void setPianeti(ArrayList<ArrayList<Merce>> pianeti) {
-		this.pianeti = pianeti;
-	}
-	
 	/**
 	 * Metodo che in base alla scelta del giocatore assegna le merci togliendo 
 	 * i giorni di volo oppure nulla se il giocatore sceglie di non atterrare
@@ -310,12 +294,5 @@ public class Pianeta extends Carta {
 		
 		return sceltaPianeta;
 	}
-	/*
-	 * try {
-	        					sceltaEliminare = Integer.parseInt(cns.consoleRead());
-	        				}catch(NumberFormatException nfe) {
-	        					cns.erroreImmissioneValore();
-	        				}
-	        				*/
 }
 

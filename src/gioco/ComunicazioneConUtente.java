@@ -92,18 +92,11 @@ public class ComunicazioneConUtente {
     }
 
     /**
-     * Metodo per leggere l'input dell'utente sulla console. 
-     * Questa Metodo ritorna una stringa non vuota all'utente.
+     * Metodo per leggere l'input dell'utente sulla console.
      * @return input.nextLine() -> stringa letta dalla console
      */
     public String consoleRead(){
-		String risp = "";
-		try{
-			risp = this.input.nextLine();
-		}catch(NoSuchElementException nee){
-			erroreImmissioneValore();
-		}
-		return risp;
+		return this.input.nextLine();
     }
     
     /**
@@ -161,7 +154,7 @@ public class ComunicazioneConUtente {
 	
 	
 	/**
-	 * legge un invio
+	 * Legge un invio
 	 */
 	public void consoleReadInvio() {
 		this.input.nextLine();
@@ -186,19 +179,22 @@ public class ComunicazioneConUtente {
 		do{
 			this.print("\ninserire risposta (s/n): ");
 			String t = this.consoleRead();
-
-			switch(t.toUpperCase().charAt(0)){
-				case 'S'-> {
-					conferma = true;
-					pass = true;
-				}
-				case 'N'-> {
-					conferma = false;
-					pass = true;
-				}
-				default->{
-					erroreImmissioneValore();
-					pass = false;
+			if(t.isBlank() || t.isEmpty()){
+				pass = false;
+			}else{
+				switch(t.toUpperCase().charAt(0)){
+					case 'S'-> {
+						conferma = true;
+						pass = true;
+					}
+					case 'N'-> {
+						conferma = false;
+						pass = true;
+					}
+					default->{
+						erroreImmissioneValore();
+						pass = false;
+					}
 				}
 			}
 		}while(!pass);

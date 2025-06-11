@@ -514,26 +514,32 @@ public abstract class Nave {
      */
     private int scegliTroncamenti(ArrayList<Troncamento> opzioni) {
 		ArrayList<String> temp = new ArrayList<>();
-		int scelta;
-				
-		stampa.clear();
-		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
-		for(int i=0; i< opzioni.size(); i++){
-			temp.add(opzioni.get(i).toString());
-		}
-		stampa.println(stampa.visualizzaElenco(temp));
-		
+		int scelta = 0;
+        boolean pass = false;
+        do{
+            stampa.clear();
+            stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
+            for(int i=0; i< opzioni.size(); i++){
+                temp.add(opzioni.get(i).toString());
+            }
+            stampa.println(stampa.visualizzaElenco(temp));
+            try{
+                scelta = Integer.parseInt(this.stampa.consoleRead());
+                scelta = scelta - 1;
 
-		scelta = stampa.consoleReadInt()-1;
-		if(scelta<0 || scelta>=opzioni.size()) {
-			return scegliTroncamenti(opzioni);
-		}
-		
-		
+                if(scelta<0 || scelta>=opzioni.size()) {
+                    this.stampa.erroreImmissioneValore();
+                }else{
+                    pass = true;
+                }
+            }catch(NumberFormatException nfe){
+                this.stampa.erroreImmissioneValore();
+                pass = false;
+            }
+        }while(!pass);
+
 		return scelta;
 	}
-    
-    
 
 	/**
      * Metodo per il controllo sulle coordinate immesse dell'utente sono valide
@@ -1116,19 +1122,22 @@ public abstract class Nave {
 			stampa.println("Inserisci il numero corrispondente alla tessera a cui vuoi rimuovere energia:");
     		stampa.print(stampa.visualizzaElenco(visualTessere));
     		stampa.print(stampa.visualizzaElenco(visual));
-    		
-    		int indice = stampa.consoleReadInt()-1;
-    		if(indice>=0 && indice<Tessere.size()) {
-    			if(((Batteria)Tessere.get(indice)).decrese()) {
-    				condizione=false;
-            	}else {
-            		this.stampa.printError("energia insufficiente in questo modulo");
-            	}
-    		}
-        	
-        	
+
+            try{
+                int indice = Integer.parseInt(this.stampa.consoleRead());
+                indice = indice - 1;
+
+                if(indice>=0 && indice<Tessere.size()) {
+                    if(((Batteria)Tessere.get(indice)).decrese()) {
+                        condizione=false;
+                    }else {
+                        this.stampa.printError("energia insufficiente in questo modulo");
+                    }
+                }
+            }catch(NumberFormatException nfe){
+                this.stampa.erroreImmissioneValore();
+            }
     	}while(condizione);
-		
     }
 
     /**

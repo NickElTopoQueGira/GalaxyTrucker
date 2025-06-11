@@ -8,9 +8,7 @@ import gioco.FineGioco;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import partita.Livelli;
 import partita.Pedina;
@@ -25,7 +23,12 @@ public class Tabellone{
 	private final int numeroPosizioni;
 	private final Livelli livello;
 	private FineGioco fineGioco;
-	
+
+	/**
+	 * Costruttore del tabellone
+	 * Il tabellone viene generato in base al livello
+	 * della partita selezionata
+	 * */
 	public Tabellone(Livelli livello){
 		this.cns = ComunicazioneConUtente.getIstanza();
 		this.elencoPedine = new ArrayList<>();
