@@ -1363,6 +1363,7 @@ public abstract class Nave {
      * @param Troncamento originale
      */
     private void setNumeroPezziNaveDaRipagare(){
+    	this.numeroPezziNaveDaRipagare=0;
     	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.isDistrutta()) {
