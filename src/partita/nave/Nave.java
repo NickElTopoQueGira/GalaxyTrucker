@@ -52,7 +52,7 @@ public abstract class Nave {
      * Metodi astratti, implementati nelle sotto classi
      */
     protected abstract int[][] getMATRIX();
-    protected abstract Coordinate getCoordinateCentro();
+    public abstract Coordinate getCoordinateCentro();
     public abstract int getRighe();
     public abstract int getColonne();
     public abstract int getInizioNaveX();

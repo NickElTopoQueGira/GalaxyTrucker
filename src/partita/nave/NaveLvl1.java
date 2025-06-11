@@ -73,7 +73,7 @@ public class NaveLvl1 extends Nave{
     public int getColonne(){ return numeroColonne; }
 
     @Override
-    protected Coordinate getCoordinateCentro() { 
+    public Coordinate getCoordinateCentro() { 
         return coordinateCentro; 
     }
 
