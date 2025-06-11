@@ -33,14 +33,27 @@ public class ModuloAttraccoAlieni extends Tessera implements TessereNormali {
         this.abitabile = false;
     }
 
+    /**
+     * getter colore degli alieni contenuti
+     * @return
+     */
     public ColoreAlieni getColore() {
         return this.colore;
     }
 
+    /**
+     * setter condizione boolean come modulo che permette al modulo passeggeri adiacente di essere
+     * abitabile (true) o meno(false) per gli alieni
+     */
     public void setAbitabile() {
         this.abitabile = true;
     }
 
+    /**
+     * getter condizione boolean come modulo che permette al modulo passeggeri adiacente di essere
+     * abitabile (true) o meno(false) per gli alieni
+     * @return se abitabile (true) o meno(false)
+     */
     public boolean isAbitabile() {
         return this.abitabile;
     }

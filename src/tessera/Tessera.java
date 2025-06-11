@@ -44,23 +44,43 @@ public abstract class Tessera {
         this.posizione = posizione;
     }
 
+    /**
+     * getter Posizione (interna o esterna alla nave)
+     * @return posizione enum
+     */
     public Posizione getPosizione() {
         return this.posizione;
 
     }
 
+    /**
+     * getter oggetto latiTessera contenente i connettori
+     * @return latitessera
+     */
     public LatiTessera getLatiTessera() {
         return latiTessera;
     }
 
+    /**
+     * getter tipo tessera
+     * @return enum TipoTessera
+     */
     public TipoTessera getTipoTessera() {
         return tipoTessera;
     }
 
+    /**
+     * getter coordinate della tessera
+     * @return oggetto coordinate
+     */
     public Coordinate getCoordinate() {
         return coordinate;
     }
 
+    /**
+     * setter coordinate della tessera
+     * @param oggetto coordinate
+     */
     public void setCoordinate(Coordinate coordinate) {
         this.coordinate = coordinate;
     }
@@ -268,15 +288,26 @@ public abstract class Tessera {
         return temp;
     }
 
+    /**
+     * getter id univoco della tessera
+     * @return id (int)
+     */
     public int getId() {
         return id;
     }
     
-    
+    /**
+     * Metodo che specifica se la tessera è stat distrutta
+     * @return true se tessera distrutta e false se non lo è
+     */
     public boolean isDistrutta() {
 		return isDistrutta;
 	}
 
+    /**
+     * setter boolean isDistrutta per rendere la tessera distrutta (true) o meno (false)
+     * @param isDistrutta
+     */
 	public void setDistrutta(boolean isDistrutta) {
 		this.isDistrutta = isDistrutta;
 	}

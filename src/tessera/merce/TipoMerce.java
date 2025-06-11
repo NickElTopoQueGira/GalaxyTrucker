@@ -20,6 +20,10 @@ public enum TipoMerce {
         this.nome = nome;
     }
 
+    /**
+     * getter valore numerico della merce
+     * @return
+     */
     public int getValore() {
         return this.valore;
     }

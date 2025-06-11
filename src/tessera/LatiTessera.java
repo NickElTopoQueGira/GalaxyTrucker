@@ -41,34 +41,66 @@ public class LatiTessera {
         return true;
     }
 
+    /**
+     * getter connettore lato
+     * @return up
+     */
     public TipoConnettoriTessera getUp() {
         return up;
     }
 
+    /**
+     * getter connettore lato
+     * @param up
+     */
     public void setUp(TipoConnettoriTessera up) {
         this.up = up;
     }
 
+    /**
+     * getter connettore lato
+     * @return left
+     */
     public TipoConnettoriTessera getLeft() {
         return left;
     }
 
+    /**
+     * getter connettore lato
+     * @param left
+     */
     public void setLeft(TipoConnettoriTessera left) {
         this.left = left;
     }
 
+    /**
+     * getter connettore lato
+     * @return right
+     */
     public TipoConnettoriTessera getRight() {
         return right;
     }
 
+    /**
+     * getter connettore lato
+     * @param right
+     */
     public void setRight(TipoConnettoriTessera right) {
         this.right = right;
     }
 
+    /**
+     * getter connettore lato
+     * @return down
+     */
     public TipoConnettoriTessera getDown() {
         return down;
     }
 
+    /**
+     * setter connettore lato
+     * @param down
+     */
     public void setDown(TipoConnettoriTessera down) {
         this.down = down;
     }

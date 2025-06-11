@@ -44,6 +44,10 @@ public class Motore extends Tessera implements TessereNormali {
 
     }
 
+    /**
+     * getter tipo motore (doppio singolo)
+     * @return enum TipoMotore
+     */
     public TipoMotore getTipoMotore() {
         return tipoMotore;
     }

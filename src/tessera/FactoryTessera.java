@@ -19,10 +19,18 @@ public class FactoryTessera {
     private static final int NUMERO_TESSERE_MAX = 152;
     private ComunicazioneConUtente stampa;
 
+    /**
+     * getter numero delle tessere generate
+     * @return numero tessere
+     */
     public static int getNumeroTessere() {
         return numeroTessere;
     }
 
+    /**
+     * getter numero massimo di tessere generabili
+     * @return numero massimo di tessere generabili
+     */
     public static int getNumeroTessereMax() {
         return NUMERO_TESSERE_MAX;
     }
