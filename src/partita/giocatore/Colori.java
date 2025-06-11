@@ -35,9 +35,14 @@ public enum Colori {
 		return temp;
 	}
 	
+	/**
+	 * Metodo getter per prendere il codice per rendere coplorata
+	 * una stringa nella console di quel colore
+	 * 
+	 * @return codice colore
+	 */
 	public String getCodiceColore() {
 		return this.codiceColore;
-		
 	}
 	
 	/**
@@ -54,9 +59,13 @@ public enum Colori {
 		throw new IllegalArgumentException("Il numero del colore non è valido");
 	}
 	
+	/**
+	 * Metodo getter per prendere il simbolo che andrà sul tabellone
+	 * per mostrare in che posizione è la pedina 
+	 * @return sigla della pedina sul tabellone
+	 */
 	public String getSiglaTabellone() {
 		return this.siglaTabellone;
-		
 	}
 
 	/**

@@ -15,6 +15,12 @@ public class Giocatore {
 	private final Colori colorePedina;
 	private boolean isNaveFinita;
 
+	/**
+	 * Costruttore di Giocatore
+	 * 
+	 * @param nome
+	 * @param colorePedina
+	 */
 	public Giocatore(String nome, Colori colorePedina){
 		this.nome = nome;  
 		this.crediti = 0;
@@ -45,9 +51,11 @@ public class Giocatore {
 	public void aggiornaCrediti(int crediti){
 		this.crediti += crediti;
 	}
-
-	public void setCrediti(int crediti){ this.crediti = crediti; }
-
+	
+	/**
+	 * Metodo getter per prendere il numero dei crediti del giocatori
+	 * @return numero crediti
+	 */
 	public int getCrediti(){ return this.crediti; }
 
 	//------------ PEDINA ------------
@@ -57,7 +65,11 @@ public class Giocatore {
 	 * @return Pedina del giocatore
 	 * */
 	public Pedina getPedina(){ return this.pedina; }
-
+	
+	/**
+	 * Metodo getter per prendere il colore della pedina del giocatore
+	 * @return colore pedina 
+	 */
 	public Colori getColorePedina(){ return this.colorePedina; }
 
 	//------------ GESTIONE DELLA NAVE ------------
@@ -84,13 +96,29 @@ public class Giocatore {
 		this.nave = null;
 		this.isNaveFinita = false;
 	}
-
+	
+	/**
+	 * Metodo setter per impostare la nave del giocatore
+	 * @param nave
+	 */
 	public void setNave(Nave nave){ this.nave = nave; }
-
+	
+	/**
+	 * Metodo getter per prendere la nave del giocatore
+	 * @return nave
+	 */
 	public Nave getNave(){ return this.nave; }
-
+	
+	/**
+	 * Metodo da utilizzare per impostare e indicare che la
+	 * nave è stata completata
+	 */
 	public void naveFinita(){ this.isNaveFinita = true; }
-
+	
+	/**
+	 * Metodo getter per vedere se la nave è completata
+	 * @return se la nave è finita
+	 */
 	public boolean isNaveFinita(){ return this.isNaveFinita; }
 
 	//------------ HASHCODE - EQUALS ------------

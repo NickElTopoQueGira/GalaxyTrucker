@@ -11,6 +11,10 @@ import partita.nave.NaveLvl3;
 public class ConfiguraNave{
     private final Colori colorePedina;
     
+    /**
+     * Costruttore di ConfiguraNave
+     * @param giocatore
+     */
     public ConfiguraNave(Giocatore giocatore){
         this.colorePedina = giocatore.getColorePedina();
     }
