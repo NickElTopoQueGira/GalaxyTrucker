@@ -152,6 +152,84 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
+		Tessera t5 = null;
+		try {
+			t5 = new Batteria();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Coordinate coordinate5= new Coordinate();
+		coordinate5.setX(4);
+		coordinate5.setY(3);
+		t5.latiTessera.setUp(TipoConnettoriTessera.TRIPLO);
+		t5.latiTessera.setDown(TipoConnettoriTessera.TRIPLO);
+		t5.latiTessera.setLeft(TipoConnettoriTessera.TRIPLO);
+		t5.latiTessera.setRight(TipoConnettoriTessera.TRIPLO);
+		
+		t5.setCoordinate(coordinate5);
+		try {
+			n.inserisciTessera(t5.getCoordinate(), t5);
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ErroreCoordinate e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Tessera t6 = null;
+		try {
+			t6 = new Batteria();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Coordinate coordinate6= new Coordinate();
+		coordinate6.setX(3);
+		coordinate6.setY(3);
+		t6.latiTessera.setUp(TipoConnettoriTessera.TRIPLO);
+		t6.latiTessera.setDown(TipoConnettoriTessera.TRIPLO);
+		t6.latiTessera.setLeft(TipoConnettoriTessera.TRIPLO);
+		t6.latiTessera.setRight(TipoConnettoriTessera.TRIPLO);
+		
+		t6.setCoordinate(coordinate6);
+		try {
+			n.inserisciTessera(t6.getCoordinate(), t6);
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ErroreCoordinate e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		Tessera t7 = null;
+		try {
+			t7 = new Batteria();
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Coordinate coordinate7= new Coordinate();
+		coordinate7.setX(2);
+		coordinate7.setY(3);
+		t7.latiTessera.setUp(TipoConnettoriTessera.TRIPLO);
+		t7.latiTessera.setDown(TipoConnettoriTessera.TRIPLO);
+		t7.latiTessera.setLeft(TipoConnettoriTessera.TRIPLO);
+		t7.latiTessera.setRight(TipoConnettoriTessera.TRIPLO);
+		
+		t7.setCoordinate(coordinate7);
+		try {
+			n.inserisciTessera(t7.getCoordinate(), t7);
+		} catch (ErroreTessera e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ErroreCoordinate e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		((Batteria)t2).decrese();
 		com.println(n.toString());

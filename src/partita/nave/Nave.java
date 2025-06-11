@@ -294,8 +294,7 @@ public abstract class Nave {
         if(vuota.getTipoTessera() == this.nave.get(coordinate.getY()).get(coordinate.getX()).getTipoTessera()){
             throw new ErroreTessera("Impossibile rimuovere la tessera nella posizione specificata");
         }
-        //copia della nave prima della rimozione
-        Troncamento temp=(Troncamento) this.nave.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
+        
         
         // rimozione della tessera
         this.nave.get(coordinate.getY()).set(coordinate.getX(), vuota);

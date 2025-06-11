@@ -46,7 +46,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 		ArrayList<String> output = new ArrayList<>();
         ArrayList<String> tutteDescrizioni = new ArrayList<>();
         
-        stampa.println("\n"+this.legenda());
+        output.add("\n\n"+this.legenda());
 
         // Popola descrizioni solo una volta
         for (ArrayList<Tessera> riga : this) {
@@ -133,7 +133,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 
             output.add(riga.toString());
         }
-
+        output.add("\n\n");
         return String.join("\n", output);
     }
 	
