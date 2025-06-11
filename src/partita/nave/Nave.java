@@ -460,7 +460,7 @@ public abstract class Nave {
         	for(ArrayList<Tessera> colonne : this.parteRestante) {
     			for(Tessera tessera : colonne) {
     				for(Coordinate coordinateTessera : visitate) {
-    					if(coordinateTessera==tessera.getCoordinate()) {
+    					if(coordinateTessera!=tessera.getCoordinate()) {
     						
     						if(this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==1 ||
     								this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
