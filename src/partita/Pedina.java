@@ -193,7 +193,7 @@ public class Pedina{
     		
     		crd = this.giocatore.getNave().trova(0, caso);
     		
-    		if(crd == null) { 
+    		if(crd == null || crd.isEmpty()) { 
     			
     			cns.println("Non ci sono merci nella nave");
     			break; 
@@ -217,7 +217,7 @@ public class Pedina{
 						}
 	        			
 	        			
-	        			if(sceltaStiva<0 || sceltaStiva>caso) {
+	        			if(sceltaStiva<=0 || sceltaStiva>caso) {
 	        				cns.erroreImmissioneValore();
 	        			}
 	        			
@@ -244,7 +244,7 @@ public class Pedina{
 						}
 	        			
 	        			
-	        			if(sceltaMerci>0 && sceltaMerci<numeroMerci) {
+	        			if(sceltaMerci < 0 || sceltaMerci > numeroMerci) {
 	        				cns.erroreImmissioneValore();
 	        			}
 	        			
@@ -330,7 +330,11 @@ public class Pedina{
     		
     		if(scelta) {
     			
+
     			
+
+    			cns.println("Inserire il numero della stiva in cui inserire una merce");
+
     			
 				sceltoPieno = false;
 				sceltaScambio = true;
@@ -389,7 +393,7 @@ public class Pedina{
             		}while(sceltaEliminare<=0 || sceltaEliminare>merce.size());
         			
         			try {
-        				this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce.get(sceltaEliminare));
+        				this.giocatore.getNave().rimuoviMerce(crd.get(sceltaStiva-1), merce.get(sceltaEliminare-1));
         			} catch (ErroreCoordinate e) {
         				e.printStackTrace();
         			} catch (ErroreTessera e) {

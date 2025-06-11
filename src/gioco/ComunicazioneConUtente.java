@@ -1,9 +1,7 @@
 /**
- * Questa classe e' utilizzata per gestire la comunicazione con l'utente 
-
- * sull'interfaccia console. 
+ * Questa classe e' utilizzata per gestire la comunicazione con l'utente sull'interfaccia console. 
  * 
- * In questa classe serve per istanziare solo una volta lo scanner per la lettura 
+ * Questa classe serve per istanziare solo una volta lo scanner per la lettura 
  * dei valori sulla console. 
  * 
  * Per realizzare questa classe mi sono ispirato al design pattern Singleton. 
@@ -23,9 +21,6 @@ package gioco;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-
 import partita.giocatore.Giocatore;
 
 public class ComunicazioneConUtente {
@@ -215,8 +210,7 @@ public class ComunicazioneConUtente {
 		}
 		return temp;
 	}
-	
-	
+		
 	/**
 	 * Metodo per la richiesta di abbandono del volo
 	 * @param giocatore Giocatore
