@@ -259,7 +259,7 @@ public class Pedina{
         		if(crd.size()<=0) {
         			
         			scelta = false;
-        			cns.println("non sono presenti stive speciali");
+        			cns.println("non sono presenti stive");
         		}
     		}
     		

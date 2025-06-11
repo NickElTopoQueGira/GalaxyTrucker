@@ -1145,7 +1145,7 @@ public abstract class Nave {
         throws ErroreCoordinate, ErroreRisorse, ErroreTessera{
 
         if(controllaCoordinate(coordinate)){
-            Tessera tessera = this.nave.get(coordinate.getY()).get(coordinate.getX());
+            Tessera tessera = this.nave.get(coordinate.getX()).get(coordinate.getY());
             if(tessera.getTipoTessera() == TipoTessera.PORTA_MERCI){
                 ((Stiva)tessera).inserisciMerci(merceDaInserire);
             }
