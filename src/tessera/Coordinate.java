@@ -90,11 +90,17 @@ public class Coordinate {
     }
     
 
+    /**
+     * hascode che lavora su x e y
+     */
     @Override
 	public int hashCode() {
 		return Objects.hash(x, y);
 	}
 
+    /**
+     * equals che lavora su x e y
+     */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
