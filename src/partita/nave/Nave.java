@@ -42,6 +42,7 @@ public abstract class Nave {
     private int numeroConnettoriScoperti;
     private final ComunicazioneConUtente stampa;
     protected Troncamento parteRestante;
+    protected Troncamento naveOriginaria;
     private int inizioNaveO;
     private int fineNaveO;
     private int inizioNaveV;
@@ -287,24 +288,30 @@ public abstract class Nave {
             throw new ErroreTessera("Posizione non valida");
         }
 
-        //copia dellA NAVE prima della rimozione della tessera
-        Troncamento temp=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
-        temp=(Troncamento) this.nave.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
+        
         
         // errore rimozione tessera
         if(vuota.getTipoTessera() == this.nave.get(coordinate.getY()).get(coordinate.getX()).getTipoTessera()){
             throw new ErroreTessera("Impossibile rimuovere la tessera nella posizione specificata");
         }
-
+        //copia della nave prima della rimozione
+        Troncamento temp=(Troncamento) this.nave.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
+        
         // rimozione della tessera
         this.nave.get(coordinate.getY()).set(coordinate.getX(), vuota);
         
         
+      //copia dellA NAVE post rimozione della tessera
+        this.naveOriginaria=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
+        this.naveOriginaria=(Troncamento) this.nave.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
         
         
-        //controlla se esiste ancora la nave e in caso chiama getTroncamento
+        
+        
+        
+		//controlla se esiste ancora la nave e in caso chiama getTroncamento
         if(this.controllaEsistenzaNave()) {
-        	this.nave = this.getTroncamentoNave(temp);
+        	this.nave = this.getTroncamentoNave();
         	setNumeroPezziNaveDaRipagare(temp);
         }else {
         	setNumeroPezziNaveDaRipagare(temp);
@@ -318,43 +325,39 @@ public abstract class Nave {
      * @param temp 
      * @return troncamento di nave scelta
      */
-    private Troncamento getTroncamentoNave(Troncamento naveOriginaria) {
+    private Troncamento getTroncamentoNave() {
     	Set<Troncamento> troncamentiNave =new LinkedHashSet<Troncamento>();
     	
-    	//controlla esista ancora il centro
-    	if(this.controllaPresenzaCentro()) {
-        	troncamentiNave.add(this.distruggiNave(centro, true, naveOriginaria));
-    	}else {
-    		//scorre naveOrginaria e utilizza la prima tessera non vuota come centroRamificazione in distruggiNave
-    		for(ArrayList<Tessera> colonne : naveOriginaria) {
-    			for(Tessera tessera : colonne) {
-    				if(tessera.getTipoTessera()!=TipoTessera.VUOTA) {
-    					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(), true, naveOriginaria));
-    					break;
-    				}
-    				
-    			}
-        	}
-    	}
-
     	
-    	//scorre naveOrginaria e utilizza ogni tessera come centroRamificazione in distruggiNave e poi mette i tronconi nel set
-		for(ArrayList<Tessera> colonne : naveOriginaria) {
+		//scorre naveOrginaria e utilizza la prima tessera non vuota come centroRamificazione in distruggiNave
+		for(ArrayList<Tessera> colonne : this.naveOriginaria) {
 			for(Tessera tessera : colonne) {
-				if(this.parteRestante.contains(tessera)&& tessera.getTipoTessera()!=TipoTessera.VUOTA) {
-					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(),false,naveOriginaria));
+				if(tessera.getTipoTessera()!=TipoTessera.VUOTA) {
+					Troncamento tronc=this.distruggiNave(tessera.getCoordinate());
+					if(tronc!= null) {
+						troncamentiNave.add(tronc);
+					}
+					break;
+				}
+				
+			}
+    	}
+    	
+
+    	//scorre parteRestante ed utilizza ogni tessera come centroRamificazione in distruggiNave e poi mette i tronconi nel set
+		for(ArrayList<Tessera> colonne : this.parteRestante) {
+			for(Tessera tesseraR : colonne) {
+				if(tesseraR.getTipoTessera()!=TipoTessera.VUOTA) {
+					Troncamento tronc=this.distruggiNave(tesseraR.getCoordinate());
+					if(tronc!= null) {
+						troncamentiNave.add(tronc);
+					}
+					
 				}
 			}
     	}
 		
-		//debug tmporaeno
-		ArrayList<Troncamento> troncamenti = new ArrayList<>(troncamentiNave);
-		for (int i = 0; i < troncamenti.size(); i++) {
-		    Troncamento t = troncamenti.get(i);
-		    System.out.println("Troncamento " + i + " hashCode: " + t.hashCode());
-		    System.out.println(t.toString());
-		    System.out.println("----");
-		}
+		
 
 		
 		//trsforma troncamentiNave in un arrayList
@@ -373,125 +376,132 @@ public abstract class Nave {
      * Metodo di distruzione nave. Distrugge le tessere non collegate al centroRamificazione e le rimpiazza
      * con oggetti TesseraVuota in nave. Se il parametro isCentro==true genera anche
      * una parte restante sovrascrivendola nell'attributo parteRestante di nave
-	 * @param isCentro condizione che genera anche la parte restante se ==true
 	 * @param naveOriginaria 
 	 * @param coordinate del centroRamificazione
      * @return nave (tipo: Troncamento) post distruzione
      */
-    private Troncamento distruggiNave(Coordinate centroRamificazione, boolean isCentro, Troncamento naveOriginaria){
-    	Set<Coordinate> visitate = new HashSet<>();
-    	Queue<Coordinate> daVisitare = new LinkedList<>();
-    	
+    private Troncamento distruggiNave(Coordinate centroRamificazione){
+    	this.nave= (Troncamento) this.naveOriginaria.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
+        if(this.controllaEsistenzaNave()) {
+        	Set<Coordinate> visitate = new HashSet<>();
+        	Queue<Coordinate> daVisitare = new LinkedList<>();
+        	
 
-        daVisitare.add(centroRamificazione);
-        visitate.add(centroRamificazione);
+            daVisitare.add(centroRamificazione);
+            visitate.add(centroRamificazione);
 
-        while (!daVisitare.isEmpty()) {
-       	    Coordinate corrente = daVisitare.poll(); //prende il primo elemento (testa) FIFO
-			Tessera tesseraCorrente = nave.get(corrente.getY()).get(corrente.getX());
-			
-			for (TipoLato dir : TipoLato.values()) {
-			    Coordinate adiacente = corrente.adiacente(dir);
-			    
-			    if(this.controllaCoordinate(adiacente)) {
-			    	Tessera tesseraAdiacente = nave.get(adiacente.getY()).get(adiacente.getX());
-					
-				    if (tesseraAdiacente != null &&tesseraAdiacente.getTipoTessera() != TipoTessera.VUOTA && !visitate.contains(adiacente)) {
-				    	boolean condizione=false;
-						switch (dir) {
-						case UP: {
-							if(this.controllaCollegamentoUP(tesseraCorrente, corrente) == 1) {
-								condizione=true;
-							}
-							break;
-						}
-						case LEFT: {
-							if(this.controllaCollegamentoSX(tesseraCorrente, corrente) == 1) {
-								condizione=true;
-							}
-							break;		
-								}
-						case DOWN: {
-							if(this.controllaCollegamentoDW(tesseraCorrente, corrente) == 1) {
-								condizione=true;
-							}
-							break;
-							
-						}
-						case RIGHT: {
-							if(this.controllaCollegamentoDX(tesseraCorrente, corrente) == 1) {
-								condizione=true;
-							}
-							break;
-							
-						}
-						default:
-							throw new IllegalArgumentException("direzione " + dir.toString()+" non valida");
-						}
-				    	if(condizione) {
-				    		visitate.add(adiacente);
-				            daVisitare.add(adiacente);
-				    	}
-				    }
-			    }
-			    
-			}
-         }
-        
-        this.parteRestante= (Troncamento) naveOriginaria.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
-        
-        //sovrascrive con tessereVuote in nave le tessere che non sono state visitate
-        for(ArrayList<Tessera> colonne : this.nave) {
-			for(Tessera tessera : colonne) {
-				boolean check=true;
-				for(Coordinate coordinateTessera : visitate) {
-					if(coordinateTessera.equals(tessera.getCoordinate())) {
-						check=false;
-					}
-				}
-				if(check) {
-					if(this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==1 ||
-							this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
-						
-						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
-				        this.nave.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
-
-					}else {
-						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.ESTRENA);
-				        this.nave.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
-
-					}
-					
-					
-				}
-			}
-    	}
-        
-        //creazione parte restante
-        if(isCentro) {
-        	for(ArrayList<Tessera> colonne : naveOriginaria) {
-    			for(Tessera tessera : colonne) {
-    				for(Coordinate coordinateTessera : visitate) {
-    					if(coordinateTessera.equals(tessera.getCoordinate())) {
-    						
-    						if(this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==1 ||
-    								this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
-    							
-    							tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
-    					        this.parteRestante.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
-
-    						}else {
-    							tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.ESTRENA);
-    					        this.parteRestante.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
-
+            while (!daVisitare.isEmpty()) {
+           	    Coordinate corrente = daVisitare.poll(); //prende il primo elemento (testa) FIFO
+    			Tessera tesseraCorrente = naveOriginaria.get(corrente.getY()).get(corrente.getX());
+    			
+    			for (TipoLato dir : TipoLato.values()) {
+    			    Coordinate adiacente = corrente.adiacente(dir);
+    			    
+    			    if(this.controllaCoordinate(adiacente)) {
+    			    	Tessera tesseraAdiacente = this.naveOriginaria.get(adiacente.getY()).get(adiacente.getX());
+    					
+    				    if (tesseraAdiacente != null &&tesseraAdiacente.getTipoTessera() != TipoTessera.VUOTA && !visitate.contains(adiacente)) {
+    				    	boolean condizione=false;
+    						switch (dir) {
+    						case UP: {
+    							if(this.controllaCollegamentoUP(tesseraCorrente, corrente) == 1) {
+    								condizione=true;
+    							}
+    							break;
     						}
+    						case LEFT: {
+    							if(this.controllaCollegamentoSX(tesseraCorrente, corrente) == 1) {
+    								condizione=true;
+    							}
+    							break;		
+    								}
+    						case DOWN: {
+    							if(this.controllaCollegamentoDW(tesseraCorrente, corrente) == 1) {
+    								condizione=true;
+    							}
+    							break;
+    							
+    						}
+    						case RIGHT: {
+    							if(this.controllaCollegamentoDX(tesseraCorrente, corrente) == 1) {
+    								condizione=true;
+    							}
+    							break;
+    							
+    						}
+    						default:
+    							throw new IllegalArgumentException("direzione " + dir.toString()+" non valida");
+    						}
+    				    	if(condizione) {
+    				    		visitate.add(adiacente);
+    				            daVisitare.add(adiacente);
+    				    	}
+    				    }
+    			    }
+    			    
+    			}
+             }
+            
+            this.parteRestante= (Troncamento) this.naveOriginaria.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
+            
+            //sovrascrive con tessereVuote in nave le tessere che non sono state visitate
+            for(ArrayList<Tessera> colonne : naveOriginaria) {
+    			for(Tessera tessera : colonne) {
+    				boolean check=true;
+    				for(Coordinate coordinateTessera : visitate) {
+    					if(coordinateTessera.equals(tessera.getCoordinate()) || tessera.getTipoTessera()==TipoTessera.VUOTA){
+    						check=false;
     					}
     				}
-    				
+    				if(check) {
+    					if(this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==1 ||
+    							this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
+    						
+    						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
+    				        this.nave.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
+
+    					}else {
+    						tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.ESTRENA);
+    				        this.nave.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
+
+    					}
+    					
+    					
+    				}
     			}
         	}
+            
+            //creazione parte restante 
+            
+            	for(ArrayList<Tessera> colonne : this.naveOriginaria) {
+        			for(Tessera tessera : colonne) {
+        				for(Coordinate coordinateTessera : visitate) {
+        					if(coordinateTessera.equals(tessera.getCoordinate()) && tessera.getTipoTessera()!=TipoTessera.VUOTA) {
+        						
+        						
+        						if(this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==1 ||
+        								this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
+        							
+        							tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.INTERNA);
+        					        this.parteRestante.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
+
+        						}else {
+        							tessera=new TesseraVuota(tessera.getCoordinate().getX(), tessera.getCoordinate().getY(),Posizione.ESTRENA);
+        					        this.parteRestante.get(tessera.getCoordinate().getY()).set(tessera.getCoordinate().getX(), tessera);
+
+        						}
+        					}
+        				}
+        				
+        			}
+            	}
+            	this.naveOriginaria= (Troncamento) this.parteRestante.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
+                
+            
+    		return nave;
         }
-		return nave; 
+        return null;
+    	 
     }
     
     /**
@@ -1350,10 +1360,10 @@ public abstract class Nave {
      * rispetto alla nave originaria presente precedentemente.
      * @param Troncamento originale
      */
-    private void setNumeroPezziNaveDaRipagare(Troncamento NaveOriginaria){
-    	for(ArrayList<Tessera> colonne : NaveOriginaria) {
+    private void setNumeroPezziNaveDaRipagare(Troncamento iniziale){
+    	for(ArrayList<Tessera> colonne : iniziale) {
 			for(Tessera tessera : colonne) {
-				if(!this.nave.contains(tessera)) {
+				if(!this.nave.contains(tessera)&& tessera.getTipoTessera()!=TipoTessera.VUOTA) {
 					this.numeroPezziNaveDaRipagare=this.numeroPezziNaveDaRipagare +1;
 				}
 			}

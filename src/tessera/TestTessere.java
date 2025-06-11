@@ -47,7 +47,7 @@ public class TestTessere {
 		
 		Tessera t1 = null;
 		try {
-			t1 = new Tubi();
+			t1 = new Batteria();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,7 +74,7 @@ public class TestTessere {
 		
 		Tessera t2 = null;
 		try {
-			t2 = new Tubi();
+			t2 = new Batteria();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,7 +101,7 @@ public class TestTessere {
 		
 		Tessera t3 = null;
 		try {
-			t3 = new Tubi();
+			t3 = new Batteria();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,7 +128,7 @@ public class TestTessere {
 		
 		Tessera t4 = null;
 		try {
-			t4 = new Tubi();
+			t4 = new Batteria();
 		} catch (ErroreTessera e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -152,7 +152,7 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		
+		((Batteria)t4).decrese();
 		com.println(n.toString());
 		
 		
