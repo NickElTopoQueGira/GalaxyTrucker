@@ -105,12 +105,15 @@ public class GestioneEquipaggio{
      * @return Tessera abitativa adiacente a quella aliena
      * */
     private Tessera getTesseraEquipaggioAdiacente(){
-        Coordinate coordinateTesseraAlieno = richiestaCoordinateModuloAlieno();
-        Tessera tesseraAlienoSelezionata = this.giocatore.getNave().getTessera(coordinateTesseraAlieno);
+        Coordinate coordinateTesseraAlieno;
+        Tessera tesseraAlienoSelezionata;
         Tessera tesseraEquipaggioAdiacente = null;
 
         boolean pass = false;
         do{
+            coordinateTesseraAlieno = richiestaCoordinateModuloAlieno();
+            tesseraAlienoSelezionata = this.giocatore.getNave().getTessera(coordinateTesseraAlieno);
+
             // verifico se la tessera e' di tipo alieno
             if(tesseraAlienoSelezionata.getTipoTessera() == TipoTessera.MODULO_ATTRACCO_ALIENI){
                 // verifico se e' valida
@@ -118,16 +121,19 @@ public class GestioneEquipaggio{
                     tesseraEquipaggioAdiacente = tesseraEquipaggioAdiacente(tesseraAlienoSelezionata);
                     if(null == tesseraEquipaggioAdiacente){
                         this.com.printError("Impossibile trovare un modulo equipaggio adiacente alla tessera alieno selezionata");
+                        pass = false;
                     }else{
                         pass = true;
                     }
                 }else{
                     this.com.printError("La tessera selezionata non abilita al trasporto degli alieni");
+                    pass = false;
                 }
             }else{
                 this.com.printError("La tessera selezionata non e' una tessera alieno");
+                pass = false;
             }
-        }while(!pass);
+        }while(false == pass);
 
         return tesseraEquipaggioAdiacente;
     }
@@ -284,22 +290,50 @@ public class GestioneEquipaggio{
      */
     private Coordinate richiestaCoordinateModuloAlieno(){
         Coordinate coordinate = new Coordinate();
-        boolean pass = false;
-        visualizzaNave();
+        boolean uscita = false;
         do{
+            visualizzaNave();
             this.com.println("Inserisci le coordinate del modulo attracco alieno: ");
-            this.com.println("Inserisci coordinata x: ");
-            coordinate.setX(this.com.consoleReadInt() - this.giocatore.getNave().getInizioNaveX());
-            this.com.println("Inserisci coordinata y: ");
-            coordinate.setY(this.com.consoleReadInt() - this.giocatore.getNave().getInizioNaveY());
-            if(false == this.giocatore.getNave().controllaCoordinate(coordinate)){
-                this.com.erroreImmissioneValore();
+            int x = coordinataRichiesta("Coordinata X: ");
+            int y = coordinataRichiesta("Coordinata Y: ");
+
+            coordinate.setX(x - this.giocatore.getNave().getInizioNaveX());
+            coordinate.setY(y - this.giocatore.getNave().getInizioNaveY());
+
+            if(this.giocatore.getNave().controllaCoordinate(coordinate)){
+                uscita = true;
             }else{
-                pass = true;
+                this.com.printError("Coordinate immesse non valide");
+            }
+
+        }while(!uscita);
+        return coordinate;
+    }
+
+    /**
+     * Metodo per la richiesta delle sole coordinate da usare nella specifica del
+     * modulo alieno.
+     *
+     * @param messaggio String messaggio che si vuole visualizzare
+     * @return coordinata int
+     * */
+    private int coordinataRichiesta(String messaggio){
+        int coordinata = 0;
+        boolean pass = false;
+        do{
+            this.com.println(messaggio);
+            try{
+                coordinata = Integer.parseInt(this.com.consoleRead());
+                if(coordinata < 0){
+                    this.com.erroreImmissioneValore();
+                }else{
+                    pass = true;
+                }
+            }catch(NumberFormatException nfe){
+                this.com.erroreImmissioneValore();
             }
         }while(!pass);
-
-        return coordinate;
+        return coordinata;
     }
 
     /**
