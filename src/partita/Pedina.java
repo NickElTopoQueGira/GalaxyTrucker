@@ -206,7 +206,6 @@ public class Pedina{
 	    		int numeroMerci;
 				do {
 	    			
-	        		
 	        		do {
 	        			cns.println("Inserire il numero della stiva da cui togliere una merce");
 		    			
@@ -215,7 +214,6 @@ public class Pedina{
 						} catch (NumberFormatException e) {
 							sceltaStiva = 0;
 						}
-	        			
 	        			
 	        			if(sceltaStiva<=0 || sceltaStiva>caso) {
 	        				cns.erroreImmissioneValore();
@@ -229,10 +227,8 @@ public class Pedina{
 	        			cns.println(""+(i+1)+") "
 	        		+((Stiva)this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().get(i).getTipoMerce());    		
 	        			
-	        			
 	        		}
 	        		sceltaMerci = 0;
-	        		
 	        		
 	        		do {
 	        			cns.println("Inserire la merce che si vuole togliere, selezionare 0 per scegliere un altra stiva");
@@ -242,7 +238,6 @@ public class Pedina{
 						} catch (NumberFormatException e) {
 							sceltaMerci=1;
 						}
-	        			
 	        			
 	        			if(sceltaMerci < 0 || sceltaMerci > numeroMerci) {
 	        				cns.erroreImmissioneValore();
@@ -330,12 +325,8 @@ public class Pedina{
     		
     		if(scelta) {
     			
-
-    			
-
     			cns.println("Inserire il numero della stiva in cui inserire una merce");
 
-    			
 				sceltoPieno = false;
 				sceltaScambio = true;
         		do {
@@ -345,7 +336,6 @@ public class Pedina{
 					} catch (NumberFormatException e) {
 						sceltaStiva=0;
 					}
-        			
         			
         			if(sceltaStiva<=0 || sceltaStiva>crd.size()) {
         				cns.erroreImmissioneValore();
@@ -367,14 +357,11 @@ public class Pedina{
     				sceltaScambio = false;
         		}
             		
-    			
         		if(sceltoPieno) {
         			
         			int sceltaEliminare = 0;
         			
         			ArrayList<Merce> merce = ((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva();
-        			
-        			
         			
         			do {
         				cns.println("Selezionare la mercve che si vuole eliminare per far spazio alla nuova merce:");
@@ -515,7 +502,6 @@ public class Pedina{
 	    		
 	    		cns.println((i+1)+") "+merci.get(i).getTipoMerce());
 	    	}
-	    		
 	    	if(cns.conferma()) {
 	    			
 	    		cns.println("Hai ricevuto le merci ma perso "+giorniPersi+" giorni di viaggio");
