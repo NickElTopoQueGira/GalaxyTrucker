@@ -38,7 +38,6 @@ public class ComunicazioneConUtente {
      * Viene fatto il controllo se e' gia' stata istanziata
      * se si -> viene ritornata l'istanza
      * se no -> viene creata una istanza e viene ritornata
-     * 
      * Questo metodo permette di creare una sola istanza della classe
      * 
      * @return ComunicazioneConUtente
@@ -73,7 +72,7 @@ public class ComunicazioneConUtente {
         
     /**
      * Metodo per stampare sulla console valori interi
-     * @param numero
+     * @param t Int numero da stampare sulla console
      */
   	public void printNumber(int t) {
   		System.out.println(t);
@@ -91,42 +90,45 @@ public class ComunicazioneConUtente {
 
     /**
      * Metodo per leggere l'input dell'utente sulla console. 
-     * Questa Metodo ritorna una stringa.
+     * Questa Metodo ritorna una stringa non vuota all'utente.
      * @return input.nextLine() -> stringa letta dalla console
      */
     public String consoleRead(){
-    	String risp = "";
-    	try {
-    		risp = input.nextLine();
-    	}catch(NoSuchElementException nee) {
-    		return consoleRead();
-    	}
-		println("");
-        return risp;
+		String risp = "";
+    	boolean pass = false;
+		do{
+			try{
+				risp = this.input.nextLine();
+				if(risp.isBlank() || risp.isEmpty()){
+					erroreImmissioneValore();
+				}else{
+					pass = true;
+				}
+			} catch(NoSuchElementException nee) {
+				erroreImmissioneValore();
+			}
+		}while(!pass);
+		return risp;
     }
     
     /**
-     * Metodo per leggere l'input dell'utente sulla console. 
-     * Questa Metodo ritorna un intero. se l'utente inserisce un valore non di tipo int il 
-     * meotodo si richiama da solo
+     * Metodo per leggere un'intero immesso dall'utente.
+	 * Questo metodo comprende nativamente la gestione dell'inserimento
+	 * del valore sbagliato (white space, char, null value)
+	 *
      * @return intero letto
      */
     public int consoleReadInt(){
-    	//di defualt per possibili errori
-    	int valore = 100;
-    	try {
-    		try {
-    			valore = Integer.parseInt(input.nextLine());
-    		} catch (NumberFormatException e) {
-    			this.erroreImmissioneValore();
-    			
-    			return consoleReadInt();
-    		}
-    	}catch(NoSuchElementException nee) {
-    		return consoleReadInt();
-    	}
-    	
-		println("");
+		int valore = 0;
+		boolean pass = false;
+		do{
+			try{
+				valore = Integer.parseInt(this.input.nextLine());
+				pass = true;
+			}catch(NumberFormatException | NoSuchElementException err){
+				erroreImmissioneValore();
+			}
+		}while(!pass);
         return valore;
     }
 
@@ -163,7 +165,7 @@ public class ComunicazioneConUtente {
 	}
         
     /**
-	 * errore immissione valore non valido
+	 * Errore immissione valore non valido
 	 */
 	public void erroreImmissioneValore() {
 		this.printError("Valore immesso non valido");
@@ -176,50 +178,50 @@ public class ComunicazioneConUtente {
      *         false -> NO
      */
     public boolean conferma(){
-		this.print("\ninserire risposta (s/n): ");
-		String t = "";
-		do {
-			t = this.consoleRead();
-		}while(t.isBlank());
-		
-        switch(t.toUpperCase().charAt(0)){
-            case 'S'->{
-                return true;
-            }
-            case 'N'->{
-                return false;
-            }
-            default->{
-                erroreImmissioneValore();
-			    return conferma();
-            }
-        }
+		boolean pass = false;
+		boolean conferma = false;
+		do{
+			this.print("\ninserire risposta (s/n): ");
+			String t = this.consoleRead();
+
+			switch(t.toUpperCase().charAt(0)){
+				case 'S'-> {
+					conferma = true;
+					pass = true;
+				}
+				case 'N'-> {
+					conferma = false;
+					pass = true;
+				}
+				default->{
+					erroreImmissioneValore();
+					pass = false;
+				}
+			}
+		}while(!pass);
+
+		return  conferma;
 	}
     
     /**
-     * come conferma ma in aggiunta di un commento specifico scelto in base al caso
+     * Metodo come conferma ma in aggiunta di un commento specifico scelto in base al caso
      * 
      * @return true -> SI
      *         false -> NO
      */
     public boolean confermaSpecifica(String stringa) {
-    	
 		if(this.conferma()) {
-			
 			this.println(stringa+" utilizzato");
-			
 			return true;
 		}else {
-			
 			this.println(stringa+" non utilizzzato");
-			
 			return false;
 		}
     }
     	
 	/**
-	 * ritona stringa con elenco puntato degli elementi tipo stringa della lista
-	 * @param lista
+	 * Metodo il quale ritorna una stringa con elenco puntato degli elementi tipo stringa della lista
+	 * @param lista ArrayList<Stringa>
 	 */
 	public String visualizzaElenco(ArrayList<String> lista) {
 		String temp="";
@@ -233,8 +235,8 @@ public class ComunicazioneConUtente {
 	
 	
 	/**
-	 * metodo per la richiesta di abbandono del volo
-	 * @param giocatore
+	 * Metodo per la richiesta di abbandono del volo
+	 * @param giocatore Giocatore
 	 * @return conferma (true o false)
 	 */
 	public boolean richiestaAbbandonaVolo(Giocatore giocatore) {

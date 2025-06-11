@@ -155,6 +155,7 @@ public class ConfiguraPartita{
 	 */
 	private void modificaScelte(){
 		int s = 0;
+		boolean pass = false;
 		ArrayList<String> elenco = new ArrayList<>();
 		elenco.add("Per modificare il numero dei giocatori");
 		elenco.add("Per modificare la modalita' della partita");
@@ -162,34 +163,31 @@ public class ConfiguraPartita{
 		if(this.modalitaPartita == ModalitaPartita.SINGOLA){
 			elenco.add("Per modificare il livello della partita");
 		}
-		this.com.print(this.com.visualizzaElenco(elenco));
-		this.com.print("Inserisci la voce: ");
-		try{
+		do{
+			this.com.print(this.com.visualizzaElenco(elenco));
+			this.com.print("Inserisci la voce: ");
 			s = this.com.consoleReadInt();
-		}catch(NumberFormatException nfe){
-			this.com.erroreImmissioneValore();
-		}
-		
-		switch(s){
-			case 1 ->{
-				this.numeroGiocatori = numeroGiocatori();
-			}
-			case 2 ->{
-				this.modalitaPartita = modalitaPartita();
-			}
-			case 3 -> {
-				if(this.modalitaPartita == ModalitaPartita.SINGOLA){
-					this.livelloPartita = livelloPartita();
+			switch(s){
+				case 1 ->{
+					this.numeroGiocatori = numeroGiocatori();
+					pass = true;
 				}
-				else{
-					this.com.erroreImmissioneValore();
-					modificaScelte();	
+				case 2 ->{
+					this.modalitaPartita = modalitaPartita();
+					pass = true;
 				}
+				case 3 -> {
+					if(this.modalitaPartita == ModalitaPartita.SINGOLA){
+						this.livelloPartita = livelloPartita();
+						pass = true;
+					}
+					else{
+						this.com.erroreImmissioneValore();
+					}
+				}
+				default -> this.com.erroreImmissioneValore();
 			}
-			default ->{
-				this.com.erroreImmissioneValore();
-				modificaScelte();
-			}
-		}
+
+		}while(!pass);
 	}
 }
