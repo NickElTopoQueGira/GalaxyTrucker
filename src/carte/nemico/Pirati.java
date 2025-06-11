@@ -212,6 +212,7 @@ public class Pirati extends Nemici {
 		int elenco = 0;
 		
 		do {
+			stampa.println("TURNO DI "+elencoPedine.get(elenco).getGiocatore().getNome());
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				
 				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "

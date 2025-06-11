@@ -210,7 +210,8 @@ public class Contrabbandieri extends Nemici {
 		int elenco = 0;
 		
 		while(!isCartaCompletata && elenco<elencoPedine.size()) {
-			
+
+			stampa.println("TURNO DI "+elencoPedine.get(elenco).getGiocatore().getNome());
 			
 			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
 				

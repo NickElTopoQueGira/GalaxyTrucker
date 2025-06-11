@@ -159,6 +159,7 @@ public class Schiavisti extends Nemici {
 		
 		boolean cartaCompletata = false; 
 		for(Pedina pedina : elencoPedine){
+			stampa.println("TURNO DI "+pedina.getGiocatore().getNome());
 			// se la carta e' stata risolta si continua
 			if(cartaCompletata){
 				continue;

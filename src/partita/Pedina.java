@@ -213,7 +213,7 @@ public class Pedina{
     public void distribuzioneMerce(ArrayList<Merce> merci) {
     
     	int grandezza = merci.size();
-    	int sceltaStiva;
+    	int sceltaStiva = 0;
     	boolean conferma, sceltoPieno, isSpeciale, scelta, sceltaScambio;
     	
     	for(int i=0; i<grandezza; i++) {
@@ -281,7 +281,7 @@ public class Pedina{
             		
             		cns.println("X="+ crd.get(sceltaStiva-1).getY()+" Y="+crd.get(sceltaStiva-1).getX());
             		
-            		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva().size() > 0){
+            		if(((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getX()).get(crd.get(sceltaStiva-1).getY())).getStiva().size() > 0){
             			
             			cns.println("La stiva selezionata è piena! se confermi dovrai selezionare una merce da eliminare per liberare spazio");
             			cns.println("(in caso non si conferma si può scegliere un altra stiva)");

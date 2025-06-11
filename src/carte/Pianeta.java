@@ -252,7 +252,7 @@ public class Pianeta extends Carta {
 		int elenco = 0;
 		while(elenco<elencoPedine.size() && this.pianeti != null) {
 			
-			stampa.println(elencoPedine.get(elenco).getGiocatore().getNome()+"sceglierà il pianeta in cui atterrare \n");
+			stampa.println(elencoPedine.get(elenco).getGiocatore().getNome()+" sceglierà il pianeta in cui atterrare \n");
 			
 			int scelta = sceltaPianeta(elencoPedine.get(elenco));
 			

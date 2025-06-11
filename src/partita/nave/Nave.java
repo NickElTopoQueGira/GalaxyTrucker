@@ -1442,7 +1442,7 @@ public abstract class Nave {
          * - puntano di lato: +1
          * 
          */
-		this.stampa.println("Calcolo potenza Motori:\n");
+		this.stampa.println("\nFASE CALCOLO POTENZA DELLA TUA NAVE: \n");
 		for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.getTipoTessera() == TipoTessera.CANNONE) {

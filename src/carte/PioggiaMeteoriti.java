@@ -155,7 +155,7 @@ public class PioggiaMeteoriti extends Carta {
 										sceltaFermareMeteorite = false;
 									}
 								}
-							}else if(this.meteoriti.get(i).getType() == TypeMeteora.METEORITE_PICCOLO) { 
+							}else if(this.meteoriti.get(i).getType() == TypeMeteora.METEORITE_GRANDE) {
 								
 								switch(trovaCannone(this.meteoriti.get(i), elencoPedine.get(j).getGiocatore().getNave(), colpito, elencoPedine.get(j))) {
 								case 0->{}
@@ -359,45 +359,49 @@ public class PioggiaMeteoriti extends Carta {
 		case NORD->{
 			for(int i=0; i<nave.getRighe(); i++) {
 				
-				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE && 
-						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.UP) {
+				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE) {
+					if(((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.UP) {
 					
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(i).get(colpo.getDado()), colpita, nave, pedina);
 					
 					if(scelta == 2) return scelta;
+					}
 				}
 			}
 		}
 		case SUD->{
 			for(int i=nave.getRighe()-1; i>=0; i--) {
-				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE && 
-						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.DOWN) {
+				if(nave.getPlanciaDellaNave().get(i).get(colpo.getDado()).getTipoTessera() == TipoTessera.CANNONE) {
+						 if(((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.DOWN) {
 					
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(i).get(colpo.getDado()), colpita, nave, pedina);
 					
 					if(scelta != 0) return scelta;
+					}
 				}
 			}
 		}
 		case EST->{
 			for(int i=nave.getColonne()-1; i>=0; i--) {
-				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE && 
-						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.RIGHT) {
+				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE) { 
+					if(((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.RIGHT) {
 
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
 					if(scelta != 0) return scelta;
+					}
 				}
 			}
 		}
 		case OVEST->{
 			for(int i=0; i<nave.getColonne(); i++) {
-				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE && 
-						 ((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.LEFT) {
+				if(nave.getPlanciaDellaNave().get(colpo.getDado()).get(i).getTipoTessera() == TipoTessera.CANNONE) {
+						 if(((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i)).getLatoCannone() == TipoLato.LEFT) {
 
 					scelta = sceltaUtilizzoCannone((Cannone) nave.getPlanciaDellaNave().get(colpo.getDado()).get(i), colpita, nave, pedina);
 					
 					if(scelta != 0) return scelta;
+				}
 				}
 			}
 		}
