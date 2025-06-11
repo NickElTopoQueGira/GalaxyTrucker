@@ -213,15 +213,18 @@ public class Pirati extends Nemici {
 		
 		do {
 			stampa.println("TURNO DI "+elencoPedine.get(elenco).getGiocatore().getNome());
-			if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() == this.potenzanecc) {
+			
+			float potenzaCannoniGiocatore = elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni();
+			
+			if(potenzaCannoniGiocatore == this.potenzanecc) {
 				
 				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
 						+this.potenzanecc+" PAREGGIA CON LA NAVE NEMICA");
 				
-			}else if(elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni() > this.potenzanecc) {
+			}else if(potenzaCannoniGiocatore > this.potenzanecc) {
 				
 				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
-				+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" SCONFIGGE LA NAVE NEMICA");
+				+potenzaCannoniGiocatore+" SCONFIGGE LA NAVE NEMICA");
 				
 				if(elencoPedine.get(elenco).sceltaScambioCreditiConGiorni(penalitagiorni, guadagno, 0)) {
 					
@@ -236,7 +239,7 @@ public class Pirati extends Nemici {
 			}else { // EFFETTO COLLATERALE CARTA ////////////////
 				
 				stampa.println("LA NAVE DI "+elencoPedine.get(elenco).getGiocatore().getNome()+" CON LA POTENZA DI "
-						+elencoPedine.get(elenco).getGiocatore().getNave().getPotenzaCannoni()+" VIENE SCONFITTA DALLA NAVE NEMICA "
+						+potenzaCannoniGiocatore+" VIENE SCONFITTA DALLA NAVE NEMICA "
 								+ "E SPARA VARI COLPI ALLA NAVE\n");
 				
 				int j = 0;
