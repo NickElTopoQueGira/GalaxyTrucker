@@ -1267,7 +1267,10 @@ public abstract class Nave {
 	//-------------------- SETTER - GETTER --------------------
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave(){ return this.nave; }
 
-    public int getNumeroPezziNaveDaRipagare(){ return this.numeroPezziNaveDaRipagare; }
+    public int getNumeroPezziNaveDaRipagare(){
+    	int val= this.numeroPezziNaveDaRipagare + this.componentiPrenotati.size();
+    	return val;
+    }
     
 	public Colori getColoreNave(){ return this.coloreNave; }
 
@@ -1359,11 +1362,10 @@ public abstract class Nave {
 
 	  /**
      * Metodo per contare i pezzi distrutti confrontando il nuovo troncamento di nave
-     * rispetto alla nave originaria presente precedentemente.
+     * guardando quali componenti sono stati distrutti.
      * @param Troncamento originale
      */
     private void setNumeroPezziNaveDaRipagare(){
-    	this.numeroPezziNaveDaRipagare=0;
     	for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				if(tessera.isDistrutta()) {
@@ -1371,7 +1373,7 @@ public abstract class Nave {
 				}
 			}
     	}
-    	this.numeroPezziNaveDaRipagare += this.componentiPrenotati.size();
+    	;
     }
     
     /**
