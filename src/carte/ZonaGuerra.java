@@ -303,6 +303,7 @@ public class ZonaGuerra extends Carta {
             	stampa.println(" e riceverà " + colpi.size()+ " colpi di cannone");
                 int j = 0;
                 do {
+                	
                 	if(controlloColpoIsDentroDallaNave(this.colpi.get(j), pedina.getGiocatore().getNave())) {
                 		this.colpi.get(j).setRisultatoDado(adattaDadiAllArray(this.colpi.get(j), pedina.getGiocatore().getNave()));
 	                    boolean sceltaFermareColpo = false;
@@ -434,14 +435,23 @@ public class ZonaGuerra extends Carta {
     private int selezionaMinorMotore(ArrayList<Pedina> elencoPedine) {
 
         int minorPotenzaMotore = 0;
+        stampa.println("CONTROLLO DI CHI HA LA POTENZA MOTORI MINORE!");
 
+    	stampa.println("CONTROLLO POTENZA MOTORI DI "+elencoPedine.get(0).getGiocatore().getNome());
+    	
+    	float potenzaMotoreGiocatore2 = elencoPedine.get(minorPotenzaMotore).getGiocatore().getNave().getPotenzaMotori();
+    	
         for (int i = 1; i < elencoPedine.size(); i++) {
-        	this.stampa.println("turno del giocatore: "+elencoPedine.get(i).getGiocatore().getNome()+"\n");
-            if (elencoPedine.get(i).getGiocatore().getNave().getPotenzaMotori() < elencoPedine.get(minorPotenzaMotore).getGiocatore().getNave().getPotenzaMotori()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
+        	
+        	stampa.println("CONTROLLO POTENZA MOTORI DI "+elencoPedine.get(i).getGiocatore().getNome());
+        	
+        	float potenzaMotoreGiocatore1 = elencoPedine.get(i).getGiocatore().getNave().getPotenzaMotori();
+        	
+            if (potenzaMotoreGiocatore1 < potenzaMotoreGiocatore2) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
 
                 minorPotenzaMotore = i; //IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
 
-            } else if (elencoPedine.get(i).getGiocatore().getNave().getPotenzaMotori() == elencoPedine.get(minorPotenzaMotore).getGiocatore().getNave().getPotenzaMotori()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
+            } else if (potenzaMotoreGiocatore1 == potenzaMotoreGiocatore2) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
 
                 if (elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(minorPotenzaMotore).getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
 
@@ -462,17 +472,28 @@ public class ZonaGuerra extends Carta {
     private int selezionaMinorCannone(ArrayList<Pedina> elencoPedine) {
 
         int minorPotenzaCannone = 0;
+        stampa.println("CONTROLLO DI CHI HA LA POTENZA CANNONI MINORE!");
+
+    	stampa.println("CONTROLLO POTENZA CANNONI DI "+elencoPedine.get(0).getGiocatore().getNome());
+        
+        float potenzaCannoniGiocatore2 = elencoPedine.get(minorPotenzaCannone).getGiocatore().getNave().getPotenzaCannoni();
 
         for (int i = 1; i < elencoPedine.size(); i++) {
-            if (elencoPedine.get(i).getGiocatore().getNave().getPotenzaCannoni() < elencoPedine.get(minorPotenzaCannone).getGiocatore().getNave().getPotenzaCannoni()) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
+        	
+        	stampa.println("CONTROLLO POTENZA CANNONI DI "+elencoPedine.get(i).getGiocatore().getNome());
+			
+			float potenzaCannoniGiocatore1 = elencoPedine.get(i).getGiocatore().getNave().getPotenzaCannoni();
+        	
+            if (potenzaCannoniGiocatore1 < potenzaCannoniGiocatore2) { // SCEGLO QUALE NAVE HA IL MINOR NUMERO DI EQUIPAGGIO
 
                 minorPotenzaCannone = i; //IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
 
-            } else if (elencoPedine.get(i).getGiocatore().getNave().getPotenzaCannoni() == elencoPedine.get(minorPotenzaCannone).getGiocatore().getNave().getPotenzaCannoni()) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
+            } else if (potenzaCannoniGiocatore1 == potenzaCannoniGiocatore2) { //SE HANNO LO STESSO NUMERO DI EQUIPAGGIO
 
                 if (elencoPedine.get(i).getPosizioneSulTabellone() > elencoPedine.get(minorPotenzaCannone).getPosizioneSulTabellone()) { //SCELGO QUELLO CHE è PIU AVANTI DI POSIZIONE
 
                     minorPotenzaCannone = i;//IMPOSTO NUOVO GIOCATORE CON MINOR EQUIPAGGIO
+                    potenzaCannoniGiocatore2 = potenzaCannoniGiocatore1;
                 }
             }
         }
