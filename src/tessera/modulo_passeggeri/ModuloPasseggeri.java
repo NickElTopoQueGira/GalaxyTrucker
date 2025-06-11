@@ -87,10 +87,18 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
         }
     }
 
+    /**
+     * getter del tipo di modulo passeggero (alieno marrone/viola, cosmonauti)
+     * @return enum TipoModuloPasseggeri
+     */
     public TipoModuloPasseggeri getTipoModuloPasseggeri() {
         return this.tipoModuloPasseggeri;
     }
 
+    /**
+     * getter numero di cosmonauti attualmente a bordo
+     * @return numero di cosmonauti
+     */
     public int getNumeroCosmonauti() {
         return this.numeroCosmonauti;
     }
@@ -116,18 +124,34 @@ public class ModuloPasseggeri extends Tessera implements TessereNormali {
 
     }
 
+    /**
+     * getter numero di alieni marroni a bordo
+     * @return numero di alieni marroni
+     */
     public int getNumeroAlieniMarroni() {
         return this.numeroAlieniMarroni;
     }
 
+    /**
+     * getter numero di alieni viola a bordo
+     * @return numero di alieni viola
+     */
     public int getNumeroAlieniViola() {
         return this.numeroAlieniViola;
     }
 
+    /**
+     * setter numero di alieni marroni a bordo
+     * @param nuovo numeroAlieniMarroni
+     */
     public void setNumeroAlieniMarroni(int numeroAlieniMarroni) {
         this.numeroAlieniMarroni = numeroAlieniMarroni;
     }
 
+    /**
+     * setter numero di alieni viola a bordo
+     * @param nuovo numeroAlieniViola
+     */
     public void setNumeroAlieniViola(int numeroAlieniViola) {
         this.numeroAlieniViola = numeroAlieniViola;
     }

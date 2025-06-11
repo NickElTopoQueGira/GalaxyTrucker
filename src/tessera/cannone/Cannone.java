@@ -51,10 +51,18 @@ public class Cannone extends Tessera implements TessereNormali {
 
     }
 
+    /**
+     * getter tipo di cannone (doppio o singolo)
+     * @return enum TipoCannone
+     */
     public TipoCannone getTipoCannone() {
         return this.tipoCannone;
     }
 
+    /**
+     * getter del lato in cui punta il cannone
+     * @return enum Tipolato
+     */
     public TipoLato getLatoCannone() {
         return this.latoCannone;
     }

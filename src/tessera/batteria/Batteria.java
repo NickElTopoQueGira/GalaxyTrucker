@@ -44,10 +44,18 @@ public class Batteria extends Tessera implements TessereNormali {
         return new Random().nextInt(1) + 2;
     }
 
+    /**
+     * getter capacità massima della batteria
+     * @return capacità massima
+     */
     public int getCapacity() {
         return capacity;
     }
 
+    /**
+     * getter energia attuale presente nella tessera
+     * @return energia attuale
+     */
     public int getEnergiaAttuale() {
         return energiaAttuale;
     }

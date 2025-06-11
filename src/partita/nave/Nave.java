@@ -1276,7 +1276,10 @@ public abstract class Nave {
 	//-------------------- SETTER - GETTER --------------------
     public ArrayList<ArrayList<Tessera>> getPlanciaDellaNave(){ return this.nave; }
 
-    public int getNumeroPezziNaveDaRipagare(){ return this.numeroPezziNaveDaRipagare; }
+    public int getNumeroPezziNaveDaRipagare(){
+    	int val= this.numeroPezziNaveDaRipagare + this.componentiPrenotati.size();
+    	return val;
+    }
     
 	public Colori getColoreNave(){ return this.coloreNave; }
 
@@ -1368,7 +1371,7 @@ public abstract class Nave {
 
 	  /**
      * Metodo per contare i pezzi distrutti confrontando il nuovo troncamento di nave
-     * rispetto alla nave originaria presente precedentemente.
+     * guardando quali componenti sono stati distrutti.
      * @param Troncamento originale
      */
     private void setNumeroPezziNaveDaRipagare(){
@@ -1379,7 +1382,7 @@ public abstract class Nave {
 				}
 			}
     	}
-    	this.numeroPezziNaveDaRipagare += this.componentiPrenotati.size();
+    	;
     }
     
     /**
@@ -1488,7 +1491,7 @@ public abstract class Nave {
 	}
 	
 	/**
-	 * metoto che in base a quale tipologia di tessere stai cercando:
+	 * Metoto che in base a quale tipologia di tessere stai cercando:
 	 * 1: tesssera tipologia stiva (che sia vuota)
 	 * 2: tesssera tipologia stiva (che sia non vuota)
 	 * 3: tesssera tipologia stiva (che di tipologia speciale)
@@ -1527,7 +1530,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che trova tutte le tessere stive vuote
+     * Metodo che trova tutte le tessere stive vuote
      * 
      * @param caso
      * @param crd
@@ -1554,7 +1557,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che trova tutte le tessere stive non vuote
+     * Metodo che trova tutte le tessere stive non vuote
      * 
      * @param caso
      * @param crd
@@ -1581,7 +1584,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che trova tutte le tessere stive speciali
+     * Metodo che trova tutte le tessere stive speciali
      * 
      * @param caso
      * @param crd
@@ -1608,7 +1611,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che trova tutte le tessere modulo non vuote centro compreso
+     * Metodo che trova tutte le tessere modulo non vuote centro compreso
      * 
      * @param caso
      * @param crd
@@ -1622,7 +1625,7 @@ public abstract class Nave {
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.MODULO_PASSEGGERI) {
-		    if (((ModuloPasseggeri) tessera).getNumeroCosmonauti() > 0) {
+		    if (((ModuloPasseggeri) tessera).getEquipaggio() > 0) {
 		        
 		    	caso++;
    	

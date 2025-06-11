@@ -24,14 +24,23 @@ public class Centro extends Tessera {
         this.getLatiTessera().setLeft(TipoConnettoriTessera.TRIPLO);
     }
 
+    /**
+     * getter colore del centro
+     * @return enum colore
+     */
     public Colori getColore() {
         return colore;
     }
 
+    /**
+     * getter passeggeri correnti
+     * @return numero di passeggeri correnti
+     */
     public int getPasseggeriCorrenti() {
         return passeggeriCorrenti;
     }
 
+    
     @Override
     public Coordinate getCoordinate() {
         return this.coordinate;

@@ -13,6 +13,10 @@ public class Merce {
         this.tipoMerce = tipoMerce;
     }
 
+    /**
+     * getter tipo di merce (colore)
+     * @return enum TipoMerce
+     */
     public TipoMerce getTipoMerce() {
         return this.tipoMerce;
     }

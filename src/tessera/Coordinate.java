@@ -8,26 +8,50 @@ public class Coordinate {
 	private int x;
     private int y;
 
+    /**
+     * costruttore vuoto
+     */
     public Coordinate() {
     }
 
+    /**
+     * costruttore per fissare anche i valori
+     * @param x
+     * @param y
+     */
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * getter coordinata x
+     * @return coordinata x (int)
+     */
     public int getX() {
         return this.x;
     }
 
+    /**
+     * getter coordinata y
+     * @return coordinata y (int)
+     */
     public int getY() {
         return this.y;
     }
 
+    /**
+     * setter coordinata x
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * setter coordinata y
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }

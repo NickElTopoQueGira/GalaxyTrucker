@@ -42,22 +42,42 @@ public class Stiva extends Tessera implements TessereNormali {
 
     }
 
+    /**
+     * getter massima capienza
+     * @return massima capienza
+     */
     public int getMaxCapienza() {
         return MaxCapienza;
     }
 
+    /**
+     * getter arraylist di oggetti merce contenuti nella stiva
+     * @return arraylist di merci
+     */
     public ArrayList<Merce> getStiva() {
         return stiva;
     }
 
+    /**
+     * setter dell'arraylist delle merci
+     * @param arraylist stiva
+     */
     public void setStiva(ArrayList<Merce> stiva) {
         this.stiva = stiva;
     }
 
+    /**
+     * getter numero di merci attualmente contenute nel modulo
+     * @return numero di merci attuali
+     */
     public int getNumeroMerciAttuale() {
         return numeroMerciAttuale;
     }
 
+    /**
+     * setter numero di merci attuali
+     * @param numeroMerciAttuale
+     */
     public void setNumeroMerciAttuale(int numeroMerciAttuale) {
         this.numeroMerciAttuale = numeroMerciAttuale;
     }
@@ -151,6 +171,10 @@ public class Stiva extends Tessera implements TessereNormali {
 
     }
 
+    /**
+     * getter del tipo di stiva (speciale, standard)
+     * @return enum TipoStiva
+     */
     public TipoStiva getTipoMerciGenerale() {
         return tipoMerciGenerale;
     }
