@@ -23,6 +23,9 @@ package gioco;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 import partita.giocatore.Giocatore;
 
 public class ComunicazioneConUtente {
@@ -160,8 +163,14 @@ public class ComunicazioneConUtente {
         this.println("                                             \\______/                                                                        ");
 		this.println("\u001B[0m");
 		this.print("Premi invio per iniziare...");
-		this.consoleRead();
+		this.consoleReadInvio();
 		this.clear();
+	}
+	
+	
+	
+	public void consoleReadInvio() {
+		this.input.nextLine();
 	}
         
     /**
