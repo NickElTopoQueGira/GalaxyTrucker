@@ -98,19 +98,11 @@ public class ComunicazioneConUtente {
      */
     public String consoleRead(){
 		String risp = "";
-    	boolean pass = false;
-		do{
-			try{
-				risp = this.input.nextLine();
-				if(risp.isBlank() || risp.isEmpty()){
-					erroreImmissioneValore();
-				}else{
-					pass = true;
-				}
-			} catch(NoSuchElementException nee) {
-				erroreImmissioneValore();
-			}
-		}while(!pass);
+		try{
+			risp = this.input.nextLine();
+		}catch(NoSuchElementException nee){
+			erroreImmissioneValore();
+		}
 		return risp;
     }
     
