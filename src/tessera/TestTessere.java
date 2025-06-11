@@ -152,7 +152,8 @@ public class TestTessere {
 			e.printStackTrace();
 		}
 		
-		((Batteria)t4).decrese();
+		
+		((Batteria)t2).decrese();
 		com.println(n.toString());
 		
 		

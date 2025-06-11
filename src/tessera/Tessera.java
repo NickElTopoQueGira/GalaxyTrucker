@@ -18,8 +18,8 @@ public abstract class Tessera {
     
     private final Posizione posizione;
     private static Set<Tessera> set = new LinkedHashSet<Tessera>();
-
-    private int id;
+    private boolean isDistrutta=false;
+    private final int id;
     private static int NumeroTessereGenerate = 0;
 
     protected String[][] tessera_Disposizione = {
@@ -271,6 +271,16 @@ public abstract class Tessera {
     public int getId() {
         return id;
     }
+    
+    
+    public boolean isDistrutta() {
+		return isDistrutta;
+	}
+
+	public void setDistrutta(boolean isDistrutta) {
+		this.isDistrutta = isDistrutta;
+	}
+    
 
     /**
      * Metodo che crea la descrizione della tessera
@@ -299,5 +309,7 @@ public abstract class Tessera {
         Tessera other = (Tessera) obj;
         return id == other.id;
     }
+
+	
 
 }
