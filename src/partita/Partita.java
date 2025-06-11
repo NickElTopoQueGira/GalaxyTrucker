@@ -467,7 +467,7 @@ public class Partita{
 		do{ 
 			try{
 				this.com.println("Inserisci il numero della tessera che si vuole inserire (inserire 0 per tornare al menu): ");
-				selezione = this.com.consoleReadInt()-1;
+				selezione = Integer.parseInt(this.com.consoleRead())-1;
 				
 				// ritorno al menu
 				if(-1 == selezione) {
@@ -531,15 +531,16 @@ public class Partita{
 	 * @return tessera Tessera
 	 */
 	private Tessera usaTesseraPrenotata(Giocatore giocatore){
-		this.com.println(giocatore.getNave().tesserePrenotateToString());
 		
-		this.com.println("Inserisci il numero della tessera che vuoi utilizzare: ");
-		this.com.println("(premere 0 per tornare indietro)\n");
 		int numero = -1;
 		boolean pass = false;
 		do{ 
+			this.com.println(giocatore.getNave().tesserePrenotateToString());
+			
+			this.com.println("Inserisci il numero della tessera che vuoi utilizzare: ");
+			this.com.println("(premere 0 per tornare indietro)\n");
 			try{
-				numero = this.com.consoleReadInt()-1;
+				numero = Integer.parseInt(this.com.consoleRead())-1;
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
 			}
@@ -584,9 +585,9 @@ public class Partita{
 		try{
 			this.com.println("[Inserisci (x)=0 e (y)=0 per uscire]");
 			this.com.println("Inserisci la coordinata x: ");
-			x = this.com.consoleReadInt()-giocatore.getNave().getInizioNaveX();
+			x = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveX();
 			this.com.println("Inserisci la coordinata y: ");
-			y = this.com.consoleReadInt()-giocatore.getNave().getInizioNaveY();
+			y = Integer.parseInt(this.com.consoleRead())-giocatore.getNave().getInizioNaveY();
 			
 			//condizione per far tornare al menu
 			if(x+giocatore.getNave().getInizioNaveX() == 0 && y+giocatore.getNave().getInizioNaveY() == 0) {
@@ -650,7 +651,13 @@ public class Partita{
 			elenco.add("Inserire la tessera nella Nave");
 			elenco.add("Torna indietro");
 			this.com.println(this.com.visualizzaElenco(elenco));
-			int val = this.com.consoleReadInt();
+			int val=0;
+			try {
+				val = Integer.parseInt(this.com.consoleRead());
+			} catch (NumberFormatException e) {
+				val=0;
+			}
+			
 			if(val==1 || val==2|| val==3) {
 				condizione=true;
 				if(val==2) {
@@ -694,7 +701,7 @@ public class Partita{
 			this.com.println(this.com.visualizzaElenco(elenco));
 			this.com.println("Inserisci il numero dell'azione desiderata: ");
 			try{
-				risposta = this.com.consoleReadInt();
+				risposta = Integer.parseInt(this.com.consoleRead());
 				if(risposta < 1 || risposta > 3) {
 					pass = false; 
 					this.com.erroreImmissioneValore();
@@ -703,6 +710,7 @@ public class Partita{
 				}
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
+				pass = false;
 			}
 		}while(false == pass);
 		
@@ -751,9 +759,10 @@ public class Partita{
 		int scelta = 0;
 		boolean pass = false;
 		do{
-			this.com.println(this.com.visualizzaElenco(azioni));
+			
 			try{
-				scelta = this.com.consoleReadInt();
+				this.com.println(this.com.visualizzaElenco(azioni));
+				scelta = Integer.parseInt(this.com.consoleRead());
 				if(scelta == 1 || scelta == 2 || scelta == 3){
 					pass = true;
 				}else{
@@ -762,6 +771,7 @@ public class Partita{
 				}
 			}catch(NumberFormatException nfe){
 				this.com.erroreImmissioneValore();
+				pass = false;
 			}
 		}while(false == pass);
 
@@ -779,6 +789,10 @@ public class Partita{
 		}
 	}
 
+	/**
+	 * toString che ritorna una stringa in cui specifica il numero di giocatori
+	 * e la modalità della partita
+	 */
 	@Override
 	public String toString(){
 		return "Numero giocatori: " + this.numeroGiocatori + "\n" +

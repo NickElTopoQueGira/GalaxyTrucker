@@ -150,11 +150,17 @@ public class Pedina{
     		caso = crd.size();
 
     		
-    		int sceltaModulo;
-    		cns.println("Inserire il numero del Modulo da cui togliere 1 componente dell'equipaggio");
+    		int sceltaModulo = 0;
+    		
 			
     		do {
-    			sceltaModulo = cns.consoleReadInt();
+    			cns.println("Inserire il numero del Modulo da cui togliere 1 componente dell'equipaggio");
+    			try {
+    				sceltaModulo = Integer.parseInt(this.cns.consoleRead());
+				} catch (NumberFormatException e) {
+					sceltaModulo=-1;
+				}
+    			
     			
     			if(sceltaModulo<=0 || sceltaModulo>caso) {
     				cns.erroreImmissioneValore();
@@ -195,15 +201,21 @@ public class Pedina{
     		
     		caso = crd.size();
     		if(caso>0) {
-	    		int sceltaStiva;
+	    		int sceltaStiva = 0;
 	    		int sceltaMerci;
 	    		int numeroMerci;
 				do {
 	    			
-	        		cns.println("Inserire il numero della stiva da cui togliere una merce");
-	    			
+	        		
 	        		do {
-	        			sceltaStiva = cns.consoleReadInt();
+	        			cns.println("Inserire il numero della stiva da cui togliere una merce");
+		    			
+	        			try {
+	        				sceltaStiva = Integer.parseInt(this.cns.consoleRead());
+						} catch (NumberFormatException e) {
+							sceltaStiva = 0;
+						}
+	        			
 	        			
 	        			if(sceltaStiva<0 || sceltaStiva>caso) {
 	        				cns.erroreImmissioneValore();
@@ -221,10 +233,16 @@ public class Pedina{
 	        		}
 	        		sceltaMerci = 0;
 	        		
-	        		cns.println("Inserire la merce che si vuole togliere, selezionare 0 per scegliere un altra stiva");
-	    			
+	        		
 	        		do {
-	        			sceltaMerci = cns.consoleReadInt();
+	        			cns.println("Inserire la merce che si vuole togliere, selezionare 0 per scegliere un altra stiva");
+		    			
+	        			try {
+	        				sceltaMerci = Integer.parseInt(this.cns.consoleRead());
+						} catch (NumberFormatException e) {
+							sceltaMerci=1;
+						}
+	        			
 	        			
 	        			if(sceltaMerci>0 && sceltaMerci<numeroMerci) {
 	        				cns.erroreImmissioneValore();
@@ -312,12 +330,18 @@ public class Pedina{
     		
     		if(scelta) {
     			
-    			cns.println("Inserire il numero della stiva da cui inserire una merce");
+    			
     			
 				sceltoPieno = false;
 				sceltaScambio = true;
         		do {
-        			sceltaStiva = cns.consoleReadInt();
+        			cns.println("Inserire il numero della stiva da cui inserire una merce");
+        			try {
+        				sceltaStiva = Integer.parseInt(this.cns.consoleRead());
+					} catch (NumberFormatException e) {
+						sceltaStiva=0;
+					}
+        			
         			
         			if(sceltaStiva<=0 || sceltaStiva>crd.size()) {
         				cns.erroreImmissioneValore();
@@ -346,12 +370,18 @@ public class Pedina{
         			
         			ArrayList<Merce> merce = ((Stiva) this.giocatore.getNave().getPlanciaDellaNave().get(crd.get(sceltaStiva-1).getY()).get(crd.get(sceltaStiva-1).getX())).getStiva();
         			
-        			cns.println("Selezionare la mercve che si vuole eliminare per far spazio alla nuova merce:");
-        			this.specificaMerci(merce);
+        			
         			
         			do {
-        				sceltaEliminare = cns.consoleReadInt();
-            			
+        				cns.println("Selezionare la mercve che si vuole eliminare per far spazio alla nuova merce:");
+            			this.specificaMerci(merce);
+        				try {
+        					sceltaEliminare = Integer.parseInt(this.cns.consoleRead());
+                			
+						} catch (NumberFormatException e) {
+							sceltaEliminare=0;
+						}
+        				
             			if(sceltaEliminare<=0 || sceltaEliminare>merce.size()) {
             				cns.println("VALORE IMMESSO NON VALIDO");
             			}

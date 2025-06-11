@@ -275,11 +275,17 @@ public class Pianeta extends Carta {
 				stampa.println("");
 			}
 			
-			stampa.println("Inserire il numero del pianeta per scegliere di atterrarci");
-			stampa.println("In caso non si volesse scegliere nessuna dei pianeti inserire -> 0");
+			
 			
 			do {
-				sceltaPianeta = stampa.consoleReadInt();
+				stampa.println("Inserire il numero del pianeta per scegliere di atterrarci");
+				stampa.println("In caso non si volesse scegliere nessuna dei pianeti inserire -> 0");
+				try {
+					sceltaPianeta =Integer.parseInt(stampa.consoleRead());
+				} catch (NumberFormatException  e) {
+					sceltaPianeta=-1;
+				}
+				
 				
 				if(sceltaPianeta < 0 || sceltaPianeta > this.pianeti.size()+1) {
 					stampa.println("VALORE IMMESSO NON VALIDO");

@@ -102,26 +102,7 @@ public class ComunicazioneConUtente {
 		return this.input.nextLine();
     }
     
-    /**
-     * Metodo per leggere un'intero immesso dall'utente.
-	 * Questo metodo comprende nativamente la gestione dell'inserimento
-	 * del valore sbagliato (white space, char, null value)
-	 *
-     * @return intero letto
-     */
-    public int consoleReadInt(){
-		int valore = 0;
-		boolean pass = false;
-		do{
-			try{
-				valore = Integer.parseInt(this.input.nextLine());
-				pass = true;
-			}catch(NumberFormatException | NoSuchElementException err){
-				erroreImmissioneValore();
-			}
-		}while(!pass);
-        return valore;
-    }
+    
 
     /**
      * Metodo per pulire la console stampando 200 righe vuote
