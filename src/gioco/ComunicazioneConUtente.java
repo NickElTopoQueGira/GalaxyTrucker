@@ -160,7 +160,9 @@ public class ComunicazioneConUtente {
 	}
 	
 	
-	
+	/**
+	 * legge un invio
+	 */
 	public void consoleReadInvio() {
 		this.input.nextLine();
 	}

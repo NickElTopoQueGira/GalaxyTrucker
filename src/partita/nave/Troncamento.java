@@ -217,7 +217,13 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
     
 
 
-
+    /**
+     * Metodo che crea una copia profonda del troncamento
+     * @param inizioNaveV
+     * @param inizioNaveO
+     * @param fineNaveO
+     * @return troncamento copiato
+     */
 	public Troncamento clone(int inizioNaveV, int inizioNaveO, int fineNaveO) {
 		Troncamento clone = new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
         for (ArrayList<Tessera> riga : this) {
