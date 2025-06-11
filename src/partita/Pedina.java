@@ -80,7 +80,7 @@ public class Pedina{
     /**
      * Metodo che in base al numero di equipaggio che devono venir tolti, 
      * ti mostra tutti i moduli da cui si può rimuovere un componente dell'equipaggio, 
-     * e specifica se alieno o no, e ti fa scegliere da dove toglierlo
+     * e specifica se alieno o no, e ti fa scegliere da dove toglierla
      * 
      * @param elimEquipaggio int numero di equipaggio che verrà tolto
      */
@@ -376,27 +376,21 @@ public class Pedina{
      * @return true giocatore sceglie di utilizzare la tessera (scudo o cannone doppio) e perde 1 di energia
      */
     public Boolean sceltaEpossibilitaUtilizzoScudi( ) {
-    	
     	if(this.giocatore.getNave().getEnergiaResidua() > 0) {
-    		
     		cns.print("Hai abbastanza energia, vuoi utilizzare lo scudo?");
-    		
     		if(cns.conferma()) {
-    			
     			try {
 					this.giocatore.getNave().utilizzaEnergia();
-				} catch (ErroreRisorse e) {
-					
-					e.printStackTrace();
+					return true;
+				}catch(ErroreRisorse e) {
+					this.cns.printError(e.getMessage());
 					return false;
 				}
-    			
-    			return true;
-    		}
-    		return false;
-    	}else {
-    		
-    		cns.println("Non hai abbastanza enegia per utilizzare lo scudo");
+    		}else{
+				return  false;
+			}
+    	}else{
+    		cns.println("Non hai abbastanza energia per utilizzare lo scudo");
     		return false;
     	}
     }
@@ -407,30 +401,21 @@ public class Pedina{
      * @return true se utilizzatta e false se no
      */
     public Boolean sceltaEpossibilitaUtilizzoCannoneDoppio() {
-    	
     	if(this.giocatore.getNave().getEnergiaResidua() > 0) {
-    		
     		cns.print("Hai abbastanza energia, vuoi utilizzare il cannone doppio?");
-    		
     		if(cns.conferma()) {
-    			
     			try {
 					this.giocatore.getNave().utilizzaEnergia();
-					
+					return true;
 				} catch (ErroreRisorse e) {
-					
-					e.printStackTrace();
+					this.cns.printError(e.getMessage());
 					return false;
 				}
-    			
-    			return true;
-    		}
-    		
-    		return false;
-    		
-    	}else {
-    		
-    		cns.println("Non hai abbastanza enegia per utilizzare il cannone doppio");
+			}else{
+				return false;
+			}
+    	}else{
+    		cns.println("Non hai abbastanza energia per utilizzare il cannone doppio");
     		return false;
     	}
     }
@@ -473,27 +458,24 @@ public class Pedina{
 	// isGiorni: 1) si scambiano giorni con crediti
     //           0) si scambiano equipaggio con crediti
     public Boolean sceltaScambioCreditiConGiorni(int giorniPersi, int crediti, int equipaggio) {
-    	
 		if(equipaggio == 0) {
 			cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio  per "+crediti+"\u00A2 (crediti)?");
 		}else {
-			cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio e "+equipaggio+" mebri dell'equipaggio per "+crediti+"\u00A2 (crediti)?");
+			cns.println("Vuoi perdere "+giorniPersi+" giorni di viaggio e "+equipaggio+" membri dell'equipaggio per "+crediti+"\u00A2 (crediti)?");
 		}
     	
     	if(cns.conferma()) {
-    		
     		if(equipaggio == 0) {
         		cns.println("Hai ricevuto "+crediti+"\u00A2 (crediti) ma perso "+giorniPersi+" giorni di viaggio");
     		}else {
-    			cns.println("Hai ricevuto "+crediti+"\u00A2 (crediti) ma perso "+giorniPersi+" giorni di viaggio e "+equipaggio+" mebri dell'equipaggio");
+    			cns.println("Hai ricevuto "+crediti+"\u00A2 (crediti) ma perso "+giorniPersi+" giorni di viaggio e "+equipaggio+" membri dell'equipaggio");
     		}
     		return true;
     	}else {
-    		
     		if(equipaggio == 0) {
         		cns.println("Non hai ricevuto nessun credito e non hai perso giorni di viaggio");
     		}else {
-    			cns.println("Non hai ricevuto nessun credito e non hai perso ne mebri dell'equipaggio ne giorni di viaggio");
+    			cns.println("Non hai ricevuto nessun credito e non hai perso ne membri dell'equipaggio ne giorni di viaggio");
     		}
     			
     		return false;

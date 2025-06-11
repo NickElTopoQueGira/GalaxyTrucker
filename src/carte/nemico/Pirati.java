@@ -273,7 +273,7 @@ public class Pirati extends Nemici {
 											
 										elencoPedine.get(elenco).setNaveDistrutta(true);
 										
-										stampa.println("La nave è stata totalmete distrutta");
+										stampa.println("La nave è stata totalmente distrutta");
 										continue;
 									}
 									

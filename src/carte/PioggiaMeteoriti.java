@@ -24,7 +24,7 @@ public class PioggiaMeteoriti extends Carta {
 	 * Costruttore PioggiaMeteoriti
 	 * super -> gli passiamo il lvl della carta e il tipo
 	 * metodo: GeneraValori() per generare i attributi della carta
-	 * @param lvl
+	 * @param lvl int
 	 */
 	public PioggiaMeteoriti (int lvl) {
 		
@@ -191,7 +191,7 @@ public class PioggiaMeteoriti extends Carta {
 										
 										elencoPedine.get(j).setNaveDistrutta(true);
 										
-										stampa.println("La nave è stata totalmete distrutta");
+										stampa.println("La nave è stata totalmente distrutta");
 									}
 									 
 								} catch (ErroreTessera e) {
@@ -324,19 +324,14 @@ public class PioggiaMeteoriti extends Carta {
 	private int sceltaUtilizzoCannone(Cannone cannone, Tessera colpita, Nave nave, Pedina pedina) {
 		
 		if(nave.getEnergiaResidua() <= 0) {
-			
 			return 0;
 		}else if(cannone.getTipoCannone() == TipoCannone.SINGOLO) {
-			
-			if(pedina.sceltaEpossibilitaUtilizzoCannoneDoppio()) { 
-				
+			if(pedina.sceltaEpossibilitaUtilizzoCannoneDoppio()) {
 				return 1;
 			}else {
-				
 				return 0;
 			}
 		}else if(cannone.getTipoCannone() == TipoCannone.SINGOLO) {
-			
 			return 2;
 		}
 		return 0;
