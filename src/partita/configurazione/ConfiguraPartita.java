@@ -11,12 +11,21 @@ public class ConfiguraPartita{
     private int numeroGiocatori;
     private ModalitaPartita modalitaPartita;
 	private Livelli livelloPartita;
-
+	
+	/**
+	 * Costruttore di ConfiguraPartita
+	 */
     public ConfiguraPartita(){
 		this.com = ComunicazioneConUtente.getIstanza();
 		this.livelloPartita = Livelli.PRIMO;
     }
-
+    
+    /**
+     * Metodo per la crezione della partita in base alla modalità
+     * di gioco se singola o multipla
+     * 
+     * @return la parita in base alla modlità
+     */
 	public Partita creaPartita(){
 		configuraPartita();
 		if(this.modalitaPartita == ModalitaPartita.SINGOLA){

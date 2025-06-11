@@ -8,7 +8,10 @@ public class ConfiguraGiocatore{
     private final ComunicazioneConUtente com;
     private String nome;
     private Colori colorePedina;
-
+    
+    /**
+     * Costruttore di ConfiguraGiocatore
+     */
     public ConfiguraGiocatore(){
         com = ComunicazioneConUtente.getIstanza();
     }

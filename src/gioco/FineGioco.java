@@ -16,6 +16,9 @@ public class FineGioco {
 	private ArrayList<Pedina> pedineVoloAbbandonato;
 	private int livello;
 	
+	/**
+     * Costruttore FineGioco
+     */
 	public FineGioco(int lvl) {
 		
 		this.console = ComunicazioneConUtente.getIstanza();
@@ -24,6 +27,9 @@ public class FineGioco {
 		this.livello = lvl;
 	}
 	
+	/**
+     * Costruttore FineGioco
+     */ 
 	public FineGioco(ArrayList<Pedina> pvc, ArrayList<Pedina> pva, int lvl) {
 		
 		this.console = ComunicazioneConUtente.getIstanza();
@@ -32,6 +38,9 @@ public class FineGioco {
 		this.livello = lvl;
 	}
 	
+	/**
+	 * Metodo che mostra tutte le caratteristiche e i valori di come è finito il volo
+	 */
 	public void granFinale() {
 		
 		console.clear();

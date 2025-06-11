@@ -1,4 +1,4 @@
-package partita.nave;
+ package partita.nave;
 
 import java.util.ArrayList;
 import partita.giocatore.Colori;

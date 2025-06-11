@@ -320,12 +320,17 @@ public abstract class Tessera {
      */
     public abstract String toLegenda();
 
-    // Hashcode ed equals gestiscono il tutto tramite id tessera
+    /**
+     * hashcode che gestisce il tutto tramite id tessera
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
 
+    /**
+     * equals che gestisce il tutto tramite id tessera
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
