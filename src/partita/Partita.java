@@ -65,6 +65,11 @@ public class Partita{
 		this.giocatori.addAll(elencoGiocatori);
 	}
 
+	/**
+	 * Metodo che ritorna il numero dei giocatori attualmente presenti nella partita
+	 *
+	 * @return int numero giocatori sul tabelloni
+	 * */
 	public int getNumeroGiocatori(){ return this.numeroGiocatori; }
 
 	// ----------------- TABELLONE - LIVELLI - MODALITA' -----------------
@@ -92,10 +97,25 @@ public class Partita{
 		}
 	}
 
+	/**
+	 * Metodo per impostare il livello della partita
+	 *
+	 * @param livelloPartita Livelli livello della partita
+	 * */
 	public void setLivelloPartita(Livelli livelloPartita) { this.livelloPartita = livelloPartita;}
 
+	/**
+	 * Metodo per acquisire il libello della partita
+	 *
+	 * @return Livelli livello della partita
+	 * */
 	public Livelli getLivelloPartita(){ return this.livelloPartita; }
 
+	/**
+	 * Metodo per acquisire la modalita' della partita
+	 *
+	 * @return ModalitaPartita modalita' della partita
+	 * */
 	public ModalitaPartita getModalitaPartita(){ return this.modalitaPartita; }
 
 	// ----------------- GIOCO - TURNO ----------------- 
@@ -142,11 +162,16 @@ public class Partita{
 		}
 		this.com.print("Autori adattamento gioco originale:");
 		this.com.print("Shvets Andriy");
-		this.com.print("Sesana Niccolo");
+		this.com.print("Sesana Niccolo'");
 		this.com.print("Poli Matteo");
 		this.com.print("Grazie per aver giocato!");
 	}
 
+	/**
+	 * Metodo per azzerare le navi ai giocatori
+	 * all'inizio della partita e a ogni cambio livello
+	 * nel caso la partita sia multipla
+	 * */
 	private void azzera(){
 		// rimuovo la nave al giocatore
 		for(Giocatore giocatore : this.giocatori){
@@ -432,7 +457,7 @@ public class Partita{
 
 	/**
 	 * Metodo per selezionare la tessera dal mazzo
-	 * @param g 
+	 * @param g Giocatore
 	 * @return  tessera
 	 */
 	private Tessera selezionaTesseraDalMazzo(Giocatore g){

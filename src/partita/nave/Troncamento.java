@@ -7,8 +7,6 @@ import tessera.Posizione;
 import tessera.Tessera;
 
 public class Troncamento extends ArrayList<ArrayList<Tessera>>{
-	
-
 
 	private ComunicazioneConUtente stampa= ComunicazioneConUtente.getIstanza();
 	private final int inizioNaveV;
@@ -16,7 +14,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 	private final int fineNaveO;
 	
 	/**
-	 * costruttore
+	 * Costruttore
 	 * chiama costruttore di ArrayList<ArrayList<Tessera>>
 	 * @param inizioNaveV
 	 * @param inizioNaveO
@@ -27,14 +25,8 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
 		this.inizioNaveV = inizioNaveV;
 		this.inizioNaveO = inizioNaveO;
 		this.fineNaveO = fineNaveO;
-		
-		
-		
-		
 	}
 
-	
-	
 	/**
 	 * Metodo che serve per la creazione della stringa per stampare il Trocamento con
 	 * annessi tutti i dettagli di legende e descrizioni varie
@@ -136,10 +128,7 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
         output.add("\n\n");
         return String.join("\n", output);
     }
-	
-	
-	
-	
+
 	/**
      * Metodo per generare la legenda combinata con colonne allineate
      * @return stringa con la legenda formattata in due colonne
@@ -213,9 +202,6 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
     public int hashCode() {
         return super.hashCode(); //uso il calcolo hash profondo tra le liste
     }
-    
-    
-
 
     /**
      * Metodo che crea una copia profonda del troncamento
@@ -232,5 +218,4 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
         }
         return clone;
 	}
-	
 }
