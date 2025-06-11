@@ -213,5 +213,18 @@ public class Troncamento extends ArrayList<ArrayList<Tessera>>{
     public int hashCode() {
         return super.hashCode(); //uso il calcolo hash profondo tra le liste
     }
+    
+    
+
+
+
+	public Troncamento clone(int inizioNaveV, int inizioNaveO, int fineNaveO) {
+		Troncamento clone = new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
+        for (ArrayList<Tessera> riga : this) {
+            ArrayList<Tessera> rigaClone = new ArrayList<>(riga); //copia la riga.no le tessere
+            clone.add(rigaClone);
+        }
+        return clone;
+	}
 	
 }

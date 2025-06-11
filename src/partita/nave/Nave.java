@@ -289,9 +289,9 @@ public abstract class Nave {
 
         //copia dellA NAVE prima della rimozione della tessera
         Troncamento temp=new Troncamento(inizioNaveV, inizioNaveO, fineNaveO);
-        temp=(Troncamento) this.nave.clone();
+        temp=(Troncamento) this.nave.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
         
-        // rimozione tessera
+        // errore rimozione tessera
         if(vuota.getTipoTessera() == this.nave.get(coordinate.getY()).get(coordinate.getX()).getTipoTessera()){
             throw new ErroreTessera("Impossibile rimuovere la tessera nella posizione specificata");
         }
@@ -304,7 +304,7 @@ public abstract class Nave {
         
         //controlla se esiste ancora la nave e in caso chiama getTroncamento
         if(this.controllaEsistenzaNave()) {
-        	this.nave = this.getTroncamentoNave();
+        	this.nave = this.getTroncamentoNave(temp);
         	setNumeroPezziNaveDaRipagare(temp);
         }else {
         	setNumeroPezziNaveDaRipagare(temp);
@@ -315,20 +315,21 @@ public abstract class Nave {
     
     /**
      * Metodo che crea una lista di troncamenti Nave tramite distruggiNave() e fa scegliere all'utente quale tenere
+     * @param temp 
      * @return troncamento di nave scelta
      */
-    private Troncamento getTroncamentoNave() {
+    private Troncamento getTroncamentoNave(Troncamento naveOriginaria) {
     	Set<Troncamento> troncamentiNave =new LinkedHashSet<Troncamento>();
     	
     	//controlla esista ancora il centro
     	if(this.controllaPresenzaCentro()) {
-        	troncamentiNave.add(this.distruggiNave(centro, true));
+        	troncamentiNave.add(this.distruggiNave(centro, true, naveOriginaria));
     	}else {
-    		//scorre nave e utilizza la prima tessera non vuota come centroRamificazione in distruggiNave
-    		for(ArrayList<Tessera> colonne : this.nave) {
+    		//scorre naveOrginaria e utilizza la prima tessera non vuota come centroRamificazione in distruggiNave
+    		for(ArrayList<Tessera> colonne : naveOriginaria) {
     			for(Tessera tessera : colonne) {
     				if(tessera.getTipoTessera()!=TipoTessera.VUOTA) {
-    					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(), true));
+    					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(), true, naveOriginaria));
     					break;
     				}
     				
@@ -337,14 +338,24 @@ public abstract class Nave {
     	}
 
     	
-    	//scorre nave e utilizza ogni tessera come centroRamificazione in distruggiNave e poi mette i tronconi nel set
-		for(ArrayList<Tessera> colonne : this.nave) {
+    	//scorre naveOrginaria e utilizza ogni tessera come centroRamificazione in distruggiNave e poi mette i tronconi nel set
+		for(ArrayList<Tessera> colonne : naveOriginaria) {
 			for(Tessera tessera : colonne) {
 				if(this.parteRestante.contains(tessera)&& tessera.getTipoTessera()!=TipoTessera.VUOTA) {
-					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(),false));
+					troncamentiNave.add(this.distruggiNave(tessera.getCoordinate(),false,naveOriginaria));
 				}
 			}
     	}
+		
+		//debug tmporaeno
+		ArrayList<Troncamento> troncamenti = new ArrayList<>(troncamentiNave);
+		for (int i = 0; i < troncamenti.size(); i++) {
+		    Troncamento t = troncamenti.get(i);
+		    System.out.println("Troncamento " + i + " hashCode: " + t.hashCode());
+		    System.out.println(t.toString());
+		    System.out.println("----");
+		}
+
 		
 		//trsforma troncamentiNave in un arrayList
 		ArrayList<Troncamento> opzioni = new ArrayList<>(troncamentiNave);
@@ -363,10 +374,11 @@ public abstract class Nave {
      * con oggetti TesseraVuota in nave. Se il parametro isCentro==true genera anche
      * una parte restante sovrascrivendola nell'attributo parteRestante di nave
 	 * @param isCentro condizione che genera anche la parte restante se ==true
+	 * @param naveOriginaria 
 	 * @param coordinate del centroRamificazione
      * @return nave (tipo: Troncamento) post distruzione
      */
-    private Troncamento distruggiNave(Coordinate centroRamificazione, boolean isCentro){
+    private Troncamento distruggiNave(Coordinate centroRamificazione, boolean isCentro, Troncamento naveOriginaria){
     	Set<Coordinate> visitate = new HashSet<>();
     	Queue<Coordinate> daVisitare = new LinkedList<>();
     	
@@ -426,14 +438,14 @@ public abstract class Nave {
 			}
          }
         
-        this.parteRestante= (Troncamento) this.nave.clone();
+        this.parteRestante= (Troncamento) naveOriginaria.clone(this.inizioNaveV, this.inizioNaveO, this.fineNaveO);
         
         //sovrascrive con tessereVuote in nave le tessere che non sono state visitate
         for(ArrayList<Tessera> colonne : this.nave) {
 			for(Tessera tessera : colonne) {
 				boolean check=true;
 				for(Coordinate coordinateTessera : visitate) {
-					if(coordinateTessera==tessera.getCoordinate()) {
+					if(coordinateTessera.equals(tessera.getCoordinate())) {
 						check=false;
 					}
 				}
@@ -457,10 +469,10 @@ public abstract class Nave {
         
         //creazione parte restante
         if(isCentro) {
-        	for(ArrayList<Tessera> colonne : this.parteRestante) {
+        	for(ArrayList<Tessera> colonne : naveOriginaria) {
     			for(Tessera tessera : colonne) {
     				for(Coordinate coordinateTessera : visitate) {
-    					if(coordinateTessera!=tessera.getCoordinate()) {
+    					if(coordinateTessera.equals(tessera.getCoordinate())) {
     						
     						if(this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==1 ||
     								this.getMATRIX()[tessera.getCoordinate().getY()][tessera.getCoordinate().getX()]==2) {
@@ -490,11 +502,15 @@ public abstract class Nave {
     private int scegliTroncamenti(ArrayList<Troncamento> opzioni) {
 		ArrayList<String> temp = new ArrayList<>();
 		int scelta;
+		
+		
+		
 		stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
 		for(int i=0; i< opzioni.size(); i++){
 			temp.add(opzioni.get(i).toString());
 		}
 		stampa.println(stampa.visualizzaElenco(temp));
+		
 
 		scelta = stampa.consoleReadInt()-1;
 		if(scelta<0 || scelta>=opzioni.size()) {
@@ -534,7 +550,7 @@ public abstract class Nave {
      */
     public boolean controllaPresenzaCentro(){
     	this.centro=this.getCoordinateCentro();
-        if(TipoTessera.VUOTA == this.nave.get(centro.getY()).get(centro.getX()).getTipoTessera()){
+        if(TipoTessera.VUOTA == this.nave.get(this.centro.getY()).get(this.centro.getX()).getTipoTessera()){
             return false;
         }
         return true;

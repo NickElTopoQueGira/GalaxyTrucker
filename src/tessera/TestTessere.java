@@ -170,7 +170,9 @@ public class TestTessere {
 		
 		com.printNumber(n.getCoordinateCentro().getX());
 		com.printNumber(n.getCoordinateCentro().getY());
-		;
+		
+		
+		com.printNumber(n.getNumeroPezziNaveDaRipagare());
 		
 		
 	}
