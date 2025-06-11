@@ -180,7 +180,6 @@ public class Partita{
 		}
 	}
 
-
 	/**
 	 * Metodo per la gestione delle opzioni svolte dal giocatore sulle tessere in fase di conf della nave
 	 * @param g Giocatore

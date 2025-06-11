@@ -12,7 +12,12 @@ public class Gioco{
 	private final ComunicazioneConUtente com;
 	private Partita partita;
 	private final Set<Giocatore> elencoGiocatori;
-		
+	
+	/**
+	 * Costruttore di Gioco
+	 * 
+	 * la quale inizializza tutti i valori per iniziare la partita
+	 */
 	public Gioco(){
 		com = ComunicazioneConUtente.getIstanza();
 

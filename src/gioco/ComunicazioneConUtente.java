@@ -32,6 +32,9 @@ public class ComunicazioneConUtente {
     private final Scanner input;
     private static ComunicazioneConUtente istanza = null;
     
+    /**
+     * Costruttore ComunicazioneConUtente
+     */
     private ComunicazioneConUtente(){
         this.input = new Scanner(System.in);
     }
