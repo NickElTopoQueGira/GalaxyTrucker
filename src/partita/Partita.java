@@ -140,11 +140,11 @@ public class Partita{
 				}
 			}
 		}
-		this.com.print("Autori adattamento gioco originale:");
-		this.com.print("Shvets Andriy");
-		this.com.print("Sesana Niccolo");
-		this.com.print("Poli Matteo");
-		this.com.print("Grazie per aver giocato!");
+		this.com.println("Autori adattamento gioco originale:");
+		this.com.println("Shvets Andriy");
+		this.com.println("Sesana Niccolo");
+		this.com.println("Poli Matteo");
+		this.com.println("Grazie per aver giocato!");
 	}
 
 	private void azzera(){

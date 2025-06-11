@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class Dado {
 
+	/**
+	 * Costruttore di Dado
+	 */
     public Dado() {}
     
     /**

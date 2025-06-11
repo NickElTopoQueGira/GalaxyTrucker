@@ -10,7 +10,11 @@ public class Meteorite {
     private int risultatoDado;
     private final Dado dado;
     protected static ComunicazioneConUtente stampa;
-
+    
+    /**
+     * Costruttore di Meteorite che prende il tipo del meteorite
+     * @param tipo meteorite
+     */
     public Meteorite(TypeMeteora t) {
         this.dado = new Dado();
         stampa = ComunicazioneConUtente.getIstanza();
@@ -19,7 +23,13 @@ public class Meteorite {
         this.type = t;
 
     }
-
+    
+    /**
+     * Costruttore di Meteorite che prende il tipo del meteorite e la direzzione
+     * 
+     * @param tipo meteorite
+     * @param direzione
+     */
     public Meteorite(PuntiCardinali direzione, TypeMeteora t) {
         this.dado = new Dado();
         this.direzione = direzione;
@@ -27,7 +37,12 @@ public class Meteorite {
         this.type = t;
         stampa = ComunicazioneConUtente.getIstanza();
     }
-
+    
+    /**
+     * metodo che genra casualmente la direzzione del meteorite
+     * 
+     * @return direzzione del meteorite
+     */
     private PuntiCardinali casualDirezione() {
         Random random = new Random();
         int x = random.nextInt(4) + 1;
@@ -47,27 +62,34 @@ public class Meteorite {
             }
         };
     }
-
+    
+    /**
+     * Metodo setter per impostare il valore sommato dei due dadi del meteorite
+     * @param int valore sommato di due dadi
+     */
 	public void setRisultatoDado(int risultatoDado) {
 		this.risultatoDado = risultatoDado;
 	}
-
+	
+	/**
+     * Metodo getter per prendere la direzzione
+     * @return direzzione
+     */
 	public PuntiCardinali getDirezione() {
         return direzione;
     }
 
-    public void setDirezione(PuntiCardinali direzione) {
-        this.direzione = direzione;
-    }
-
+	/**
+     * Metodo getter per prendere il tipo
+     * @return tipo meteorite
+     */
     public TypeMeteora getType() {
         return type;
     }
-
-    public void setType(TypeMeteora type) {
-        this.type = type;
-    }
-
+    /**
+     * Metodo getter per prendere il valore sommato dei due dadi del meteorite
+     * @return il risultato dei due dadi
+     */
 	public int getDado() {
 		return this.risultatoDado;
 	}

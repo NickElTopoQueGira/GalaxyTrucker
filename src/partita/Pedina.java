@@ -18,6 +18,11 @@ public class Pedina{
 	private boolean inGioco;
 	private boolean isNaveDistrutta;
     
+	/**
+	 * Costruttore di Pedina 
+	 * 
+	 * @param giocatore
+	 */
 	public Pedina(Giocatore giocatore){
 		this.cns = ComunicazioneConUtente.getIstanza();
 		this.tabellone = null;
@@ -46,35 +51,77 @@ public class Pedina{
 	public void setNaveDistrutta(boolean isNaveDistrutta) {
 		this.isNaveDistrutta = isNaveDistrutta;
 	}
-
+	
+	/**
+     * Metoto getter per prendere tabellone
+     * @return tabellone
+     */
     public Tabellone getTabellone(){
 		return this.tabellone;
 	}
-
+    
+    /**
+     * Metoto setter per impostare tabellone
+     * @param tabellone
+     */
 	public void setTabellone(Tabellone tabellone){
 		this.tabellone = tabellone;
 	}
 	
+	/**
+     * Metoto getter per prendere il colore della pedina
+     * @return colore della pedina
+     */
     public Colori getColorePedina(){ 
         return this.colorePedina; 
     }
-
+    
+    /**
+     * Metoto setter per impostare tabellone
+     * @param tabellone
+     */
     public void setPosizioneSulTabellone(int posizioneSulTabellone){
         this.posizioneSulTabellone = posizioneSulTabellone;
     }
-
+    
+    /**
+     * Metoto getter per prendere la posizione sul tabellone
+     * @return posizione sul tabellone
+     */
     public int getPosizioneSulTabellone(){ return this.posizioneSulTabellone; }
-
+    
+    /**
+     * Metoto getter per prendere il giocatore associato a questa pedina
+     * @return this.giocatore
+     */
 	public Giocatore getGiocatore(){ return this.giocatore; }
-
+	
+	/**
+     * Metoto getter per prendere il numero del giro 
+     * @return numero giro
+     */
 	public int getNumeroGiro(){ return this.numeroGiro; }
-
+	
+	/**
+     * Metoto setter per impostare tabellone
+     * @param tabellone
+     */
 	public void setNumeroGiro(int numeroGiro){ this.numeroGiro += numeroGiro;}
-
+	
+	/**
+	 * Metodo che ritorna se la pedina è in gioco o no
+	 * @return se la pedina è in gioco
+	 */
 	public boolean isPedinaInGioco(){ return this.inGioco; }
-
+	
+	/**
+     * Metoto setter per impostare la pedina fuori dal gioco
+     */
 	public void setPedinaOutGioco(){ this.inGioco = false; }
-
+	
+	/**
+     * Metoto setter per impostare la pedina in gioco
+     */
 	public void setPedinaInGioco(){ this.inGioco = true; }
 
     /**

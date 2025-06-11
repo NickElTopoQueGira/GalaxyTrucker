@@ -171,30 +171,8 @@ public class ZonaGuerra extends Carta {
         }
 
     }
-
-    public static String[] getPenalita() {
-        return penalita;
-    }
-
-    public static void setPenalita(String[] penalita) {
-        ZonaGuerra.penalita = penalita;
-    }
-
-    public static String[] getEventi() {
-        return eventi;
-    }
-
-    public static void setEventi(String[] eventi) {
-        ZonaGuerra.eventi = eventi;
-    }
-
-    public String[][] getValori() {
-        return valori;
-    }
-
-    public void setValori(String[][] valori) {
-        this.valori = valori;
-    }
+    
+    @Override
     public String toString() {
         String temp = "";
         temp = temp + "\nLivello carta:" + this.lvl
