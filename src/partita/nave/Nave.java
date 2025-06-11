@@ -1479,7 +1479,7 @@ public abstract class Nave {
 	}
 	
 	/**
-	 * metoto che in base a quale tipologia di tessere stai cercando:
+	 * Metoto che in base a quale tipologia di tessere stai cercando:
 	 * 1: tesssera tipologia stiva (che sia vuota)
 	 * 2: tesssera tipologia stiva (che sia non vuota)
 	 * 3: tesssera tipologia stiva (che di tipologia speciale)
@@ -1518,7 +1518,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che trova tutte le tessere stive vuote
+     * Metodo che trova tutte le tessere stive vuote
      * 
      * @param caso
      * @param crd
@@ -1545,7 +1545,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che trova tutte le tessere stive non vuote
+     * Metodo che trova tutte le tessere stive non vuote
      * 
      * @param caso
      * @param crd
@@ -1572,7 +1572,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che trova tutte le tessere stive speciali
+     * Metodo che trova tutte le tessere stive speciali
      * 
      * @param caso
      * @param crd
@@ -1599,7 +1599,7 @@ public abstract class Nave {
     }
     
     /**
-     * metodo che trova tutte le tessere modulo non vuote centro compreso
+     * Metodo che trova tutte le tessere modulo non vuote centro compreso
      * 
      * @param caso
      * @param crd
@@ -1613,7 +1613,7 @@ public abstract class Nave {
 		TipoTessera tipo = tessera.getTipoTessera();
 
 		if (tipo == TipoTessera.MODULO_PASSEGGERI) {
-		    if (((ModuloPasseggeri) tessera).getNumeroCosmonauti() > 0) {
+		    if (((ModuloPasseggeri) tessera).getEquipaggio() > 0) {
 		        
 		    	caso++;
    	
