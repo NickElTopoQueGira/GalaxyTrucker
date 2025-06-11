@@ -362,6 +362,15 @@ public class ZonaGuerra extends Carta {
 
         return pedina;
     }
+    
+    /**
+	 * Metodo che controlla se il meteorite entra nella zona della plancia di volo
+	 * 
+	 * @param meteorite
+	 * @param n
+	 * @return true se il meteorite è in zona plancia
+	 * 			false de il meteorite è fuori la plancia
+	 */
 	private boolean controlloColpoIsDentroDallaNave(Meteorite meteorite, Nave n) {
 		
 		switch(meteorite.getDirezione()) {
@@ -384,6 +393,14 @@ public class ZonaGuerra extends Carta {
 		
 		return false;
 	}
+	
+	/**
+	 * Metodo che adatta il valore del dado alla matrice della nave
+	 * 
+	 * @param meteorite
+	 * @param nave
+	 * @return adattamento
+	 */
 	private int adattaDadiAllArray(Meteorite meteorite, Nave nave) {
 		
 		switch(meteorite.getDirezione()) {
