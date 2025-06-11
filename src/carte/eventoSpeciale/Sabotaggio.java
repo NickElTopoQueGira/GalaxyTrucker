@@ -24,7 +24,16 @@ public class Sabotaggio extends EventiSpeciali {
     public Sabotaggio(int lvl) {
         super(lvl, TipoCarta.SABOTAGGIO);
     }
-
+    
+    /**
+     * Metodo che inanzitutto trova la nave con il minor equipaggio in seguito
+     * prende una coordinata (x y estratti casualmente da due dadi doppi) e
+     * se in quella coordinate c'è una tessera della nave viene rimossa
+     * in caso contrario vengono estratte nuove coordinate e si ritenta
+     * il ciclo si ripete 3 volte fno a quando non viene trovata la tessera
+     * dopo il terzo tentativo la nave è "salva"
+     * 
+     */
     @Override
     public ArrayList<Pedina> eseguiCarta(ArrayList<Pedina> elencoPedine) {
 

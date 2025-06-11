@@ -243,7 +243,7 @@ public class Pianeta extends Carta {
 	}
 	
 	/**
-	 * Metodo che in base alla scelta delgiocatore assegna le merci togliendo 
+	 * Metodo che in base alla scelta del giocatore assegna le merci togliendo 
 	 * i giorni di volo oppure nulla se il giocatore sceglie di non atterrare
 	 */
 	@Override
