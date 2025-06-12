@@ -523,7 +523,6 @@ public abstract class Nave {
 		int scelta = 0;
 		boolean pass = false;
 		do {
-			stampa.clear();
 			stampa.println("Scegli il Troncamento di nave con cui vuoi proseguire la trasvolata:");
 			for (int i = 0; i < opzioni.size(); i++) {
 				temp.add(opzioni.get(i).toString());
@@ -970,39 +969,43 @@ public abstract class Nave {
 	 */
 	private boolean controlloConnettore(TipoLato dir, Tessera tessera) {
 		Coordinate adiacente = tessera.getCoordinate().adiacente(dir);
-
-		switch (dir) {
-		case UP: {
-			if (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO
-					&& this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
-				return true;
+		
+		if((adiacente.getY() > 0 && adiacente.getY() < this.fineNaveV) && (adiacente.getX() > 0 && adiacente.getX() < this.fineNaveO)) {
+			
+			switch (dir) {
+			case UP: {
+				if (tessera.getLatiTessera().getUp() != TipoConnettoriTessera.NULLO
+						&& this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
+					return true;
+				}
+				break;
 			}
-			break;
-		}
-		case LEFT: {
-			if (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO
-					&& this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
-				return true;
+			case LEFT: {
+				if (tessera.getLatiTessera().getLeft() != TipoConnettoriTessera.NULLO
+						&& this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
+					return true;
+				}
+				break;
 			}
-			break;
-		}
-		case DOWN: {
-			if (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO
-					&& this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
-				return true;
+			case DOWN: {
+				if (tessera.getLatiTessera().getDown() != TipoConnettoriTessera.NULLO
+						&& this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
+					return true;
+				}
+				break;
 			}
-			break;
-		}
-		case RIGHT: {
-			if (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO
-					&& this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
-				return true;
+			case RIGHT: {
+				if (tessera.getLatiTessera().getRight() != TipoConnettoriTessera.NULLO
+						&& this.nave.get(adiacente.getY()).get(adiacente.getX()).getTipoTessera() == TipoTessera.VUOTA) {
+					return true;
+				}
+				break;
 			}
-			break;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + dir);
+			}
 		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + dir);
-		}
+		
 
 		return false;
 	}
