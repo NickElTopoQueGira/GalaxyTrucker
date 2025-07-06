@@ -8,6 +8,8 @@ Il progetto è stato creato dal gruppo 9, formato dai seguenti membri:
 
 "L'unico gioco di strategia dove non conta vincere, ma conta non perdere!".cit
 
+Link al regolamento del gioco: https://www.craniocreations.it/prodotto/galaxy-trucker 
+
 # Gestione del progetto
 
 ## Scaricare il progetto:
